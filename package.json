@@ -1,0 +1,38 @@
+{
+  "name": "bib",
+  "version": "0.0.1",
+  "description": "Etude centre de recherche en Sciences Politiques réalisée par la Bibliothèque de Sciences Po Paris et site réalisé par le Medialab",
+  "main": "index.html",
+  "scripts": {
+    "test": "npm run test",
+    "start": "webpack-dev-server --content-base app --hot"
+  },
+  "keywords": [
+    "Sciences",
+    "Politques",
+    "Bibliothèque",
+    "SciencesPo",
+    "Medialab",
+    "angular",
+    "webpack"
+  ],
+  "author": "Grégory Tible, Anne Lhôte, Mickael Goudoux",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-connect": "^4.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-server-livereload": "^1.8.0",
+    "gulp-webpack": "^1.5.0",
+    "html-webpack-plugin": "^1.7.0",
+    "lodash": "^4.11.1",
+    "webpack": "^1.9.5"
+  },
+  "dependencies": {
+    "babyparse": "^0.4.6",
+    "fs": "0.0.2",
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.1.0",
+    "raw-loader": "^0.5.1",
+    "st": "^1.1.0"
+  }
+}
