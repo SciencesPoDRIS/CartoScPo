@@ -1,3 +1,5 @@
 node_modules
-app/bower/components
+app/bower_components
 app/data/*.csv
+app/data/*.json
+app/lib
