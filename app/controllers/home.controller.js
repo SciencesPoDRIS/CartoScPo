@@ -29,24 +29,28 @@ angular.module('bib.controller.home', [])
 								v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace('-', '_');
 								v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace('-', '_');
 							}
+
+							var iconSize = Math.sqrt(v.personnel['Personnels permanents']);
+							console.log("iconSize", iconSize);
+
 							var local_icons = { 
 								principal: {
 						            type: 'div',
-						            iconSize: [10, 10],
+						            iconSize: [iconSize, iconSize],
 						            html: '<div></div>',
 						            className: 'principal',
 						            popupAnchor:  [0, -10]
 						        },
 						        secondaire: {
 						            type: 'div',
-						            iconSize: [10, 10],
+						            iconSize: [iconSize, iconSize],
 						            html: '<div></div>',
 						            className: 'secondaire',
 						            popupAnchor:  [-10, -10]
 						        }
 							}
 							
-							markers[v.administration['Sigle ou acronyme']] = {
+							markers[v.administration['id']] = {
 
 								lat: a.lat,
 				                lng: a.lon,
@@ -87,8 +91,14 @@ angular.module('bib.controller.home', [])
 					console.log("result.item['id'].administration", result[item['id']].administration)
 					$scope.administration = result[item['id']].administration;
 					$scope.personnel = result[item['id']].personnel;
-					$scope.ecoles = result[item['id']].ecole;
+					console.log("personnel", $scope.personnel);
+					$scope.ecole = result[item['id']].ecole;
+					console.log("ecoles", $scope.ecole);
 					$scope.recherche = result[item['id']].recherche;
+					console.log("recherche", $scope.recherche);
+					$scope.axes = result[item['id']].recherche['Axes de recherche'];
+					$scope.contrats = result[item['id']].recherche['Contrats de recherche'];
+					$scope.seminaires = result[item['id']].recherche['Séminaires de recherche'];
 				}
 			}
 

@@ -173,6 +173,43 @@ body > .container {
 #centerDetails {
   height: 800px;
   width: 100%;
+  padding: 20px;
+}
+
+#exTab1 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+#exTab1 .nav-pills > li {
+  border-radius: 0;
+  margin:auto;
+}
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+  width:200px;
+  margin:auto;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
 }
 
 

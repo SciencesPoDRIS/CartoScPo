@@ -3,21 +3,80 @@
   </div>
   <div class="container-fluid">
   	<div id="centerDetails" class="row" ng-show="centerActive">
-  		<uib-tabset active="activeJustified" justified="true">
-		    <uib-tab index="0" heading="Administration">Administration</uib-tab>
-		    <uib-tab index="1" heading="Personnel">Personnel</uib-tab>
-		    <uib-tab index="2" heading="Ecole">Ecole</uib-tab>
-		    <uib-tab index="3" heading="Recherche">Recherche</uib-tab>
-		</uib-tabset>
 		<div style="float:right" ng-click="centerDesactivate()">
 			X
 		</div>
+		<tabs>
+		    <pane title="Administration" >
+		        <div>
+			        <h2>Administratif</h2>
+				      	<p>{{administration['CNRS']}}</p>
+			    		<p>Année de création : {{administration['Année de création']}}</p>
+			    		<p>Historique : {{administration['Historique']}}</p>
+		        </div>
+		    </pane>
+		    <pane title="Personnel">
+		        <div>
+		    	  	<h2>Personnel</h2>
+		    		<p>Effectif total : {{ personnel['Effectif total'] }}</p>
+		    		<p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
+		    		<p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
+		    		<p>Lien vers la page "personnel" du site Web du CNRS : <a ng-href="{{ personnel['Lien vers la page \"personnel\" du site Web du CNRS'] }}">Lien</a></p>
+		    		<p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
+		        </div>
+		    </pane>
+		    <pane title="Ecoles doctorales">
+		        <div>
+		      		<p>Directeur école doctorale : {{ ecole['Directeur de l\'Ecole Doctorale'] }}</p>
+		      		<p>Courriel de l'Ecole doctorale : {{ ecole['Courriel de l\'Ecole doctorale'] }}</p>
+		      		<p>Intitulé (centre ou unité de recherche) : {{ ecole['Intitulé (centre ou unité de recherche)'] }}</p>
+		      		<p>Intitulé Ecole Doctorale : {{ ecole['Intitulé Ecole Doctorale'] }}</p>
+		      		<p>Nombre de doctorants : {{ ecole['Nombre de doctorants'] }}</p>
+		      		<p>Nombre de doctorants en science politique : {{ ecole['Nombre de doctorants en science politique'] }}</p>
+		      		<p>Nombre de thèses soutenues en 2015 : {{ ecole['Nombre de thèses soutenues en 2015'] }}</p>
+		      		<p>Numéro d'Ecole Doctorale : {{ ecole['Numéro d\'Ecole Doctorale']}}</p>
+		        </div>
+		    </pane>
+		    <pane title="Thématiques de recherche">
+		        <div class="row">
+		        <div class="col-md-6">
+		        	<p>Axes de recherche</p>
+		        	<ul ng-repeat="item in axes">
+		        		<li>{{item}}</li>
+		        	</ul>
+		        	<p>Collaborations / réseaux : {{ recherche['Collaborations / réseaux'] }}</p>
+		        	<p>Contrats de recherche : </p>
+		        	<ul ng-repeat="item in contrats">
+		        		<li>{{item}}</li>
+		        	</ul>
+		        	<p>Discipline principale selon l'annuaire du MENESR : {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</p>
+		        	<p>Disciplines secondaires selon l'annuaire du MENESR : {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</p>
+		        	
+		        </div>
+		        <div class="col-md-6">
+		        	<p>Evaluations : {{ recherche['Evaluations'] }}</p>
+		        	<p>Mots-clés sujet selon l'annuaire du MENESR : {{ recherche['Mots-clés sujet selon l\'annuaire du MENESR'] }}</p>
+		        	<p>Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l'annuaire du MENESR : {{ recherche['Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l\'annuaire du MENESR'] }}</p>
+		        	<p>Sections CNRS : {{ recherche['Sections CNRS'] }}</p>
+		        	<p>Séminaires de recherche :</p>
+		        	<ul ng-repeat="item in seminaires">
+		        		<li>{{item}}</li>
+		        	</ul>
+		        </div>
+		        </div>
+		    </pane>
+		  </tabs>
   	</div>
     <div class="row">
 	    <div id="listCenters" class="col-md-6" ng-show="centerActive">
 	    	<div>
-	    		<h4>{{administration['Intitulé']}}</h4>
-	    		<p>{{administration['Ville']}}</p>
+	    		<h4>Intitulé : {{administration['Intitulé']}}</h4>
+	    		<p>Ville : {{administration['Ville']}}</p>
+	    		<p>Adresse : {{administration['Adresse(s)']}}</p>
+	    		<p>Téléphone : {{administration['Téléphone']}}</p>
+	    		<p>Site web : {{administration['Site Web']}}</p>
+	    		<p>Directeur : {{administration['Directeur']}}</p>
+	    		<p>Courriel direction : {{administration['Courriel Direction']}}</p>
 	    		<hr>
 	    	</div>
 	    </div>
