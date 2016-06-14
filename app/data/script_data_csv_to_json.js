@@ -15,17 +15,17 @@ var csv = {
 // transform csv to json & push it in array
 var allData = [];
 lodash.forIn(csv, function (v, k) {
+	
 	var content = fs.readFileSync(v, { encoding: 'utf8' });
 	var parsed = Baby.parse(content, { header: true });
 
 	for (var i = 0, len = parsed.data.length; i < len; i++) {
-		//create a reagex 
-		console.log("parsed.data[i]['Code Unité']", parsed.data[i]['Code Unité']);
+		//create a reagex
 		if (parsed.data[i]['Code Unité'] && parsed.data[i]['Code Unité'].length > 0) {
 			var code = parsed.data[i]['Code Unité'].replace(' ', '');
-			code = code.replace('\t', '');
-			code = code.replace('\n', '');
-			code = code.replace('\r', '');
+			code = code.replace(/\t/g, '');
+			code = code.replace(/\n/g, '');
+			code = code.replace(/\r/g, '');
 			code = code.replace(';', '');
 			code = code.replace('        ', '');
 			code = code.replace('\'', '');
@@ -56,6 +56,8 @@ function arrayToListofObj(array) {
 
 var allCenters = {};
  lodash.forIn(allData, function (v, k) {
+	k = k.replace(/ /g,'');
+	k = k.replace(/;/g,'_');
  	allCenters[k] = arrayToListofObj(v);
  })
 
@@ -66,8 +68,9 @@ lodash.forIn(allCenters, function (v, k) {
 
 	if (v.hasOwnProperty('administration')) {
 
-		var adress = v.administration['Adresse(s)'].split(';');
-		var coordonninates = v.administration['Géolocalisation(s)'].split(';');
+		var adress = v.administration['Adresse(s)'].replace(/\n/g, '');
+		adress = v.administration['Adresse(s)'].split(';');
+		var coordinates = v.administration['Géolocalisation(s)'].split(';');
 		var cities = v.administration['Ville'].split(';');
 
 		// clean coordinate and transform to integer
@@ -75,7 +78,7 @@ lodash.forIn(allCenters, function (v, k) {
 			// create a regex
 			d = d.replace('(', '');
 			d = d.replace(')', '');
-			d = d.replace('\n', '');
+			d = d.replace(/\n/g, '');
 			d = d.split(',');
 			d[0] = Number(d[0]);
 			d[1] = Number(d[1]);
@@ -83,19 +86,35 @@ lodash.forIn(allCenters, function (v, k) {
 			return d;
 		}
 
-		coordonninates = lodash.map(coordonninates, clean);
+		coordinates = lodash.map(coordinates, clean);
 
 		for (var i = 0, len = adress.length; i < len; i++) {
 			adressesGeo.push({
 				adresse: adress[i],
-				lat: coordonninates[i][0],
-				lon: coordonninates[i][1],
+				lat: coordinates[i][0],
+				lon: coordinates[i][1],
 				city: cities[i]
 			})
 		}
 	v.administration.adressesGeo = adressesGeo;
 	}
+
+	// clean recherche data
+	var recherche = {};
+
+	 lodash.forIn(v.recherche, function (v, k) {
+		k = k.replace(/\n/g,'');
+		k = k.replace(/\*/g,' ');
+		v = v.replace(/\n/g,'');
+		if (v.indexOf(';') !== -1)
+			v = v.split(';');
+		recherche[k] = v;
+	})
+
+	v.recherche = recherche;
+
 })
+
 
 // convert to json
 allCenters = JSON.stringify(allCenters);
