@@ -2,7 +2,53 @@
   <div top-menu class="row">
   </div>
   <div class="container-fluid">
-  	<div id="centerDetails" class="row" ng-show="centerActive">
+  	<div ng-init="centersSearch">
+  		
+  	</div>
+  	<div id="search">
+	  	Search: <input ng-model="searchText.$">
+		<!-- <table id="searchTextResults">
+		  <tr ng-repeat="center in centersSearch | filter:searchText">
+		    <td>{{center}}</td>
+		  </tr>
+		</table> -->
+  	</div>
+  	<hr/>
+    <div class="row">
+	    <div id="listCenters" class="col-md-6" ng-show="centerActive">
+	    	<div>
+	    		<h4>Intitulé : {{administration['Intitulé']}}</h4>
+	    		<p>Ville : {{administration['Ville']}}</p>
+	    		<p>Adresse : {{administration['Adresse(s)']}}</p>
+	    		<p>Téléphone : {{administration['Téléphone']}}</p>
+	    		<p>Site web : {{administration['Site Web']}}</p>
+	    		<p>Directeur : {{administration['Directeur']}}</p>
+	    		<p>Courriel direction : {{administration['Courriel Direction']}}</p>
+	    		<hr>
+	    	</div>
+	    </div>
+	    <div id="listCenters" class="col-md-6" ng-show="!centerActive">
+	    	<div class="centers" ng-repeat="(key, value) in allCenters" ng-click="displayCenter(key, value)">
+	    		<h4>{{value['Intitulé']}}</h4>
+	    		<p>{{value['Ville']}}</p>
+	    		<hr>
+	    	</div>
+	    </div>
+	    <div class="col-md-6">
+	      	<leaflet 
+		      	lf-center="center" 
+		      	markers="markers"
+		      	event-broadcast="events"
+		      	width="100%" 
+		      	height="600px">
+	      	</leaflet>
+	    </div>
+    </div>
+    <div id="centerNavigation">
+	    <button id="precedentCenter" type="button" class="btn btn-primary" ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{precedentCenter['Intitulé']}}</button>
+	    <button id="nextCenter" type="button" class="btn btn-primary" ng-model="nextCenter" ng-click="goNextCenter(nextCenter)">{{nextCenter['Intitulé']}} > </button>
+    </div>
+    <div id="centerDetails" class="row" ng-show="centerActive">
 		<div style="float:right" ng-click="centerDesactivate()">
 			X
 		</div>
@@ -67,36 +113,5 @@
 		    </pane>
 		  </tabs>
   	</div>
-    <div class="row">
-	    <div id="listCenters" class="col-md-6" ng-show="centerActive">
-	    	<div>
-	    		<h4>Intitulé : {{administration['Intitulé']}}</h4>
-	    		<p>Ville : {{administration['Ville']}}</p>
-	    		<p>Adresse : {{administration['Adresse(s)']}}</p>
-	    		<p>Téléphone : {{administration['Téléphone']}}</p>
-	    		<p>Site web : {{administration['Site Web']}}</p>
-	    		<p>Directeur : {{administration['Directeur']}}</p>
-	    		<p>Courriel direction : {{administration['Courriel Direction']}}</p>
-	    		<hr>
-	    	</div>
-	    </div>
-	    <div id="listCenters" class="col-md-6" ng-show="!centerActive">
-	    	<div class="centers" ng-repeat="item in allCenters" ng-click="displayCenter(item)">
-	    		<h4>{{item['Intitulé']}}</h4>
-	    		<p>{{item['Ville']}}</p>
-	    		<hr>
-	    	</div>
-	    </div>
-	    <div class="col-md-6">
-	      	<leaflet 
-		      	lf-center="center" 
-		      	markers="markers"
-		      	event-broadcast="events"
-		      	legend="legend"
-		      	width="100%" 
-		      	height="800px">
-	      	</leaflet>
-	    </div>
-    </div>
   </div>
 </div>

@@ -102,10 +102,30 @@ body > .container {
 }
 
 /*
+ * Search
+ */
+#search {
+  padding-top: 10px;
+  font-size: 30px;
+}
+
+/*
+ * Center navigation
+ */
+
+#centerNavigation {
+  padding-top: 20px; 
+}
+
+#nextCenter {
+  float: right;
+}
+
+/*
  * Map
  */
 
- #mapid { height: 600px; }
+ #mapid { height: 500px; }
 
  .principal {
     background:red;
@@ -134,7 +154,7 @@ body > .container {
     font-size: 20px;
 } 
 
-.legend 
+.legend, .info
 {
   font: 14px/16px Arial, Helvetica, sans-serif;
   background: rgba(255,255,255, 0.9);
@@ -146,7 +166,7 @@ body > .container {
   color: #555;
 }
 
-.legend i 
+.legend i
 {
   width: 16px;
   height: 16px;
@@ -154,11 +174,13 @@ body > .container {
   margin-right: 8px;
   opacity: 0.7;
 }
+
+
  /*
   * Liste
   */
 #listCenters {
-  height: 800px;
+  height: 600px;
   overflow: scroll;
 }
 
