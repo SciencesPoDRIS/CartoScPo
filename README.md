@@ -10,7 +10,8 @@ npm install
 bower install
 ```
 
-## Lancement de l'app en livereload
+## Lancement de l'app 
 ```
-gulp webserver
+gulp
 ```
+
