@@ -15,7 +15,7 @@
   	</div>
   	<hr/>
     <div class="row">
-	    <div id="listCenters" class="col-md-6" ng-show="centerActive">
+	    <!-- <div id="listCenters" class="col-md-6" ng-show="centerActive">
 	    	<div>
 	    		<h4>Intitulé : {{administration['Intitulé']}}</h4>
 	    		<p>Ville : {{administration['Ville']}}</p>
@@ -26,8 +26,8 @@
 	    		<p>Courriel direction : {{administration['Courriel Direction']}}</p>
 	    		<hr>
 	    	</div>
-	    </div>
-	    <div id="listCenters" class="col-md-6" ng-show="!centerActive">
+	    </div> -->
+	    <div id="listCenters" class="col-md-6" >
 	    	<div class="centers" ng-repeat="(key, value) in allCenters" ng-click="displayCenter(key, value)">
 	    		<h4>{{value['Intitulé']}}</h4>
 	    		<p>{{value['Ville']}}</p>
@@ -38,6 +38,7 @@
 	      	<leaflet 
 		      	lf-center="center" 
 		      	markers="markers"
+		      	layers="layers"
 		      	event-broadcast="events"
 		      	width="100%" 
 		      	height="600px">
@@ -46,6 +47,7 @@
     </div>
     <div id="centerNavigation">
 	    <button id="precedentCenter" type="button" class="btn btn-primary" ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{precedentCenter['Intitulé']}}</button>
+
 	    <button id="nextCenter" type="button" class="btn btn-primary" ng-model="nextCenter" ng-click="goNextCenter(nextCenter)">{{nextCenter['Intitulé']}} > </button>
     </div>
     <div id="centerDetails" class="row" ng-show="centerActive">

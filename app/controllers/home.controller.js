@@ -17,7 +17,19 @@ angular.module('bib.controller.home', [])
 	        var allMarkers = {};
 	        $scope.centersSearch = []
 
+			console.log("result", result);
+			var permanents = [];
+			 _.forEach(result, function (p) {
+				console.log("p", p);
+				if (p.personnel)
+					permanents.push(Number(p.personnel['Personnels permanents']));
+			})
+
+			console.log('permanents', permanents.sort(function(a, b){return a-b}));
+			
 			_.forIn(result, function (v, k) {
+
+
 				$scope.centersSearch.push(v);
 	
 				// console.log("v", v);
@@ -31,7 +43,15 @@ angular.module('bib.controller.home', [])
 								v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace('-', '_');
 							}
 
-							var iconSize = Math.sqrt(v.personnel['Personnels permanents']);
+							var iconSize;
+							if (v.personnel['Personnels permanents'] <= 20)
+							 	iconSize = Math.sqrt(v.personnel['Personnels permanents']);
+							else if (v.personnel['Personnels permanents'] > 20 && v.personnel['Personnels permanents'] <= 40)
+							 	iconSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.2;
+							else if (v.personnel['Personnels permanents'] > 40 && v.personnel['Personnels permanents'] <= 80)
+							 	iconSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.6;
+							else (v.personnel['Personnels permanents'] > 80)
+							 	iconSize = Math.sqrt(v.personnel['Personnels permanents']) * 2;
 
 							var local_icons = { 
 								principal: {
@@ -133,13 +153,13 @@ angular.module('bib.controller.home', [])
 					});	
 				}
 
-				//updated navigation'centers buttons
+				// updated navigation'centers buttons
 				// pass allCenters and key to button
 				if (key !== 0) {
-					$scope.precedentCenter = $scope.allCenters[key - 1];
+					$scope.precedentCenter = {center: $scope.allCenters[key - 1], key: key - 1};
 				}
 				if (key < $scope.allCenters.length) {
-					$scope.nextCenter = $scope.allCenters[key + 1];
+					$scope.nextCenter = {center: $scope.allCenters[key + 1], key: key + 1};;
 				}
 
 			}
@@ -174,12 +194,24 @@ angular.module('bib.controller.home', [])
 			})
 
 			// Center navigation with buttons
-			$scope.goPrecedentCenter = function(center) {
+			$scope.goPrecedentCenter = function(center, key) {
 				console.log("center", center)
+				if (key !== 0) {
+					$scope.precedentCenter = $scope.allCenters[key - 1];
+				}
+				if (key < $scope.allCenters.length) {
+					$scope.nextCenter = $scope.allCenters[key + 1];
+				}
 			}
 
-			$scope.goNextCenter = function(center) {
+			$scope.goNextCenter = function(center, key) {
 				console.log("center next", center)
+				if (key !== 0) {
+					$scope.precedentCenter = $scope.allCenters[key - 1];
+				}
+				if (key < $scope.allCenters.length) {
+					$scope.nextCenter = $scope.allCenters[key + 1];
+				}
 			}
 
 			angular.extend($scope, {
@@ -210,7 +242,16 @@ angular.module('bib.controller.home', [])
 	                lat: 46.22545288226939,
 	                lng: 3.3618164062499996,
 	                zoom: 2
-	        }
+	        },
+	        layers: {
+	        	baselayers: {
+	                osm: {
+	                    name: 'OpenStreetMap',
+	                    url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+	                    type: 'xyz'
+	                }
+	            }
+            }
 	    })
 
 	// Add custom legend

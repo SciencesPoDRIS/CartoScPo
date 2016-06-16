@@ -2,4 +2,15 @@
 
 Réalisée par la Bibliothèque de Sciences Po en collaboration avec le Medialab
 
-Stack
+## Installation
+
+```
+npm install
+
+bower install
+```
+
+## Lancement de l'app en livereload
+```
+gulp webserver
+```
