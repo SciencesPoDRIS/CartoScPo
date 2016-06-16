@@ -1,0 +1,244 @@
+@import '../../bower_components/bootstrap/less/bootstrap.less';
+
+/*
+ * Global style
+ */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    font-family: 'merriweather', 'Georgia', serif;
+    margin-bottom: 60px;
+}
+
+h1,h2,h3,h4,h5{
+    font-family: 'montserrat', 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+#footer {
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  color: white
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+#view{
+  padding-top: 50px;
+}
+
+body > .container {
+  padding: 53px 15px 60px 15px;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+#footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+
+/*
+ * Navbar
+ */
+
+#nav .navbar {
+  /*background: #CB021A;*/
+  background: white;
+  border-width: 3px 0 1px 0;
+  border-top-color: #222;
+  border-bottom-color: #e7e7e7;
+  height: 60px;
+
+}
+
+#nav .navbar-brand{
+  font-family: 'montserrat', 'Arial', sans-serif;
+}
+
+#nav .navbar-nav > li{
+  border-left: 1px solid #e7e7e7;
+}
+
+#nav .navbar-nav > li:last-child{
+  border-right: 1px solid #e7e7e7;
+}
+
+#nav .navbar-nav > li > a {
+  font-variant: small-caps;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  color: black;
+}
+
+#dLabel{
+  font-variant: small-caps;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+#nav .navbar-right > li > a, {
+  font-family: 'montserrat', 'Arial', sans-serif;
+  text-transform: uppercase;
+  font-variant: normal;
+  font-weight: bold;
+  font-size: 0.7em;
+}
+
+#nav .navbar-right > li > .translateButtons {
+  font-family: 'montserrat', 'Arial', sans-serif;
+  text-transform: uppercase;
+  font-variant: normal;
+  font-weight: bold;
+  font-size: 0.7em;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  cursor:pointer;
+}
+
+/*
+ * Search
+ */
+#search {
+  padding-top: 10px;
+  font-size: 30px;
+}
+
+/*
+ * Center navigation
+ */
+
+#centerNavigation {
+  padding-top: 20px; 
+}
+
+#nextCenter {
+  float: right;
+}
+
+/*
+ * Map
+ */
+
+ #mapid { height: 500px; }
+
+ .principal {
+    background: green;
+    /*border:5px solid rgba(255,255,255,0.5);*/
+    width: 10px;
+    height: 10px;
+
+    font-weight:bold;
+    text-align:center;
+    border-radius:50%;
+ }
+
+ .secondaire {
+    background: green;
+    /*border:5px solid rgba(255,255,255,0.5);*/
+    width: 10px;
+    height: 10px;
+
+    font-weight:bold;
+    text-align:center;
+    border-radius:50%;
+    opacity: 0.5;
+ }
+
+.principal:hover, .secondaire:hover { 
+    background-color: yellow;
+    font-size: 20px;
+} 
+
+.legend, .info
+{
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: rgba(255,255,255, 0.9);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 6px 8px;
+  width: 180px;
+  line-height: 18px;
+  color: #555;
+}
+
+.legend i
+{
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+
+ /*
+  * Liste
+  */
+#listCenters {
+  height: 600px;
+  overflow: scroll;
+}
+
+.centers:hover {
+ color: red;
+}
+
+/*
+ * centerDetails
+ */
+
+#centerDetails {
+  height: 800px;
+  width: 100%;
+  padding: 20px;
+}
+
+#exTab1 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+#exTab1 .nav-pills > li {
+  border-radius: 0;
+  margin:auto;
+}
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+  width:200px;
+  margin:auto;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+
