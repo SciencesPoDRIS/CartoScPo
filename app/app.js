@@ -35,4 +35,6 @@ angular.module('bib', [
   $routeProvider.otherwise({redirectTo: '/'});
 }])
 
-.constant('_', _);
+.constant('_', _)
+.constant('Lunr', lunr)
+.constant('Elasticlunr', elasticlunr);
