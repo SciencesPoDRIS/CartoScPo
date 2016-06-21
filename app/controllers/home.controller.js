@@ -6,13 +6,15 @@
  */
 
 angular.module('bib.controller.home', [])
-  .controller('home', [ "$scope", "$location", "utils", "fileService", "$http", "_", "leafletMarkerEvents", "leafletMapEvents", "$interpolate", "leafletData", function ($scope, $location, utils, fileService, $http, _, leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData) {
+  .controller('home', [ "$scope", "$location", "utils", "fileService", "$http", "_", "leafletMarkerEvents", "leafletMapEvents", "$interpolate", "leafletData", "Lunr", "Elasticlunr", function ($scope, $location, utils, fileService, $http, _, leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, Lunr, Elasticlunr) {
 
 	var url  = '../data/data.json';
 
 	fileService
 		.getFile(url)
 		.then(function (result) {
+
+			console.log("result", result);
 
 	        var allMarkers = {};
 	        $scope.centersSearch = []
@@ -27,7 +29,7 @@ angular.module('bib.controller.home', [])
 			
 			// create all markers from result
 			_.forIn(result, function (v, k) {
-
+         
 				$scope.centersSearch.push(v);
 	
 				if (v.administration) {
@@ -83,38 +85,123 @@ angular.module('bib.controller.home', [])
 				}	
 			})
 
-			//create list for first renderer
+			// create list for first renderer
 			$scope.allCenters = [];
+			var immutableAllCenters = [];
 			_.forIn(result, function(v, k) {
-				
 				if (v.administration)
-					$scope.allCenters.push(v.administration);
+					$scope.allCenters.push(v);
+					immutableAllCenters.push({center: v});
 			})
 
+			// create a custom fulltextsearch to render json path of finding
+			// create an index as big object with all words as keys which have the path as value
+			// ex : Paris : id_administration_ville
+			// put json copy in lowercase & input too
+
+			// onglet - id - 
+			var allProps = [];
+			_.forIn(result, function(tab, center) {
+				_.forIn(tab, function(contentTab, tabName){
+					_.forIn(contentTab, function(content, prop){
+						var id = center + '_' + tabName + '_' + prop;
+						if (prop !== 'adressesGeo' && prop !== 'theme' && prop !== 'id')
+							allProps.push({content: content, id: id });
+					})
+				})
+			})
+
+			var index = Elasticlunr(function () {
+				this.addField('content');
+			});
+
+			_.forEach(allProps, function(d) {
+				index.addDoc(d);
+			})
+
+			if (!$scope.filterSearch) {
+				console.log("$scope.filterSearch", $scope.filterSearch);
+				$scope.allCenters = immutableAllCenters;
+			}
+
+			//create allcenters on search pattern
+
+			// sort list by input search
+			$scope.showNameChanged = function () {
+				// copy allCenters
+				// var allCentersBis = immutableAllCenters,
+				// 	searchInCenter = [];
+
+				// // run in copy of allcenter
+				// _.forEach(allCentersBis, function(d) {
+				// 	//create object search
+				// 	d.search = [];
+				// 	_.forIn(d, function(contentTab, tab) {
+				// 		_.forIn(contentTab, function (v, k) {
+				// 			console.log("v, k", v, k);
+				// 			if (k !== "searchOk" && v.indexOf($scope.filterSearch) > -1) {
+				// 				d.search.push({tab: tab, field: k});
+				// 				searchInCenter.push(d);
+				// 			}
+				// 		})
+				// 	})
+				// 	// set array searchInCenter
+				// 	searchInCenter = _.uniq(searchInCenter);
+				// 	//create list of centers
+				// 	$scope.allCenters = searchInCenter;
+				// })
+				if (!$scope.filterSearch) {
+					console.log("$scope.filterSearch", $scope.filterSearch);
+					$scope.allCenters = immutableAllCenters;
+				}
+				else {
+					var searchResult = index.search($scope.filterSearch);
+					var resultWithPath = [];
+
+					_.forEach(searchResult, function(d) {
+						if (d) {
+							var searchPath = d.ref.split('_');
+							resultWithPath.push({id:searchPath[0], tab: searchPath[1] , prop: searchPath[2]});
+						}
+					})
+
+					resultWithPath = _.groupBy(resultWithPath, 'id');
+					var resultWithPathBis = []
+					_.forIn(resultWithPath, function(v, k) {
+
+						resultWithPathBis.push({center: result[k], search:v})
+					})
+					console.log("resultWithPath", resultWithPath);
+					$scope.allCenters = resultWithPathBis;
+					console.log("$scope.allCenters", $scope.allCenters);
+				}
+			}
 			// Active tabs
 			$scope.displayCenter = function(key, item) {
+				console.log("item", item);
 				$scope.centerActive = true;
-				if (item['Code Unité']) {
+				if (item.administration['Code Unité']) {
 					console.log("item", item);
 					//console.log("result.item['id'].administration", result[item['id']].administration)
-					$scope.administration = result[item['id']].administration;
+					$scope.administration = item.administration;
 
-					$scope.personnel = result[item['id']].personnel;
+					$scope.personnel = item.personnel;
 					//console.log("personnel", $scope.personnel);
 
-					$scope.ecole = result[item['id']].ecole;
+					$scope.ecole = item.ecole;
 					//console.log("ecoles", $scope.ecole);
 
-					$scope.recherche = result[item['id']].recherche;
+					$scope.recherche = item.recherche;
 					//console.log("recherche", $scope.recherche);
 
-					$scope.axes = result[item['id']].recherche['Axes de recherche'];
-					$scope.contrats = result[item['id']].recherche['Contrats de recherche'];
-					$scope.seminaires = result[item['id']].recherche['Séminaires de recherche'];
+					$scope.axes = item.recherche['Axes de recherche'];
+					$scope.contrats = item.recherche['Contrats de recherche'];
+					$scope.section = item.recherche['Sections CNRS'];
+					$scope.seminaires = item.recherche['Séminaires de recherche'];
 
 					// create marker with center selected
 					var markerChoosen = {};
-					item.adressesGeo.forEach(function (d) {
+					item.administration.adressesGeo.forEach(function (d) {
 						markerChoosen[item['id']] = {
 							lat: d.lat,
 			                lng: d.lon,
@@ -236,11 +323,12 @@ angular.module('bib.controller.home', [])
 								}
 							})
 
-							//create list of centers
+							// create list of centers
+							// make a service for this function
 							$scope.allCenters = [];
 							centersInMap.forEach(function (d) {
 								if (result[d]) {
-									$scope.allCenters.push(result[d].administration);
+									$scope.allCenters.push(result[d]);
 								}
 							})
 						})
@@ -352,7 +440,7 @@ angular.module('bib.controller.home', [])
 	            	$scope.centerActive = true;
 	            	args.leafletEvent.target.openPopup()
 	            }
-	            
+
 	            if ($scope.eventDetected === "leafletDirectiveMarker.mouseout") {
 	            	args.leafletEvent.target.closePopup()
 

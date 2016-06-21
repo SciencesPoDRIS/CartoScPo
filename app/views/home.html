@@ -2,35 +2,30 @@
   <div top-menu class="row">
   </div>
   <div class="container-fluid">
-  	<div ng-init="centersSearch">
+  	<!-- <div ng-init="centersSearch">
   		
   	</div>
   	<div id="search">
 	  	Search: <input ng-model="searchText.$">
-		<!-- <table id="searchTextResults">
+		<table id="searchTextResults">
 		  <tr ng-repeat="center in centersSearch | filter:searchText">
-		    <td>{{center}}</td>
+		    <td>{{center.administration['Intitulé']}}</td>
 		  </tr>
-		</table> -->
-  	</div>
+		</table>
+  	</div> -->
   	<hr/>
     <div class="row">
-	    <!-- <div id="listCenters" class="col-md-6" ng-show="centerActive">
-	    	<div>
-	    		<h4>Intitulé : {{administration['Intitulé']}}</h4>
-	    		<p>Ville : {{administration['Ville']}}</p>
-	    		<p>Adresse : {{administration['Adresse(s)']}}</p>
-	    		<p>Téléphone : {{administration['Téléphone']}}</p>
-	    		<p>Site web : {{administration['Site Web']}}</p>
-	    		<p>Directeur : {{administration['Directeur']}}</p>
-	    		<p>Courriel direction : {{administration['Courriel Direction']}}</p>
-	    		<hr>
-	    	</div>
-	    </div> -->
 	    <div id="listCenters" class="col-md-6" >
-	    	<div class="centers" ng-repeat="(key, value) in allCenters" ng-click="displayCenter(key, value)">
-	    		<h4>{{value['Intitulé']}}</h4>
-	    		<p>{{value['Ville']}}</p>
+	    	<!-- Search: <input ng-model="searchText.$"> -->
+	    	<input type="text" ng-model="filterSearch" ng-change="showNameChanged()">
+	    	<div id="searchTextResults" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)">
+	    		<h4>{{value.center.administration['Intitulé']}}</h4>
+	    		<p>{{value.center.administration['Ville']}}</p>
+	    		<div ng-show="value.search">
+		        	<ul ng-repeat="item in value.search">
+		        		<li>{{item.tab}} > {{item.prop}}</li>
+		        	</ul>
+	    		</div>
 	    		<hr>
 	    	</div>
 	    </div>
@@ -105,9 +100,12 @@
 		        	<p>Evaluations : {{ recherche['Evaluations'] }}</p>
 		        	<p>Mots-clés sujet selon l'annuaire du MENESR : {{ recherche['Mots-clés sujet selon l\'annuaire du MENESR'] }}</p>
 		        	<p>Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l'annuaire du MENESR : {{ recherche['Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l\'annuaire du MENESR'] }}</p>
-		        	<p>Sections CNRS : {{ recherche['Sections CNRS'] }}</p>
+		        	<p>Sections CNRS : </p>
+		        	<ul ng-repeat="item in section">
+		        		<li>{{item}}</li>
+		        	</ul>
 		        	<p>Séminaires de recherche :</p>
-		        	<ul ng-repeat="item in seminaires">
+		        	<ul ng-repeat="item in seminaires track by $index">
 		        		<li>{{item}}</li>
 		        	</ul>
 		        </div>
