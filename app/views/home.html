@@ -2,27 +2,33 @@
   <div top-menu class="row">
   </div>
   <div class="container-fluid">
-  	<!-- <div ng-init="centersSearch">
-  		
-  	</div>
-  	<div id="search">
-	  	Search: <input ng-model="searchText.$">
-		<table id="searchTextResults">
-		  <tr ng-repeat="center in centersSearch | filter:searchText">
-		    <td>{{center.administration['Intitulé']}}</td>
-		  </tr>
-		</table>
-  	</div> -->
+  	 <div class="row">
+  	 	<div id="search" class="col-md-6 col-md-offset-3" style="text-align: center;" >
+	  	 	<h1>Les centres de recherches en Sciences Politiques en France</h1>
+	    	<p >
+	    		Une étude menée par la bibliothèque de Sciences Po Paris
+	    	</p>
+	    </div>
+    </div>
   	<hr/>
+
+  	<!-- Search bar -->
     <div class="row">
-	    <div id="listCenters" class="col-md-6" >
-	    	
+    	<div id="search" class="col-md-4 col-md-offset-2" >
 	    	<input type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch"  typeahead="word for word in allWords | filter:$viewValue | limitTo:8">
-	    	<button class="btn btn-success" type="submit" ng-click="showNameChanged()">Rechercher</button>
-	    	<div id="searchTextResults" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)">
+	    	<button class="btn btn-success btn-lg" type="submit" ng-click="showNameChanged()">Rechercher</button>
+    	</div>
+    </div>
+    <hr>
+
+    <div id="listAndMap" class="row">
+
+    	<!-- Centers list -->
+	    <div id="listCenters" class="col-md-6 centersList" >
+	    	<div id="searchTextResults" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)" ng-class="{selected : key === idSelectedCenter}">
 	    		<h4>{{value.center.administration['Intitulé']}}</h4>
 	    		<p>{{value.center.administration['Ville']}}</p>
-	    		<div ng-show="value.search">
+	    		<div ng-show="value.search" >
 		        	<ul ng-repeat="item in value.search">
 		        		<li>{{item.tab}} > {{item.prop}}</li>
 		        	</ul>
@@ -30,6 +36,8 @@
 	    		<hr>
 	    	</div>
 	    </div>
+
+	    <!-- Map directive -->
 	    <div class="col-md-6">
 	      	<leaflet 
 		      	lf-center="center" 
@@ -41,17 +49,21 @@
 	      	</leaflet>
 	    </div>
     </div>
-    <div id="centerNavigation">
-	    <button id="precedentCenter" type="button" class="btn btn-primary" ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{precedentCenter['Intitulé']}}</button>
 
-	    <button id="nextCenter" type="button" class="btn btn-primary" ng-model="nextCenter" ng-click="goNextCenter(nextCenter)">{{nextCenter['Intitulé']}} > </button>
+    <!-- Navigation in list -->
+    <div id="centerNavigation">
+	    <button id="precedentCenter" type="button" class="btn btn-primary" ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{precedentCenter.center.administration['Intitulé']}}</button>
+
+	    <button id="nextCenter" type="button" class="btn btn-primary" ng-model="nextCenter" ng-click="goNextCenter(nextCenter)">{{nextCenter.center.administration['Intitulé']}} > </button>
     </div>
+
+    <!-- Center selected details -->
     <div id="centerDetails" class="row" ng-show="centerActive">
 		<div style="float:right" ng-click="centerDesactivate()">
 			X
 		</div>
 		<tabs>
-		    <pane title="Administration" >
+		    <pane title="Administration" class="tabsContent">
 		        <div>
 			        <h2>Administratif</h2>
 				      	<p>{{administration['CNRS']}}</p>
@@ -59,7 +71,7 @@
 			    		<p>Historique : {{administration['Historique']}}</p>
 		        </div>
 		    </pane>
-		    <pane title="Personnel">
+		    <pane title="Personnel" class="tabsContent">
 		        <div>
 		    	  	<h2>Personnel</h2>
 		    		<p>Effectif total : {{ personnel['Effectif total'] }}</p>
@@ -69,7 +81,7 @@
 		    		<p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
 		        </div>
 		    </pane>
-		    <pane title="Ecoles doctorales">
+		    <pane title="Ecoles doctorales"class="tabsContent">
 		        <div>
 		      		<p>Directeur école doctorale : {{ ecole['Directeur de l\'Ecole Doctorale'] }}</p>
 		      		<p>Courriel de l'Ecole doctorale : {{ ecole['Courriel de l\'Ecole doctorale'] }}</p>
@@ -81,11 +93,11 @@
 		      		<p>Numéro d'Ecole Doctorale : {{ ecole['Numéro d\'Ecole Doctorale']}}</p>
 		        </div>
 		    </pane>
-		    <pane title="Thématiques de recherche">
+		    <pane title="Thématiques de recherche"class="tabsContent">
 		        <div class="row">
 		        <div class="col-md-6">
 		        	<p>Axes de recherche</p>
-		        	<ul ng-repeat="item in axes">
+		        	<ul ng-repeat="item in axes ">
 		        		<li>{{item}}</li>
 		        	</ul>
 		        	<p>Collaborations / réseaux : {{ recherche['Collaborations / réseaux'] }}</p>
@@ -106,7 +118,7 @@
 		        		<li>{{item}}</li>
 		        	</ul>
 		        	<p>Séminaires de recherche :</p>
-		        	<ul ng-repeat="item in seminaires track by $index">
+		        	<ul ng-repeat="item in seminaires">
 		        		<li>{{item}}</li>
 		        	</ul>
 		        </div>
