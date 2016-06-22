@@ -9,7 +9,7 @@ angular.module('bib', [
   'ngSanitize',
   'ui.bootstrap',
   'ngGrid',
-  'ui.select',
+  // 'ui.select',
   'angular-loading-bar',
   'angulartics',
   'angulartics.google.analytics',
