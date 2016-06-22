@@ -16,8 +16,9 @@
   	<hr/>
     <div class="row">
 	    <div id="listCenters" class="col-md-6" >
-	    	<!-- Search: <input ng-model="searchText.$"> -->
-	    	<input type="text" ng-model="filterSearch" ng-change="showNameChanged()">
+	    	
+	    	<input type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch"  typeahead="word for word in allWords | filter:$viewValue | limitTo:8">
+	    	<button class="btn btn-success" type="submit" ng-click="showNameChanged()">Rechercher</button>
 	    	<div id="searchTextResults" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)">
 	    		<h4>{{value.center.administration['Intitulé']}}</h4>
 	    		<p>{{value.center.administration['Ville']}}</p>
