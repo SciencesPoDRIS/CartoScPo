@@ -239,4 +239,7 @@ body > .container {
   padding : 5px 15px;
 }
 
+.active {
+    background: grey;
+}
 
