@@ -23,6 +23,8 @@ lodash.forIn(csv, function (v, k) {
 		//create a reagex
 		if (parsed.data[i]['Code Unité'] && parsed.data[i]['Code Unité'].length > 0) {
 			var code = parsed.data[i]['Code Unité'].replace(' ', '');
+
+			//need regex
 			code = code.replace(/\t/g, '');
 			code = code.replace(/\n/g, '');
 			code = code.replace(/\r/g, '');
@@ -31,17 +33,17 @@ lodash.forIn(csv, function (v, k) {
 			code = code.replace('\'', '');
 
 			parsed.data[i].id = code.toLowerCase();
-			
 			parsed.data[i].theme = k;
 		}
 	}
 
 	allData.push(parsed.data);
 });
-	
+
+console.log("csv parsed");	
 // transform array of center in list of center with Code Unité as key
- allData = lodash.flatten(allData);
- allData = lodash.groupBy(allData, 'id');
+allData = lodash.flatten(allData);
+allData = lodash.groupBy(allData, 'id');
 
 // transform array of onglet by center to list of object with onglet as key
 function arrayToListofObj(array) {
@@ -54,6 +56,7 @@ function arrayToListofObj(array) {
 	return obj;
 }
 
+// clean data
 var allCenters = {};
  lodash.forIn(allData, function (v, k) {
 	k = k.replace(/ /g,'');
@@ -88,6 +91,7 @@ lodash.forIn(allCenters, function (v, k) {
 
 		coordinates = lodash.map(coordinates, clean);
 
+		// create object adress
 		for (var i = 0, len = adress.length; i < len; i++) {
 			adressesGeo.push({
 				adresse: adress[i],
@@ -96,13 +100,14 @@ lodash.forIn(allCenters, function (v, k) {
 				city: cities[i]
 			})
 		}
-	v.administration.adressesGeo = adressesGeo;
+
+		v.administration.adressesGeo = adressesGeo;
 	}
 
 	// clean recherche data
 	var recherche = {};
 
-	 lodash.forIn(v.recherche, function (v, k) {
+	lodash.forIn(v.recherche, function (v, k) {
 		k = k.replace(/\n/g,'');
 		k = k.replace(/\*/g,' ');
 		v = v.replace(/\n/g,'');
@@ -112,13 +117,88 @@ lodash.forIn(allCenters, function (v, k) {
 	})
 
 	v.recherche = recherche;
-
 })
 
 
-// convert to json
-allCenters = JSON.stringify(allCenters);
 
-// write data in file
-fs.writeFile('data.json', allCenters);
+console.log("allCenters Done");
+// convert to json
+// create list of all words -> script csv to json
+var allWords = [];
+lodash.forIn(allCenters, function(tab, center) {
+	lodash.forIn(tab, function(contentTab, tabName){
+		lodash.forIn(contentTab, function(content, prop){
+			
+			var arrayContent = '';
+			if (Array.isArray(content)) {
+				//console.log("content 1", content)
+				lodash.forEach(content, function (d) {
+					arrayContent = d + ' ';
+				})
+				arrayContent = arrayContent.split(' ');
+				allWords = allWords.concat(arrayContent);
+			}
+
+			if (!Array.isArray(content) 
+				&& prop !== 'adressesGeo' 
+				&& prop !== 'theme' 
+				&& prop !== 'id' 
+				&& prop !== 'Téléphone' 
+				&& prop !== 'Géolocalisation(s)'
+				&& prop !== 'CNRS (Oui/Non)'
+				&& prop !== 'Code Unité'
+				&& prop !== 'Courriel Direction'
+				&& prop !== 'MENESR (Oui/Non)'
+				&& prop !== 'Site Web'
+				&& prop !== 'Commentaires'
+				&& prop !== 'Courriel de l\'Ecole doctorale'
+				&& prop !== 'Nombre de doctorants'
+				&& prop !== 'Nombre de doctorants en science politique'
+				&& prop !== 'Nombre de thèses soutenues en 2015'
+				&& prop !== 'Effectif total'
+				&& prop !== 'Lien vers la page "personnel" sur le site Web du centre'
+				&& prop !== 'Personnels non permanents'
+				&& prop !== '') {
+
+				content = content.replace(/.,:;'`/g , ' ');
+				content = content.split(' ');
+				allWords = allWords.concat(content);
+			}
+		})
+	})
+});
+
+allWords = lodash.uniq(allWords);
+allWords = allWords.filter(function (d) {
+	return d.length > 2;
+});
+
+console.log("list of all words in data created");
+
+// create slug for all props -> to script csv to json
+var allProps = [];
+lodash.forIn(allCenters, function(tab, center) {
+	lodash.forIn(tab, function(contentTab, tabName){
+		lodash.forIn(contentTab, function(content, prop){
+			var id = center + '_' + tabName + '_' + prop;
+			if (prop !== 'adressesGeo' && prop !== 'theme' && prop !== 'id')
+				allProps.push({content: content, id: id });
+		})
+	})
+});
+
+console.log("allProps created");
+
+//Create object with allCenters, allWords & index
+var data = {};
+data.allCenters = allCenters;
+data.allWords = allWords;
+data.allProps = allProps; 
+
+data = JSON.stringify(data);
+
+console.log("allCenters stringify");
+
+//write data in file
+fs.writeFile('data.json', data);
 
