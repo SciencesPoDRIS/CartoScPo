@@ -1,29 +1,13 @@
 var gulp = require('gulp'),
     server = require('gulp-server-livereload'),
-    connect = require('gulp-connect');
-var sass = require('gulp-sass');
-var less = require('gulp-less');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var browserSync = require('browser-sync').create();
+    connect = require('gulp-connect'),
+    sass = require('gulp-sass'),
+    less = require('gulp-less'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
+    browserSync = require('browser-sync').create();
  
-gulp.task('webserver', function() {
-  gulp.src('app')
-    .pipe(server({
-      livereload: true,
-      open: true,
-      fallback: 'index.html'
-    }));
-});
-
-gulp.task('connect', function() {
-  connect.server({
-    root: './app/',
-    livereload: true,
-    fallback: './app/index.html'
-  });
-});
-
+// Concat all bower libraries used in website
 gulp.task('js', function() {
     return gulp.src([
       'bower_components/lodash/dist/lodash.min.js',
@@ -57,6 +41,7 @@ gulp.task('js', function() {
     .pipe(gulp.dest('./app/assets/js/'));
 });
 
+// Concat all css used in website
 gulp.task('css', function() {
     return gulp.src([
         'bower_components/angular-ui-select/dist/select.css',
@@ -85,6 +70,7 @@ gulp.task('less', function() {
         .pipe(browserSync.stream());
 });
 
+// Launch server with livereload
 gulp.task('serve', function() {
     browserSync.init({ server: "./app" });
 
@@ -94,4 +80,5 @@ gulp.task('serve', function() {
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
 
+// Default task that launch concat js, css & less then launch server
 gulp.task('default', ['js', 'css', 'less', 'serve']);
