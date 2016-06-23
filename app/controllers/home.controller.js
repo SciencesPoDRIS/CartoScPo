@@ -8,10 +8,10 @@
 angular.module('bib.controller.home', [])
   .controller('home', [ "$scope", "$location", "utils", "fileService", 
   	"$http", "_", "leafletMarkerEvents", "leafletMapEvents", 
-  	"$interpolate", "leafletData", "Elasticlunr", 
+  	"$interpolate", "leafletData", "Elasticlunr", '$sce',
   	function ($scope, $location, utils, fileService, $http, _, 
   		leafletMarkerEvents, leafletMapEvents, $interpolate, 
-  		leafletData, Elasticlunr) {
+  		leafletData, Elasticlunr, $sce) {
 
 	var url  = '../data/data.json';
 
@@ -20,8 +20,6 @@ angular.module('bib.controller.home', [])
 		.then(function (result) {
 
 			console.log("result", result);
-	        var allMarkers = {};
-	        $scope.centersSearch = []
 
 			// calculate class for legend circle
 			// var permanents = [];
@@ -32,11 +30,12 @@ angular.module('bib.controller.home', [])
 			// })
 
 			// function to create markers -> make a service
+	        
 			function createMarkers(v) {
 				
 				if (v && v.administration) {
 					if (v.administration.adressesGeo) {
-						v.administration.adressesGeo.forEach(function (a, i) {
+						v.administration.adressesGeo.forEach(function(a, i) {
 							
 							if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
 								//need regex
@@ -90,7 +89,9 @@ angular.module('bib.controller.home', [])
 			}
 			
 			// create all markers from result
-			_.forIn(result.allCenters, function (v, k) {
+			$scope.centersSearch = []
+			var allMarkers = {};
+			_.forIn(result.allCenters, function(v, k) {
 				$scope.centersSearch.push(v);
 				createMarkers(v);
 			});
@@ -106,9 +107,11 @@ angular.module('bib.controller.home', [])
 					immutableAllCenters.push({center: v});
 			});
 			
+			// create scope with all words from data
 			$scope.allWords = result.allWords;
 			
-			var index = Elasticlunr(function () {
+			// create index for fulltext search
+			var index = Elasticlunr(function() {
 				this.addField('content');
 			});
 
@@ -122,7 +125,7 @@ angular.module('bib.controller.home', [])
 			}
 
 			// sort list by input search
-			$scope.showNameChanged = function () {
+			$scope.showNameChanged = function() {
 				
 				$scope.centerActive = true;
 				if (!$scope.filterSearch) {
@@ -132,8 +135,6 @@ angular.module('bib.controller.home', [])
 					var searchResult = index.search($scope.filterSearch),
 						resultWithPath = [],
 						updateMarkers = [];
-
-					console.log("searchResult", searchResult);
 
 					_.forEach(searchResult, function(d) {
 						if (d) {
@@ -193,15 +194,35 @@ angular.module('bib.controller.home', [])
 			}
 
 			// 
-			function displayCenterSelected (item, key) {
+			function displayCenterSelected(item, key) {
 				// bind center's data to tabs
+				var converter = new Showdown.converter()
 				if (item.center.administration['Code Unité']) {
 					$scope.administration = item.center.administration;
 					$scope.personnel = item.center.personnel;
 					$scope.ecole = item.center.ecole;
 					$scope.recherche = item.center.recherche;
 					$scope.axes = item.center.recherche['Axes de recherche'];
+					var axes = ''
+					_.forEach($scope.axes, function (d) {
+						console.log("d", d);
+						d = d.replace(':', ' : \n');
+						axes = axes.concat(d) + ' \n';
+					})
+					// console.log("axes", axes);
+					$scope.axes = converter.makeHtml(axes)
+					//$scope.axes = axes;
+					console.log("$scope.axes", $scope.axes);
 					$scope.contrats = item.center.recherche['Contrats de recherche'];
+					console.log("$scope.contrats", $scope.contrats);
+					// var contrats = ''
+					// _.forEach($scope.contrats, function (d) {
+					// 	console.log("d", d);
+					// 	d = d.replace(':', ' : \n');
+					// 	contrats = contrats.concat(d) + ' \n';
+					// })
+					// // console.log("contrats", contrats);
+					// $scope.contrats = converter.makeHtml(contrats)
 					$scope.section = item.center.recherche['Sections CNRS'];
 					$scope.seminaires = item.center.recherche['Séminaires de recherche'];
 				}
@@ -218,7 +239,16 @@ angular.module('bib.controller.home', [])
 					    .setContent(item.center.administration['Intitulé'])
 					    .openOn(map);
 				})
+
+		        //highlight search in fulltxt
+				$scope.highlight = function(text, search) {
+				    if (!search) {
+				        return $sce.trustAsHtml(text);
+				    }
+				    return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
+				};
 			}
+
 
 			// Active tabs
 			$scope.displayCenter = function(key, item) {
@@ -264,7 +294,7 @@ angular.module('bib.controller.home', [])
 			}
 
 			// display content of tabs
-			$('#myTabs a').click(function (e) {
+			$('#myTabs a').click(function(e) {
 			  e.preventDefault()
 			  $(this).tab('show')
 			})
@@ -296,7 +326,7 @@ angular.module('bib.controller.home', [])
 			var mapEvents = leafletMapEvents.getAvailableMapEvents();
 		    for (var k in mapEvents) {
 		        var eventName = 'leafletDirectiveMap.' + mapEvents[k];
-		        $scope.$on(eventName, function(event, args){
+		        $scope.$on(eventName, function(event, args) {
 		    		if (event.name === "leafletDirectiveMap.zoomstart" 
 		    			|| event.name === "leafletDirectiveMap.move") {
 						var centersInMap = [];
@@ -330,7 +360,6 @@ angular.module('bib.controller.home', [])
 
 							// create list of centers
 							// make a service for this function
-
 							$scope.allCenters = [];
 							centersInMap.forEach(function (d) {
 								if (result.allCenters[d]) {
@@ -390,7 +419,7 @@ angular.module('bib.controller.home', [])
 			        position: 'bottomleft'
 			    },
 
-			    onAdd: function (map) {
+			    onAdd: function(map) {
 			        // create the control container with a particular class name
 			        var container = L.DomUtil.create('div', 'my-custom-control');
 			        container.innerHTML = '<svg width="250" height="150"> '
@@ -436,8 +465,7 @@ angular.module('bib.controller.home', [])
 	    // detect event on markers and display or close popup
 	    for (var k in markerEvents) {
 	        var eventName = 'leafletDirectiveMarker.' + markerEvents[k];
-	        $scope.$on(eventName, function(event, args){
-	        	console.log("args", args);
+	        $scope.$on(eventName, function(event, args) {
 
 	            $scope.eventDetected = event.name;
 

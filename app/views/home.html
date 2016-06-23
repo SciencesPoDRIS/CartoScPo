@@ -66,6 +66,7 @@
 		    <pane title="Administration" class="tabsContent">
 		        <div>
 			        <h2>Administratif</h2>
+			        	<p>Paris</p>
 				      	<p>{{administration['CNRS']}}</p>
 			    		<p>Année de création : {{administration['Année de création']}}</p>
 			    		<p>Historique : {{administration['Historique']}}</p>
@@ -81,7 +82,7 @@
 		    		<p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
 		        </div>
 		    </pane>
-		    <pane title="Ecoles doctorales"class="tabsContent">
+		    <pane title="Ecoles doctorales" class="tabsContent">
 		        <div>
 		      		<p>Directeur école doctorale : {{ ecole['Directeur de l\'Ecole Doctorale'] }}</p>
 		      		<p>Courriel de l'Ecole doctorale : {{ ecole['Courriel de l\'Ecole doctorale'] }}</p>
@@ -93,13 +94,17 @@
 		      		<p>Numéro d'Ecole Doctorale : {{ ecole['Numéro d\'Ecole Doctorale']}}</p>
 		        </div>
 		    </pane>
-		    <pane title="Thématiques de recherche"class="tabsContent">
+		    <pane title="Thématiques de recherche" class="tabsContent">
 		        <div class="row">
 		        <div class="col-md-6">
 		        	<p>Axes de recherche</p>
-		        	<ul ng-repeat="item in axes ">
+
+		        	<div ng-bind-html="highlight(axes, filterSearch)"">
+		        		
+		        	</div>
+		        	<!-- <ul ng-repeat="item in axes ">
 		        		<li>{{item}}</li>
-		        	</ul>
+		        	</ul> -->
 		        	<p>Collaborations / réseaux : {{ recherche['Collaborations / réseaux'] }}</p>
 		        	<p>Contrats de recherche : </p>
 		        	<ul ng-repeat="item in contrats">
