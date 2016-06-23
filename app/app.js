@@ -10,13 +10,13 @@ angular.module('bib', [
   'ui.bootstrap',
   'ngGrid',
   // 'ui.select',
-  'angular-loading-bar',
+  // 'angular-loading-bar',
   'angulartics',
   'angulartics.google.analytics',
-  'bib.services',
-  'bib.directives',
   'nemLogging',
   'ui-leaflet',
+  'bib.services',
+  'bib.directives',
   'bib.controller.navbar',
   'bib.controller.home'
   ])
@@ -36,5 +36,4 @@ angular.module('bib', [
 }])
 
 .constant('_', _)
-.constant('Lunr', lunr)
 .constant('Elasticlunr', elasticlunr);

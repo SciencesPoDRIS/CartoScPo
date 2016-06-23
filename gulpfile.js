@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 // Concat all bower libraries used in website
 gulp.task('js', function() {
     return gulp.src([
+      'bower_components/jquery-highlight/jquery-highlight.js',
       'bower_components/lodash/dist/lodash.min.js',
       'bower_components/angular/angular.js',
       'bower_components/leaflet/dist/leaflet.js',
@@ -32,7 +33,7 @@ gulp.task('js', function() {
       'bower_components/d3/d3.min.js',
       'bower_components/papaparse/papaparse/min.js',
       'bower_components/elasticlunr/elasticlunr.js',
-      'bower_components/lunr/lunr.js'
+      'bower_components/showdown/src/showdown.js'
       ],
       {base: 'bower_components/'}
     )

@@ -35,7 +35,10 @@
     "ng-grid": "2.0.11",
     "papaparse": "^4.1.2",
     "elasticlunr.js": "0.8.2",
-    "lunr.js": "lunr#^0.7.1"
+    "lunr.js": "lunr#^0.7.1",
+    "angular-markdown-directive": "^0.3.1",
+    "angular-marked": "^1.2.1",
+    "jquery-highlight": "^3.3.0"
   },
   "resolutions": {
     "angular": "~1.2"
