@@ -129,40 +129,47 @@ lodash.forIn(allCenters, function(tab, center) {
 	lodash.forIn(tab, function(contentTab, tabName){
 		lodash.forIn(contentTab, function(content, prop){
 			
-			var arrayContent = '';
-			if (Array.isArray(content)) {
+			if (Array.isArray(content) && prop !== 'adressesGeo') {
 				//console.log("content 1", content)
+				var arrayContent = '';
+				//console.log("prop in content", prop);
 				lodash.forEach(content, function (d) {
-					arrayContent = d + ' ';
+					// create a long string of all axes
+					arrayContent = arrayContent + ' ' + d + ' ';
 				})
 				arrayContent = arrayContent.split(' ');
 				allWords = allWords.concat(arrayContent);
 			}
+			else if (prop === 'Intitulé (centre ou unité de recherche)'
+				|| prop === 'Sigle ou acronyme'
+				|| prop === 'Ville' 
+				|| prop === 'Etablissements de rattachement'
+				|| prop === 'Axes de recherche'
+				|| prop === 'Acronyme (nom court)' 
+				) {
 
-			if (!Array.isArray(content) 
-				&& prop !== 'adressesGeo' 
-				&& prop !== 'theme' 
-				&& prop !== 'id' 
-				&& prop !== 'Téléphone' 
-				&& prop !== 'Géolocalisation(s)'
-				&& prop !== 'CNRS (Oui/Non)'
-				&& prop !== 'Code Unité'
-				&& prop !== 'Courriel Direction'
-				&& prop !== 'MENESR (Oui/Non)'
-				&& prop !== 'Site Web'
-				&& prop !== 'Commentaires'
-				&& prop !== 'Courriel de l\'Ecole doctorale'
-				&& prop !== 'Nombre de doctorants'
-				&& prop !== 'Nombre de doctorants en science politique'
-				&& prop !== 'Nombre de thèses soutenues en 2015'
-				&& prop !== 'Effectif total'
-				&& prop !== 'Lien vers la page "personnel" sur le site Web du centre'
-				&& prop !== 'Personnels non permanents'
-				&& prop !== '') {
-
-				content = content.replace(/.,:;'`/g , ' ');
+				//console.log("prop alone", prop);
+				//console.log("content before \n", content, '\n');
+				content = content.replace(/ /gi , ' ');
+				content = content.replace(/\,/gi , ' ');
+				content = content.replace(', ' , ' ');
+				content = content.replace(/\:/gi , ' ');
+				content = content.replace(': ' , ' ');
+				content = content.replace(/\;/gi , ' ');
+				content = content.replace('; ' , ' ');
+				content = content.replace('-' , ' ');
+				content = content.replace('(' , ' ');
+				content = content.replace(')' , ' ');
+				content = content.replace('\n' , ' ');
+				content = content.replace('\/' , ' ');
+				content = content.replace(/#/gi , ' ');
+				content = content.replace(/\./gi , ' ');
 				content = content.split(' ');
+				//console.log("content after \n", content);
 				allWords = allWords.concat(content);
+			}
+			else {
+				//console.log("prop out", prop);
 			}
 		})
 	})
@@ -178,11 +185,15 @@ console.log("list of all words in data created");
 // create slug for all props -> to script csv to json
 var allProps = [];
 lodash.forIn(allCenters, function(tab, center) {
+	console.log("center", center);
 	lodash.forIn(tab, function(contentTab, tabName){
+		console.log("contentTab", contentTab);
 		lodash.forIn(contentTab, function(content, prop){
-			var id = center + '_' + tabName + '_' + prop;
-			if (prop !== 'adressesGeo' && prop !== 'theme' && prop !== 'id')
+			if (prop === 'Intitulé (centre ou unité de recherche)' || prop === 'Sigle ou acronyme' || prop === 'Ville' || prop === 'Etablissements de rattachement' || prop === 'Axes de recherche' || prop === 'Acronyme (nom court)') {
+				//console.log("prop slug", prop);
+				var id = center + '_' + tabName + '_' + prop;
 				allProps.push({content: content, id: id });
+			}
 		})
 	})
 });
