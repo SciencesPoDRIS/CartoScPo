@@ -19,6 +19,7 @@ angular.module('bib.controller.home', [])
 		.getFile(url)
 		.then(function (result) {
 
+			console.log("result", result);
 	        var allMarkers = {};
 	        $scope.centersSearch = []
 
@@ -89,7 +90,7 @@ angular.module('bib.controller.home', [])
 			}
 			
 			// create all markers from result
-			_.forIn(result, function (v, k) {
+			_.forIn(result.allCenters, function (v, k) {
 				$scope.centersSearch.push(v);
 				createMarkers(v);
 			});
@@ -99,81 +100,19 @@ angular.module('bib.controller.home', [])
 
 			// create immutable list as reference data
 			var immutableAllCenters = [];
-			_.forIn(result, function(v, k) {
+			_.forIn(result.allCenters, function(v, k) {
 				if (v.administration)
 					$scope.allCenters.push(v);
 					immutableAllCenters.push({center: v});
 			});
-
-			// create list of all words -> script csv to json
-			var allWords = [];
-			_.forIn(result, function(tab, center) {
-				_.forIn(tab, function(contentTab, tabName){
-					_.forIn(contentTab, function(content, prop){
-						
-						var arrayContent = '';
-						if (Array.isArray(content)) {
-							//console.log("content 1", content)
-							_.forEach(content, function (d) {
-								arrayContent = d + ' ';
-							})
-							arrayContent = arrayContent.split(' ');
-							allWords = allWords.concat(arrayContent);
-						}
-
-						if (!Array.isArray(content) 
-							&& prop !== 'adressesGeo' 
-							&& prop !== 'theme' 
-							&& prop !== 'id' 
-							&& prop !== 'Téléphone' 
-							&& prop !== 'Géolocalisation(s)'
-							&& prop !== 'CNRS (Oui/Non)'
-							&& prop !== 'Code Unité'
-							&& prop !== 'Courriel Direction'
-							&& prop !== 'MENESR (Oui/Non)'
-							&& prop !== 'Site Web'
-							&& prop !== 'Commentaires'
-							&& prop !== 'Courriel de l\'Ecole doctorale'
-							&& prop !== 'Nombre de doctorants'
-							&& prop !== 'Nombre de doctorants en science politique'
-							&& prop !== 'Nombre de thèses soutenues en 2015'
-							&& prop !== 'Effectif total'
-							&& prop !== 'Lien vers la page "personnel" sur le site Web du centre'
-							&& prop !== 'Personnels non permanents'
-							&& prop !== '') {
-
-							content = content.replace(/.,:;'`/g , ' ');
-							content = content.split(' ');
-							allWords = allWords.concat(content);
-						}
-					})
-				})
-			});
-
-			allWords = _.uniq(allWords);
-			allWords = allWords.filter(function (d) {
-				return d.length > 2;
-			});
 			
-			$scope.allWords = allWords;
+			$scope.allWords = result.allWords;
 			
-			// create slug for all props -> to script csv to json
-			var allProps = [];
-			_.forIn(result, function(tab, center) {
-				_.forIn(tab, function(contentTab, tabName){
-					_.forIn(contentTab, function(content, prop){
-						var id = center + '_' + tabName + '_' + prop;
-						if (prop !== 'adressesGeo' && prop !== 'theme' && prop !== 'id')
-							allProps.push({content: content, id: id });
-					})
-				})
-			});
-
 			var index = Elasticlunr(function () {
 				this.addField('content');
 			});
 
-			_.forEach(allProps, function(d) {
+			_.forEach(result.allProps, function(d) {
 				index.addDoc(d);
 			});
 
@@ -194,6 +133,8 @@ angular.module('bib.controller.home', [])
 						resultWithPath = [],
 						updateMarkers = [];
 
+					console.log("searchResult", searchResult);
+
 					_.forEach(searchResult, function(d) {
 						if (d) {
 							var searchPath = d.ref.split('_');
@@ -209,14 +150,14 @@ angular.module('bib.controller.home', [])
 					resultWithPath = _.groupBy(resultWithPath, 'id');
 					var resultWithPathBis = []
 					_.forIn(resultWithPath, function(v, k) {
-						resultWithPathBis.push({center: result[k], search: v})
+						resultWithPathBis.push({center: result.allCenters[k], search: v})
 					})
 
 					$scope.allCenters = resultWithPathBis;
 
 					var listCentersFiltered = {};
 					_.forEach(updateMarkers, function(d) {
-						listCentersFiltered[d] = result[d];
+						listCentersFiltered[d] = result.allCenters[d];
 					})
 
 					allMarkers = {};
@@ -392,8 +333,8 @@ angular.module('bib.controller.home', [])
 
 							$scope.allCenters = [];
 							centersInMap.forEach(function (d) {
-								if (result[d]) {
-									$scope.allCenters.push({center: result[d]});
+								if (result.allCenters[d]) {
+									$scope.allCenters.push({center: result.allCenters[d]});
 								}
 							})
 						})
