@@ -185,13 +185,19 @@ console.log("list of all words in data created");
 // create slug for all props -> to script csv to json
 var allProps = [];
 lodash.forIn(allCenters, function(tab, center) {
-	console.log("center", center);
+	
 	lodash.forIn(tab, function(contentTab, tabName){
-		console.log("contentTab", contentTab);
+		
 		lodash.forIn(contentTab, function(content, prop){
 			if (prop === 'Intitulé (centre ou unité de recherche)' || prop === 'Sigle ou acronyme' || prop === 'Ville' || prop === 'Etablissements de rattachement' || prop === 'Axes de recherche' || prop === 'Acronyme (nom court)') {
-				//console.log("prop slug", prop);
+
 				var id = center + '_' + tabName + '_' + prop;
+
+				if (Array.isArray(content)) {
+					lodash.forEach(content, function(d) {
+						allProps.push({content: d, id: id });
+					})
+				}
 				allProps.push({content: content, id: id });
 			}
 		})
@@ -209,6 +215,8 @@ data.allProps = allProps;
 data = JSON.stringify(data);
 
 console.log("allCenters stringify");
+console.log("There are : ", allWords.length, " unique words.");
+console.log("There are : ", allProps.length, " unique contents indexed.");
 
 //write data in file
 fs.writeFile('data.json', data);
