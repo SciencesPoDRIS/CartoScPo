@@ -33,7 +33,9 @@ gulp.task('js', function() {
       'bower_components/d3/d3.min.js',
       'bower_components/papaparse/papaparse/min.js',
       'bower_components/elasticlunr/elasticlunr.js',
-      'bower_components/showdown/src/showdown.js'
+      'bower_components/showdown/src/showdown.js',
+      'bower_components/angular-ui-grid/ui-grid.min.js',
+      'bower_components/angular-touch/angular-touch.min.js'
       ],
       {base: 'bower_components/'}
     )
@@ -48,7 +50,8 @@ gulp.task('css', function() {
         'bower_components/angular-ui-select/dist/select.css',
         'bower_components/ng-grid/ng-grid.css',
         'bower_components/angular-loading-bar/build/loading-bar.css',
-        'bower_components/leaflet/dist/leaflet.css'
+        'bower_components/leaflet/dist/leaflet.css',
+        'bower_components/angular-ui-grid/ui-grid.min.css'
       ],
       {base: 'bower_components/'}
     )

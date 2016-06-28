@@ -10,13 +10,14 @@
       <a class="navbar-brand" href="/#/">Sciences Po Bibliothèque</a>
     </div>
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="view in views" ng-class="{ active: isActive('/' + view.slug)}"><a href="#/{{view.slug}}">{{view.label}}</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
+     <!--  <ul class="nav navbar-nav navbar-right">
+        <li style="float:right"><a href="/#/donnees">Accès aux données</a></li>
         <li style="float:right"><a href="#/">Contact</a></li>
         <li style="float:right"><a href="#/">Méthodologie</a></li>
         <li style="float:right"><a href="#/">Réglages</a></li>
+      </ul> -->
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-repeat="view in views" ng-class="{ active: isActive('/' + view.slug)}"><a href="#/{{view.slug}}" style="float:right">{{view.label}}</a></li>
       </ul>
     </div>
   </div>

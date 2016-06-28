@@ -8,9 +8,11 @@ angular.module('bib', [
   'ngAnimate',
   'ngSanitize',
   'ui.bootstrap',
-  'ngGrid',
+  'ngTouch',
+  // 'ngGrid', 
   // 'ui.select',
   // 'angular-loading-bar',
+  'ui.grid',
   'angulartics',
   'angulartics.google.analytics',
   'nemLogging',
@@ -18,7 +20,9 @@ angular.module('bib', [
   'bib.services',
   'bib.directives',
   'bib.controller.navbar',
-  'bib.controller.home'
+  'bib.controller.home',
+  'bib.controller.data',
+  'map.service'
   ])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -27,10 +31,11 @@ angular.module('bib', [
   	templateUrl: 'views/home.html',
     controller: 'home'
   });
-  // $routeProvider.when('/home', {
-  //   templateUrl: 'views/home.html',
-  //   controller: 'home'
-  // });
+  $routeProvider.when('/donnees', {
+
+    templateUrl: 'views/data.html',
+    controller: 'data'
+  });
  
   $routeProvider.otherwise({redirectTo: '/'});
 }])

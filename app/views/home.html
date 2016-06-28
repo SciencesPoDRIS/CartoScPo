@@ -25,6 +25,9 @@
 
     	<!-- Centers list -->
 	    <div id="listCenters" class="col-md-6 centersList" >
+	    	<div style="float:right;">
+	    		Nombre de centres :{{allCenters.length}}
+	    	</div>
 	    	<div id="searchTextResults" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)" ng-class="{selected : key === idSelectedCenter}">
 	    		<h4>{{value.center.administration['Intitulé']}}</h4>
 	    		<p>{{value.center.administration['Ville']}}</p>
@@ -51,30 +54,36 @@
     </div>
 
     <!-- Navigation in list -->
-    <div id="centerNavigation">
+    <div id="centerNavigation" class="row">
+    <div class="col-md-4">
+    	
 	    <button id="precedentCenter" type="button" class="btn btn-primary" ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{precedentCenter.center.administration['Intitulé']}}</button>
+    </div>
 
+	    <h3 class="col-md-4" style="text-align:center;">
+	    	{{currentCenter}}
+	    </h3>
+	 <div class="col-md-4">
+	 	
 	    <button id="nextCenter" type="button" class="btn btn-primary" ng-model="nextCenter" ng-click="goNextCenter(nextCenter)">{{nextCenter.center.administration['Intitulé']}} > </button>
+	 </div>
     </div>
 
     <!-- Center selected details -->
     <div id="centerDetails" class="row" ng-show="centerActive">
-		<div style="float:right" ng-click="centerDesactivate()">
-			X
+		<div style="float:right" >
+			<button class="btn btn-success btn-lg" type="submit" ng-click="centerDesactivate()">Fermer la fiche du centre</button>
 		</div>
 		<tabs>
 		    <pane title="Administration" class="tabsContent">
 		        <div>
-			        <h2>Administratif</h2>
-			        	<p>Paris</p>
-				      	<p>{{administration['CNRS']}}</p>
-			    		<p>Année de création : {{administration['Année de création']}}</p>
-			    		<p>Historique : {{administration['Historique']}}</p>
+			      	<p>{{administration['CNRS']}}</p>
+		    		<p>Année de création : {{administration['Année de création']}}</p>
+		    		<p>Historique : {{administration['Historique']}}</p>
 		        </div>
 		    </pane>
 		    <pane title="Personnel" class="tabsContent">
 		        <div>
-		    	  	<h2>Personnel</h2>
 		    		<p>Effectif total : {{ personnel['Effectif total'] }}</p>
 		    		<p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
 		    		<p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
