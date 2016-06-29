@@ -39,7 +39,8 @@
     "elasticlunr.js": "0.8.2",
     "jquery-highlight": "^3.3.0",
     "angular-ui-grid": "^3.2.1",
-    "angular-touch": "^1.5.7"
+    "angular-touch": "^1.5.7",
+    "jquery.scrollTo": "^2.1.2"
   },
   "resolutions": {
     "angular": "1.x"
