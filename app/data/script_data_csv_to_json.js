@@ -119,24 +119,44 @@ lodash.forIn(allCenters, function (v, k) {
 	v.recherche = recherche;
 })
 
+function cleanWord(content) {
+	content = content.replace(/ /gi , ' ');
+	content = content.replace(/\,/gi , ' ');
+	content = content.replace(', ' , ' ');
+	content = content.replace(/,/g , ' ');
+	content = content.replace(/\:/gi , ' ');
+	content = content.replace(': ' , ' ');
+	content = content.replace(/\;/gi , ' ');
+	content = content.replace('; ' , ' ');
+	content = content.replace('-' , ' ');
+	content = content.replace('(' , ' ');
+	content = content.replace(/\)/gi, ' ');
+	content = content.replace('\n' , ' ');
+	content = content.replace('\/' , ' ');
+	content = content.replace(/#/gi , ' ');
+	content = content.replace(/\./gi , ' ');
+	//content = content.replace(/\*/gi , ' ');
 
+	return content;
+}
 
 console.log("allCenters Done");
 // convert to json
-// create list of all words -> script csv to json
+// create list of all words 
 var allWords = [];
 lodash.forIn(allCenters, function(tab, center) {
 	lodash.forIn(tab, function(contentTab, tabName){
 		lodash.forIn(contentTab, function(content, prop){
 			
 			if (Array.isArray(content) && prop !== 'adressesGeo') {
-				//console.log("content 1", content)
+
 				var arrayContent = '';
-				//console.log("prop in content", prop);
+
 				lodash.forEach(content, function (d) {
 					// create a long string of all axes
 					arrayContent = arrayContent + ' ' + d + ' ';
 				})
+				arrayContent = cleanWord(arrayContent);
 				arrayContent = arrayContent.split(' ');
 				allWords = allWords.concat(arrayContent);
 			}
@@ -148,24 +168,9 @@ lodash.forIn(allCenters, function(tab, center) {
 				|| prop === 'Acronyme (nom court)' 
 				) {
 
-				//console.log("prop alone", prop);
-				//console.log("content before \n", content, '\n');
-				content = content.replace(/ /gi , ' ');
-				content = content.replace(/\,/gi , ' ');
-				content = content.replace(', ' , ' ');
-				content = content.replace(/\:/gi , ' ');
-				content = content.replace(': ' , ' ');
-				content = content.replace(/\;/gi , ' ');
-				content = content.replace('; ' , ' ');
-				content = content.replace('-' , ' ');
-				content = content.replace('(' , ' ');
-				content = content.replace(')' , ' ');
-				content = content.replace('\n' , ' ');
-				content = content.replace('\/' , ' ');
-				content = content.replace(/#/gi , ' ');
-				content = content.replace(/\./gi , ' ');
+				content = cleanWord(content);
 				content = content.split(' ');
-				//console.log("content after \n", content);
+
 				allWords = allWords.concat(content);
 			}
 			else {
