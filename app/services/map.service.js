@@ -1,8 +1,6 @@
 angular.module('map.service', [])
   .factory('mapService', function() {
 
-   	
-
     return {
 		createMarkers: function (v, allMarkers) {
 			function fixIconSize(v) {
@@ -34,7 +32,6 @@ angular.module('map.service', [])
 
 						// adjust icon size with 4 differents class (0-20, 20-40, 40-80, +80)
 						var iconSize = fixIconSize(v);
-						console.log("iconSize", iconSize);
 
 						// two icons type : principal & secondaire
 						var local_icons = { 
@@ -58,6 +55,7 @@ angular.module('map.service', [])
 						id = id.replace(/ /g, '');
 						// create all markers
 						allMarkers[v.administration['id']] = {
+							group: 'France',
 							lat: a.lat,
 			                lng: a.lon,
 			                message: v.administration['Intitulé'],
@@ -69,7 +67,66 @@ angular.module('map.service', [])
 					})
 				}	
 			}	
+		},
+		displayCenterSelected: function (item, key, $scope, leafletData, $sce) {
+				// display details of center	            	
+	            	$scope.centerActive = true;
+				// convert markdown to html
+				var converter = new Showdown.converter();
+
+				// bind center's data to tabs
+				if (item.center) {
+					$scope.administration = item.center.administration;
+
+					$scope.personnel = item.center.personnel;
+					$scope.ecole = item.center.ecole;
+					$scope.recherche = item.center.recherche;
+					$scope.axes = item.center.recherche['Axes de recherche'];
+					
+					var axes = ''
+					_.forEach($scope.axes, function (d) {
+						//console.log("d", d);
+						d = d.replace(':', ' : \n');
+						axes = axes.concat(d) + ' \n';
+					})
+					// console.log("axes", axes);
+					$scope.axes = converter.makeHtml(axes)
+					//$scope.axes = axes;
+					//console.log("$scope.axes", $scope.axes);
+					$scope.contrats = item.center.recherche['Contrats de recherche'];
+					//console.log("$scope.contrats", $scope.contrats);
+					// var contrats = ''
+					// _.forEach($scope.contrats, function (d) {
+					// 	console.log("d", d);
+					// 	d = d.replace(':', ' : \n');
+					// 	contrats = contrats.concat(d) + ' \n';
+					// })
+					// // console.log("contrats", contrats);
+					// $scope.contrats = converter.makeHtml(contrats)
+					$scope.section = item.center.recherche['Sections CNRS'];
+					$scope.seminaires = item.center.recherche['Séminaires de recherche'];
+				}
+
+				// highlight center in list
+				// $scope.idSelectedCenter = null;
+		        $scope.idSelectedCenter = key;
+
+				// open popup of center selected
+		        leafletData.getMap().then(function(map) {
+					var latlng = L.latLng(item.center.administration.adressesGeo[0].lat, item.center.administration.adressesGeo[0].lon);
+					var popup = L.popup()
+					    .setLatLng(latlng)
+					    .setContent(item.center.administration['Intitulé'])
+					    .openOn(map);
+				})
+
+		        // highlight search in fulltxt
+				$scope.highlight = function(text, search) {
+				    if (!search) {
+				        return $sce.trustAsHtml(text);
+				    }
+				    return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
+				};
 		}
    	}
-
 })	

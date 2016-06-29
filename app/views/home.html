@@ -24,13 +24,14 @@
     <div id="listAndMap" class="row">
 
     	<!-- Centers list -->
+    	<div style="float:right;">
+    		Nombre de centres :{{allCenters.length}}
+    	</div>
 	    <div id="listCenters" class="col-md-6 centersList" >
-	    	<div style="float:right;">
-	    		Nombre de centres :{{allCenters.length}}
-	    	</div>
-	    	<div id="searchTextResults" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)" ng-class="{selected : key === idSelectedCenter}">
+	    	<div id="{{$index}}" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)" ng-class="{selected : key === idSelectedCenter}">
 	    		<h4>{{value.center.administration['Intitulé']}}</h4>
 	    		<p>{{value.center.administration['Ville']}}</p>
+	    		<p>{{value.center.administration['Adresse(s)']}}</p>
 	    		<div ng-show="value.search" >
 		        	<ul ng-repeat="item in value.search">
 		        		<li>{{item.tab}} > {{item.prop}}</li>
@@ -71,9 +72,9 @@
 
     <!-- Center selected details -->
     <div id="centerDetails" class="row" ng-show="centerActive">
-		<div style="float:right" >
+		<!-- <div style="float:right" >
 			<button class="btn btn-success btn-lg" type="submit" ng-click="centerDesactivate()">Fermer la fiche du centre</button>
-		</div>
+		</div> -->
 		<tabs>
 		    <pane title="Administration" class="tabsContent">
 		        <div>

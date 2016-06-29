@@ -6,10 +6,10 @@
  */
 
 angular.module('bib.controller.home', [])
-  .controller('home', [ "$scope", "$location", "utils", "fileService", 
+  .controller('home', [ "$scope", "$location", "$anchorScroll", "utils", "fileService", 
   	"$http", "_", "leafletMarkerEvents", "leafletMapEvents", 
   	"$interpolate", "leafletData", "Elasticlunr", '$sce', 'mapService',
-  	function ($scope, $location, utils, fileService, $http, _, 
+  	function ($scope, $location, $anchorScroll, utils, fileService, $http, _, 
   		leafletMarkerEvents, leafletMapEvents, $interpolate, 
   		leafletData, Elasticlunr, $sce, mapService) {
 
@@ -55,9 +55,7 @@ angular.module('bib.controller.home', [])
 			 _.forEach($scope.allCenters, function (v, k) {
 			 	$scope.keyInList[v.administration.id] = k
 			})
-
-			console.log("$scope.keyInList", $scope.keyInList);
-			
+		
 			// create scope with all words from data
 			$scope.allWords = result.allWords;
 			
@@ -159,68 +157,6 @@ angular.module('bib.controller.home', [])
 				});	
 			}
 
-			// display center's details
-			function displayCenterSelected(item, key) {
-
-				// convert markdown to html
-				var converter = new Showdown.converter();
-
-				// bind center's data to tabs
-				if (item.center.administration['Code Unité']) {
-					$scope.administration = item.center.administration;
-					$scope.personnel = item.center.personnel;
-					$scope.ecole = item.center.ecole;
-					$scope.recherche = item.center.recherche;
-					$scope.axes = item.center.recherche['Axes de recherche'];
-					var axes = ''
-					_.forEach($scope.axes, function (d) {
-						//console.log("d", d);
-						d = d.replace(':', ' : \n');
-						axes = axes.concat(d) + ' \n';
-					})
-					// console.log("axes", axes);
-					$scope.axes = converter.makeHtml(axes)
-					//$scope.axes = axes;
-					//console.log("$scope.axes", $scope.axes);
-					$scope.contrats = item.center.recherche['Contrats de recherche'];
-					//console.log("$scope.contrats", $scope.contrats);
-					// var contrats = ''
-					// _.forEach($scope.contrats, function (d) {
-					// 	console.log("d", d);
-					// 	d = d.replace(':', ' : \n');
-					// 	contrats = contrats.concat(d) + ' \n';
-					// })
-					// // console.log("contrats", contrats);
-					// $scope.contrats = converter.makeHtml(contrats)
-					$scope.section = item.center.recherche['Sections CNRS'];
-					$scope.seminaires = item.center.recherche['Séminaires de recherche'];
-				}
-
-				// highlight center in list
-				$scope.idSelectedCenter = null;
-		        $scope.idSelectedCenter = key;
-
-
-		        console.log("$scope.idSelectedCenter 1", $scope.idSelectedCenter);
-		        
-				//open popup of center selected
-		        leafletData.getMap().then(function(map) {
-					var latlng = L.latLng(item.center.administration.adressesGeo[0].lat, item.center.administration.adressesGeo[0].lon);
-					var popup = L.popup()
-					    .setLatLng(latlng)
-					    .setContent(item.center.administration['Intitulé'])
-					    .openOn(map);
-				})
-
-		        //highlight search in fulltxt
-				$scope.highlight = function(text, search) {
-				    if (!search) {
-				        return $sce.trustAsHtml(text);
-				    }
-				    return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
-				};
-			}
-
 			// Active tabs
 			$scope.displayCenter = function(key, item) {
 
@@ -228,11 +164,10 @@ angular.module('bib.controller.home', [])
 				$scope.centerActive = true;
 
 				//display details center & tooltip on map
-				displayCenterSelected(item, key)
+				mapService.displayCenterSelected(item, key, $scope, leafletData, $sce);
 				// updated navigation'centers buttons
 				if (key !== 0) {
 					$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
-					console.log("$scope.precedentCenter", $scope.precedentCenter);
 				}
 				if (key < $scope.allCenters.length) {
 					$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
@@ -276,7 +211,7 @@ angular.module('bib.controller.home', [])
 			// Center navigation with buttons
 			$scope.goPrecedentCenter = function(item) {
 				var key = item.key;
-				displayCenterSelected(item, key)
+				mapService.displayCenterSelected($scope.allCenters[key], key, $scope, leafletData, $sce);
 				if (key !== 0 && $scope.allCenters && $scope.allCenters.length > 1) {
 					$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
 				}
@@ -284,12 +219,12 @@ angular.module('bib.controller.home', [])
 					$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
 				}
 				$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
-				console.log("$scope.currentCenter", $scope.currentCenter);
+				$("#listCenters").scrollTo($('#' + key));
 			};
 
 			$scope.goNextCenter = function(item) {
 				var key = item.key;
-				displayCenterSelected(item, key)
+				mapService.displayCenterSelected($scope.allCenters[key], key, $scope, leafletData, $sce);
 				if (key !== 0) {
 					$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
 				}
@@ -298,6 +233,7 @@ angular.module('bib.controller.home', [])
 				}
 
 				$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
+				$("#listCenters").scrollTo($('#' + key));
 			};
 
 			// refresh list from zoom
@@ -312,7 +248,6 @@ angular.module('bib.controller.home', [])
 			        	leafletData.getMap().then(function(map) {
 
 			        		// desactivate center selected 
-			        		$scope.centerActive = false;
 			        		$scope.nextCenter = null;
 			        		$scope.precedentCenter = null;
 			        		$scope.idSelectedCenter = null;
@@ -450,24 +385,34 @@ angular.module('bib.controller.home', [])
 	            $scope.eventDetected = event.name;
 
 	            if ($scope.eventDetected === "leafletDirectiveMarker.click") {
-	            	// display details of center	            	
-	            	$scope.centerActive = true;
-
+	            	console.log("args.leafletEvent.target", args.leafletEvent.target);
 	            	// open popup
 	            	args.leafletEvent.target.openPopup();
 
 	            	// hightlight center in list
-	            	console.log("args.leafletEvent.target.options", args.leafletEvent.target.options);
 		       		var centerId = args.leafletEvent.target.options.id;
-		  
-		       		console.log("$scope.keyInList", $scope.keyInList);
 		       		$scope.idSelectedCenter = $scope.keyInList[centerId];
-		       		console.log("$scope.idSelectedCenter", $scope.idSelectedCenter);
-	            }
+
+		       		var key = $scope.idSelectedCenter;
+		       		$scope.key = key;
+		       		console.log("key", key);
+
+					mapService.displayCenterSelected($scope.allCenters[key], key, $scope, leafletData, $sce);
+					
+					$("#listCenters").scrollTo($('#' + key));
+				    // update navigation controls
+					if (key !== 0) {
+						$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
+					}
+					if (key < $scope.allCenters.length) {
+						$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
+					}
+
+					$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
+		            }
 
 	            if ($scope.eventDetected === "leafletDirectiveMarker.mouseout") {
 	            	args.leafletEvent.target.closePopup();
-
 	            }
 	        });
 	    }
