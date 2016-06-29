@@ -46,14 +46,19 @@ angular.module('bib.controller.home', [])
 			var immutableAllCenters = [];
 			_.forIn(result.allCenters, function(v, k) {
 				if (v.administration) {
+					//console.log("v", v);
 					$scope.allCenters.push(v);
 					immutableAllCenters.push({center: v});
 				}
 			});
 
+			console.log("immutableAllCenters 1", immutableAllCenters);
+
 			$scope.keyInList =  {};
 			 _.forEach($scope.allCenters, function (v, k) {
-			 	$scope.keyInList[v.administration.id] = k
+			 	var id = v.administration['id'].trim();
+					id = id.replace(/ /g, '');
+			 	$scope.keyInList[id] = k;
 			})
 		
 			// create scope with all words from data
@@ -70,8 +75,32 @@ angular.module('bib.controller.home', [])
 
 			// if no word in input display allcenters
 			if (!$scope.filterSearch) {
+				console.log("here 2")
 				$scope.allCenters = immutableAllCenters;
 			}
+
+			$scope.startsWith = function(state, viewValue) {
+              return state.substr(0, viewValue.length).toLowerCase() == viewValue.toLowerCase();
+            }
+
+            $scope.resetFilter = function() {
+            	$scope.filterSearch = '';
+
+            	$scope.allCenters = immutableAllCenters;
+
+            	//get allCenters
+				var listCentersFiltered = {};
+				_.forIn(result.allCenters, function(v, k) {
+					listCentersFiltered[k] = v;
+				});
+
+				// get all markers
+				allMarkers = {};
+				_.forIn(listCentersFiltered, function(v, k) {
+					mapService.createMarkers(v, allMarkers);
+				});
+				updateMapFromList();
+            }
 
 			// sort list by input search
 			$scope.showNameChanged = function() {
@@ -81,9 +110,20 @@ angular.module('bib.controller.home', [])
 					$scope.allCenters = immutableAllCenters;
 				}
 				else {
-					var searchResult = index.search($scope.filterSearch),
-						resultWithPath = [],
+					console.log("$scope.filterSearch", $scope.filterSearch);
+
+					var searchResult = index.search($scope.filterSearch, {
+						    fields: {
+						        "content": {"boost": 2}
+						    },
+						    bool: "OR",
+						    expand: true
+						});
+
+					var	resultWithPath = [],
 						updateMarkers = [];
+
+					console.log("searchResult", searchResult);
 
 					_.forEach(searchResult, function(d) {
 						if (d) {
@@ -110,9 +150,9 @@ angular.module('bib.controller.home', [])
 					//create index of center in list
 					$scope.keyInList =  {};
 					 _.forEach($scope.allCenters, function (v, k) {
-					 	console.log("v", v, k);
+					 	//console.log("v", v, k);
 					 	if (v) {
-					 		console.log("v.search[0].id", v.search[0].id);
+					 		//console.log("v.search[0].id", v.search[0].id);
 					 		$scope.keyInList[v.search[0].id] = k;
 					 	}
 					});
@@ -126,15 +166,17 @@ angular.module('bib.controller.home', [])
 
 					allMarkers = {};
 					_.forIn(listCentersFiltered, function(v, k) {
-						mapService.createMarkers(v);
+						mapService.createMarkers(v, allMarkers);
 					});
 
 					updateMapFromList();
+					console.log("here");
 				}
 			}
 
 			// desactive tabs
 			function updateMapFromList() {
+				console.log("allMarkers 2", allMarkers);
 				$scope.centerActive = false;
 				angular.extend($scope, {
 					center: {
@@ -269,7 +311,8 @@ angular.module('bib.controller.home', [])
 									&& mapSouthWestLng <= v.lng &&  v.lng <= mapNorthEastLng ) {
 									centersInMap.push(k)
 								}
-							})
+							});
+							console.log("centersInMap", centersInMap);
 
 							// create list of centers
 							// make a service for this function
@@ -278,7 +321,18 @@ angular.module('bib.controller.home', [])
 								if (result.allCenters[d]) {
 									$scope.allCenters.push({center: result.allCenters[d]});
 								}
-							})
+							});
+
+							// create keyInList
+							console.log("allCenters zoom", $scope.allCenters);
+							$scope.keyInList =  {};
+							 _.forEach($scope.allCenters, function (v, k) {
+							 	console.log("v", v);
+							 	var id = v.center.administration['id'].trim();
+									id = id.replace(/ /g, '');
+							 	$scope.keyInList[id] = k;
+							});
+							console.log("$scope.keyInList", $scope.keyInList);
 						})
 		    		}
 		        });
@@ -391,11 +445,15 @@ angular.module('bib.controller.home', [])
 
 	            	// hightlight center in list
 		       		var centerId = args.leafletEvent.target.options.id;
+
+		       		console.log("keyInList", $scope.keyInList);
 		       		$scope.idSelectedCenter = $scope.keyInList[centerId];
 
 		       		var key = $scope.idSelectedCenter;
 		       		$scope.key = key;
 		       		console.log("key", key);
+
+		       		console.log("$scope.allCenters", $scope.allCenters);
 
 					mapService.displayCenterSelected($scope.allCenters[key], key, $scope, leafletData, $sce);
 					

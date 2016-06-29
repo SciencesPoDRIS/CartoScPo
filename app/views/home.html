@@ -9,14 +9,19 @@
 	    		Une étude menée par la bibliothèque de Sciences Po Paris
 	    	</p>
 	    </div>
+
     </div>
   	<hr/>
 
   	<!-- Search bar -->
     <div class="row">
     	<div id="search" class="col-md-4 col-md-offset-2" >
-	    	<input type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch"  typeahead="word for word in allWords | filter:$viewValue | limitTo:8">
+	    	<input type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch"  typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
 	    	<button class="btn btn-success btn-lg" type="submit" ng-click="showNameChanged()">Rechercher</button>
+	    	<button class="btn btn-success btn-lg" type="submit" ng-click="resetFilter()">Annuler</button>
+    	</div>
+    	<div class="col-md-6" style="float:left;">
+    		<h3>Nombre de centres trouvés : {{allCenters.length}}</h3>
     	</div>
     </div>
     <hr>
@@ -24,9 +29,6 @@
     <div id="listAndMap" class="row">
 
     	<!-- Centers list -->
-    	<div style="float:right;">
-    		Nombre de centres :{{allCenters.length}}
-    	</div>
 	    <div id="listCenters" class="col-md-6 centersList" >
 	    	<div id="{{$index}}" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)" ng-class="{selected : key === idSelectedCenter}">
 	    		<h4>{{value.center.administration['Intitulé']}}</h4>
@@ -37,7 +39,7 @@
 		        		<li>{{item.tab}} > {{item.prop}}</li>
 		        	</ul>
 	    		</div>
-	    		<hr>
+	    		</br>
 	    	</div>
 	    </div>
 
@@ -126,7 +128,10 @@
 		        </div>
 		        <div class="col-md-6">
 		        	<p>Evaluations : {{ recherche['Evaluations'] }}</p>
-		        	<p>Mots-clés sujet selon l'annuaire du MENESR : {{ recherche['Mots-clés sujet selon l\'annuaire du MENESR'] }}</p>
+		        	<p>Mots-clés sujet selon l'annuaire du MENESR : </p>
+		        	<ul ng-repeat="item in annuaire track by $index">
+		        		<li>{{item}}</li>
+		        	</ul>
 		        	<p>Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l'annuaire du MENESR : {{ recherche['Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l\'annuaire du MENESR'] }}</p>
 		        	<p>Sections CNRS : </p>
 		        	<ul ng-repeat="item in section">

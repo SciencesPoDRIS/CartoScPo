@@ -53,6 +53,8 @@ angular.module('map.service', [])
 						
 						var id = v.administration['id'].trim();
 						id = id.replace(/ /g, '');
+
+						
 						// create all markers
 						allMarkers[v.administration['id']] = {
 							group: 'France',
@@ -69,8 +71,9 @@ angular.module('map.service', [])
 			}	
 		},
 		displayCenterSelected: function (item, key, $scope, leafletData, $sce) {
+				console.log("item", item);
 				// display details of center	            	
-	            	$scope.centerActive = true;
+	            $scope.centerActive = true;
 				// convert markdown to html
 				var converter = new Showdown.converter();
 
@@ -82,6 +85,8 @@ angular.module('map.service', [])
 					$scope.ecole = item.center.ecole;
 					$scope.recherche = item.center.recherche;
 					$scope.axes = item.center.recherche['Axes de recherche'];
+					$scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
+					$scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR']
 					
 					var axes = ''
 					_.forEach($scope.axes, function (d) {
