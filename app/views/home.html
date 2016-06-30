@@ -15,12 +15,12 @@
 
   	<!-- Search bar -->
     <div class="row">
-    	<div id="search" class="col-md-4 col-md-offset-2" >
+    	<div id="search" class="col-md-6 col-md-offset-2" >
 	    	<input type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch"  typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
 	    	<button class="btn btn-success btn-lg" type="submit" ng-click="showNameChanged()">Rechercher</button>
 	    	<button class="btn btn-success btn-lg" type="submit" ng-click="resetFilter()">Annuler</button>
     	</div>
-    	<div class="col-md-6" style="float:left;">
+    	<div class="col-md-4" style="float:left;">
     		<h3>Nombre de centres trouvés : {{allCenters.length}}</h3>
     	</div>
     </div>
@@ -106,42 +106,58 @@
 		      		<p>Numéro d'Ecole Doctorale : {{ ecole['Numéro d\'Ecole Doctorale']}}</p>
 		        </div>
 		    </pane>
-		    <pane title="Thématiques de recherche" class="tabsContent">
+		    <pane title="Thématiques de recherche" class="tabsContent ">
 		        <div class="row">
-		        <div class="col-md-6">
-		        	<p>Axes de recherche</p>
+			        <div class="col-md-6 colTab" >
 
-		        	<div ng-bind-html="highlight(axes, filterSearch)"">
-		        		
-		        	</div>
-		        	<!-- <ul ng-repeat="item in axes ">
-		        		<li>{{item}}</li>
-		        	</ul> -->
-		        	<p>Collaborations / réseaux : {{ recherche['Collaborations / réseaux'] }}</p>
-		        	<p>Contrats de recherche : </p>
-		        	<ul ng-repeat="item in contrats">
-		        		<li>{{item}}</li>
-		        	</ul>
-		        	<p>Discipline principale selon l'annuaire du MENESR : {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</p>
-		        	<p>Disciplines secondaires selon l'annuaire du MENESR : {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</p>
-		        	
-		        </div>
-		        <div class="col-md-6">
-		        	<p>Evaluations : {{ recherche['Evaluations'] }}</p>
-		        	<p>Mots-clés sujet selon l'annuaire du MENESR : </p>
-		        	<ul ng-repeat="item in annuaire track by $index">
-		        		<li>{{item}}</li>
-		        	</ul>
-		        	<p>Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l'annuaire du MENESR : {{ recherche['Science Politique comme discipline principale / Science Politique comme discipline secondaire selon l\'annuaire du MENESR'] }}</p>
-		        	<p>Sections CNRS : </p>
-		        	<ul ng-repeat="item in section">
-		        		<li>{{item}}</li>
-		        	</ul>
-		        	<p>Séminaires de recherche :</p>
-		        	<ul ng-repeat="item in seminaires">
-		        		<li>{{item}}</li>
-		        	</ul>
-		        </div>
+			        	<h1 class="titleProps">Axes de recherche</h1>
+
+			        		<div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
+			        		
+			        	</div>
+			        	<!-- <ul ng-repeat="item in axes ">
+			        		<li>{{item}}</li>
+			        	</ul> -->
+			        	<h1 class="titleProps">Collaborations / réseaux</h1>
+			        	{{ recherche['Collaborations / réseaux'] }}
+			        	<h1 class="titleProps">Contrats de recherche</h1>
+			        	<ul ng-repeat="item in contrats">
+			        		<li>{{item}}</li>
+			        	</ul>
+			        	<h1 class="titleProps">Evaluations</h1>
+			        	{{ recherche['Evaluations'] }}
+			        	<h1 class="titleProps">Séminaires de recherche</h1>
+			        	<ul ng-repeat="item in seminaires">
+			        		<li>{{item}}</li>
+			        	</ul>
+			        	
+			        </div>
+			        <div class="col-md-6 colTab" >
+				        <h1 class="titleProps">Sections CNRS</h1>
+				        	<ul ng-repeat="item in section">
+				        		<li>{{item}}</li>
+				        	</ul>
+
+				        <h1 class="titleProps">Annuaire du MENESR</h1>
+
+				        <h2 class="disciplinePrincipale"> {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</h2>
+			        	
+			        	
+			        	
+
+			        	<h2 class="disciplineSecondaire">
+			        		{{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
+			        	
+			        	
+			        	<!-- <ul ng-repeat="item in annuaire track by $index">
+			        		<li>{{item}}</li>
+			        	</ul> -->
+			        	<h2>Mots clefs : {{recherche['Mots-clés sujet selon l\'annuaire du MENESR']}}</h2>
+			        	
+			        	
+			  
+			        	
+			        </div>
 		        </div>
 		    </pane>
 		  </tabs>

@@ -87,6 +87,7 @@ angular.module('map.service', [])
 					$scope.axes = item.center.recherche['Axes de recherche'];
 					$scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
 					$scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR']
+					$scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR']
 					
 					var axes = ''
 					_.forEach($scope.axes, function (d) {

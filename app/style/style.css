@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    font-family: 'merriweather', 'Georgia', serif;
+    font-family: 'montserrat', 'Arial', sans-serif;
     margin-bottom: 60px;
 }
 
@@ -239,7 +239,42 @@ body > .container {
   padding : 5px 15px;
 }
 
-.active {
+/*.active {
     background: grey;
 }
+*/
+.titleProps {
+  font-size: 22px;
+  text-align: center;
+  background-color: lightgrey;
+}
+.recherche > h1 {
+  font-size: 18px;
+}
+
+.recherche > h2 {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.recherche > h3 {
+  font-size: 14px;
+  padding-left: 20px;
+}
+
+.colTab {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.disciplinePrincipale {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.disciplineSecondaire {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 
