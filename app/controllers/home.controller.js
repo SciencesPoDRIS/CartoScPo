@@ -312,7 +312,7 @@ angular.module('bib.controller.home', [])
 									centersInMap.push(k)
 								}
 							});
-							console.log("centersInMap", centersInMap);
+							//console.log("centersInMap", centersInMap);
 
 							// create list of centers
 							// make a service for this function
@@ -324,15 +324,15 @@ angular.module('bib.controller.home', [])
 							});
 
 							// create keyInList
-							console.log("allCenters zoom", $scope.allCenters);
+							//console.log("allCenters zoom", $scope.allCenters);
 							$scope.keyInList =  {};
 							 _.forEach($scope.allCenters, function (v, k) {
-							 	console.log("v", v);
+							 	//console.log("v", v);
 							 	var id = v.center.administration['id'].trim();
 									id = id.replace(/ /g, '');
 							 	$scope.keyInList[id] = k;
 							});
-							console.log("$scope.keyInList", $scope.keyInList);
+							//console.log("$scope.keyInList", $scope.keyInList);
 						})
 		    		}
 		        });

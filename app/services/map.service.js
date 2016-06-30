@@ -74,6 +74,7 @@ angular.module('map.service', [])
 				console.log("item", item);
 				// display details of center	            	
 	            $scope.centerActive = true;
+
 				// convert markdown to html
 				var converter = new Showdown.converter();
 
@@ -81,36 +82,71 @@ angular.module('map.service', [])
 				if (item.center) {
 					$scope.administration = item.center.administration;
 
+					// bind markdown data
 					$scope.personnel = item.center.personnel;
 					$scope.ecole = item.center.ecole;
 					$scope.recherche = item.center.recherche;
-					$scope.axes = item.center.recherche['Axes de recherche'];
+
 					$scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
 					$scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR']
 					$scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR']
-					
-					var axes = ''
-					_.forEach($scope.axes, function (d) {
-						//console.log("d", d);
-						d = d.replace(':', ' : \n');
-						axes = axes.concat(d) + ' \n';
-					})
-					// console.log("axes", axes);
-					$scope.axes = converter.makeHtml(axes)
-					//$scope.axes = axes;
-					//console.log("$scope.axes", $scope.axes);
-					$scope.contrats = item.center.recherche['Contrats de recherche'];
-					//console.log("$scope.contrats", $scope.contrats);
-					// var contrats = ''
-					// _.forEach($scope.contrats, function (d) {
-					// 	console.log("d", d);
-					// 	d = d.replace(':', ' : \n');
-					// 	contrats = contrats.concat(d) + ' \n';
-					// })
-					// // console.log("contrats", contrats);
-					// $scope.contrats = converter.makeHtml(contrats)
 					$scope.section = item.center.recherche['Sections CNRS'];
-					$scope.seminaires = item.center.recherche['Séminaires de recherche'];
+					
+					// create axes
+					var axes = ''
+					if (Array.isArray(item.center.recherche['Axes de recherche'])) {
+						_.forEach(item.center.recherche['Axes de recherche'], function (d) {
+							//console.log("d", d);
+							//d = d.replace(':', ' : \n');
+							axes = axes.concat(d) + ' \n';
+						});
+						$scope.axes = converter.makeHtml(axes)
+					}
+					else
+						$scope.axes = converter.makeHtml(item.center.recherche['Axes de recherche']);
+
+					// create contrats
+					var contrats = ''
+					if (Array.isArray(item.center.recherche['Contrats de recherche'])) {
+						_.forEach(item.center.recherche['Contrats de recherche'], function (d) {
+							//console.log("d", d);
+							// d = d.replace(':', ' : \n');
+							contrats = contrats.concat(d) + ' \n';
+						});
+						$scope.contrats = converter.makeHtml(contrats);
+					}
+					else
+						$scope.contrats = converter.makeHtml(item.center.recherche['Contrats de recherche']);
+
+					// create seminaires
+					var seminaires = ''
+					if (Array.isArray(item.center.recherche['Séminaires de recherche'])) {
+						_.forEach(item.center.recherche['Séminaires de recherche'], function (d) {
+							//console.log("d", d);
+							// d = d.replace(':', ' : \n');
+							seminaires = seminaires.concat(d) + ' \n';
+						});
+						$scope.seminaires = converter.makeHtml(seminaires);
+					}
+					else
+						$scope.seminaires = converter.makeHtml(item.center.recherche['Séminaires de recherche']);
+					console.log("$scope.seminaires", $scope.seminaires);
+
+					//create collaboration
+					// create seminaires
+					var collaboration = ''
+					if (Array.isArray(item.center.recherche['Collaborations / réseaux'])) {
+						_.forEach(item.center.recherche['Collaborations / réseaux'], function (d) {
+							//console.log("d", d);
+							// d = d.replace(':', ' : \n');
+							collaboration = collaboration.concat(d) + ' \n';
+						});
+						$scope.collaboration = converter.makeHtml(collaboration);
+					}
+					else
+						$scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);
+					console.log("$scope.collaboration", $scope.collaboration);
+					
 				}
 
 				// highlight center in list

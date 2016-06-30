@@ -113,23 +113,24 @@
 			        	<h1 class="titleProps">Axes de recherche</h1>
 
 			        		<div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
-			        		
-			        	</div>
-			        	<!-- <ul ng-repeat="item in axes ">
-			        		<li>{{item}}</li>
-			        	</ul> -->
+			        		</div>
+
 			        	<h1 class="titleProps">Collaborations / réseaux</h1>
-			        	{{ recherche['Collaborations / réseaux'] }}
+			        		<div ng-bind-html="highlight(collaboration, filterSearch)" class="recherche">
+			        		</div>
+
+
 			        	<h1 class="titleProps">Contrats de recherche</h1>
-			        	<ul ng-repeat="item in contrats">
-			        		<li>{{item}}</li>
-			        	</ul>
+
+			        		<div ng-bind-html="highlight(contrats, filterSearch)" class="recherche">
+			        		</div>
+
 			        	<h1 class="titleProps">Evaluations</h1>
-			        	{{ recherche['Evaluations'] }}
+			        		{{ recherche['Evaluations'] }}
+
 			        	<h1 class="titleProps">Séminaires de recherche</h1>
-			        	<ul ng-repeat="item in seminaires">
-			        		<li>{{item}}</li>
-			        	</ul>
+				        	<div ng-bind-html="highlight(seminaires, filterSearch)" class="recherche">
+				        	</div>
 			        	
 			        </div>
 			        <div class="col-md-6 colTab" >
@@ -141,19 +142,13 @@
 				        <h1 class="titleProps">Annuaire du MENESR</h1>
 
 				        <h2 class="disciplinePrincipale"> {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</h2>
-			        	
-			        	
-			        	
 
-			        	<h2 class="disciplineSecondaire">
-			        		{{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
-			        	
-			        	
-			        	<!-- <ul ng-repeat="item in annuaire track by $index">
-			        		<li>{{item}}</li>
-			        	</ul> -->
-			        	<h2>Mots clefs : {{recherche['Mots-clés sujet selon l\'annuaire du MENESR']}}</h2>
-			        	
+			        	<h2 class="disciplineSecondaire"> {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
+
+			        	<h2 class="recherche">Mots-clefs</h2>
+			        	<div class="recherche">
+			        		{{recherche['Mots-clés sujet selon l\'annuaire du MENESR']}}
+			        	</div>
 			        	
 			  
 			        	
