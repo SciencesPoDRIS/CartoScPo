@@ -81,7 +81,7 @@ gulp.task('serve', function() {
     browserSync.init({ server: "./app" });
 
     //gulp.watch('./app/assets/scss/*.scss', ['sass']);
-
+    gulp.watch('app/style/*.less').on('change', browserSync.reload);
     gulp.watch(['app/*.js', 'app/**/*js']).on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
