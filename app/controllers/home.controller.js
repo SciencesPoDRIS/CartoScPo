@@ -278,6 +278,29 @@ angular.module('bib.controller.home', [])
 				$("#listCenters").scrollTo($('#' + key));
 			};
 
+			$scope.zoomFrance = function() {
+				 // display map with markers choosen
+				angular.extend($scope, {
+					center: {
+			                lat: 46.227638,
+			                lng: 2.213749,
+			                zoom: 6
+			        },
+		            markers: allMarkers,
+		            position: {
+		                lat: 51,
+		                lng: 0,
+		                zoom: 4
+		            },
+		            events: { // or just {} //all events
+		                markers:{
+		                  enable: [ 'click', 'mouseover', 'mouseout' ],
+		                  logic: 'broadcast'
+		                }
+		            }
+				});	
+			}
+
 			// refresh list from zoom
 			var mapEvents = leafletMapEvents.getAvailableMapEvents();
 		    for (var k in mapEvents) {
@@ -360,7 +383,8 @@ angular.module('bib.controller.home', [])
 			});	
 		})
 
-		//console.log("rootScope", $rootScope);
+
+		//
 
 		// default map settings
 		angular.extend($scope, {
