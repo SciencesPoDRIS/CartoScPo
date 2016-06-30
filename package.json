@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "npm run test",
-    "start": "webpack-dev-server --content-base app --hot"
+    "start": "gulp"
   },
   "keywords": [
     "Sciences",
@@ -14,7 +14,9 @@
     "SciencesPo",
     "Medialab",
     "angular",
-    "webpack"
+    "Leaflet",
+    "Elasticlunr",
+    "Lodash"
   ],
   "author": "Grégory Tible, Anne Lhôte, Mickael Goudoux",
   "license": "MIT",
@@ -27,8 +29,7 @@
     "gulp-server-livereload": "^1.8.0",
     "gulp-webpack": "^1.5.0",
     "html-webpack-plugin": "^1.7.0",
-    "lodash": "^4.11.1",
-    "webpack": "^1.9.5"
+    "lodash": "^4.11.1"
   },
   "dependencies": {
     "babyparse": "^0.4.6",
@@ -37,6 +38,8 @@
     "gulp": "^3.9.1",
     "gulp-less": "^3.1.0",
     "gulp-sass": "^2.3.2",
+    "leaflet": "^1.0.0-rc.1",
+    "leaflet.markercluster": "^1.0.0-rc.1.0",
     "raw-loader": "^0.5.1",
     "st": "^1.1.0"
   }
