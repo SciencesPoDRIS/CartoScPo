@@ -15,6 +15,27 @@ angular.module('bib.controller.home', [])
 
 	var url  = '../data/data.json';
 
+	// navigation
+	function navigation(key) {
+		console.log("key", key);
+		if (key === 0) {
+			$scope.precedentCenter = null;
+		}
+		if (key > 0) {
+			$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
+		}
+		if (key < $scope.allCenters.length - 1) {
+			$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
+		}
+		if (key === $scope.allCenters.length - 1) {
+			$scope.nextCenter = null;
+		}
+
+		$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
+		$("#listCenters").scrollTo($('#' + key));
+	}
+
+
 	fileService
 		.getFile(url)
 		.then(function (result) {
@@ -54,6 +75,7 @@ angular.module('bib.controller.home', [])
 
 			console.log("immutableAllCenters 1", immutableAllCenters);
 
+			// keep the place of center in list
 			$scope.keyInList =  {};
 			 _.forEach($scope.allCenters, function (v, k) {
 			 	var id = v.administration['id'].trim();
@@ -69,6 +91,7 @@ angular.module('bib.controller.home', [])
 				this.addField('content');
 			});
 
+			// populate index with props
 			_.forEach(result.allProps, function(d) {
 				index.addDoc(d);
 			});
@@ -83,6 +106,7 @@ angular.module('bib.controller.home', [])
               return state.substr(0, viewValue.length).toLowerCase() == viewValue.toLowerCase();
             }
 
+            // reset all filters : list, map, navigation, center displayed
             $scope.resetFilter = function() {
             	$scope.filterSearch = '';
 
@@ -100,6 +124,11 @@ angular.module('bib.controller.home', [])
 					mapService.createMarkers(v, allMarkers);
 				});
 				updateMapFromList();
+
+				// reset navigation
+				$scope.precedentCenter = null;
+				$scope.nextCenter = null;
+				$scope.currentCenter = null;
             }
 
 			// sort list by input search
@@ -199,23 +228,18 @@ angular.module('bib.controller.home', [])
 				});	
 			}
 
+			
 			// Active tabs
 			$scope.displayCenter = function(key, item) {
 
 				// display tabs
 				$scope.centerActive = true;
 
-				//display details center & tooltip on map
+				// display details center & tooltip on map
 				mapService.displayCenterSelected(item, key, $scope, leafletData, $sce);
-				// updated navigation'centers buttons
-				if (key !== 0) {
-					$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
-				}
-				if (key < $scope.allCenters.length) {
-					$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
-				}
 
-				$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
+				// updated navigation'centers buttons
+				navigation(key);
 			}
 
 			//desactive tabs
@@ -245,39 +269,42 @@ angular.module('bib.controller.home', [])
 			}
 
 			// display content of tabs
-			$('#myTabs a').click(function(e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			});
+			// $('#myTabs a').click(function(e) {
+			// 	console.log("e", e);
+			//   e.preventDefault()
+			//   $(this).tab('show')
+			// });
+
+			// jQuery('#myTab a:last').tab('show')
+
+			//display a specific tab
+			$scope.openSpecificTab = function(item) {
+				console.log("item 3", item);
+				$("#myTab li").removeClass("active");
+				$('.tab-pane').removeClass("active");				
+				$( "." + item.tab ).addClass( "active" );	
+			}
+
+			
 
 			// Center navigation with buttons
 			$scope.goPrecedentCenter = function(item) {
-				var key = item.key;
-				mapService.displayCenterSelected($scope.allCenters[key], key, $scope, leafletData, $sce);
-				if (key !== 0 && $scope.allCenters && $scope.allCenters.length > 1) {
-					$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
+				console.log("item 1", item);
+				if (item) {
+					navigation(item.key);
+					mapService.displayCenterSelected(item, item.key, $scope, leafletData, $sce);
 				}
-				if (key < $scope.allCenters.length && $scope.allCenters.length > 1) {
-					$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
-				}
-				$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
-				$("#listCenters").scrollTo($('#' + key));
 			};
 
 			$scope.goNextCenter = function(item) {
-				var key = item.key;
-				mapService.displayCenterSelected($scope.allCenters[key], key, $scope, leafletData, $sce);
-				if (key !== 0) {
-					$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
+				console.log("item 2", item);
+				if (item) {
+					navigation(item.key);
+					mapService.displayCenterSelected(item, item.key, $scope, leafletData, $sce);
 				}
-				if (key < $scope.allCenters.length) {
-					$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
-				}
-
-				$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
-				$("#listCenters").scrollTo($('#' + key));
 			};
 
+			// center map on France
 			$scope.zoomFrance = function() {
 				 // display map with markers choosen
 				angular.extend($scope, {
@@ -383,9 +410,6 @@ angular.module('bib.controller.home', [])
 			});	
 		})
 
-
-		//
-
 		// default map settings
 		angular.extend($scope, {
 			    center: {
@@ -475,7 +499,7 @@ angular.module('bib.controller.home', [])
 
 		       		var key = $scope.idSelectedCenter;
 		       		$scope.key = key;
-		       		console.log("key", key);
+		       		console.log("key map", key);
 
 		       		console.log("$scope.allCenters", $scope.allCenters);
 
@@ -483,15 +507,8 @@ angular.module('bib.controller.home', [])
 					
 					$("#listCenters").scrollTo($('#' + key));
 				    // update navigation controls
-					if (key !== 0) {
-						$scope.precedentCenter = {center: $scope.allCenters[key - 1].center, key: key - 1};
-					}
-					if (key < $scope.allCenters.length) {
-						$scope.nextCenter = {center: $scope.allCenters[key + 1].center, key: key + 1};
-					}
-
-					$scope.currentCenter = $scope.allCenters[key].center.administration['Intitulé'];
-		            }
+					navigation(key);
+				}
 
 	            if ($scope.eventDetected === "leafletDirectiveMarker.mouseout") {
 	            	args.leafletEvent.target.closePopup();

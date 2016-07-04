@@ -42,12 +42,12 @@
     	<!-- Centers list -->
 	    <div id="listCenters" class="col-md-6 centersList" >
 	    	<div id="{{$index}}" class="centers" ng-repeat="(key, value) in allCenters track by $index" ng-click="displayCenter(key, value)" ng-class="{selected : key === idSelectedCenter}">
-	    		<h4>{{value.center.administration['Intitulé']}}</h4>
+	    		<h4>{{value.center.administration['Sigle ou acronyme']}} - {{value.center.administration['Intitulé']}}</h4>
 	    		<p>{{value.center.administration['Ville']}}</p>
 	    		<p>{{value.center.administration['Adresse(s)']}}</p>
 	    		<div ng-show="value.search" >
 		        	<ul ng-repeat="item in value.search">
-		        		<li>{{item.tab}} > {{item.prop}}</li>
+		        		<li><a href="" ng-click="openSpecificTab(item)">{{item.tab}} > {{item.prop}}</a></li>
 		        	</ul>
 	    		</div>
 	    		</br>
@@ -83,20 +83,99 @@
 	 </div>
     </div>
 
+    <!-- Center details with bootstrap tabs  -->
+
+ <ul class="nav nav-tabs" id="myTab" ng-show="centerActive">
+  <li class="administration"><a data-target="#administration" data-toggle="tab">Administration</a></li>
+  <li class="personnel"><a data-target="#personnel" data-toggle="tab">Personnel</a></li>
+  <li class="ecole"><a data-target="#ecole" data-toggle="tab">Ecole</a></li>
+  <li class="recherche"><a data-target="#recherche" data-toggle="tab">Recherche</a></li>
+</ul>
+
+<div class="tab-content" ng-show="centerActive">
+  <div class="tab-pane administration" id="administration">
+  	<p>{{administration['CNRS']}}</p>
+	<p>Année de création : {{administration['Année de création']}}</p>
+	<p>Historique : {{administration['Historique']}}</p>
+  </div>
+  <div class="tab-pane personnel" id="personnel">
+  	<p>Effectif total : {{ personnel['Effectif total'] }}</p>
+	<p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
+	<p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
+	<p>Lien vers la page "personnel" du site Web du CNRS : <a ng-href="{{ personnel['Lien vers la page \"personnel\" du site Web du CNRS'] }}">Lien</a></p>
+	<p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
+
+  </div>
+  <div class="tab-pane ecole" id="ecole">
+  	<p>Directeur école doctorale : {{ ecole['Directeur de l\'Ecole Doctorale'] }}</p>
+	<p>Courriel de l'Ecole doctorale : {{ ecole['Courriel de l\'Ecole doctorale'] }}</p>
+	<p>Intitulé (centre ou unité de recherche) : {{ ecole['Intitulé (centre ou unité de recherche)'] }}</p>
+	<p>Intitulé Ecole Doctorale : {{ ecole['Intitulé Ecole Doctorale'] }}</p>
+	<p>Nombre de doctorants : {{ ecole['Nombre de doctorants'] }}</p>
+	<p>Nombre de doctorants en science politique : {{ ecole['Nombre de doctorants en science politique'] }}</p>
+	<p>Nombre de thèses soutenues en 2015 : {{ ecole['Nombre de thèses soutenues en 2015'] }}</p>
+	<p>Numéro d'Ecole Doctorale : {{ ecole['Numéro d\'Ecole Doctorale']}}</p>
+  </div>
+  <div class="tab-pane recherche" id="recherche">
+  	 <div class="row">
+        <div class="col-md-6 colTab" >
+
+        	<h1 class="titleProps">Axes de recherche</h1>
+
+        		<div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
+        		</div>
+
+        	<h1 class="titleProps">Collaborations / réseaux</h1>
+        		<div ng-bind-html="highlight(collaboration, filterSearch)" class="recherche">
+        		</div>
+
+
+        	<h1 class="titleProps">Contrats de recherche</h1>
+
+        		<div ng-bind-html="highlight(contrats, filterSearch)" class="recherche">
+        		</div>
+
+        	<h1 class="titleProps">Evaluations</h1>
+        		{{ recherche['Evaluations'] }}
+
+        	<h1 class="titleProps">Séminaires de recherche</h1>
+	        	<div ng-bind-html="highlight(seminaires, filterSearch)" class="recherche">
+	        	</div>
+        	
+        </div>
+        <div class="col-md-6 colTab" >
+	        <h1 class="titleProps">Sections CNRS</h1>
+	        	<ul ng-repeat="item in section track by $index">
+	        		<li>{{item}}</li>
+	        	</ul>
+
+	        <h1 class="titleProps">Annuaire du MENESR</h1>
+
+	        <h2 class="disciplinePrincipale"> {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</h2>
+
+        	<h2 class="disciplineSecondaire"> {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
+
+        	<h2 class="recherche">Mots-clefs</h2>
+        	<div class="recherche">
+        		{{recherche['Mots-clés sujet selon l\'annuaire du MENESR']}}
+        	</div>
+        	
+        </div>
+    </div>
+  </div>
+</div>
+
     <!-- Center selected details -->
-    <div id="centerDetails" class="row" ng-show="centerActive">
-		<!-- <div style="float:right" >
-			<button class="btn btn-success btn-lg" type="submit" ng-click="centerDesactivate()">Fermer la fiche du centre</button>
-		</div> -->
+    <!-- <div id="centerDetails" class="row" ng-show="centerActive">
 		<tabs>
-		    <pane title="Administration" class="tabsContent">
+		    <pane id="administration" title="Administration" class="tabsContent">
 		        <div>
 			      	<p>{{administration['CNRS']}}</p>
 		    		<p>Année de création : {{administration['Année de création']}}</p>
 		    		<p>Historique : {{administration['Historique']}}</p>
 		        </div>
 		    </pane>
-		    <pane title="Personnel" class="tabsContent">
+		    <pane id="personnel" title="Personnel" class="tabsContent">
 		        <div>
 		    		<p>Effectif total : {{ personnel['Effectif total'] }}</p>
 		    		<p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
@@ -105,7 +184,7 @@
 		    		<p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
 		        </div>
 		    </pane>
-		    <pane title="Ecoles doctorales" class="tabsContent">
+		    <pane id="ecole" title="Ecoles doctorales" class="tabsContent">
 		        <div>
 		      		<p>Directeur école doctorale : {{ ecole['Directeur de l\'Ecole Doctorale'] }}</p>
 		      		<p>Courriel de l'Ecole doctorale : {{ ecole['Courriel de l\'Ecole doctorale'] }}</p>
@@ -117,7 +196,7 @@
 		      		<p>Numéro d'Ecole Doctorale : {{ ecole['Numéro d\'Ecole Doctorale']}}</p>
 		        </div>
 		    </pane>
-		    <pane title="Thématiques de recherche" class="tabsContent ">
+		    <pane id="recherche" title="Thématiques de recherche" class="tabsContent ">
 		        <div class="row">
 			        <div class="col-md-6 colTab" >
 
@@ -146,7 +225,7 @@
 			        </div>
 			        <div class="col-md-6 colTab" >
 				        <h1 class="titleProps">Sections CNRS</h1>
-				        	<ul ng-repeat="item in section">
+				        	<ul ng-repeat="item in section track by $index">
 				        		<li>{{item}}</li>
 				        	</ul>
 
@@ -161,12 +240,10 @@
 			        		{{recherche['Mots-clés sujet selon l\'annuaire du MENESR']}}
 			        	</div>
 			        	
-			  
-			        	
 			        </div>
 		        </div>
 		    </pane>
 		  </tabs>
-  	</div>
+  	</div> -->
   </div>
 </div>

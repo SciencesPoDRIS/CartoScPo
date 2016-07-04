@@ -10,9 +10,12 @@ angular.module('bib.directive.tab', [])
         transclude: true,
         scope: {},
         controller: [ "$scope", function($scope) {
+          console.log("$scope")
           var panes = $scope.panes = [];
    
-          $scope.select = function(pane) {
+          $scope.select = function(pane, title) {
+            console.log("title", title)
+            console.log("pane", pane);
             angular.forEach(panes, function(pane) {
               pane.selected = false;
             });
@@ -28,7 +31,7 @@ angular.module('bib.directive.tab', [])
           '<div class="tabbable">' +
             '<ul class="nav nav-tabs">' +
               '<li ng-repeat="pane in panes" ng-class="{active:pane.selected}" class="panesStyle" style="width:300px; text-align:center;">'+
-                '<a href="" ng-click="select(pane)" style="font-size: 24px;font-weight: bold;">{{pane.title}} </a>' +
+                '<a href="" ng-click="select(pane, title)" style="font-size: 24px;font-weight: bold;">{{pane.title}} </a>' +
               '</li>' +
             '</ul>' + 
             '<div class="tab-content" ng-transclude></div>' +

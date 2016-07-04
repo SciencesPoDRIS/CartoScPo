@@ -27,7 +27,6 @@ angular.module('map.service', [])
 						if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
 							//need regex
 							v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace(/-/g, '_');
-							// v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace('-', '_');
 						}
 
 						// adjust icon size with 4 differents class (0-20, 20-40, 40-80, +80)
@@ -54,13 +53,14 @@ angular.module('map.service', [])
 						var id = v.administration['id'].trim();
 						id = id.replace(/ /g, '');
 
-						
+						var message = v.administration['Sigle ou acronyme'] + ' - ' + v.administration['Intitulé'];
+						//console.log("message", message);
 						// create all markers
 						allMarkers[v.administration['id']] = {
 							group: 'France',
 							lat: a.lat,
 			                lng: a.lon,
-			                message: v.administration['Intitulé'],
+			                // message: message,
 			                icon: i === 0 ? local_icons.principal : local_icons.secondaire,
 			                focus: false,
 			                id: id
@@ -72,6 +72,7 @@ angular.module('map.service', [])
 		},
 		displayCenterSelected: function (item, key, $scope, leafletData, $sce) {
 				console.log("item", item);
+				console.log("key", key);
 				// display details of center	            	
 	            $scope.centerActive = true;
 
@@ -130,7 +131,7 @@ angular.module('map.service', [])
 					}
 					else
 						$scope.seminaires = converter.makeHtml(item.center.recherche['Séminaires de recherche']);
-					console.log("$scope.seminaires", $scope.seminaires);
+					//console.log("$scope.seminaires", $scope.seminaires);
 
 					//create collaboration
 					// create seminaires
@@ -145,7 +146,7 @@ angular.module('map.service', [])
 					}
 					else
 						$scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);
-					console.log("$scope.collaboration", $scope.collaboration);
+					//console.log("$scope.collaboration", $scope.collaboration);
 					
 				}
 
