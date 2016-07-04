@@ -4,25 +4,40 @@ angular.module('map.service', [])
     return {
 		createMarkers: function (v, allMarkers) {
 			function fixIconSize(v) {
-				var iconSize;
+				console.log("v", v.personnel['Personnels permanents']);
+				var personnelSize;
 
-				if (v.personnel['Personnels permanents'] <= 20)
-				 	iconSize = Math.sqrt(v.personnel['Personnels permanents']);
+				if (v.personnel['Personnels permanents'] <= 20) {
+				 	//personnelSize = Math.sqrt(v.personnel['Personnels permanents']);
+				 	personnelSize = 'small';
+				}
 				else if (v.personnel['Personnels permanents'] > 20 
-					&& v.personnel['Personnels permanents'] <= 40)
-				 	iconSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.2;
-				else if (v.personnel['Personnels permanents'] > 40 
-					&& v.personnel['Personnels permanents'] <= 80)
-				 	iconSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.6;
-				else (v.personnel['Personnels permanents'] > 80)
-				 	iconSize = Math.sqrt(v.personnel['Personnels permanents']) * 2;
+					&& v.personnel['Personnels permanents'] <= 40) {
 
-				return iconSize;
+				 	//personnelSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.2;
+				 	personnelSize = 'medium';
+				}
+				else if (v.personnel['Personnels permanents'] > 40 
+					&& v.personnel['Personnels permanents'] <= 80) {
+
+				 	//personnelSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.6;
+				 	personnelSize = 'large';
+				}
+				else 
+				 	personnelSize = 'extraLarge';
+
+				return personnelSize;
 			}
+
+			
 
 			if (v && v.administration) {
 				if (v.administration.adressesGeo) {
 					v.administration.adressesGeo.forEach(function(a, i) {
+						if (i === 0) 
+							console.log("principale", v.administration.id);
+						else
+							console.log("secondaire", v.administration.id);
 						
 						if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
 							//need regex
@@ -30,25 +45,38 @@ angular.module('map.service', [])
 						}
 
 						// adjust icon size with 4 differents class (0-20, 20-40, 40-80, +80)
-						var iconSize = fixIconSize(v);
+						//var iconSize = fixIconSize(v);
 
+						var iconSize = 10;
 						// two icons type : principal & secondaire
-						var local_icons = { 
+						// var local_icons = { 
+						// 	principal: {
+					 //            type: 'div',
+					 //            iconSize: [iconSize, iconSize],
+					 //            html: '<div></div>',
+					 //            className: 'principal',
+					 //            popupAnchor:  [0, -10]
+					 //        },
+					 //        secondaire: {
+					 //            type: 'div',
+					 //            iconSize: [iconSize, iconSize],
+					 //            html: '<div></div>',
+					 //            className: 'secondaire',
+					 //            popupAnchor:  [-10, -10]
+					 //        }
+						// };
+
+						var colorMarker = fixIconSize(v);
+
+						var local_icons = {
 							principal: {
 					            type: 'div',
 					            iconSize: [iconSize, iconSize],
 					            html: '<div></div>',
-					            className: 'principal',
+					            className: colorMarker,
 					            popupAnchor:  [0, -10]
-					        },
-					        secondaire: {
-					            type: 'div',
-					            iconSize: [iconSize, iconSize],
-					            html: '<div></div>',
-					            className: 'secondaire',
-					            popupAnchor:  [-10, -10]
 					        }
-						};
+						}
 						
 						var id = v.administration['id'].trim();
 						id = id.replace(/ /g, '');
@@ -61,7 +89,8 @@ angular.module('map.service', [])
 							lat: a.lat,
 			                lng: a.lon,
 			                // message: message,
-			                icon: i === 0 ? local_icons.principal : local_icons.secondaire,
+			                //icon: i === 0 ? local_icons.principal : local_icons.secondaire,
+			                icon: local_icons.principal,
 			                focus: false,
 			                id: id
 						};
@@ -154,13 +183,60 @@ angular.module('map.service', [])
 				// $scope.idSelectedCenter = null;
 		        $scope.idSelectedCenter = key;
 
+		        // check if secondaire adress exist
+		        console.log("item.center.administration.adressesGeo", item.center.administration.adressesGeo);
+
 				// open popup of center selected
 		        leafletData.getMap().then(function(map) {
-					var latlng = L.latLng(item.center.administration.adressesGeo[0].lat, item.center.administration.adressesGeo[0].lon);
-					var popup = L.popup()
-					    .setLatLng(latlng)
-					    .setContent(item.center.administration['Intitulé'])
-					    .openOn(map);
+		        	var popup;
+		        	item.center.administration.adressesGeo.forEach(function (d, i) {
+		        		function fixIconSize(v) {
+							console.log("v", v.personnel['Personnels permanents']);
+							var personnelSize;
+
+							if (v.personnel['Personnels permanents'] <= 20) {
+							 	//personnelSize = Math.sqrt(v.personnel['Personnels permanents']);
+							 	personnelSize = 'small';
+							}
+							else if (v.personnel['Personnels permanents'] > 20 
+								&& v.personnel['Personnels permanents'] <= 40) {
+
+							 	//personnelSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.2;
+							 	personnelSize = 'medium';
+							}
+							else if (v.personnel['Personnels permanents'] > 40 
+								&& v.personnel['Personnels permanents'] <= 80) {
+
+							 	//personnelSize = Math.sqrt(v.personnel['Personnels permanents']) * 1.6;
+							 	personnelSize = 'large';
+							}
+							else 
+							 	personnelSize = 'extraLarge';
+
+							return personnelSize;
+						}
+
+						var latlng = L.latLng(item.center.administration.adressesGeo[i].lat, 
+							item.center.administration.adressesGeo[i].lon);
+
+						// add icon
+						var myIcon = L.divIcon({className: fixIconSize(item.center)});
+
+						L.marker([item.center.administration.adressesGeo[i].lat, 
+							item.center.administration.adressesGeo[i].lon],
+							{icon: myIcon} )
+							.addTo(map)
+							.bindPopup('<p>' + item.center.administration['Intitulé'] + '</p>');
+
+
+						popup = L.popup()
+						    .setLatLng(latlng)
+						    .setContent(item.center.administration['Intitulé'])
+						    .openOn(map);
+
+						map.addLayer(popup);
+
+		        	})
 				})
 
 		        // highlight search in fulltxt

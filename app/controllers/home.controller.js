@@ -40,18 +40,6 @@ angular.module('bib.controller.home', [])
 		.getFile(url)
 		.then(function (result) {
 
-			// calculate class for legend circle
-			// var permanents = [];
-			//  _.forEach(result, function (p) {
-			// 	// console.log("p", p);
-			// 	if (p.personnel)
-			// 		permanents.push(Number(p.personnel['Personnels permanents']));
-			// })
-
-			// see rootScope to passe scope to service
-
-			// see controller of directive to send business logical to service or to directive controller 
-
 			// create all markers from result
 			$scope.centersSearch = []
 			var allMarkers = {};
@@ -117,6 +105,14 @@ angular.module('bib.controller.home', [])
 				_.forIn(result.allCenters, function(v, k) {
 					listCentersFiltered[k] = v;
 				});
+
+				//remove allMarkers
+				// leafletData.getMap().then(function(map) {
+				// 	console.log("map", map);
+				// 	map.removeLayer(allMarkers);
+				// });
+
+				allMarkers.clearLayers();
 
 				// get all markers
 				allMarkers = {};
@@ -227,8 +223,7 @@ angular.module('bib.controller.home', [])
 		            }
 				});	
 			}
-
-			
+	
 			// Active tabs
 			$scope.displayCenter = function(key, item) {
 
@@ -440,27 +435,40 @@ angular.module('bib.controller.home', [])
 			        // create the control container with a particular class name
 			        var container = L.DomUtil.create('div', 'my-custom-control');
 			        container.innerHTML = '<svg width="250" height="150"> '
-			        + '<rect width="20" height="20" x="15" y="25" fill="green" />'
-			        + '<text x="50" y="40" fill="black">Adresse principale</text>'
-			        + '<rect width="20" height="20" x="15" y="50" fill="green" fill-opacity="0.5"/>'
-			        + '<text x="50" y="65" fill="black">Adresse secondaire</text>'
-			        + '<text x="15" y="85" fill="black">Nombre de chercheurs permanents</text>'
 
-			        + '<circle cx="25" cy="135" r="5" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
-			        + '<line x1="50" y1="130" x2="70" y2="130" style="stroke:rgb(0,0,0);stroke-width:1" />'
-					+ '<text x="80" y="135" fill="black">20</text>'
+			        + '<text x="15" y="100" fill="black" font-size="14">Nombre de chercheurs permanents</text>'
 
-			        + '<circle cx="25" cy="130" r="10" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
-			        + '<line x1="50" y1="120" x2="70" y2="120" style="stroke:rgb(0,0,0);stroke-width:1" />'
-					+ '<text x="80" y="125" fill="black">40</text>'
 
-			        + '<circle cx="25" cy="125" r="15" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
-			        + '<line x1="50" y1="110" x2="70" y2="110" style="stroke:rgb(0,0,0);stroke-width:1" />'
-					+ '<text x="80" y="115" fill="black">80</text>'
+			        + '<rect width="30" height="30" x="105" y="110" fill="green" />'
+			        + '<text x="130" y="150" fill="black">+ 80</text>'
 
-			        + '<circle cx="25" cy="120" r="20" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
-			        + '<line x1="50" y1="100" x2="70" y2="100" style="stroke:rgb(0,0,0);stroke-width:1" />'
-			        + '<text x="80" y="105" fill="black"> + 80</text>'
+
+			        + '<rect width="30" height="30" x="75" y="110" fill="green" fill-opacity="0.7"/>'
+			        + '<text x="100" y="150" fill="black">80</text>'
+
+			        + '<rect width="30" height="30" x="45" y="110" fill="green" fill-opacity="0.5"/>'
+			        + '<text x="70" y="150" fill="black">40</text>'
+
+			        + '<rect width="30" height="30" x="15" y="110" fill="green" fill-opacity="0.2"/>'
+			        + '<text x="40" y="150" fill="black">20</text>'
+			        // + '<text x="50" y="65" fill="black">Adresse secondaire</text>'
+
+
+			  //       + '<circle cx="25" cy="135" r="5" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
+			  //       + '<line x1="50" y1="130" x2="70" y2="130" style="stroke:rgb(0,0,0);stroke-width:1" />'
+					// + '<text x="80" y="135" fill="black">20</text>'
+
+			  //       + '<circle cx="25" cy="130" r="10" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
+			  //       + '<line x1="50" y1="120" x2="70" y2="120" style="stroke:rgb(0,0,0);stroke-width:1" />'
+					// + '<text x="80" y="125" fill="black">40</text>'
+
+			  //       + '<circle cx="25" cy="125" r="15" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
+			  //       + '<line x1="50" y1="110" x2="70" y2="110" style="stroke:rgb(0,0,0);stroke-width:1" />'
+					// + '<text x="80" y="115" fill="black">80</text>'
+
+			  //       + '<circle cx="25" cy="120" r="20" stroke="black" stroke-width="1" fill="rgba(0,0,0,0)" />'
+			  //       + '<line x1="50" y1="100" x2="70" y2="100" style="stroke:rgb(0,0,0);stroke-width:1" />'
+			  //       + '<text x="80" y="105" fill="black"> + 80</text>'
 
 			        +  '</svg>';
 

@@ -277,4 +277,47 @@ body > .container {
   font-weight: bold;
 }
 
+.small {
+  opacity: 0.2;
+  background: green;
+  /*border:5px solid rgba(255,255,255,0.5);*/
+  width: 10px;
+  height: 10px;
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+}
+
+.medium {
+  background: green;
+  /*border:5px solid rgba(255,255,255,0.5);*/
+  width: 10px;
+  height: 10px;
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+  opacity: 0.5;
+}
+
+.large {
+  background: green;
+  /*border:5px solid rgba(255,255,255,0.5);*/
+  width: 10px;
+  height: 10px;
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+  opacity: 0.7;
+}
+
+.extraLarge {
+  background: green;
+  /*border:5px solid rgba(255,255,255,0.5);*/
+  width: 10px;
+  height: 10px;
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+}
+
 
