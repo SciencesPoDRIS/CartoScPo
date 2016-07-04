@@ -157,6 +157,7 @@ lodash.forIn(allCenters, function(tab, center) {
 					arrayContent = arrayContent + ' ' + d + ' ';
 				})
 				arrayContent = cleanWord(arrayContent);
+				arrayContent = arrayContent.toLowerCase();
 				arrayContent = arrayContent.split(' ');
 				allWords = allWords.concat(arrayContent);
 			}
@@ -169,6 +170,7 @@ lodash.forIn(allCenters, function(tab, center) {
 				) {
 
 				content = cleanWord(content);
+				content = content.toLowerCase();
 				content = content.split(' ');
 
 				allWords = allWords.concat(content);
