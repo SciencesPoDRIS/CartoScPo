@@ -7,15 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/#/">Sciences Po Bibliothèque</a>
+
+      
     </div>
     <div class="collapse navbar-collapse">
-     <!--  <ul class="nav navbar-nav navbar-right">
-        <li style="float:right"><a href="/#/donnees">Accès aux données</a></li>
-        <li style="float:right"><a href="#/">Contact</a></li>
-        <li style="float:right"><a href="#/">Méthodologie</a></li>
-        <li style="float:right"><a href="#/">Réglages</a></li>
-      </ul> -->
+      <a class="navbar-brand" href="/#/">
+        <img src="img/logo_bibliothèque.png" alt="Sciences Po Bibliothèque" >
+      </a>
       <ul class="nav navbar-nav navbar-right">
         <li ng-repeat="view in views" ng-class="{ active: isActive('/' + view.slug)}"><a href="#/{{view.slug}}" style="float:right; font-size: 14px;" >{{view.label}}</a></li>
       </ul>
