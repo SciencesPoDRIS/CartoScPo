@@ -12,7 +12,9 @@ var csv = {
 			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv'
 			};
 
-// transform csv to json & push it in array
+/*
+ * Transform csv to json & push it in array
+ */
 var allData = [];
 lodash.forIn(csv, function (v, k) {
 	
@@ -31,6 +33,8 @@ lodash.forIn(csv, function (v, k) {
 			code = code.replace(';', '');
 			code = code.replace('        ', '');
 			code = code.replace('\'', '');
+			code = code.trim();
+            code = code.replace(/ /g, '');
 
 			parsed.data[i].id = code.toLowerCase();
 			parsed.data[i].theme = k;
@@ -40,7 +44,9 @@ lodash.forIn(csv, function (v, k) {
 	allData.push(parsed.data);
 });
 
-console.log("csv parsed");	
+console.log("csv parsed");
+
+
 // transform array of center in list of center with Code Unité as key
 allData = lodash.flatten(allData);
 allData = lodash.groupBy(allData, 'id');
@@ -118,7 +124,9 @@ lodash.forIn(allCenters, function (v, k) {
 
 	v.recherche = recherche;
 })
+console.log("allCenters Done");
 
+// clean allWords function -> huge regex ;)
 function cleanWord(content) {
 	content = content.replace(/ /gi , ' ');
 	content = content.replace(/\,/gi , ' ');
@@ -140,8 +148,6 @@ function cleanWord(content) {
 	return content;
 }
 
-console.log("allCenters Done");
-// convert to json
 // create list of all words 
 var allWords = [];
 lodash.forIn(allCenters, function(tab, center) {
