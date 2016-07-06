@@ -6,7 +6,7 @@ angular.module('bib.services', [])
   .config(function ( $httpProvider) {
       delete $httpProvider.defaults.headers.common['X-Requested-With'];
   })
-  .factory('fileService', [ "$http", "$q", function($http, $q) {
+  .factory('fileService', [ '$http', '$q', function($http, $q) {
 
    return {
 
@@ -15,7 +15,7 @@ angular.module('bib.services', [])
        $http.get(url).success(function(data) {
          deferred.resolve(data);
        }).error(function(){
-         deferred.reject("An error occured while fetching file");
+         deferred.reject('An error occured while fetching file');
        });
 
        return deferred.promise;
@@ -26,18 +26,15 @@ angular.module('bib.services', [])
 
    return {
      sortData : function(data, field, direction) {
-        if (data) {
-          data.sort(function (a, b) {
-                if (direction === "asc") {
-              return a[field]> b[field]? 1 : -1;
-            } else {
-              return a[field]> b[field]? -1 : 1;
-            }
-          })
-        }
+      if (data) 
+        data.sort(function (a, b) {
+          if (direction === 'asc') 
+            return a[field]> b[field]? 1 : -1;
+          else 
+            return a[field]> b[field]? -1 : 1;
+        })
       }
-
-      }
+    }
   })
   .factory('utils', function() {
 
@@ -90,7 +87,7 @@ angular.module('bib.services', [])
           i;
 
       // Defaults
-      var escape = params.escape || '"',
+      var escape = params.escape || '\'',
           delimiter = params.delimiter || ',';
 
       // Dealing with headers polymorphism
@@ -125,14 +122,14 @@ angular.module('bib.services', [])
 
     function downloadCSV(data, headers, order, fileName) {
       var csv = toCSVString(data, {headers: headers, order: order}),
-          blob = new Blob([csv], {type: "attachment/csv;charset=utf-8"}),
+          blob = new Blob([csv], {type: 'attachment/csv;charset=utf-8'}),
           dataUrl = URL.createObjectURL(blob);
 
-      var a = document.createElement("a");
+      var a = document.createElement('a');
       a.style.display = 'none';
-      a.setAttribute("href", dataUrl);
+      a.setAttribute('href', dataUrl);
       document.body.appendChild(a);
-      a.setAttribute("download", fileName + ".csv");
+      a.setAttribute('download', fileName + '.csv');
       a.click();
       document.body.removeChild(a);
 
