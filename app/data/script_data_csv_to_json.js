@@ -71,7 +71,9 @@ var allCenters = {};
  })
 
 
-// create adress object of key administration (aka onlget description administration)
+/*
+ * create adress object of key administration (aka onlget description administration)
+ */ 
 lodash.forIn(allCenters, function (v, k) {
 	var adressesGeo = [];
 
