@@ -50,8 +50,10 @@ angular.module('map.service', [])
                         id = id.replace(/_/g, '');
 
                         //create message for the popup
-                        var message = v.administration['Sigle ou acronyme'] + ' - ' + v.administration['Intitulé'];
+                        var message = '<p>' +  v.administration['Sigle ou acronyme'] + ' - ' + v.administration['Intitulé'] + '</p>' 
+                                    + '<p>'  + a.adresse + '</p>';
 
+                        //console.log("a i", a, id + '_' + i);
                         // create one marker by adress and one cluster by city
                         allMarkers[id + '_' + i] = {
                             group: 'France', //city or France
@@ -65,7 +67,7 @@ angular.module('map.service', [])
 
                     })
         },
-        displayCenterSelected: function (item, key, $scope, leafletData, $sce) {
+        displayCenterSelected: function (item, key, keyCenter, $scope, leafletData, $sce) {
             // display details of center                    
             $scope.centerActive = true;
 
@@ -83,20 +85,21 @@ angular.module('map.service', [])
                 $scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR']
                 $scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR']
                 $scope.section = item.center.recherche['Sections CNRS'];
+
                 
                 // create axes
-                var axes = ''
+                var axes = '';
                 if (Array.isArray(item.center.recherche['Axes de recherche'])) {
                     _.forEach(item.center.recherche['Axes de recherche'], function (d) {
                         axes = axes.concat(d) + ' \n';
                     });
-                    $scope.axes = converter.makeHtml(axes)
+                    $scope.axes = converter.makeHtml(axes);
                 }
                 else
                     $scope.axes = converter.makeHtml(item.center.recherche['Axes de recherche']);
 
                 // create contrats
-                var contrats = ''
+                var contrats = '';
                 if (Array.isArray(item.center.recherche['Contrats de recherche'])) {
                     _.forEach(item.center.recherche['Contrats de recherche'], function (d) {
                         contrats = contrats.concat(d) + ' \n';
@@ -107,7 +110,7 @@ angular.module('map.service', [])
                     $scope.contrats = converter.makeHtml(item.center.recherche['Contrats de recherche']);
 
                 // create seminaires
-                var seminaires = ''
+                var seminaires = '';
                 if (Array.isArray(item.center.recherche['Séminaires de recherche'])) {
                     _.forEach(item.center.recherche['Séminaires de recherche'], function (d) {
                         seminaires = seminaires.concat(d) + ' \n';
@@ -119,7 +122,7 @@ angular.module('map.service', [])
 
                 // create collaboration
                 // create seminaires
-                var collaboration = ''
+                var collaboration = '';
                 if (Array.isArray(item.center.recherche['Collaborations / réseaux'])) {
                     _.forEach(item.center.recherche['Collaborations / réseaux'], function (d) {
                         collaboration = collaboration.concat(d) + ' \n';
@@ -127,7 +130,18 @@ angular.module('map.service', [])
                     $scope.collaboration = converter.makeHtml(collaboration);
                 }
                 else
-                    $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);               
+                    $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);    
+
+                var motsClefs = '';
+                if (Array.isArray(item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'] )) {
+                    _.forEach(item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'] , function (d) {
+                        motsClefs = motsClefs.concat(d) + ' \n';
+                    });
+                    $scope.motsClefs = converter.makeHtml(motsClefs);
+                }
+                else
+                    $scope.motsClefs = converter.makeHtml(item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR']);
+                      
             }
 
             // highlight search in fulltxt
@@ -138,7 +152,7 @@ angular.module('map.service', [])
             };
 
             // highlight center in list
-            $scope.idSelectedCenter = key;
+            $scope.idSelectedCenter = keyCenter;
             //$("#listCenters").scroll($('#' + key));
 
             // open popup of center selected
@@ -149,14 +163,11 @@ angular.module('map.service', [])
                     return id_center + '_' + i;
                 });
 
-                console.log("id_center", id_center);
-                console.log("marker_keys", marker_keys);
-
-
 
                 // create popup
                 var showPopup = function(marker_key) {
-                     console.log("popup,",marker_key,$scope.markers[marker_key])
+                        console.log("$scope.markers", $scope.markers);
+                     console.log("popup,", marker_key, $scope.markers[marker_key])
                     var marker = $scope.markers[marker_key],
                         content = marker.message,
                         latLng = [marker.lat, marker.lng],
@@ -168,11 +179,9 @@ angular.module('map.service', [])
 
                 }
 
-                showPopup(id_center+'_'+key);
+                console.log("key", key);
 
-                // _.forEach(marker_keys, function(d) {
-                //     showPopup(d);
-                // });
+                showPopup(id_center+'_'+key);
             });   
         }
     }

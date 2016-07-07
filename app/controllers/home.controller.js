@@ -6,10 +6,10 @@
  */
 
 angular.module('bib.controller.home', [])
-  .controller('home', [ '$scope', '$location', '$anchorScroll', 'utils', 'fileService', 
+  .controller('home', [ '$scope', '$location', '$anchorScroll', 'fileService', 
     '$http', '_', 'leafletMarkerEvents', 'leafletMapEvents', 
     '$interpolate', 'leafletData', 'Elasticlunr', '$sce', 'mapService',
-    function ($scope, $location, $anchorScroll, utils, fileService, $http, _, 
+    function ($scope, $location, $anchorScroll, fileService, $http, _, 
         leafletMarkerEvents, leafletMapEvents, $interpolate, 
         leafletData, Elasticlunr, $sce, mapService) {
 
@@ -17,6 +17,7 @@ angular.module('bib.controller.home', [])
 
     // navigation
     function navigation(key) {
+        console.log("key navigation", key);
         $scope.key = key;
 
         if (key === 0)
@@ -105,8 +106,18 @@ angular.module('bib.controller.home', [])
 
             // reset all filters : list, map, navigation, center displayed
             $scope.resetFilter = function(key) {
-                if ($scope.filtersOn) { 
+                    // reset search
                     $scope.filterSearch = '';
+
+                    // reset selection in list
+                    $scope.idSelectedCenter = null;
+
+                    // close popup
+                    leafletData.getMap().then(function(map) {
+                        map.closePopup();
+                    });
+
+                if ($scope.filtersOn) { 
                     $scope.allCenters = immutableAllCenters;
 
                     // reset navigation
@@ -136,14 +147,16 @@ angular.module('bib.controller.home', [])
             // sort list by input search
             $scope.showNameChanged = function() {
                 
-                $scope.centerActive = true;
-                $scope.filtersOn = true;
+                
 
                 if (!$scope.filterSearch) {
                     $scope.allCenters = immutableAllCenters;
                     $scope.filtersOn = false;
+                    $scope.centerActive = false;
                 }
                 else {
+                    $scope.centerActive = true;
+                    $scope.filtersOn = true;
                     //search fulltext
                     var searchResult = index.search($scope.filterSearch, {
                             fields: {
@@ -225,18 +238,19 @@ angular.module('bib.controller.home', [])
             }
     
             // active tabs
-            $scope.displayCenter = function(key, item) {
-                console.log("key", key, "item", item);
+            $scope.displayCenter = function(key, item, keyCenter) {
+
+                console.log("key center", keyCenter);
                 // display tabs
                 $scope.centerActive = true;
                 $scope.filtersOn = true;
                 $scope.centerSelected = item;
 
                 // display details center & tooltip on map
-                mapService.displayCenterSelected(item, key, $scope, leafletData, $sce);
+                mapService.displayCenterSelected(item, key, keyCenter, $scope, leafletData, $sce);
 
                 // updated navigation'centers buttons
-                navigation(key);
+                navigation(keyCenter);
             };
 
             // desactive tabs
@@ -267,15 +281,25 @@ angular.module('bib.controller.home', [])
             };
 
             // display a specific tab
-            $scope.openSpecificTab = function(item) {
+            $scope.openSpecificTab = function(item, keyCenter) {
+                // open center details
+                $scope.centerActive = true;
+
+                // active good tab
                 $('#myTab li').removeClass('active');
                 $('.tab-pane').removeClass('active');               
-                $( '.' + item.tab ).addClass( 'active' );   
+                $( '.' + item.tab ).addClass( 'active' );
+
+                //scroll to good tab
+                $('#centerDetailsTabs').scrollTo($('.' + item.tab));   
+
+                // update navigation
+                navigation(keyCenter);
             };
 
             // center navigation with buttons
             $scope.goPrecedentCenter = function(item) {
-                console.log('item 1', item);
+
                 if (item) {
                     navigation(item.key);
                     mapService.displayCenterSelected(item, item.key, $scope, leafletData, $sce);
@@ -284,7 +308,7 @@ angular.module('bib.controller.home', [])
             };
 
             $scope.goNextCenter = function(item) {
-                console.log('item 2', item);
+
                 if (item) {
                     navigation(item.key);
                     mapService.displayCenterSelected(item, item.key, $scope, leafletData, $sce);
@@ -313,7 +337,6 @@ angular.module('bib.controller.home', [])
                 //         }
                 //     }
                 // });
-                console.log("init");
                 updateMapFromList();  
             };
 
@@ -394,15 +417,15 @@ angular.module('bib.controller.home', [])
 
                                 // set list og centers 
                                 $scope.allCenters = _.uniqBy($scope.allCenters, 'center')
-                                console.log("$scope.allCenters 1", $scope.allCenters);
+                                
                             } 
                             else {
                                 // convert array to obj with center key
                                 var allCentersObj = {};
-                                console.log("$scope.allCenters 2", $scope.allCenters);
+                                
 
                                 _.forEach($scope.allCenters, function(v) {
-                                    console.log("v", v);
+                                    
                                     if (v) {
                                         var id = v.center.administration.id.trim();
                                         id = id.replace(/ /g, '');
