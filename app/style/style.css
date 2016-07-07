@@ -7,12 +7,12 @@ html {
 }
 
 body {
-    font-family: 'montserrat', 'Arial', sans-serif;
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
     margin-bottom: 60px;
 }
 
 h1,h2,h3,h4,h5{
-    font-family: 'montserrat', 'Arial', sans-serif;
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
     font-weight: bold;
 }
 
@@ -193,6 +193,10 @@ body > .container {
  color: red;
 }
 
+.adresses {
+  font-size: 16px;
+}
+
 /*
  * centerDetails
  */
@@ -237,6 +241,13 @@ body > .container {
   color : white;
   background-color: #428bca;
   padding : 5px 15px;
+}
+
+.tabTitle a{
+  width:300Px;
+  font-size: 20px;
+  font-style: bold;
+  text-align: center;
 }
 
 /*.active {
@@ -318,6 +329,17 @@ body > .container {
   font-weight:bold;
   text-align:center;
   border-radius:50%;
+}
+
+/*.motsClef {
+  background-color: #C00;
+  color: white;
+  padding-left: 5 0 5;
+
+}*/
+
+#centerDetailsTabs p {
+  font-size: 15px;
 }
 
 

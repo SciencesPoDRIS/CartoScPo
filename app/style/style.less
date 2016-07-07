@@ -12,12 +12,12 @@ html {
 
 
 body {
-    font-family: 'merriweather', 'Georgia', serif;
+    font-family: 'Trebuchet MS', 'merriweather', 'Georgia', serif;
     margin-bottom: 60px;
 }
 
 h1,h2,h3,h4,h5{
-    font-family: 'montserrat', 'Arial', sans-serif;
+    font-family: 'Trebuchet MS', 'montserrat', 'Arial', sans-serif;
     font-weight: bold;
 }
 
@@ -47,7 +47,6 @@ body > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
-
 
 
 /*
@@ -116,6 +115,7 @@ body > .container {
 #search {
   padding-top: 10px;
   font-size: 30px;
+  width: 400px;
 }
 
 /*
@@ -198,6 +198,11 @@ body > .container {
  color: red;
 }
 
+.adresses {
+  font-size: 16px;
+}
+
+
 /*
  * listAndMap
  */
@@ -226,6 +231,37 @@ body > .container {
   color : white;
   background-color: #428bca;
   padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+#exTab1 .nav-pills > li {
+  border-radius: 0;
+  margin:auto;
+}
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+  width:200px;
+  margin:auto;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+.tabTitle a{
+  width:300Px;
+  font-size: 20px;
+  font-style: bold;
+  text-align: center;
 }
 
 .titleProps {
@@ -306,14 +342,55 @@ span.highlight{
   width: 25%;
 }
 
+.titleProps {
+  font-size: 22px;
+  text-align: center;
+  background-color: lightgrey;
+}
+.recherche > h1 {
+  font-size: 18px;
+}
+
+.recherche > h2 {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.recherche > h3 {
+  font-size: 14px;
+  padding-left: 20px;
+}
+
+.colTab {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.disciplinePrincipale {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.disciplineSecondaire {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 /*
  * Grid
  */
 
- .myGrid {
+ /*.myGrid {
     width: 500px;
     height: 250px;
-  }
+  }*/
+
+
+
+.grid {
+  width: 100%;
+  height: 1000px;
+}
 
 /*
  * Cluster on Map
