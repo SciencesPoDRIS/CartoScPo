@@ -6,10 +6,10 @@ var  Baby = require('babyparse'),
 
 // store csv (each onglet (cf google drive)) in object
 var csv = { 
-			administration : 'Donnees_centres_de_recherche_SP_2015 - Description administrative.csv',
-			personnel : 'Donnees_centres_de_recherche_SP_2015 - Personnel.csv',
-			ecole : 'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales.csv',
-			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv'
+			administration : 'Donnees_centres_de_recherche_SP_2015 - Description administrative (1).csv',
+			personnel : 'Donnees_centres_de_recherche_SP_2015 - Personnel (1).csv',
+			ecole : 'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales (1).csv',
+			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche (1).csv'
 			};
 
 /*
@@ -30,13 +30,13 @@ lodash.forIn(csv, function (v, k) {
 			code = code.replace(/\t/g, '');
 			code = code.replace(/\n/g, '');
 			code = code.replace(/\r/g, '');
-			code = code.replace(';', '');
+			code = code.replace(/;/g, '');
 			code = code.replace('        ', '');
 			code = code.replace('\'', '');
-			code = code.trim();
             code = code.replace(/ /g, '');
 
 			parsed.data[i].id = code.toLowerCase();
+			console.log("code", code);
 			parsed.data[i].theme = k;
 		}
 	}
@@ -230,6 +230,7 @@ data.allProps = allProps;
 data = JSON.stringify(data);
 
 console.log("allCenters stringify");
+console.log("There are : ", lodash.size(allCenters), " unique centers.");
 console.log("There are : ", allWords.length, " unique words.");
 console.log("There are : ", allProps.length, " unique contents indexed.");
 

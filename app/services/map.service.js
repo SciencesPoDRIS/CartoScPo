@@ -1,23 +1,26 @@
 angular.module('map.service', [])
-  .factory('mapService', function() {
+  .factory('mapService', [ "$sce", "leafletData", 
+    function( $sce, leafletData) {
 
     return {
         createMarkers: function (v, allMarkers) {
             function fixIconSize(v) {
                 var personnelSize;
 
-                if (v.personnel['Personnels permanents'] <= 20)
-                    personnelSize = 'small';
-                else if (v.personnel['Personnels permanents'] > 20 
-                    && v.personnel['Personnels permanents'] <= 40)
-                    personnelSize = 'medium';
-                else if (v.personnel['Personnels permanents'] > 40 
-                    && v.personnel['Personnels permanents'] <= 80)
-                    personnelSize = 'large';
-                else 
-                    personnelSize = 'extraLarge';
+                if (v) {
+                    if (v.personnel['Personnels permanents'] <= 20)
+                        personnelSize = 'small';
+                    else if (v.personnel['Personnels permanents'] > 20 
+                        && v.personnel['Personnels permanents'] <= 40)
+                        personnelSize = 'medium';
+                    else if (v.personnel['Personnels permanents'] > 40 
+                        && v.personnel['Personnels permanents'] <= 80)
+                        personnelSize = 'large';
+                    else 
+                        personnelSize = 'extraLarge';
 
-                return personnelSize;
+                    return personnelSize;
+                }
             }
 
             if (v && v.administration)
@@ -50,13 +53,12 @@ angular.module('map.service', [])
                         id = id.replace(/_/g, '');
 
                         //create message for the popup
-                        var message = '<p>' +  v.administration['Sigle ou acronyme'] + ' - ' + v.administration['Intitulé'] + '</p>' 
+                        var message = '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Sigle ou acronyme'] + '</p>' 
                                     + '<p>'  + a.adresse + '</p>';
 
-                        //console.log("a i", a, id + '_' + i);
                         // create one marker by adress and one cluster by city
                         allMarkers[id + '_' + i] = {
-                            group: 'France', //city or France
+                            group: 'France', //city or France for clustering
                             lat: a.lat,
                             lng: a.lon,
                             message: message,
@@ -67,7 +69,7 @@ angular.module('map.service', [])
 
                     })
         },
-        displayCenterSelected: function (item, key, keyCenter, $scope, leafletData, $sce) {
+        displayCenterSelected: function (item, key, keyCenter, $scope) {
             // display details of center                    
             $scope.centerActive = true;
 
@@ -75,9 +77,13 @@ angular.module('map.service', [])
             var converter = new Showdown.converter();
 
             // bind center's data to tabs
-            if (item.center) {
+            if (item && item.center) {
+                
                 // bind markdown data
                 $scope.administration = item.center.administration;
+                $scope.link = '/img/logos_centres_de_recherche/' + item.center.administration['Sigle ou acronyme'] + '.jpeg';
+                console.log("$scope.link", $scope.link);
+                $scope.sigle = item.center.administration['Sigle ou acronyme'];
                 $scope.personnel = item.center.personnel;
                 $scope.ecole = item.center.ecole;
                 $scope.recherche = item.center.recherche;
@@ -153,9 +159,9 @@ angular.module('map.service', [])
 
             // highlight center in list
             $scope.idSelectedCenter = keyCenter;
-            //$("#listCenters").scroll($('#' + key));
+            $("#listCenters").scroll($('#' + key));
 
-            // open popup of center selected
+            // open popup of center selected only if adress click, not navigation
             leafletData.getMap().then(function(map) {
                 // display all adresses available
                 var id_center = item.center.administration.id.replace(/ /g,"");
@@ -166,26 +172,26 @@ angular.module('map.service', [])
 
                 // create popup
                 var showPopup = function(marker_key) {
-                        console.log("$scope.markers", $scope.markers);
-                     console.log("popup,", marker_key, $scope.markers[marker_key])
+                    console.log("$scope.markers", $scope.markers);
+                    console.log("popup,", marker_key, $scope.markers[marker_key])
+
                     var marker = $scope.markers[marker_key],
                         content = marker.message,
                         latLng = [marker.lat, marker.lng],
                         popup = L.popup({ className : 'custom-popup' }).setContent(content).setLatLng(latLng);
                    
                     leafletData.getMap().then(function(map) {
-                    popup.openOn(map);
+                        popup.openOn(map);
                     });
 
                 }
 
-                console.log("key", key);
-
-                showPopup(id_center+'_'+key);
+                if (key !== null)
+                    showPopup(id_center+'_'+key);
             });   
         }
     }
-})  
+}])  
 
 
 
