@@ -35,7 +35,7 @@ gulp.task('js', function() {
       'bower_components/papaparse/papaparse/min.js',
       'bower_components/elasticlunr.js/elasticlunr.js',
       'bower_components/showdown/src/showdown.js',
-      'bower_components/angular-ui-grid/ui-grid.min.js',
+      'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/angular-touch/angular-touch.min.js',
       'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
       'app/lib/leaflet.markercluster.js'
@@ -54,7 +54,7 @@ gulp.task('css', function() {
         'bower_components/ng-grid/ng-grid.css',
         'bower_components/angular-loading-bar/build/loading-bar.css',
         'bower_components/leaflet/dist/leaflet.css',
-        'bower_components/angular-ui-grid/ui-grid.min.css'
+        'bower_components/angular-ui-grid/ui-grid.css'
       ],
       {base: 'bower_components/'}
     )
