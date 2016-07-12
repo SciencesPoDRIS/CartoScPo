@@ -5,11 +5,14 @@
   	 <div class="row">
   	 	<h1> Les données </h1>
   	 	<input id="search" type="text" ng-model="filterText" ng-change="refreshData()" placeholder="Rechercher ..." />
+      <button ng-click="exportData()">
+        Exporter les données
+      </button>
   	 </div>
      <br>
      <hr>
   	 <div class="row">
-  	 	<div id="grid"  ui-grid="gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+  	 	<div id="grid"  ui-grid="gridOptions" ui-grid-selection  class="grid"></div>
   	 </div>
   </div>
 </div>
