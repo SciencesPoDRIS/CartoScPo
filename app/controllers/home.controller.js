@@ -120,14 +120,14 @@ angular.module('bib.controller.home', [])
                     leafletData.getMap().then(function(map) {
                         map.closePopup();
                     });
+                $scope.precedentCenter = null;
+                $scope.nextCenter = null;
+                $scope.currentCenter = null;
 
                 if ($scope.filtersOn) { 
                     $scope.allCenters = immutableAllCenters;
 
                     // reset navigation
-                    $scope.precedentCenter = null;
-                    $scope.nextCenter = null;
-                    $scope.currentCenter = null;
 
                     // center details
                     $scope.centerActive = false;
@@ -159,6 +159,7 @@ angular.module('bib.controller.home', [])
                     $scope.centerActive = false;
                 }
                 else {
+                    console.log("there is a search");
                     $scope.centerActive = true;
                     $scope.filtersOn = true;
                     //search fulltext
@@ -192,14 +193,13 @@ angular.module('bib.controller.home', [])
 
                     // aggregate search result and center 
                     var resultWithPathBis = []
-                    _.forIn(resultWithPath, function(v, k) {
-                        console.log("v,k", v,k);    
+                    _.forIn(resultWithPath, function(v, k) { 
                         resultWithPathBis.push({center: result.allCenters[k], search: v})
                     });
 
                     //bind center result to scope (list)
                     $scope.allCenters = resultWithPathBis;
-                    console.log("$scope.allCenters", $scope.allCenters);
+                    console.log("$scope.allCenters 0", $scope.allCenters);
 
                     //create index of center in list -> create a function -> service
                     $scope.keyInList =  {};
@@ -253,9 +253,10 @@ angular.module('bib.controller.home', [])
     
             // active tabs
             $scope.displayCenter = function(key, item, keyCenter) {
+                console.log("display center");
                 // display tabs
                 $scope.centerActive = true;
-                $scope.filtersOn = true;
+                //$scope.filtersOn = true;
                 $scope.centerSelected = item;
 
                 // display details center & tooltip on map
@@ -300,7 +301,7 @@ angular.module('bib.controller.home', [])
                 if (item) {
                     navigation(item.key);
                     var keyCenter = item.key;
-                    mapService.displayCenterSelected(item, null, keyCenter, $scope);
+                    mapService.displayCenterSelected(item, 0, keyCenter, $scope);
                     $('#listCenters').scrollTo($('.' + item.key));
                 }
             };
@@ -310,7 +311,7 @@ angular.module('bib.controller.home', [])
                 if (item) {
                     navigation(item.key);
                     var keyCenter = item.key;
-                    mapService.displayCenterSelected(item, null, keyCenter, $scope);
+                    mapService.displayCenterSelected(item, 0, keyCenter, $scope);
                     $('#listCenters').scrollTo($('.' + item.key));
                 }
             };
@@ -328,7 +329,6 @@ angular.module('bib.controller.home', [])
 
              // display map with markers choosen
             $scope.initMap = function() {
-                console.log('here');
                 setAllAdressActive();
                 updateMapFromList();  
             };
@@ -356,8 +356,6 @@ angular.module('bib.controller.home', [])
                 }); 
             };
 
-           
-
             // refresh list from zoom
             var mapEvents = leafletMapEvents.getAvailableMapEvents();
             for (var k in mapEvents) {
@@ -365,8 +363,10 @@ angular.module('bib.controller.home', [])
                 $scope.$on(eventName, function(event, args) {
                     if (event.name === 'leafletDirectiveMap.zoomstart' 
                         || event.name === 'leafletDirectiveMap.move') {
+                        //
                         var centersInMap = [];
 
+                        // get lat & lng of map
                         leafletData.getMap().then(function(map) {
 
                             // desactivate center selected 
@@ -397,7 +397,7 @@ angular.module('bib.controller.home', [])
                             // display number of marker/adress on map
                             $scope.centersInMap = centersInMap.length;
 
-                             function inMap(adress) {
+                            function inMap(adress) {
                 
                                 if (adress.lat <= mapNorthEastLat && mapSouthWestLat <= adress.lat 
                                     && mapSouthWestLng <= adress.lon &&  adress.lon <= mapNorthEastLng )
@@ -415,35 +415,24 @@ angular.module('bib.controller.home', [])
                                     
                                     var idCenter = d[0];
                                     if (result.allCenters[idCenter]) {
-                                       
-
                                         // check if adress in map
-                                        var adressFiltered = [];
                                         _.map(result.allCenters[idCenter].administration.adressesGeo, function (d) {
-                                            
-                                            if (inMap(d))
-                                                d.active = true;
-                                            else
-                                                d.active = false;
+                                            inMap(d) ? d.active = true : d.active = false;
                                         });
-
-                                        var center = result.allCenters[idCenter]
-                                        console.log("center", center);
-                                        //center.administration.adressesGeo = adressFiltered;
                                       
-                                        $scope.allCenters.push({center: center});
+                                        $scope.allCenters.push({center: result.allCenters[idCenter]});
                                     }
                                 });
 
                                 // set list og centers 
                                 $scope.allCenters = _.uniqBy($scope.allCenters, 'center');
-                               
-                                
                             } 
-                            else {
-                                // convert array to obj with center key
+                            else {  // list of centers with search result
+                                    // convert array to obj with center key
+                                console.log("$scope.allCenters with search", $scope.allCenters);
                                 var allCentersObj = {};
                                 
+                                // get id of centers in current list
                                 _.forEach($scope.allCenters, function(v) {
                                     if (v) {
                                         var id = v.center.administration.id.trim();
@@ -459,15 +448,15 @@ angular.module('bib.controller.home', [])
                                     var idCenter = d[0];
                                     allCenterIdSearch.push(idCenter);
                                 });
+
+                                // set on list of adress to keep only centers
                                 allCenterIdSearch = _.uniq(allCenterIdSearch);
 
                                 // select only center in map and display in list
                                 $scope.allCenters = [];
                                 _.forEach(allCenterIdSearch, function(d) {
-                                    // console.log("center to check", allCentersObj[d].administration.adressesGeo)
                                     // filter only adress on the map
-
-                                  $scope.allCenters.push(allCentersObj[d]);  
+                                    $scope.allCenters.push(allCentersObj[d]);  
                                 });
                                 console.log("$scope.allCenters 2", $scope.allCenters);
                             }

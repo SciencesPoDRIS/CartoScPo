@@ -2,6 +2,7 @@
     <div top-menu class="row">
     </div>
     <div class="container-fluid">
+    
      <div class="row">
         <div  class="col-md-6 col-md-offset-3" style="text-align: center;" >
             <h1>Les centres de recherches en Sciences Politiques en France</h1>
@@ -37,7 +38,7 @@
             <button class="btn  btn-lg" type="submit" ng-click="initMap()" style="float:right;">Ré-initialiser la carte</button>
             <button class="btn  btn-lg" type="submit" ng-click="zoomFrance()" style="float:right; margin-right:10px;">Zoomer sur la France</button>
             </br>
-            <hr>
+            
         </div>
     </div>
 
@@ -51,7 +52,7 @@
                 
                 <!-- List of adress -->
                 <ul>
-                    <li ng-repeat="(keyAdress, item) in value.center.administration['Adresse(s)']"><a class="adresses" href="" ng-click="displayCenter(keyAdress, value, keyCenter)">{{item}}</a></li>
+                    <li ng-repeat="(keyAdress, item) in value.center.administration['adressesGeo']" ng-if="item.active===true"><a class="adresses" href="" ng-click="displayCenter(keyAdress, value, keyCenter)">{{item.adresse}}</a></li>
                 </ul>
 
                 <!-- List of element search -->
@@ -78,11 +79,12 @@
         </div>
     </div>
 
+    <hr>
     <!-- Navigation in list -->
     <div id="centerNavigation" class="row">
     <div class="col-md-4">
         
-        <button id="precedentCenter" type="button" class="btn btn-primary" ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{ precedentCenter.center.administration['Intitulé'] }} - {{ precedentCenter.center.administration['Sigle ou acronyme'] }}</button>
+        <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{ precedentCenter.center.administration['Intitulé'] }} - {{ precedentCenter.center.administration['Sigle ou acronyme'] }}</button>
     </div>
 
         <h3 class="col-md-4" style="text-align:center;">
@@ -90,9 +92,11 @@
         </h3>
      <div class="col-md-4">
         
-        <button id="nextCenter" type="button" class="btn btn-primary" ng-model="nextCenter" ng-click="goNextCenter(nextCenter)"> {{nextCenter.center.administration['Intitulé']}} - {{nextCenter.center.administration['Sigle ou acronyme']}}> </button>
+        <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)"> {{nextCenter.center.administration['Intitulé']}} - {{nextCenter.center.administration['Sigle ou acronyme']}}> </button>
      </div>
     </div>
+
+    <hr>
 
     <!-- Center details with bootstrap tabs  -->
     <div class="row">
@@ -106,18 +110,26 @@
         </div>
     </div>
 
-    <div id="centerDetailsTabs">
+    <div id="centerDetailsTabs">    
         <div class="tab-content" ng-show="centerActive">
           <div class="row tab-pane administration" id="administration">
             <div class="col-md-6 col-md-offset-3">
-                <img ng-src="/img/{{sigle}}.jpeg}}">
-                <p>{{administration['CNRS']}}</p>
-                <p>Année de création : {{administration['Année de création']}}</p>
-                <p>Directeur : {{administration['Directeur']}}</p>
-                <p>Courriel direction : {{administration['Courrier Direction']}}</p>
-                <p>Téléphone : {{administration['Téléphone']}}</p>
-                <p>Site web : {{administration['Site Web']}}</p>
-                <p>Etablissements de rattachement : {{administration['Etablissements de rattachement']}}</p>
+                <div class="row">
+                    <div class="col-md-6" >
+                        <img style="width:80%;" ng-src="{{link}}">
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{administration['CNRS']}}</p>
+                        <p>Année de création : {{administration['Année de création']}}</p>
+                        <p>Directeur : {{administration['Directeur']}}</p>
+                        <p>Courriel direction : {{administration['Courrier Direction']}}</p>
+                        <p>Téléphone : {{administration['Téléphone']}}</p>
+                        <p>Site web : {{administration['Site Web']}}</p>
+                        <p>Etablissements de rattachement : {{administration['Etablissements de rattachement']}}</p>
+                    </div>
+                </div>
+                <hr>
+                <br>
                 <p>Historique : {{administration['Historique']}}</p>    
             </div>
           </div>

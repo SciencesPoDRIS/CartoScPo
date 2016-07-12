@@ -26,9 +26,9 @@ angular.module('map.service', [])
             if (v && v.administration)
                 if (v.administration.adressesGeo)
                     v.administration.adressesGeo.forEach(function(a, i) {                       
-                        if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
-                            v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace(/-/g, '_');
-                        }
+                        // if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
+                        //     v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace(/-/g, '_');
+                        // }
 
                         // set size & color marker
                         var iconSize = 10,
@@ -81,7 +81,7 @@ angular.module('map.service', [])
                 
                 // bind markdown data
                 $scope.administration = item.center.administration;
-                $scope.link = '/img/logos_centres_de_recherche/' + item.center.administration['Sigle ou acronyme'] + '.jpeg';
+                $scope.link = '/img/logos_centres_de_recherche_jpeg/' + item.center.administration['Sigle ou acronyme'] + '.jpg';
                 console.log("$scope.link", $scope.link);
                 $scope.sigle = item.center.administration['Sigle ou acronyme'];
                 $scope.personnel = item.center.personnel;
@@ -159,7 +159,7 @@ angular.module('map.service', [])
 
             // highlight center in list
             $scope.idSelectedCenter = keyCenter;
-            $("#listCenters").scroll($('#' + key));
+            //$("#listCenters").scroll($('#' + key));
 
             // open popup of center selected only if adress click, not navigation
             leafletData.getMap().then(function(map) {
@@ -172,9 +172,7 @@ angular.module('map.service', [])
 
                 // create popup
                 var showPopup = function(marker_key) {
-                    console.log("$scope.markers", $scope.markers);
-                    console.log("popup,", marker_key, $scope.markers[marker_key])
-
+                    // get the marker
                     var marker = $scope.markers[marker_key],
                         content = marker.message,
                         latLng = [marker.lat, marker.lng],
@@ -186,6 +184,7 @@ angular.module('map.service', [])
 
                 }
 
+                // get the key === adress position
                 if (key !== null)
                     showPopup(id_center+'_'+key);
             });   
