@@ -62,7 +62,6 @@ angular.module('bib.controller.home', [])
             $scope.allCenters = [];
 
             // use filter on allMarkers, don't mute allMarkers, allCenters
-
             // create immutable list as reference data
             var immutableAllCenters = [];
             _.forIn(result.allCenters, function(v, k) {
@@ -104,7 +103,7 @@ angular.module('bib.controller.home', [])
              * All functions used in view
              */
 
-            // delete ?
+            // all Words in search in lowercase
             $scope.startsWith = function(state, viewValue) {
               return state.substr(0, viewValue.length).toLowerCase() === viewValue.toLowerCase();
             }
@@ -227,7 +226,7 @@ angular.module('bib.controller.home', [])
 
             // update list
             function updateMapFromList() {
-                // 
+
                 $scope.centerActive = false;
 
                 // 
@@ -254,8 +253,6 @@ angular.module('bib.controller.home', [])
     
             // active tabs
             $scope.displayCenter = function(key, item, keyCenter) {
-
-                console.log("key center", keyCenter);
                 // display tabs
                 $scope.centerActive = true;
                 $scope.filtersOn = true;
@@ -276,8 +273,6 @@ angular.module('bib.controller.home', [])
 
             // display a specific tab
             $scope.openSpecificTab = function(item, keyCenter) {
-                console.log("open item", item)
-                console.log("open kC", keyCenter);
                 // open center details
                 $scope.centerActive = true;
 
@@ -302,8 +297,6 @@ angular.module('bib.controller.home', [])
 
             // center navigation with buttons
             $scope.goPrecedentCenter = function(item) {
-                console.log("item", item);
-                //need keyCenter
                 if (item) {
                     navigation(item.key);
                     var keyCenter = item.key;
@@ -322,8 +315,21 @@ angular.module('bib.controller.home', [])
                 }
             };
 
+            function setAllAdressActive() {
+
+                _.map($scope.allCenters, function(c) {
+                    console.log("d 2", c);
+                    return _.map(c.center.administration.adressesGeo, function (a) {
+                        c.active = true;
+                    });
+                });
+
+            }
+
              // display map with markers choosen
             $scope.initMap = function() {
+                console.log('here');
+                setAllAdressActive();
                 updateMapFromList();  
             };
 
@@ -349,6 +355,8 @@ angular.module('bib.controller.home', [])
                     }
                 }); 
             };
+
+           
 
             // refresh list from zoom
             var mapEvents = leafletMapEvents.getAvailableMapEvents();
@@ -378,16 +386,26 @@ angular.module('bib.controller.home', [])
                                 mapSouthWestLng = map.getBounds()._southWest.lng;
 
                             
-                            //check if centers are between lat & lng of map
+                            // check if centers are between lat & lng of map
                             _.forIn(allMarkers, function (v, k) {
                                 if (v.lat <= mapNorthEastLat && mapSouthWestLat <= v.lat 
                                     && mapSouthWestLng <= v.lng &&  v.lng <= mapNorthEastLng ) {
-                                    centersInMap.push(k)
+                                    centersInMap.push(k);
                                 }
                             });
 
                             // display number of marker/adress on map
                             $scope.centersInMap = centersInMap.length;
+
+                             function inMap(adress) {
+                
+                                if (adress.lat <= mapNorthEastLat && mapSouthWestLat <= adress.lat 
+                                    && mapSouthWestLng <= adress.lon &&  adress.lon <= mapNorthEastLng )
+                                    return true;
+                                else
+                                    return false;
+
+                            }
 
                             // create list of centers if no search 
                             if (!$scope.filtersOn) {
@@ -397,13 +415,29 @@ angular.module('bib.controller.home', [])
                                     
                                     var idCenter = d[0];
                                     if (result.allCenters[idCenter]) {
-                                        $scope.allCenters.push({center: result.allCenters[idCenter]});
+                                       
+
+                                        // check if adress in map
+                                        var adressFiltered = [];
+                                        _.map(result.allCenters[idCenter].administration.adressesGeo, function (d) {
+                                            
+                                            if (inMap(d))
+                                                d.active = true;
+                                            else
+                                                d.active = false;
+                                        });
+
+                                        var center = result.allCenters[idCenter]
+                                        console.log("center", center);
+                                        //center.administration.adressesGeo = adressFiltered;
+                                      
+                                        $scope.allCenters.push({center: center});
                                     }
                                 });
 
                                 // set list og centers 
                                 $scope.allCenters = _.uniqBy($scope.allCenters, 'center');
-                                console.log("$scope.allCenters", $scope.allCenters);
+                               
                                 
                             } 
                             else {
@@ -430,14 +464,18 @@ angular.module('bib.controller.home', [])
                                 // select only center in map and display in list
                                 $scope.allCenters = [];
                                 _.forEach(allCenterIdSearch, function(d) {
+                                    // console.log("center to check", allCentersObj[d].administration.adressesGeo)
+                                    // filter only adress on the map
+
                                   $scope.allCenters.push(allCentersObj[d]);  
-                                })
+                                });
+                                console.log("$scope.allCenters 2", $scope.allCenters);
                             }
 
                             // create keyInList
                             $scope.keyInList =  {};
                              _.forEach($scope.allCenters, function (v, k) {
-                                console.log("v", v);
+                                // console.log("v", v);
                                 if (v) {
                                     var id = v.center.administration['id'].trim();
                                         id = id.replace(/ /g, '');
