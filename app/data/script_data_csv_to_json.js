@@ -105,7 +105,8 @@ lodash.forIn(allCenters, function (v, k) {
 				adresse: adress[i],
 				lat: coordinates[i][0],
 				lon: coordinates[i][1],
-				city: cities[i]
+				city: cities[i],
+				active: true
 			})
 		}
 
