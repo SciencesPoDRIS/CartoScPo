@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
+    ngAnnotate = require('gulp-ng-annotate'),
     browserSync = require('browser-sync').create();
     //eslint = require('gulp-eslint');
  
@@ -13,13 +14,13 @@ gulp.task('js', function() {
     return gulp.src([
       'bower_components/jquery-highlight/jquery-highlight.js',
       'bower_components/lodash/dist/lodash.min.js',
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
       'bower_components/angular/angular.js',
       'bower_components/leaflet/dist/leaflet.js',
       'bower_components/angular-simple-logger/dist/angular-simple-logger.js',
       'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
       'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-      'bower_components/jquery/dist/jquery.min.js',
-      'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
       'bower_components/bootstrap/dist/js/bootstrap.min.js',
       'bower_components/angular-route/angular-route.min.js',
       'bower_components/angular-animate/angular-animate.js',
@@ -53,7 +54,7 @@ gulp.task('css', function() {
         'bower_components/angular-ui-select/dist/select.css',
         'bower_components/ng-grid/ng-grid.css',
         'bower_components/angular-loading-bar/build/loading-bar.css',
-        'bower_components/leaflet/dist/leaflet.css',
+        //'bower_components/leaflet/dist/leaflet.css',
         'bower_components/angular-ui-grid/ui-grid.css'
       ],
       {base: 'bower_components/'}
@@ -114,6 +115,14 @@ gulp.task('serve', function() {
     gulp.watch(['app/*.js', 'app/**/*js']).on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
+
+gulp.task('prod', function() {
+   return gulp.src(['app/app.js', 'app/controllers/*.js', 'app/services/*.js', 'app/directives/*.js'])
+    .pipe(concat('app.js'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(gulp.dest('./app/assets/js'))
+})
 
 // Default task that launch concat js, css & less then launch server
 gulp.task('default', ['js', 'css', 'less', 'serve']);
