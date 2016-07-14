@@ -9,8 +9,10 @@ var csv = {
 			administration : 'Donnees_centres_de_recherche_SP_2015 - Description administrative (1).csv',
 			personnel : 'Donnees_centres_de_recherche_SP_2015 - Personnel (1).csv',
 			ecole : 'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales (1).csv',
-			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche (1).csv'
-			};
+			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche (1).csv',
+			publication: 'Donnees_centres_de_recherche_SP_2015 - Publications.csv',
+			ressources: 'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
+		};
 
 /*
  * Transform csv to json & push it in array
@@ -119,9 +121,9 @@ lodash.forIn(allCenters, function (v, k) {
 	lodash.forIn(v.recherche, function (v, k) {
 		k = k.replace(/\n/g,'');
 		k = k.replace(/\*/g,' ');
-		v = v.replace(/\n/g,'');
-		if (v.indexOf(';') !== -1)
-			v = v.split(';');
+		// v = v.replace(/\n/g,'');
+		// if (v.indexOf(';') !== -1)
+		// 	v = v.split(';');
 		recherche[k] = v;
 	})
 
