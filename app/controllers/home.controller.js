@@ -39,6 +39,7 @@ angular.module('bib.controller.home', [])
     fileService
         .getFile(url)
         .then(function (result) {
+            console.log("result", result);
 
             /*
              * Init list, map & search

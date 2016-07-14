@@ -108,9 +108,10 @@
         <div class="col-md-8 col-md-offset-2">
             <ul class="nav nav-tabs" id="myTab" ng-show="centerActive">
                 <li class="tabTitle administration"><a data-target="#administration" data-toggle="tab">Description administrative</a></li>
-                <!-- <li class="tabTitle personnel"><a data-target="#personnel" data-toggle="tab">Personnel</a></li> -->
                 <li class="tabTitle ecole"><a data-target="#ecole" data-toggle="tab">Ecoles doctorales</a></li>
                 <li class="tabTitle recherche"><a data-target="#recherche" data-toggle="tab">Thématiques recherches</a></li>
+                <li class="tabTitle publications"><a data-target="#publications" data-toggle="tab">Publications</a></li>
+                <li class="tabTitle ressources"><a data-target="#ressources" data-toggle="tab">Ressources documentaires</a></li>
             </ul>
         </div>
     </div>
@@ -150,14 +151,7 @@
                     <p> {{administration['Historique']}}</p>    
             </div>
           </div>
-         <!--  <div class="tab-pane personnel col-md-6 col-md-offset-3" id="personnel">
-            <p>Effectif total : {{ personnel['Effectif total'] }}</p>
-            <p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
-            <p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
-            <p>Lien vers la page "personnel" du site Web du CNRS : <a ng-href="{{ personnel['Lien vers la page \"personnel\" du site Web du CNRS'] }}">Lien</a></p>
-            <p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
-
-          </div> -->
+       
           <div class="tab-pane ecole col-md-6 col-md-offset-3" id="ecole">
             <div class="row">
                 <div class="col-md-12">
@@ -176,6 +170,7 @@
                 </div>
             </div>
           </div>
+
           <div class="tab-pane recherche" id="recherche">
              <div class="row">
                 <div class="col-md-6 colTab" >
@@ -217,6 +212,57 @@
                         
                 </div>
             </div>
+          </div>
+
+          <div class="tab-pane publications" id="publications">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h1 class="titleProps">Archivage des données de la recherche</h1>
+                    {{publications['Archivage des données de la recherche : description des projets']}}
+
+                    <h1 class="titleProps">Autres activités éditoriales sur les revues</h1>
+                    {{publications['Autres activités éditoriales sur les revues (directeurs de rédaction, membres comités éditoriaux, partenariats...) Garder que directeurs?']}}
+
+                    <h1 class="titleProps">Collections auprès d'éditeurs</h1>
+                    {{publications['Collections auprès d\'éditeurs : description']}}
+
+                    <h1 class="titleProps">Revues en propre</h1>
+                    {{publications['Revues en propre : description']}}
+
+                    <h1 class="titleProps">Valorisation des publications par le laboratoire</h1>
+                    {{publications['Valorisation des publications par le laboratoire']}}
+                </div> 
+              </div>
+
+          </div>
+
+          <div class="tab-pane ressources" id="ressources">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+
+                    <h1 class="titleProps">Personne ressource - documentaliste</h1>
+                    {{ressources['Personne ressource - documentaliste']}}
+
+                    Site web : {{ressources['Site Web']}}
+
+                    <h1 class="titleProps">Bibliothèques utilisées</h1>
+                    {{ressources['Bibliothèques utilisées']}}
+
+                    <h1 class="titleProps">Ressources numériques à disposition des chercheurs</h1>
+                    {{ressources['Ressources numériques à disposition des chercheurs']}}
+               
+                    <h1 class="titleProps">Centre de documentation ou bibliothèque en propre</h1>
+                    {{ressources['"Centre de documentation ou bibliothèque en propre :↵Intitulé"']}} : {{ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']}}
+
+                    <h1 class="titleProps">Politique documentaire</h1>
+                    {{ressources['Politique documentaire']}}
+                    
+                    <h1 class="titleProps">Offre de formations documentaires</h1>
+                    {{ressources['Offre de formations documentaires']}}
+                </div>
+                
+              </div>
+
           </div>
         </div>
         

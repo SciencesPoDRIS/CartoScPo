@@ -92,6 +92,12 @@ angular.module('map.service', [])
                 $scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR']
                 $scope.section = item.center.recherche['Sections CNRS'];
 
+                $scope.ressources = item.center.ressources;
+
+                console.log("$scope.ressources", $scope.ressources);
+
+                $scope.publications = item.center.publication;
+                console.log("$scope.publications", $scope.publications);
                 
                 // create axes
                 var axes = '';
