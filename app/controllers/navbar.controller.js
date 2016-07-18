@@ -12,7 +12,7 @@ angular.module('bib.controller.navbar', [])
     $scope.views = [
       {slug: "donnees", label: "Accès aux données"},
       {slug: "methodologie", label: "Méthodologie"},
-      {slug: "reglages", label: "Réglages"},
-      {slug: "contact", label: "contact"}
+      {slug: "accessibilite", label: "Accessibilité"},
+      {slug: "contact", label: "Contact"}
     ];
   }])
