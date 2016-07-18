@@ -33,8 +33,6 @@ angular.module('bib.controller.data', [])
     // full text search -> see app.js for the filter
     $scope.refreshData = function() {
       $scope.gridOptions.data = $filter('filter')($scope.myData, $scope.filterText, undefined);
-      console.log("$scope.gridOptions.data", $scope.gridOptions.data);
-      console.log("$scope.gridApi", $scope.gridApi.selection.selectAllVisibleRows());
    };
 
     // // export data as csv
@@ -66,6 +64,11 @@ angular.module('bib.controller.data', [])
       a.setAttribute('download', 'data' + '.csv');
       a.click();
       document.body.removeChild(a);
+    }
+
+    $scope.resetSearch = function() {
+      $scope.filterText = '';
+      $scope.gridOptions.data = $filter('filter')($scope.myData, $scope.filterText, undefined);
     }
 
     fileService
