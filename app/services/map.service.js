@@ -53,7 +53,8 @@ angular.module('map.service', [])
                         id = id.replace(/_/g, '');
 
                         //create message for the popup
-                        var message = '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Sigle ou acronyme'] + '</p>' 
+                        var message = '<img style="width:20%; height:"20%;" src="/img/logos_centres_de_recherche_jpeg/' + v.administration['Sigle ou acronyme'] + '.jpg"' + '">' 
+                                    + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Sigle ou acronyme'] + '</p>' 
                                     + '<p>'  + a.adresse + '</p>';
 
                         // create one marker by adress and one cluster by city

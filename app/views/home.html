@@ -15,18 +15,61 @@
 
     <!-- Présentation du site -->
     <div class="row" >
-        <div class="col-md-6" style="font-size:25px;">
-            Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. 
+        <div class="col-md-6" style="font-size:18px;">
+            Où se fait la recherche en science politique en France? Par qui? Sur quelles
+            thématiques? Avec quelles ressources documentaires? Comment est-elle diffusée?
             <br>
-            Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
-        </div>
-         <div class="col-md-6" style="font-size:25px;">
-            Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. 
             <br>
-            Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+            C’est d’abord pour répondre à ces questions que cette cartographie des centres de
+            recherche a été développée.
+            <br><br>
+            Ce projet vise à identifier l'ensemble des centres de recherche en science politique et
+            de dresser un état des lieux institutionnel et documentaire, exhaustif et mis à jour, de la
+            recherche académique en science politique et relations internationales en France. 
+            <br><br>
+            Porté par la bibliothèque de SciencesPo, il s'inscrit dans le cadre de l’infrastructure CollEX
+            (Collections d’excellence – Réseau des bibliothèques, dont l’objectif est de coordonner une
+            politique patrimoniale sur le territoire).  
+            <br><br>
+            La liste des centres présentée ici est issue du croisement de l’annuaire ministériel des unité
+            de recherche et de l’annuaire du CNRS.
         </div>
-        
+         <div class="col-md-6" style="font-size:18px;">
+            Nous présentons dans cette première version les données collectées de 61 centres d
+            recherche (48 autres centres seront traités en 2016/2017)
+            <br>
+            <br>
+            Vous pouvez effectuer vos recherches sur cette liste ou naviguer grâce à la carte
+            Chaque centre dispose d’une fiche détaillée autour de 4 axes :
+            <br>
+            <br>
+            * description administrative : localisation, rattachements, historique, effectifs, écoles
+            doctorales.
+            <br>
+            * thématiques de recherche : disciplines, axes et programmes de recherche,
+            séminaires, réseaux.
+            <br>
+            * publications et données de la recherche : collections et revues, valorisation,
+            archivage des données.
+            <br>
+            * ressources documentaires : ressources numériques, bibliothèques utilisées,
+            centres de documentations, réseaux.
+            <br>
+            <br>
+            L’ensemble des données présentées sont téléchargeables librement. (LIEN VERS PAGE
+            DONNEES)
+        </div>
     </div>
+    <br>
+    <hr>
+        <p style="font-size:18px;">
+            Consultez la présentation détaillée du projet : méthodologie utilisée, informations sur les
+            données, leur collecte et leur diffusion, problématiques qui en émergent et développements
+            à venir. (LIEN VERS PAGE “METHODO” ou “PROJET”)
+            <br>
+            Nous souhaitons nous inscrire dans une démarche collaborative afin de faire évoluer au
+            mieux cet outil. N’hésitez donc pas à nous contacter ( LIEN VERS PAGE CONTACT).
+        </p>
     <br>
     <hr class="separation">
 
@@ -107,10 +150,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <ul class="nav nav-tabs" id="myTab" ng-show="centerActive">
-                <li class="tabTitle administration"><a data-target="#administration" data-toggle="tab">Description administrative</a></li>
+                <li class="tabTitle description"><a data-target="#description" data-toggle="tab">Description administrative</a></li>
                 <li class="tabTitle ecole"><a data-target="#ecole" data-toggle="tab">Ecoles doctorales</a></li>
                 <li class="tabTitle recherche"><a data-target="#recherche" data-toggle="tab">Thématiques recherches</a></li>
-                <li class="tabTitle publications"><a data-target="#publications" data-toggle="tab">Publications</a></li>
+                <li class="tabTitle publications"><a data-target="#publication" data-toggle="tab">Publications</a></li>
                 <li class="tabTitle ressources"><a data-target="#ressources" data-toggle="tab">Ressources documentaires</a></li>
             </ul>
         </div>
@@ -118,7 +161,7 @@
 
     <div id="centerDetailsTabs">    
         <div class="tab-content" ng-show="centerActive">
-          <div class="row tab-pane administration" id="administration">
+          <div class="row tab-pane administration description administrative" id="description">
             <div class="col-md-6 col-md-offset-3">
                 <div class="row">
                     <div class="col-md-6" >
@@ -127,6 +170,7 @@
                     <div class="col-md-6">
                         <p>{{administration['CNRS']}}</p>
                         <p>Année de création : {{administration['Année de création']}}</p>
+                        <p>Code unité : {{administration['Code Unité']}}
                         <p>Directeur : {{administration['Directeur']}}</p>
                         <p>Courriel direction : {{administration['Courrier Direction']}}</p>
                         <p>Téléphone : {{administration['Téléphone']}}</p>
@@ -214,7 +258,7 @@
             </div>
           </div>
 
-          <div class="tab-pane publications" id="publications">
+          <div class="tab-pane publication" id="publication">
               <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <h1 class="titleProps">Archivage des données de la recherche</h1>
@@ -270,3 +314,171 @@
   </div>
 </div>
 
+<!-- <div id="footer"> -->
+<section id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="section-heading">
+          Contribute
+        </h2>
+        <hr>
+        <p class="links">
+         Share your ideas or issues on : 
+         <br>
+         <span>
+           <a href="https://github.com/SciencesPoDRIS/CartoScPo/issues">https://github.com/medialab/CartoScPo/issues</a>
+         </span>     
+        </p>
+        <br>
+        <br>
+        <br>
+        <h2 class="section-heading">
+          Source code
+        </h2>
+        <hr>
+        <p class="links">
+         CartoScPo is a website under MIT Licence. 
+         <br>
+         Source code and documentation available on Github :
+         <span>
+           <a href="https://github.com/SciencesPoDRIS/CartoScPo">https://github.com/SciencesPoDRIS/CartoScPo</a>
+         </span>     
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="section-heading" style="text-align:right;">
+          CREDITS
+        </h2>
+        <hr>
+        <a href="http://www.medialab.sciences-po.fr" class="pull-right">
+          <img src="../img/logos_centres_de_recherche_jpeg/médialab.jpg" alt="Sciences Po medialab" style="width:200px;">
+        </a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="http://www.sciencespo.fr/bibliotheque/en" class="pull-right">
+          <img src="../img/logo_bibliothèque.png" alt="Bibliothèque Sciences Po" style="width:200px;" class="invert">
+        </a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p style="text-align:right; font-weight:bold;">
+           <a style="text-align:right; font-weight:bold;" href="https://twitter.com/ScPoBibli">@ScPoBibli</a>
+        </p>
+        <br>
+        <p style="text-align:right; font-weight:bold;">
+          <a href="#team" class="portfolio-link" data-toggle="modal">Team's project</a>
+        </p>
+      </div>
+    </div>
+  </section>
+  <center><a href="#touModal" id="legal" class="portfolio-link" data-toggle="modal">legal notice</a></center>
+       <!-- Terms of use Modal -->
+    <div class="portfolio-modal modal fade" id="touModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Legal notice</h2>
+                            <p class="item-intro text-muted"></p>
+                            
+                            <p>
+                                The contents of this site were supplied by
+                            </p>
+                            <p>
+                                Sciences Po
+                                <br>
+                                27 rue Saint-Guillaume
+                                <br>
+                                75337 Paris Cedex 07
+                                <br>
+                                Tel. : 01 45 49 50 50
+                                <br>
+                                Fax. : 01 42 22 31 26
+                                <br>
+                                webmestre ( AT ) sciencespo ( DOT ) fr
+                                <br>
+                                Contact webmaster : paul.girard ( AT ) sciencespo ( DOT ) fr
+                            </p>
+                            <h3>Publisher</h3>
+                            <p>
+                                Frédéric Mion, President of Sciences Po
+                            </p>
+                            <h3>Hosting</h3>
+                            <p>
+                                This internet site is hosted by Fondation Nationale des Sciences Politiques (FNSP), Sciences Po - Direction des Systèmes d'Information
+                            </p>
+                            <p>
+                                APE Code: 803Z
+                                <br>
+                                27, rue saint Guillaume
+                                <br>
+                                75337 Paris cedex 07
+                            </p>
+                            <h3>Industrial and Intellectual Property</h3>
+                            <p>
+                                Except for explicitly licensed elements (website source codes), all information on this web site (text, photos, logos…) is protected by the copyrights held by Sciences Po or their partners.
+                                <br>
+                                Therefore, the information may not be reproduced, modified, republished, re-aired, translated, distributed or reused in any manner, without the written consent of Sciences Po.
+                                <br>
+                                The Sciences Po site’s title, concept and form, as well as its content, such as news, descriptions, illustrations and original images and their organisation, and any software compilation, source code and other elements contained on the Sciences Po site are the property of Sciences Po.
+                            </p>
+                            <h3>Hypertext Links</h3>
+                            <p>
+                                Our pages also contain links to other sites for which we are in no manner responsible, neither regarding their adhesion to public order or good conduct, on the one hand, nor regarding their personal data privacy policies and use, on the other.
+                                <br>
+                                By accessing an outside site, through a hypertext link, you accept that this access is carried out at your own risk. Therefore, Sciences Po will in no way be held responsible for any direct or indirect damages resulting from your access to an outside site through a hypertext link.
+                            </p>
+                            
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close legal notice</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-modal modal fade" id="team" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h3>RICardo project's team</h3>
+                            <ul id="teamList">
+                                <li>
+                                    <a href="http://www.medialab.sciences-po.fr/fr/people/gregory-tible/">Mickaël Goudoux</a>, bibliothècaire référent à la bibliothèque de Sciences Po
+                                </li>
+                                <li>
+                                    <a href="http://www.medialab.sciences-po.fr/fr/people/gregory-tible/">Anne L'Hôte</a>, développeuse à la bibliothèque de Sciences Po
+                                </li>
+                                <li>
+                                    <a href="http://www.medialab.sciences-po.fr/fr/people/paul-girard/">Paul Girard</a>, directeur technique du Medialab de Sciences Po
+                                </li>
+                                <li>
+                                    <a href="http://www.medialab.sciences-po.fr/fr/people/gregory-tible/">Grégory Tible</a>, développeur au Medialab de Sciences Po
+                                </li>
+                            </ul>
+                            
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close team presentation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>

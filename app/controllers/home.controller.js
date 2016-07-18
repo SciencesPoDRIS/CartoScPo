@@ -180,9 +180,18 @@ angular.module('bib.controller.home', [])
                     _.forEach(searchResult, function(d) {
                         if (d) {
                             var searchPath = d.ref.split('_');
+                            var tab = ''
+                            if (searchPath[1] === 'personnel' || searchPath[1] === 'administration') {
+                                console.log("changer le nom");
+                                tab = 'description administrative';
+                            }
+                            else
+                                tab = searchPath[1];
+
+                            console.log("tab", tab)
                             resultWithPath.push({
                                 id: searchPath[0], 
-                                tab: searchPath[1], 
+                                tab: tab, 
                                 prop: searchPath[2]
                             });
                             updateMarkers.push(searchPath[0]);
@@ -285,13 +294,17 @@ angular.module('bib.controller.home', [])
                 // display center details
                 mapService.displayCenterSelected(center, null, keyCenter, $scope);
 
+                var tab = '';
+                item.tab === 'description administrative' ? tab = 'description' : tab = item.tab;
+
                 // active good tab
                 $('#myTab li').removeClass('active');
-                $('.tab-pane').removeClass('active');               
-                $( '.' + item.tab ).addClass( 'active' );
+                $('.tab-pane').removeClass('active');  
+                console.log("item.tab", tab);             
+                $('.' + tab).addClass( 'active' );
 
                 //scroll to good tab
-                $('#' + item.tab).scrollTo($('.' + item.tab));   
+                $('#centerDetailsTabs').scrollTo($('.' + tab));   
 
                 // update navigation
                 navigation(keyCenter);
