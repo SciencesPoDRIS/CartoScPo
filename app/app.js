@@ -35,6 +35,11 @@ angular.module('bib', [
     templateUrl: 'views/data.html',
     controller: 'data'
   });
+  $routeProvider.when('/methodologie', {
+
+    templateUrl: 'views/methodologie.html',
+    controller: 'methodologie'
+  });
  
   $routeProvider.otherwise({redirectTo: '/'});
 }])
