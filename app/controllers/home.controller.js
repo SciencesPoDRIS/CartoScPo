@@ -13,7 +13,7 @@ angular.module('bib.controller.home', [])
         leafletMarkerEvents, leafletMapEvents, $interpolate, 
         leafletData, Elasticlunr, $sce, mapService) {
 
-    var url  = '../data/data.json';
+    var url  = './data/data.json';
 
     // navigation
     function navigation(key) {

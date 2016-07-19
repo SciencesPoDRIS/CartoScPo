@@ -8,7 +8,7 @@ angular.module('bib.controller.data', [])
 
     //var url = '../data/Donnees_centres_de_recherche_SP_2015 - Description administrative.csv'
    
-   var url = '../data/data.json'
+   var url = './data/data.json'
    // get csv from url
     
 
