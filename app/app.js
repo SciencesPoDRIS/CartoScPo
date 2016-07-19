@@ -21,6 +21,7 @@ angular.module('bib', [
   'bib.controller.navbar',
   'bib.controller.home',
   'bib.controller.data',
+  'bib.controller.methodologie',
   'map.service'
   ])
 
