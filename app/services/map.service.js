@@ -53,7 +53,7 @@ angular.module('map.service', [])
                         id = id.replace(/_/g, '');
 
                         //create message for the popup
-                        var message = '<img style="width:20%; height:"20%;" src="/img/logos_centres_de_recherche_jpeg/' + v.administration['Sigle ou acronyme'] + '.jpg"' + '">' 
+                        var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + v.administration['Sigle ou acronyme'] + '.jpg"' + '">' 
                                     + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Sigle ou acronyme'] + '</p>' 
                                     + '<p>'  + a.adresse + '</p>';
 
@@ -82,7 +82,7 @@ angular.module('map.service', [])
                 
                 // bind markdown data
                 $scope.administration = item.center.administration;
-                $scope.link = '/img/logos_centres_de_recherche_jpeg/' + item.center.administration['Sigle ou acronyme'] + '.jpg';
+                $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Sigle ou acronyme'] + '.jpg';
                 console.log("$scope.link", $scope.link);
                 $scope.sigle = item.center.administration['Sigle ou acronyme'];
                 $scope.personnel = item.center.personnel;
