@@ -157,6 +157,8 @@ angular.module('map.service', [])
                       
             }
 
+               
+
             // highlight search in fulltxt
             $scope.highlight = function(text, search) {
                 if (!search)

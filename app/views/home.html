@@ -16,59 +16,33 @@
     <!-- Présentation du site -->
     <div class="row" >
         <div class="col-md-6" style="font-size:18px;">
-            Où se fait la recherche en science politique en France? Par qui? Sur quelles
-            thématiques? Avec quelles ressources documentaires? Comment est-elle diffusée?
-            <br>
-            <br>
-            C’est d’abord pour répondre à ces questions que cette cartographie des centres de
-            recherche a été développée.
+            <span style="font-weight:bold">Où se fait la recherche en science politique en France ? Par qui ? Sur quelles thématiques ? Avec quelles ressources documentaires ? Comment est-elle diffusée ?</span>
             <br><br>
-            Ce projet vise à identifier l'ensemble des centres de recherche en science politique et
-            de dresser un état des lieux institutionnel et documentaire, exhaustif et mis à jour, de la
-            recherche académique en science politique et relations internationales en France. 
+            C’est d’abord pour répondre à ces questions que cette cartographie des centres de recherche a été développée. 
             <br><br>
-            Porté par la bibliothèque de SciencesPo, il s'inscrit dans le cadre de l’infrastructure CollEX
-            (Collections d’excellence – Réseau des bibliothèques, dont l’objectif est de coordonner une
-            politique patrimoniale sur le territoire).  
+            Ce projet vise à <span style="font-weight:bold">identifier l'ensemble des centres de recherche en science politique et de dresser un état des lieux institutionnel et documentaire</span>, exhaustif et mis à jour, de la recherche académique en science politique et relations internationales en France. 
             <br><br>
-            La liste des centres présentée ici est issue du croisement de l’annuaire ministériel des unité
-            de recherche et de l’annuaire du CNRS.
+
+            Porté par la <span style="font-weight:bold">bibliothèque de SciencesPo</span>, il s'inscrit dans le cadre de l’infrastructure <span style="font-weight:bold">CollEX </span>(Collections d’excellence – Réseau des bibliothèques, dont l’objectif est de coordonner une politique patrimoniale sur le territoire).  
         </div>
          <div class="col-md-6" style="font-size:18px;">
-            Nous présentons dans cette première version les données collectées de 61 centres d
-            recherche (48 autres centres seront traités en 2016/2017)
-            <br>
-            <br>
-            Vous pouvez effectuer vos recherches sur cette liste ou naviguer grâce à la carte
-            Chaque centre dispose d’une fiche détaillée autour de 4 axes :
-            <br>
-            <br>
-            * description administrative : localisation, rattachements, historique, effectifs, écoles
-            doctorales.
-            <br>
-            * thématiques de recherche : disciplines, axes et programmes de recherche,
-            séminaires, réseaux.
-            <br>
-            * publications et données de la recherche : collections et revues, valorisation,
-            archivage des données.
-            <br>
-            * ressources documentaires : ressources numériques, bibliothèques utilisées,
-            centres de documentations, réseaux.
-            <br>
-            <br>
-            L’ensemble des données présentées sont téléchargeables librement. (LIEN VERS PAGE
-            DONNEES)
+            Nous présentons dans cette première version les données collectées de 61 centres de recherche (48 autres centres seront traités en 2016/2017).
+            <br><br>
+            Vous pouvez effectuer vos recherches sur cette liste, par mots ou naviguer grâce à la carte.
+            <br><br>
+            Chaque centre dispose d’une fiche détaillée.
+            <br><br>
+            L’ensemble des données présentées sont <a href="/#/donnees">téléchargeables librement.</a>
+            
         </div>
     </div>
     <br>
     <hr>
         <p style="font-size:18px;">
-            Consultez la présentation détaillée du projet : méthodologie utilisée, informations sur les
-            données, leur collecte et leur diffusion, problématiques qui en émergent et développements
-            à venir. (LIEN VERS PAGE “METHODO” ou “PROJET”)
-            <br>
-            Nous souhaitons nous inscrire dans une démarche collaborative afin de faire évoluer au
-            mieux cet outil. N’hésitez donc pas à nous contacter ( LIEN VERS PAGE CONTACT).
+           <a href="/#/projet">Consultez la présentation détaillée du projet</a> : méthodologie utilisée, informations sur les données, leur collecte et leur diffusion, problématiques qui en émergent et développements à venir.
+            <br><br>
+            Nous souhaitons nous inscrire dans une démarche collaborative afin de faire évoluer au mieux cet outil. N’hésitez donc pas à <a href="/#/#contact">nous contacter</a>. 
+
         </p>
     <br>
     <hr class="separation">
@@ -83,7 +57,7 @@
         </div>
         <div class="col-md-6">
             <button class="btn  btn-lg" type="submit" ng-click="initMap()" style="float:right;">Ré-initialiser la carte</button>
-            <button class="btn  btn-lg" type="submit" ng-click="zoomFrance()" style="float:right; margin-right:10px;">Zoomer sur la France</button>
+            <button class="btn  btn-lg" type="submit" ng-click="zoomFrance()" style="float:right; margin-right:10px;">Zoomer sur la France métropolitaine</button>
         </div>
     </div>
 
@@ -132,7 +106,7 @@
     <div id="centerNavigation" class="row">
         <div class="col-md-4">
             
-            <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{ precedentCenter.center.administration['Intitulé'] }} - {{ precedentCenter.center.administration['Sigle ou acronyme'] }}</button>
+            <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)"> < {{ precedentCenter.center.administration['Intitulé'] }} - {{ precedentCenter.center.administration['Sigle ou acronyme'] }} </button>
         </div>
 
             <h3 class="col-md-4" style="text-align:center;">
@@ -140,7 +114,7 @@
             </h3>
          <div class="col-md-4">
             
-            <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)"> {{nextCenter.center.administration['Intitulé']}} - {{nextCenter.center.administration['Sigle ou acronyme']}}> </button>
+            <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)"> {{nextCenter.center.administration['Intitulé']}} - {{nextCenter.center.administration['Sigle ou acronyme']}} </button>
          </div>
     </div>
 
@@ -159,8 +133,8 @@
         </div>
     </div>
 
-    <div id="centerDetailsTabs">    
-        <div class="tab-content" ng-show="centerActive">
+    <div >    
+        <div class="tab-content" ng-show="centerActive" id="centerDetailsTabs">
           <div class="row tab-pane administration description administrative" id="description">
             <div class="col-md-6 col-md-offset-3">
                 <div class="row">
@@ -320,11 +294,11 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class="section-heading">
-          Contribute
+          Contribuer
         </h2>
         <hr>
         <p class="links">
-         Share your ideas or issues on : 
+         Partager vos idées ou issues sur : 
          <br>
          <span>
            <a href="https://github.com/SciencesPoDRIS/CartoScPo/issues">https://github.com/medialab/CartoScPo/issues</a>
@@ -334,13 +308,13 @@
         <br>
         <br>
         <h2 class="section-heading">
-          Source code
+          Code source du projet
         </h2>
         <hr>
         <p class="links">
-         CartoScPo is a website under MIT Licence. 
+         CartoScPo est un site wev sous licence MIT. 
          <br>
-         Source code and documentation available on Github :
+         Le code source du projet et la documentation sont disponible sur Github :
          <span>
            <a href="https://github.com/SciencesPoDRIS/CartoScPo">https://github.com/SciencesPoDRIS/CartoScPo</a>
          </span>     
@@ -354,11 +328,7 @@
         <a href="http://www.medialab.sciences-po.fr" class="pull-right">
           <img src="./img/logos_centres_de_recherche_jpeg/Médialab.jpg" alt="Sciences Po medialab" style="width:200px;">
         </a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
         <a href="http://www.sciencespo.fr/bibliotheque/en" class="pull-right">
           <img src="./img/logo_bibliothèque.png" alt="Bibliothèque Sciences Po" style="width:200px;" class="invert">
         </a>
@@ -367,17 +337,19 @@
         <br>
         <br>
         <br>
+        <h2 class="section-heading" style="text-align:right;">
+          Equipe et contact
+        </h2>
+        <hr>
         <p style="text-align:right; font-weight:bold;">
-           <a style="text-align:right; font-weight:bold;" href="https://twitter.com/ScPoBibli">@ScPoBibli</a>
-        </p>
-        <br>
-        <p style="text-align:right; font-weight:bold;">
-          <a href="#team" class="portfolio-link" data-toggle="modal">Team's project</a>
+          <a href="#team" class="portfolio-link" data-toggle="modal">Equipe projet</a>
+          <br>
+          <a href="mailto:michael.goudoux@sciencespo.fr" class="portfolio-link" data-toggle="modal" id="contact">Conctact : michael.goudoux@sciencespo.fr</a>
         </p>
       </div>
     </div>
   </section>
-  <center><a href="#touModal" id="legal" class="portfolio-link" data-toggle="modal">legal notice</a></center>
+  <center><a href="#touModal" id="legal" class="portfolio-link" data-toggle="modal">Mentions légales</a></center>
        <!-- Terms of use Modal -->
     <div class="portfolio-modal modal fade" id="touModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
@@ -461,8 +433,8 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h3>RICardo project's team</h3>
-                            <ul id="teamList">
+                            <h3>Equipe du projet</h3>
+                            <ul id="teamList" style="list-style:none">
                                 <li>
                                     <a href="http://www.medialab.sciences-po.fr/fr/people/gregory-tible/">Mickaël Goudoux</a>, bibliothècaire référent à la bibliothèque de Sciences Po
                                 </li>

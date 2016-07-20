@@ -11,7 +11,7 @@ angular.module('bib.controller.navbar', [])
 
     $scope.views = [
       {slug: "donnees", label: "Accès aux données"},
-      {slug: "methodologie", label: "Méthodologie"},
+      {slug: "projet", label: "Projet"},
       {slug: "accessibilite", label: "Accessibilité"},
       {slug: "contact", label: "Contact"}
     ];

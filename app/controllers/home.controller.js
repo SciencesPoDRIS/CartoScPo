@@ -274,6 +274,10 @@ angular.module('bib.controller.home', [])
 
                 // updated navigation'centers buttons
                 navigation(keyCenter);
+                $('#myTab li').removeClass('active');
+                $('.tab-pane').removeClass('active');              
+                $('.description').addClass( 'active' );
+                window.scrollTo(0, $('.description').offset().top);
             };
 
             // desactive tabs
@@ -302,10 +306,7 @@ angular.module('bib.controller.home', [])
                 $('.tab-pane').removeClass('active');  
                 console.log("item.tab", tab);             
                 $('.' + tab).addClass( 'active' );
-
-                //scroll to good tab
-                $('#centerDetailsTabs').scrollTo($('.' + tab));   
-
+                window.scrollTo(0, $('.' + tab).offset().top);
                 // update navigation
                 navigation(keyCenter);
             };

@@ -36,7 +36,7 @@ angular.module('bib', [
     templateUrl: 'views/data.html',
     controller: 'data'
   });
-  $routeProvider.when('/methodologie', {
+  $routeProvider.when('/projet', {
 
     templateUrl: 'views/methodologie.html',
     controller: 'methodologie'
