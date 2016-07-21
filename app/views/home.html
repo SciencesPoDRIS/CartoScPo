@@ -68,7 +68,7 @@
         <!-- Centers list -->
         <div id="listCenters" class="col-md-6 centersList"  style="padding:0 20px 0">
             <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index"  ng-class="{selected : keyCenter === idSelectedCenter}">
-                <h3>{{value.center.administration['Intitulé']}} - {{value.center.administration['Sigle ou acronyme']}} </h3>
+                <h3><a class="adresses" href="" ng-click="displayCenter(null, value, keyCenter)" style="color: red;">{{value.center.administration['Intitulé']}} - {{value.center.administration['Sigle ou acronyme']}}</a> </h3>
                 <p>{{value.center.administration['Ville']}}</p>
                 
                 <!-- List of adress -->
@@ -148,7 +148,7 @@
                         <p>Directeur : {{administration['Directeur']}}</p>
                         <p>Courriel direction : {{administration['Courrier Direction']}}</p>
                         <p>Téléphone : {{administration['Téléphone']}}</p>
-                        <p>Site web : {{administration['Site Web']}}</p>
+                        <p>Site web : <a href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
                         <p>Etablissements de rattachement : {{administration['Etablissements de rattachement']}}</p>
                     </div>
                 </div>
@@ -160,8 +160,8 @@
                         <p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Lien vers la page "personnel" du site Web du CNRS : <a ng-href="{{ personnel['Lien vers la page \"personnel\" du site Web du CNRS'] }}">Lien</a></p>
-                        <p>Lien vers la page "personnel" sur le site Web du centre : <a ng-href="{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
+                        <p>Lien vers la page "personnel" du site Web du CNRS : <a href="{{ personnelCNRSUrl }}">Lien</a></p>
+                        <p>Lien vers la page "personnel" sur le site Web du centre : <a href="{{ personnelSiteWebCentre }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
                     </div>
                     
                 </div>
@@ -235,48 +235,66 @@
           <div class="tab-pane publication" id="publication">
               <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <h1 class="titleProps">Archivage des données de la recherche</h1>
-                    {{publications['Archivage des données de la recherche : description des projets']}}
-
-                    <h1 class="titleProps">Autres activités éditoriales sur les revues</h1>
-                    {{publications['Autres activités éditoriales sur les revues (directeurs de rédaction, membres comités éditoriaux, partenariats...) Garder que directeurs?']}}
-
                     <h1 class="titleProps">Collections auprès d'éditeurs</h1>
                     {{publications['Collections auprès d\'éditeurs : description']}}
 
                     <h1 class="titleProps">Revues en propre</h1>
                     {{publications['Revues en propre : description']}}
 
+                    <h1 class="titleProps">Autres activités éditoriales sur les revues</h1>
+                    {{publications['Autres activités éditoriales sur les revues (directeurs de rédaction, membres comités éditoriaux, partenariats...) Garder que directeurs?']}}
+
+                    <h1 class="titleProps">Publications versées dans HAL</h1>
+                    {{publications['Publications versées dans HAL (oui/non)']}}
+
+                    <h1 class="titleProps">Publications versées dans un dépôt institutionnel</h1>
+                    {{publications['Publications versées dans un dépôt institutionnel (oui/non)']}}
+
+                    <h1 class="titleProps">Préconisations pour le dépôt en open access des publications</h1>
+                    {{publications['Préconisations pour le dépôt en open access des publications']}}
+
+                    <h1 class="titleProps">Archivage des données de la recherche</h1>
+                    {{publications['Archivage des données de la recherche : description des projets']}}
+
                     <h1 class="titleProps">Valorisation des publications par le laboratoire</h1>
                     {{publications['Valorisation des publications par le laboratoire']}}
                 </div> 
               </div>
-
           </div>
 
           <div class="tab-pane ressources" id="ressources">
               <div class="row">
                 <div class="col-md-6 col-md-offset-3">
 
-                    <h1 class="titleProps">Personne ressource - documentaliste</h1>
-                    {{ressources['Personne ressource - documentaliste']}}
-
-                    Site web : {{ressources['Site Web']}}
-
                     <h1 class="titleProps">Bibliothèques utilisées</h1>
                     {{ressources['Bibliothèques utilisées']}}
 
                     <h1 class="titleProps">Ressources numériques à disposition des chercheurs</h1>
                     {{ressources['Ressources numériques à disposition des chercheurs']}}
-               
+
+                    <h1 class="titleProps">Personne ressource - documentaliste</h1>
+                    {{ressources['Personne ressource - documentaliste']}}
+
                     <h1 class="titleProps">Centre de documentation ou bibliothèque en propre</h1>
-                    {{ressources['"Centre de documentation ou bibliothèque en propre :↵Intitulé"']}} : {{ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']}}
+                    {{ressources['Centre de documentation ou bibliothèque en propre (oui/non)']}}
+
+                    <h1 class="titleProps">Centre de documentation ou bibliothèque en propre : intitulé</h1>
+                    {{ressourcesIntitule}} 
+
+                    <h1 class="titleProps">Site web</h1>
+                    <a href="{{ressourcesSiteWeb}}"> Lien </a>
+
+                    <h1 class="titleProps">Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h1>
+                    {{ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']}}
 
                     <h1 class="titleProps">Politique documentaire</h1>
                     {{ressources['Politique documentaire']}}
                     
                     <h1 class="titleProps">Offre de formations documentaires</h1>
                     {{ressources['Offre de formations documentaires']}}
+
+                    <h1 class="titleProps">Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h1>
+                    {{ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']}}
                 </div>
                 
               </div>
@@ -294,29 +312,28 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class="section-heading">
-          Contribuer
+          Acessibilité
         </h2>
         <hr>
-        <p class="links">
-         Partager vos idées ou issues sur : 
-         <br>
-         <span>
-           <a href="https://github.com/SciencesPoDRIS/CartoScPo/issues">https://github.com/medialab/CartoScPo/issues</a>
-         </span>     
-        </p>
-        <br>
-        <br>
+        
         <br>
         <h2 class="section-heading">
           Code source du projet
         </h2>
         <hr>
         <p class="links">
-         CartoScPo est un site wev sous licence MIT. 
+         CartoScPo est un site web sous licence MIT. 
          <br>
          Le code source du projet et la documentation sont disponible sur Github :
          <span>
            <a href="https://github.com/SciencesPoDRIS/CartoScPo">https://github.com/SciencesPoDRIS/CartoScPo</a>
+         </span>     
+        </p>
+        <p class="links">
+         Partager vos idées ou issues sur : 
+         <br>
+         <span>
+           <a href="https://github.com/SciencesPoDRIS/CartoScPo/issues">https://github.com/medialab/CartoScPo/issues</a>
          </span>     
         </p>
       </div>
@@ -326,7 +343,7 @@
         </h2>
         <hr>
         <a href="http://www.medialab.sciences-po.fr" class="pull-right">
-          <img src="./img/logos_centres_de_recherche_jpeg/Médialab.jpg" alt="Sciences Po medialab" style="width:200px;">
+          <img src="./img/sciencespo_medialab.png" alt="Sciences Po medialab" style="width:200px;">
         </a>
 
         <a href="http://www.sciencespo.fr/bibliotheque/en" class="pull-right">
@@ -344,7 +361,7 @@
         <p style="text-align:right; font-weight:bold;">
           <a href="#team" class="portfolio-link" data-toggle="modal">Equipe projet</a>
           <br>
-          <a href="mailto:michael.goudoux@sciencespo.fr" class="portfolio-link" data-toggle="modal" id="contact">Conctact : michael.goudoux@sciencespo.fr</a>
+          Contact : <a href="mailto:michael.goudoux@sciencespo.fr" class="portfolio-link" data-toggle="modal" id="contact"> michael.goudoux@sciencespo.fr</a>
         </p>
       </div>
     </div>

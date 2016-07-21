@@ -27,7 +27,7 @@ angular.module('bib', [
 
 .config(['$routeProvider', function($routeProvider) {
 
-  $routeProvider.when('/', {
+  $routeProvider.when('/accueil', {
   	templateUrl: 'views/home.html',
     controller: 'home'
   });
@@ -42,7 +42,7 @@ angular.module('bib', [
     controller: 'methodologie'
   });
  
-  $routeProvider.otherwise({redirectTo: '/'});
+  $routeProvider.otherwise({redirectTo: '/accueil'});
 }])
 
 .filter('visibleColumns', function($rootScope) {

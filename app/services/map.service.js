@@ -83,9 +83,12 @@ angular.module('map.service', [])
                 // bind markdown data
                 $scope.administration = item.center.administration;
                 $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Sigle ou acronyme'] + '.jpg';
-                console.log("$scope.link", $scope.link);
+                
                 $scope.sigle = item.center.administration['Sigle ou acronyme'];
                 $scope.personnel = item.center.personnel;
+                $scope.personnelCNRSUrl = item.center.personnel['Lien vers la page "personnel" du site Web du CNRS'];
+                $scope.personnelSiteWebCentre = item.center.personnel['Lien vers la page "personnel" sur le site Web du centre']
+                
                 $scope.ecole = item.center.ecole;
                 $scope.recherche = item.center.recherche;
                 $scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
@@ -94,8 +97,9 @@ angular.module('map.service', [])
                 $scope.section = item.center.recherche['Sections CNRS'];
 
                 $scope.ressources = item.center.ressources;
-
                 console.log("$scope.ressources", $scope.ressources);
+                $scope.ressourcesIntitule = item.center.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'];
+                $scope.ressourcesSiteWeb = item.center.ressources['Site Web'];
 
                 $scope.publications = item.center.publication;
                 console.log("$scope.publications", $scope.publications);

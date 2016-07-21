@@ -11,7 +11,7 @@ var csv = {
 			ecole : 'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales (1).csv',
 			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche (1).csv',
 			publication: 'Donnees_centres_de_recherche_SP_2015 - Publications.csv',
-			ressources: 'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
+			ressources: 'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires (1).csv'
 		};
 
 /*
