@@ -10,9 +10,19 @@ angular.module('bib.services', [])
 
    return {
 
-     getFile : function(url) {
+     getFile : function(file) {
        var deferred = $q.defer();
-       $http.get(url).success(function(data) {
+       $http({
+        method: 'GET',
+        url: file,
+        headers : {
+                "Pragma": "no-cache",
+                "Expires": -1,
+                "Cache-Control": "no-cache"
+        },
+        cache: false
+      })
+      .success(function(data) {
          deferred.resolve(data);
        }).error(function(){
          deferred.reject('An error occured while fetching file');

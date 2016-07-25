@@ -69,6 +69,8 @@ angular.module('map.service', [])
                         };
 
                     })
+
+            
         },
         displayCenterSelected: function (item, key, keyCenter, $scope) {
             // display details of center                    
@@ -97,12 +99,12 @@ angular.module('map.service', [])
                 $scope.section = item.center.recherche['Sections CNRS'];
 
                 $scope.ressources = item.center.ressources;
-                console.log("$scope.ressources", $scope.ressources);
+
                 $scope.ressourcesIntitule = item.center.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'];
                 $scope.ressourcesSiteWeb = item.center.ressources['Site Web'];
 
                 $scope.publications = item.center.publication;
-                console.log("$scope.publications", $scope.publications);
+
                 
                 // create axes
                 var axes = '';

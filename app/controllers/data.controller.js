@@ -38,7 +38,6 @@ angular.module('bib.controller.data', [])
     // // export data as csv
     $scope.exportData = function() {
      
-      console.log(" re", $scope.gridApi.grid.renderContainers.body.visibleRowCache);
       var dataSelected = []
        _.forEach($scope.gridApi.grid.renderContainers.body.visibleRowCache, function(d) {
           delete d.entity["id"];
@@ -49,9 +48,6 @@ angular.module('bib.controller.data', [])
           delete d.entity["Logo"];
           dataSelected.push(d.entity);
        })
-
-       console.log("dataSelected", dataSelected);
-
 
       var csv = Papa.unparse(dataSelected),
           blob = new Blob([csv], {type: 'attachment/csv;charset=utf-8'}),
@@ -75,9 +71,6 @@ angular.module('bib.controller.data', [])
      .getFile(url)
      .then(function (result) {
 
-      //transform csv to json
-      //var parsed = Papa.parse(result, {header: true, encoding: "utf-8"});
-
       // select only five colomns in csv
       var data = [],
           headers = [];
@@ -94,7 +87,6 @@ angular.module('bib.controller.data', [])
         data.push(center);
       });
 
-      console.log(data)
       $scope.myData = data;
       $scope.gridOptions.data = $scope.myData;
     });
