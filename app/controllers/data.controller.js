@@ -6,7 +6,7 @@ angular.module('bib.controller.data', [])
   .controller('data', [ '$scope', '$location', "$http", "fileService", "_", "uiGridConstants", "$filter",
     function($scope, $location, $http, fileService, _, uiGridConstants, $filter) {
 
-    //var url = '../data/Donnees_centres_de_recherche_SP_2015 - Description administrative.csv'
+    localStorage.setItem("loadingPage",false);
    
    var url = './data/data.json'
    // get csv from url

@@ -2,43 +2,30 @@
     <div top-menu class="row">
     </div>
     <div class="container-fluid">
-    
      <div class="row">
-        <div  class="col-md-6 col-md-offset-3" style="text-align: center;" >
-        </div>
+        <!-- <div  class="col-md-6 col-md-offset-3" style="text-align: center;" >
+        </div> -->
         <div >
-          <img src="./img/coverCarto.png" class="cover" style="
-                  position: relative; 
-                  margin: auto; 
-                  width: 100%;
-                  height: 100%;
-                  overflow-x: hidden;
-                "/>
+          <img src="./img/coverCarto.png" id="cover"/>
         </div>
-        <div style="
-        position: absolute; 
-        top: 150px; 
-        left: 10px; 
-        width: 50%;
-        text-align: justify;
-        font-size:20px;">
-            
-                <h1 style="color:white; font-size:50px; text-align:center">Les centres de recherche en science politique en France <br>
-                <span style="text-align:center; font-size:18px;"> Une étude menée par la bibliothèque de Sciences Po </span></h1>
+        <div id="textOnImg">
+                <!-- titles -->
+                <h1>Les centres de recherche en science politique en France <br>
+                <span> Une étude menée par la bibliothèque de Sciences Po </span></h1>
                 
-            
+                <!-- project's presentation -->
             <br>
-            <p style="font-size:12px;">
-                <span style="font-weight:bold">Où se fait la recherche en science politique en France ? Par qui ? Sur quelles thématiques ? 
+            <p id="textTitle">
+                <span>Où se fait la recherche en science politique en France ? Par qui ? Sur quelles thématiques ? 
                 <br> Avec quelles ressources documentaires ? Comment est-elle diffusée ?</span>
                 <br><br>
                 C’est d’abord pour répondre à ces questions que cette cartographie des centres de recherche a été développée. 
                 <br><br>
-                Ce projet vise à <span style="font-weight:bold">identifier l'ensemble des centres de recherche en science politique et de dresser un état <br> 
+                Ce projet vise à <span>identifier l'ensemble des centres de recherche en science politique et de dresser un état <br> 
                 des lieux institutionnel et documentaire</span>, exhaustif et mis à jour, de la recherche académique en science politique 
                 <br> et relations internationales en France. 
                 <br><br>
-                Porté par la <span style="font-weight:bold">bibliothèque de SciencesPo</span>, il s'inscrit dans le cadre de l’infrastructure <span style="font-weight:bold">CollEX </span>(Collections d’excellence – <br> Réseau des bibliothèques, 
+                Porté par la <span>bibliothèque de SciencesPo</span>, il s'inscrit dans le cadre de l’infrastructure <span>CollEX </span>(Collections d’excellence – <br> Réseau des bibliothèques, 
                 dont l’objectif est de coordonner une politique patrimoniale sur le territoire).
                 <br>
                 <br>
@@ -53,50 +40,31 @@
     </div>
     <hr>
 
-    <!-- Présentation du site -->
-    <!-- <div class="row" >
-        <div class="col-md-6" style="font-size:18px;">
-            C’est d’abord pour répondre à ces questions que cette cartographie des centres de recherche a été développée. 
-            <br><br>
-            Ce projet vise à <span style="font-weight:bold">identifier l'ensemble des centres de recherche en science politique et de dresser un état des lieux institutionnel et documentaire</span>, exhaustif et mis à jour, de la recherche académique en science politique et relations internationales en France. 
-            <br><br>
-            Porté par la <span style="font-weight:bold">bibliothèque de SciencesPo</span>, il s'inscrit dans le cadre de l’infrastructure <span style="font-weight:bold">CollEX </span>(Collections d’excellence – Réseau des bibliothèques, dont l’objectif est de coordonner une politique patrimoniale sur le territoire).  
-        </div>
-         <div class="col-md-12" style="font-size:18px;">
-            
-            <br><br>
-            <p style="font-size:18px;">
-               
-            </p>
-        </div>
-    </div>
-    <br>
-    <hr>
-    <br> -->
+    <!-- icons -->
     <div class="row">
-        <div class="col-md-3" style="text-align:center;">
+        <div class="col-md-3 iconPresentation">
             <i class="fa fa-map-o fa-5x" aria-hidden="true"></i>
             <p> Naviguez au sein des centres de recherche en science politique <br> grâce à la carte interactive. </p>
         </div>
-        <div class="col-md-3" style="text-align:center;">
+        <div class="col-md-3 iconPresentation">
             <i class="fa fa-search fa-5x" aria-hidden="true"></i>
             <p> Effectuez vos recherches sur cette liste par mots-clés. 
             <br>
             Chaque centre dispose d’une fiche détaillée.<p>
         </div>
-        <div class="col-md-3" style="text-align:center;">
+        <div class="col-md-3 iconPresentation">
             <i class="fa fa-table fa-5x" aria-hidden="true"></i>
             <p> L’ensemble des données présentées sont accessibles <br> et <a href="http://lab.medialab.sciences-po.fr/CartoScPo/#/donnees">téléchargeables librement sous format csv.</a> </p>
         </div>
-        <div class="col-md-3" style="text-align:center;">
+        <div class="col-md-3 iconPresentation">
             <i class="fa fa-comments-o fa-5x" aria-hidden="true"></i>
             <p> 
                 Nous souhaitons nous inscrire dans une démarche collaborative et open source afin de faire évoluer au mieux cet outil. 
                 N’hésitez donc pas à <a href="http://lab.medialab.sciences-po.fr/CartoScPo/#/accueil#contact">nous contacter</a>. 
             </p>
         </div>
-        
     </div>
+
     <hr class="separation">
 
     <!-- Search bar -->
@@ -108,8 +76,8 @@
             <p>Nombre de centres trouvés : {{allCenters.length}}</p>
         </div>
         <div class="col-md-6">
-            <button class="btn  btn-lg" type="submit" ng-click="initMap()" style="float:right;">Ré-initialiser la carte</button>
-            <button class="btn  btn-lg" type="submit" ng-click="zoomFrance()" style="float:right; margin-right:10px;">Zoomer sur la France métropolitaine</button>
+            <button class="btn  btn-lg zoom" type="submit" ng-click="initMap()">Ré-initialiser la carte</button>
+            <button id="zoomFrance" class="btn  btn-lg zoom" type="submit" ng-click="zoomFrance()">Zoomer sur la France métropolitaine</button>
         </div>
     </div>
 
@@ -121,7 +89,6 @@
         <div id="listCenters" class="col-md-6 centersList"  style="padding:0 20px 0">
             <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index"  ng-class="{selected : keyCenter === idSelectedCenter}">
                 <h3><a class="adresses" href="" ng-click="displayCenter(null, value, keyCenter)" style="color: red;font-size:24px;">{{value.center.administration['Intitulé']}} - {{value.center.administration['Sigle ou acronyme']}}</a> </h3>
-                
                 
                 <!-- List of adress -->
                 <ul>
@@ -140,7 +107,7 @@
         </div>
 
         <!-- Map directive --> 
-        <div ng-if="isMap" class="col-md-5 col-md-offset-1" style="padding:0 20px 0">
+        <div class="col-md-5 col-md-offset-1" style="padding:0 20px 0">
             <leaflet 
                 lf-center="center" 
                 markers="markers"
@@ -191,7 +158,7 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="row">
                     <div class="col-md-6" >
-                        <img style="width:80%;" ng-src="{{link}}">
+                        <img id="logoCenter" ng-src="{{link}}">
                     </div>
                     <div class="col-md-6">
                         <p>{{administration['CNRS']}}</p>
@@ -201,7 +168,8 @@
                         <p>Courriel direction : {{administration['Courrier Direction']}}</p>
                         <p>Téléphone : {{administration['Téléphone']}}</p>
                         <p>Site web : <a target="_blank" href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
-                        <p>Etablissements de rattachement : {{administration['Etablissements de rattachement']}}</p>
+                        <p>Etablissements de rattachement : </p>
+                        <p ng-repeat="etablissement in etablissements" class="keyWord" ng-click="showNameChanged(etablissement)">{{etablissement}}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -226,7 +194,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="titleProps">Liste des écoles doctorales</h1>
-                    <div ng-repeat="ecole in ecole.ecoles" class="col-md-4" style="border-right:solid 1px black;">
+                    <div ng-repeat="ecole in ecole.ecoles" id="ecole" class="col-md-4">
                         <p>Intitulé Ecole Doctorale : {{ ecole.intitule }}</p>
                         <p>Numéro d'Ecole Doctorale : {{ ecole.numero }}</p>
                         <p>Directeur école doctorale : {{ ecole.directeur}}</p>
@@ -259,8 +227,7 @@
                         <h2 class="disciplineSecondaire"> {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
 
                     <h1 class="titleProps">Mots-clefs</h1>
-                        <div ng-bind-html="highlight(motsClefs, filterSearch)" class="recherche">
-                        </div>
+                        <p ng-repeat="word in motsClefs track by $index"  class="keyWord" ng-click="showNameChanged(word)">{{word}}</p>
 
                     <h1 class="titleProps">Axes de recherche</h1>
                         <div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
@@ -399,11 +366,11 @@
         </h2>
         <hr>
         <a href="http://www.medialab.sciences-po.fr" class="pull-right">
-          <img src="./img/sciencespo_medialab.png" alt="Sciences Po medialab" style="width:200px;">
+          <img src="./img/sciencespo_medialab.png" alt="Sciences Po medialab" class="logoFooter" >
         </a>
 
         <a href="http://www.sciencespo.fr/bibliotheque/en" class="pull-right">
-          <img src="./img/logo_bibliothèque.png" alt="Bibliothèque Sciences Po" style="width:200px;" class="invert">
+          <img src="./img/logo_bibliothèque.png" alt="Bibliothèque Sciences Po" class="logoFooter invert">
         </a>
         <br>
         <br>

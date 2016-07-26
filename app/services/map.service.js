@@ -105,6 +105,7 @@ angular.module('map.service', [])
 
                 $scope.publications = item.center.publication;
 
+                $scope.etablissements = item.center.administration['Etablissements de rattachement'].split(';')
                 
                 // create axes
                 var axes = '';
@@ -151,15 +152,8 @@ angular.module('map.service', [])
                 else
                     $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);    
 
-                var motsClefs = '';
-                if (Array.isArray(item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'] )) {
-                    _.forEach(item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'] , function (d) {
-                        motsClefs = motsClefs.concat(d) + ' \n';
-                    });
-                    $scope.motsClefs = converter.makeHtml(motsClefs);
-                }
-                else
-                    $scope.motsClefs = converter.makeHtml(item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR']);
+
+                $scope.motsClefs = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'].split(';');
                       
             }
 

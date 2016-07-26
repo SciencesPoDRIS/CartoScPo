@@ -13,6 +13,13 @@ angular.module('bib.controller.home', [])
         leafletMarkerEvents, leafletMapEvents, $interpolate, 
         leafletData, Elasticlunr, $sce, mapService, $timeout) {
 
+        // to fix relaod page to load map when changing page
+        var test = JSON.parse(localStorage.getItem("loadingPage"));
+        if (!test) {
+            localStorage.setItem("loadingPage",true);
+            window.location.reload();
+        }
+
     var url  = './data/data.json?ver=timestamp';
 
     // navigation
@@ -157,15 +164,20 @@ angular.module('bib.controller.home', [])
             }
 
             // sort list by input search
-            $scope.showNameChanged = function() {
+            $scope.showNameChanged = function(word) {
                 //
+                console.log("word", word);
+                console.log("$scope.filterSearch", $scope.filterSearch);
                 if (!$scope.filterSearch) {
+                    console.log("there");
                     $scope.allCenters = immutableAllCenters;
                     $scope.filtersOn = false;
                     $scope.centerActive = false;
                 }
-                else {
 
+                if ($scope.filterSearch || word) {
+                    console.log("here")
+                    $scope.filterSearch = word;
                     $scope.centerActive = true;
                     $scope.filtersOn = true;
                     //search fulltext
@@ -592,17 +604,17 @@ angular.module('bib.controller.home', [])
 
                 + '<text x="15" y="100" fill="black" font-size="14">Nombre de chercheurs permanents</text>'
 
-                + '<rect width="30" height="30" x="105" y="110" fill="green" />'
+                + '<rect width="30" height="30" x="105" y="110" fill="#e74c3c" />'
                 + '<text x="130" y="150" fill="black">+ 80</text>'
 
 
-                + '<rect width="30" height="30" x="75" y="110" fill="green" fill-opacity="0.7"/>'
+                + '<rect width="30" height="30" x="75" y="110" fill="#d35400" />'
                 + '<text x="100" y="150" fill="black">80</text>'
 
-                + '<rect width="30" height="30" x="45" y="110" fill="green" fill-opacity="0.5"/>'
+                + '<rect width="30" height="30" x="45" y="110" fill="#e67e22" />'
                 + '<text x="70" y="150" fill="black">40</text>'
 
-                + '<rect width="30" height="30" x="15" y="110" fill="green" fill-opacity="0.2"/>'
+                + '<rect width="30" height="30" x="15" y="110" fill="#f1c40f" />'
                 + '<text x="40" y="150" fill="black">20</text>'
 
                 +  '</svg>';

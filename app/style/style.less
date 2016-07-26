@@ -17,8 +17,6 @@ html {
   overflow-y:scroll;
 }
 
-
-
 body {
     font-family: 'Trebuchet MS', 'merriweather', 'Georgia', serif;
     margin-bottom: 60px;
@@ -29,9 +27,64 @@ h1,h2,h3,h4,h5{
     font-weight: bold;
 }
 
-/* cover */
+/* 
+ * Cover 
+ */
+#cover {
+  position: relative; 
+  margin: auto; 
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
 
+#textOnImg {
+  position: absolute; 
+  top: 150px; 
+  left: 10px; 
+  width: 50%;
+  text-align: justify;
+  font-size:20px;
+}
 
+#textOnImg h1 {
+  color:white; 
+  font-size:50px; 
+  text-align:center;
+}
+
+#textOnImg span {
+  text-align:center; 
+  font-size:18px;
+}
+
+#textTitle {
+  font-size:12px;
+}
+
+#textTitle span {
+  font-weight:bold;
+}
+
+/* 
+ * Icons 
+ */
+.iconPresentation {
+  text-align:center;
+}
+
+/* zoom buttons */
+.zoom {
+  float:right;
+}
+
+#zoomFrance {
+  margin-right:10px;
+}
+
+/* 
+ * Footer 
+ */
 
 #footer {
   width: 100%;
@@ -43,6 +96,10 @@ h1,h2,h3,h4,h5{
 #legal {
   padding-top: 20pc;
   font-size: 20px;
+}
+
+.logoFooter {
+  width:200px;
 }
 
 /*
@@ -79,7 +136,6 @@ body > .container {
   padding-left: 15px;
 }
 
-
 /*
  * Navbar
  */
@@ -91,7 +147,6 @@ body > .container {
   border-top-color: #222;
   border-bottom-color: red;
   height: 60px;
-
 }
 
 #nav .navbar-brand{
@@ -171,7 +226,6 @@ body > .container {
 
 .principal {
   background: green;
-  /*border:5px solid rgba(255,255,255,0.5);*/
   width: 10px;
   height: 10px;
   font-weight:bold;
@@ -181,7 +235,6 @@ body > .container {
 
 .secondaire {
   background: green;
-  /*border:5px solid rgba(255,255,255,0.5);*/
   width: 10px;
   height: 10px;
   font-weight:bold;
@@ -216,7 +269,6 @@ body > .container {
   opacity: 0.7;
 }
 
-
  /*
   * Liste
   */
@@ -233,7 +285,6 @@ body > .container {
 .adresses {
   font-size: 16px;
 }
-
 
 /*
  * listAndMap
@@ -296,6 +347,9 @@ body > .container {
   text-align: center;
 }
 
+/* 
+ * Search
+ */
 
 .recherche > h1 {
   font-size: 18px;
@@ -326,9 +380,10 @@ body > .container {
   font-weight: bold;
 }
 
-/* 
- * remove border radius for the tab 
+/*
+ * Center details
  */
+
 #exTab1 .nav-pills > li {
   border-radius: 0;
   margin:auto;
@@ -339,10 +394,6 @@ body > .container {
   width:200px;
   margin:auto;
 }
-
-/* 
- * change border radius for the tab , apply corners on top
- */
 
 #exTab3 .nav-pills > li > a {
   border-radius: 4px 4px 0 0 ;
@@ -376,6 +427,7 @@ span.highlight{
   text-align: center;
   border-bottom: solid 1px grey;
 }
+
 .recherche > h1 {
   font-size: 18px;
 }
@@ -405,16 +457,46 @@ span.highlight{
   font-weight: bold;
 }
 
+#logoCenter {
+  width:50%; height:50%; 
+  display: block; 
+  vertical-align: middle;
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+#ecole {
+  border-right:solid 1px black;
+  min-height:170px;
+}
+
+/*
+ * keyWord on center details
+ */
+
+.keyWord {
+    display: inline-block;
+    border: 1px solid #000;
+    padding:2px;
+    text-align: center;
+    margin-left:3px;
+    cursor: pointer;
+}
+
+.keyWord:hover {
+    display: inline-block;
+    border: 1px solid #000;
+    padding:2px;
+    text-align: center;
+    margin-left:3px;
+    background-color: red;
+    color:white;
+    cursor: pointer;
+  }
+
 /*
  * Grid
  */
-
- /*.myGrid {
-    width: 500px;
-    height: 250px;
-  }*/
-
-
 
 .grid {
   width: 100%;
@@ -440,28 +522,19 @@ span.highlight{
   transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
 }
 
-/*.marker-cluster-small {
-  background-color: rgba(181, 226, 140, 0.6);
-  }
-.marker-cluster-small div {
-  background-color: rgba(110, 204, 57, 0.6);
-  }
+/* 
+ * Cluster color on map
+ */
 
-.marker-cluster-medium {
-  background-color: rgba(241, 211, 87, 0.6);
-  }
-.marker-cluster-medium div {
-  background-color: rgba(240, 194, 12, 0.6);
-  }*/
-
-  .marker-cluster-small {
+.marker-cluster-small {
   background-color: rgba(253, 156, 115, 0.6);
   }
+  
 .marker-cluster-small div {
   background-color: rgba(241, 128, 23, 0.6);
   }
 
-  .marker-cluster-medium {
+.marker-cluster-medium {
   background-color: rgba(253, 156, 115, 0.6);
   }
 .marker-cluster-medium div {
@@ -517,10 +590,12 @@ span.highlight{
   line-height: 30px;
   }
 
+/*
+ * color center on map
+ */ 
+
 .small {
-  opacity: 0.2;
-  background: green;
-  /*border:5px solid rgba(255,255,255,0.5);*/
+  background: #f1c40f;
   width: 10px;
   height: 10px;
   font-weight:bold;
@@ -529,54 +604,40 @@ span.highlight{
 }
 
 .medium {
-  background: green;
-  /*border:5px solid rgba(255,255,255,0.5);*/
+  background: #e67e22;
   width: 10px;
   height: 10px;
   font-weight:bold;
   text-align:center;
   border-radius:50%;
-  opacity: 0.5;
 }
 
 .large {
-  background: green;
-  /*border:5px solid rgba(255,255,255,0.5);*/
+  background: #d35400;
   width: 10px;
   height: 10px;
   font-weight:bold;
   text-align:center;
   border-radius:50%;
-  opacity: 0.7;
 }
 
 .extraLarge {
-  background: green;
-  /*border:5px solid rgba(255,255,255,0.5);*/
+  background: #e74c3c;
   width: 10px;
   height: 10px;
   font-weight:bold;
   text-align:center;
   border-radius:50%;
 }
+
+/*
+ * Separation line
+ */
 
 .separation {
   background:#e6142d;
   height:1px;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
