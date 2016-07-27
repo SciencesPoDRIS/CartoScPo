@@ -51,10 +51,9 @@ angular.module('bib.controller.home', [])
             /*
              * Init list, map & search
              */
-
+             // bind result to scope
              $scope.result = result;
-             console.log("$scope.result ", $scope.result );
-
+             
             // create all markers from result
             $scope.centersSearch = []
             var allMarkers = {};
@@ -138,8 +137,6 @@ angular.module('bib.controller.home', [])
                 if ($scope.filtersOn) { 
                     $scope.allCenters = immutableAllCenters;
 
-                    // reset navigation
-
                     // center details
                     $scope.centerActive = false;
                     $scope.filtersOn = false;
@@ -165,18 +162,13 @@ angular.module('bib.controller.home', [])
 
             // sort list by input search
             $scope.showNameChanged = function(word) {
-                //
-                console.log("word", word);
-                console.log("$scope.filterSearch", $scope.filterSearch);
                 if (!$scope.filterSearch) {
-                    console.log("there");
                     $scope.allCenters = immutableAllCenters;
                     $scope.filtersOn = false;
                     $scope.centerActive = false;
                 }
 
                 if ($scope.filterSearch || word) {
-                    console.log("here")
                     $scope.filterSearch = word;
                     $scope.centerActive = true;
                     $scope.filtersOn = true;
@@ -205,7 +197,6 @@ angular.module('bib.controller.home', [])
                             else
                                 tab = searchPath[1];
 
-                           
                             resultWithPath.push({
                                 id: searchPath[0], 
                                 tab: tab, 
@@ -224,11 +215,10 @@ angular.module('bib.controller.home', [])
                         resultWithPathBis.push({center: $scope.result.allCenters[k], search: v})
                     });
 
-                    //bind center result to scope (list)
+                    // bind center result to scope (list)
                     $scope.allCenters = resultWithPathBis;
                     
-
-                    //create index of center in list -> create a function -> service
+                    // create index of center in list -> create a function -> service
                     $scope.keyInList =  {};
                      _.forEach($scope.allCenters, function (v, k) {
                         if (v)
@@ -255,7 +245,6 @@ angular.module('bib.controller.home', [])
 
             // update list
             function updateMapFromList() {
-
                 $scope.centerActive = false;
 
                 // 
@@ -303,21 +292,23 @@ angular.module('bib.controller.home', [])
     
             // active tabs
             $scope.displayCenter = function(key, item, keyCenter) {
-                
                 // display tabs
                 $scope.centerActive = true;
                 //$scope.filtersOn = true;
                 $scope.centerSelected = item;
 
                 // display details center & tooltip on map
+                console.log("key", key)
+                console.log("item", item)
+                console.log("keyCenter", keyCenter)
                 mapService.displayCenterSelected(item, key, keyCenter, $scope);
 
                 // updated navigation'centers buttons
                 navigation(keyCenter);
-                $('#myTab li').removeClass('active');
-                $('.tab-pane').removeClass('active');              
-                $('.description').addClass( 'active' );
-                window.scrollTo(0, $('.description').offset().top);
+                // $('#myTab li').removeClass('active');
+                // $('.tab-pane').removeClass('active');              
+                // $('.description').addClass( 'active' );
+                // window.scrollTo(0, $('.description').offset().top);
             };
 
             // desactive tabs
@@ -330,8 +321,6 @@ angular.module('bib.controller.home', [])
             $scope.openSpecificTab = function(item, keyCenter) {
                 // open center details
                 $scope.centerActive = true;
-
-                
 
                 var center = {center: $scope.result.allCenters[item.id]};
 
@@ -371,20 +360,9 @@ angular.module('bib.controller.home', [])
                 }
             };
 
-            function setAllAdressActive() {
-
-                _.map($scope.allCenters, function(c) {
-                    
-                    return _.map(c.center.administration.adressesGeo, function (a) {
-                        c.active = true;
-                    });
-                });
-
-            }
-
-             // display map with markers choosen
+            // display map with markers choosen
             $scope.initMap = function() {
-                setAllAdressActive();
+                mapService.setAllAdressActive($scope.allCenters);
                 updateMapFromList();  
             };
 
@@ -531,7 +509,6 @@ angular.module('bib.controller.home', [])
                 });
             }
 
-            //console.log("$scope.allMarkers", $scope.allMarkers);
             // display map with markers choosen
             angular.extend($scope, {
                 markers: $scope.allMarkers,
@@ -552,19 +529,13 @@ angular.module('bib.controller.home', [])
                     }
                 }
             }); 
-
-        // $scope.markers = $scope.allMarkers
-        
         })
 
-        //console.log("$scope.allMarkers 2", $scope.allMarkers);
         /*
          * Map Interactions
          */
 
     // default map settings
-    //$scope.markers = $scope.allMarkers;
-    $scope.isMap = true;
     angular.extend($scope, {
         center: {
                 lat: 46.22545288226939,
@@ -581,8 +552,6 @@ angular.module('bib.controller.home', [])
             }
         }
     });
-
-   
 
     // to reload map when page changing
     if (!$scope.$$phase) {
@@ -666,7 +635,6 @@ angular.module('bib.controller.home', [])
             }
 
             if ($scope.eventDetected === "leafletDirectiveMarker.mouseover") {
-
                    args.leafletEvent.target.openPopup()
             }
 

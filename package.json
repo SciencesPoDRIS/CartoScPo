@@ -40,6 +40,7 @@
     "gulp-sass": "^2.3.2",
     "leaflet": "^1.0.0-rc.1",
     "raw-loader": "^0.5.1",
+    "shufflejs": "^4.0.0",
     "st": "^1.1.0"
   }
 }

@@ -25,21 +25,33 @@
                 des lieux institutionnel et documentaire</span>, exhaustif et mis à jour, de la recherche académique en science politique 
                 <br> et relations internationales en France. 
                 <br><br>
+            </p>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row" style="text-align:center;">
+        <div class="col-md-6 ">
+            <p> 
                 Porté par la <span>bibliothèque de SciencesPo</span>, il s'inscrit dans le cadre de l’infrastructure <span>CollEX </span>(Collections d’excellence – <br> Réseau des bibliothèques, 
                 dont l’objectif est de coordonner une politique patrimoniale sur le territoire).
                 <br>
                 <br>
+                    
+            </p>
+        </div>
+        <div class="col-md-6 ">
+            <p> 
                 Nous présentons dans cette première version les données collectées de 61 centres de recherche 
                 <br> (48 autres centres seront traités en 2016/2017).
                 <br>
                 <br>
                 <a href="http://lab.medialab.sciences-po.fr/CartoScPo/#/projet">Consultez la présentation détaillée du projet</a> 
             </p>
-
         </div>
     </div>
-    <hr>
 
+    <hr>
     <!-- icons -->
     <div class="row">
         <div class="col-md-3 iconPresentation">
@@ -88,7 +100,7 @@
         <!-- Centers list -->
         <div id="listCenters" class="col-md-6 centersList"  style="padding:0 20px 0">
             <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index"  ng-class="{selected : keyCenter === idSelectedCenter}">
-                <h3><a class="adresses" href="" ng-click="displayCenter(null, value, keyCenter)" style="color: red;font-size:24px;">{{value.center.administration['Intitulé']}} - {{value.center.administration['Sigle ou acronyme']}}</a> </h3>
+                <h3><a class="adresses" href="" ng-click="displayCenter(0, value, keyCenter)" style="color: red;font-size:24px;">{{value.center.administration['Intitulé']}} - {{value.center.administration['Sigle ou acronyme']}}</a> </h3>
                 
                 <!-- List of adress -->
                 <ul>
@@ -105,6 +117,13 @@
                 </br>
             </div>
         </div>
+        <!-- <div class="col-md-1" >
+            <p style="text-align:center;">Accès au détail du centre</p>
+            <div style="text-align:center; vertical-align: middle;line-height: 300px;">
+                <a href="" ><i class="fa fa-arrow-down fa-5x" aria-hidden="true" style="margin:auto; "></i></a>
+                
+            </div>
+        </div> -->
 
         <!-- Map directive --> 
         <div class="col-md-5 col-md-offset-1" style="padding:0 20px 0">

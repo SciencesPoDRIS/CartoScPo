@@ -1,6 +1,6 @@
 angular.module('map.service', [])
-  .factory('mapService', [ "$sce", "leafletData", 
-    function( $sce, leafletData) {
+  .factory('mapService', [ "$sce", "leafletData", "_",
+    function($sce, leafletData, _) {
 
     return {
         createMarkers: function (v, allMarkers) {
@@ -69,8 +69,6 @@ angular.module('map.service', [])
                         };
 
                     })
-
-            
         },
         displayCenterSelected: function (item, key, keyCenter, $scope) {
             // display details of center                    
@@ -197,6 +195,13 @@ angular.module('map.service', [])
                 if (key !== null)
                     showPopup(id_center+'_'+key);
             });   
+        },
+        setAllAdressActive: function(allCenters) {
+         _.map(allCenters, function(c) {  
+                return _.map(c.center.administration.adressesGeo, function (a) {
+                    c.active = true;
+                });
+            });
         }
     }
 }])  
