@@ -62,7 +62,7 @@ Réalisé avec BabyParse <https://github.com/Rich-Harris/BabyParse>
 
 
 ### Création de l'index de recherche fulltext
-Réalisé avec Elasticlunr <http://elasticlunr.com/>
+Réalisé avec lunr <http://lunrjs.com/>
 
 
 ***
