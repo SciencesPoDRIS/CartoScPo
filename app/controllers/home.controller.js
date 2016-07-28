@@ -169,7 +169,9 @@ angular.module('bib.controller.home', [])
                 }
 
                 if ($scope.filterSearch || word) {
-                    $scope.filterSearch = word;
+                    console.log("$scope.filterSearch", $scope.filterSearch);
+                    if (word)
+                        $scope.filterSearch = word;
                     $scope.centerActive = true;
                     $scope.filtersOn = true;
                     //search fulltext
@@ -178,7 +180,7 @@ angular.module('bib.controller.home', [])
                                 'content': {'boost': 2}
                             },
                             bool: 'OR',
-                            expand: true
+                            expand: false
                         });
 
                     // 

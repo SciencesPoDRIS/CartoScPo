@@ -10,24 +10,25 @@
         </div>
         <div id="textOnImg">
                 <!-- titles -->
-                <h1>Les centres de recherche en science politique en France <br>
-                <span> Une étude menée par la bibliothèque de Sciences Po </span></h1>
+                <h1>Cartographie des centres de recherche en science politique en France </h1>
                 
                 <!-- project's presentation -->
             <br>
             <p id="textTitle">
-                <span>Où se fait la recherche en science politique en France ? Par qui ? Sur quelles thématiques ? 
-                <br> Avec quelles ressources documentaires ? Comment est-elle diffusée ?</span>
-                <br><br>
-                C’est d’abord pour répondre à ces questions que cette cartographie des centres de recherche a été développée. 
-                <br><br>
-                
-                <br><br>
+                Où se fait la recherche en science politique en France ? Sur quelles thématiques ? Avec quelles ressources documentaires ? Comment est-elle diffusée ?
+                <br>
+                Ce projet vise à identifier les centres de recherche et à dresser un état des lieux institutionnel et documentaire de la recherche académique en science politique et relations internationales en France.
+                <br> 
+                Porté par la bibliothèque de SciencesPo, il s'inscrit dans le cadre de l’infrastructure CollEX (Collections d’excellence).
+                <br>  
+                Nous présentons dans cette première version les données collectées de 61 centres de recherche (48 autres centres seront traités en 2016/2017).
+                <br>
+                <a href="http://lab.medialab.sciences-po.fr/CartoScPo/#/projet">Consultez la présentation détaillée du projet</a> 
             </p>
 
         </div>
     </div>
-    <hr>
+   <!--  <hr>
     <div class="row" style="text-align:center;">
         <div class="col-md-6 ">
             <p> 
@@ -51,7 +52,7 @@
             </p>
         </div>
     </div>
-
+ -->
     <hr>
     <!-- icons -->
     <div class="row">
@@ -153,7 +154,7 @@
             </h3>
          <div class="col-md-4">
             
-            <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)"> {{nextCenter.center.administration['Intitulé']}} - {{nextCenter.center.administration['Sigle ou acronyme']}} </button>
+            <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)"> {{nextCenter.center.administration['Intitulé']}} - {{nextCenter.center.administration['Sigle ou acronyme']}} > </button>
          </div>
     </div>
 
