@@ -6,12 +6,12 @@ var  Baby = require('babyparse'),
 
 // store csv (each onglet (cf google drive)) in object
 var csv = { 
-			administration : 'Donnees_centres_de_recherche_SP_2015 - Description administrative (1).csv',
-			personnel : 'Donnees_centres_de_recherche_SP_2015 - Personnel (1).csv',
-			ecole : 'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales (1).csv',
-			recherche : 'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche (1).csv',
-			publication: 'Donnees_centres_de_recherche_SP_2015 - Publications.csv',
-			ressources: 'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires (1).csv'
+			administration : 	'Donnees_centres_de_recherche_SP_2015 - Description administrative (1) 15.04.27.csv',
+			personnel : 		'Donnees_centres_de_recherche_SP_2015 - Personnel.csv',
+			ecole : 			'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales.csv',
+			recherche : 		'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv',
+			publication: 		'Donnees_centres_de_recherche_SP_2015 - Publications.csv',
+			ressources: 		'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
 		};
 
 /*
@@ -38,7 +38,7 @@ lodash.forIn(csv, function (v, k) {
             code = code.replace(/ /g, '');
 
 			parsed.data[i].id = code.toLowerCase();
-			console.log("code", code);
+
 			parsed.data[i].theme = k;
 		}
 	}
@@ -77,9 +77,23 @@ var allCenters = {};
  * create adress object of key administration (aka onlget description administration)
  */ 
 lodash.forIn(allCenters, function (v, k) {
-	var adressesGeo = [];
+	var adressesGeo = [],
+		ecoles = [];
+
+	function clean(d) {
+		// create a regex
+		d = d.replace('(', '');
+		d = d.replace(')', '');
+		d = d.replace(/\n/g, '');
+		d = d.split(',');
+		d[0] = Number(d[0]);
+		d[1] = Number(d[1]);
+
+		return d;
+	}
 
 	if (v.hasOwnProperty('administration')) {
+		console.log("here");
 
 		var adress = v.administration['Adresse(s)'].replace(/\n/g, '');
 		adress = v.administration['Adresse(s)'].split(';');
@@ -87,18 +101,6 @@ lodash.forIn(allCenters, function (v, k) {
 		var cities = v.administration['Ville'].split(';');
 
 		// clean coordinate and transform to integer
-		function clean(d) {
-			// create a regex
-			d = d.replace('(', '');
-			d = d.replace(')', '');
-			d = d.replace(/\n/g, '');
-			d = d.split(',');
-			d[0] = Number(d[0]);
-			d[1] = Number(d[1]);
-
-			return d;
-		}
-
 		coordinates = lodash.map(coordinates, clean);
 
 		// create object adress
@@ -115,6 +117,35 @@ lodash.forIn(allCenters, function (v, k) {
 		v.administration.adressesGeo = adressesGeo;
 	}
 
+	if (v.hasOwnProperty('ecole')) {
+
+		var numeroEcole = v.ecole['Numéro de l\'Ecole Doctorale'].split(';')
+		 	intituleEcole = v.ecole['Intitulé de l\'Ecole Doctorale'].split(';'),
+		 	directeurEcole = v.ecole['Directeur de l\'Ecole Doctorale'].split(';'),
+		 	courrielEcole = v.ecole['Courriel de l\'Ecole doctorale'].split(';');
+
+		// create object adress
+		for (var i = 0, len = numeroEcole.length; i < len; i++) {
+			numeroEcole[i] = numeroEcole[i].replace(/\n/g, '');
+			if (intituleEcole[i])
+				intituleEcole[i] = intituleEcole[i].replace(/\n/g, '');
+			if (directeurEcole[i])
+				directeurEcole[i] = directeurEcole[i].replace(/\n/g, '');
+			if (courrielEcole[i])
+				courrielEcole[i] = courrielEcole[i].replace(/\n/g, '');
+
+			ecoles.push({
+				numero: numeroEcole[i],
+				intitule: intituleEcole[i],
+				directeur: directeurEcole[i],
+				courriel: courrielEcole[i]
+			})
+		}
+
+		
+		v.ecole.ecoles = ecoles;
+	}
+
 	// clean recherche data
 	var recherche = {};
 
@@ -129,6 +160,7 @@ lodash.forIn(allCenters, function (v, k) {
 
 	v.recherche = recherche;
 })
+
 console.log("allCenters Done");
 
 // clean allWords function -> huge regex ;)
