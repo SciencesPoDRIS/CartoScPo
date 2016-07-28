@@ -12,10 +12,10 @@
     </div>
     <div class="collapse navbar-collapse">
         <a class="navbar-brand" href="http://www.sciencespo.fr/bibliotheque/fr" >
-          <img src="img/logo_bibliothèque.png" alt="Sciences Po Bibliothèque" style="float:left; height:60px;     padding-bottom: 20px;">
+          <img id="logoBib" src="img/logo_bibliothèque.png" alt="Sciences Po Bibliothèque" >
         </a> 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-repeat="view in views" ng-class="{ active: isActive('/' + view.slug)}"><a href="#/{{view.slug}}" style="float:right; font-size: 14px;" >{{view.label}}</a></li>
+        <li style="margin-top:20px;" ng-repeat="view in views" ng-class="{ active: isActive('/' + view.slug)}"><a href="#/{{view.slug}}" style="float:right; font-size: 14px;" >{{view.label}}</a></li>
       </ul>
     </div>
   </div>

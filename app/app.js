@@ -85,5 +85,6 @@ angular.module('bib', [
     };
 })
 
-.constant('_', _)
-.constant('Elasticlunr', elasticlunr);
+//.constant('Lunr', lunr)
+.constant('_', _);
+// .constant('Elasticlunr', elasticlunr);

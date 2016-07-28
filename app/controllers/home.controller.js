@@ -8,10 +8,10 @@
 angular.module('bib.controller.home', [])
   .controller('home', [ '$scope', '$location', '$anchorScroll', 'fileService', 
     '$http', '_', 'leafletMarkerEvents', 'leafletMapEvents', 
-    '$interpolate', 'leafletData', 'Elasticlunr', '$sce', 'mapService', '$timeout',
+    '$interpolate', 'leafletData',  '$sce', 'mapService', '$timeout',
     function ($scope, $location, $anchorScroll, fileService, $http, _, 
         leafletMarkerEvents, leafletMapEvents, $interpolate, 
-        leafletData, Elasticlunr, $sce, mapService, $timeout) {
+        leafletData, $sce, mapService, $timeout) {
 
         // to fix relaod page to load map when changing page
         var test = JSON.parse(localStorage.getItem("loadingPage"));
@@ -48,6 +48,7 @@ angular.module('bib.controller.home', [])
     fileService
         .getFile(url)
         .then(function (result) {
+            console.log("result", result);
             /*
              * Init list, map & search
              */
@@ -94,13 +95,18 @@ angular.module('bib.controller.home', [])
             $scope.allWords = $scope.result.allWords;
             
             // create index for fulltext search
-            var index = Elasticlunr(function() {
-                this.addField('content');
-            });
+            // var index = Elasticlunr(function() {
+            //     this.addField('content');
+            // });
+
+            var index = lunr(function () {
+                this.field('content', {boost: 10})
+                this.ref('id')
+            })
 
             // populate index with props
             _.forEach($scope.result.allProps, function(d) {
-                index.addDoc(d);
+                index.add(d);
             });
 
             // if no word in input display allcenters
@@ -179,7 +185,7 @@ angular.module('bib.controller.home', [])
                             fields: {
                                 'content': {'boost': 2}
                             },
-                            bool: 'OR',
+                            bool: 'AND',
                             expand: false
                         });
 

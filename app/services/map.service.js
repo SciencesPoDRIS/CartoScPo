@@ -98,6 +98,8 @@ angular.module('map.service', [])
 
                 $scope.ressources = item.center.ressources;
 
+                $scope.ressourcesDesciption = converter.makeHtml(item.center.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
+
                 $scope.ressourcesIntitule = item.center.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'];
                 $scope.ressourcesSiteWeb = item.center.ressources['Site Web'];
 
@@ -150,8 +152,9 @@ angular.module('map.service', [])
                 else
                     $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);    
 
-
-                $scope.motsClefs = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'].split(';');
+                
+                if (item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'])
+                    $scope.motsClefs = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'].split(';');
                       
             }
 
