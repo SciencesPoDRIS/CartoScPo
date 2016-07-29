@@ -53,8 +53,8 @@ angular.module('map.service', [])
                         id = id.replace(/_/g, '');
 
                         //create message for the popup
-                        var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + v.administration['Sigle ou acronyme'] + '.jpg"' + '">' 
-                                    + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Sigle ou acronyme'] + '</p>' 
+                        var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + v.administration['Acronyme (nom court)'] + '.jpg"' + '">' 
+                                    + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Acronyme (nom court)'] + '</p>' 
                                     + '<p>'  + a.adresse + '</p>';
 
                         // create one marker by adress and one cluster by city
@@ -82,9 +82,9 @@ angular.module('map.service', [])
                 
                 // bind markdown data
                 $scope.administration = item.center.administration;
-                $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Sigle ou acronyme'] + '.jpg';
+                $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Acronyme (nom court)'] + '.jpg';
                 
-                $scope.sigle = item.center.administration['Sigle ou acronyme'];
+                $scope.sigle = item.center.administration['Acronyme (nom court)'];
                 $scope.personnel = item.center.personnel;
                 $scope.personnelCNRSUrl = item.center.personnel['Lien vers la page "personnel" du site Web du CNRS'];
                 $scope.personnelSiteWebCentre = item.center.personnel['Lien vers la page "personnel" sur le site Web du centre']
