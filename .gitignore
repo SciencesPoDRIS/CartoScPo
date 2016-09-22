@@ -1,5 +1,30 @@
+#
+# Mac files
+#
+.DS_Store
+
+#
+# Node NPM modules
+#
 node_modules
-app/bower_components
+
+#
+# Bower modules
+#
+bower_components
+
+#
+# Data
+#
 app/data/*.csv
 app/data/*.json
+
+#
+# Libs
+#
 app/lib
+
+#
+# Assets
+#
+app/assets
