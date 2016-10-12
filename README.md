@@ -8,7 +8,7 @@ A la racine du projet :
 ```
 npm install
 ```
-Dans le dossier app : 
+A la racine du projet : 
 
 ```
 bower install 
