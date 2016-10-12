@@ -102,7 +102,7 @@
         <!-- Navigation in list -->
         <div id="centerNavigation" class="row">
             <div class="col-md-4">
-                <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)">
+                <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)" ng-if="precedentCenter">
                     <span>< </span>
                     <span>{{precedentCenter.center.administration['Intitulé']}}</span>
                     <span ng-if="precedentCenter.center.administration['Intitulé'] && precedentCenter.center.administration['Sigle ou acronyme']"> - </span>
@@ -115,7 +115,7 @@
                 <span>{{currentCenter.center.administration['Sigle ou acronyme']}}</span>
             </h3>
             <div class="col-md-4">
-                <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)">
+                <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)" ng-if="nextCenter">
                     <span>{{nextCenter.center.administration['Intitulé']}}</span>
                     <span ng-if="nextCenter.center.administration['Intitulé'] && nextCenter.center.administration['Sigle ou acronyme']"> - </span>
                     <span>{{nextCenter.center.administration['Sigle ou acronyme']}}</span>
