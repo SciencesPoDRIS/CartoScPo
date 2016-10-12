@@ -3,49 +3,48 @@
 /*
  * Declare app level module which depends on filters, and services
  */
-angular.module('bib', [
-  'ngRoute',
-  'ngAnimate',
-  'ngSanitize',
-  'ui.bootstrap',
-  'ngTouch',
-  'ui.grid',
-  'ui.grid.selection',
-  'ui.grid.exporter',
-  'angulartics',
-  'angulartics.google.analytics',
-  'nemLogging',
-  'ui-leaflet',
-  'bib.services',
-  'bib.directives',
-  'bib.controller.navbar',
-  'bib.controller.home',
-  'bib.controller.data',
-  'bib.controller.methodologie',
-  'map.service'
-  ])
+var app = angular.module('bib', [
+    'ngRoute',
+    'ngAnimate',
+    'ngSanitize',
+    'ui.bootstrap',
+    'ngTouch',
+    'ui.grid',
+    'ui.grid.selection',
+    'ui.grid.exporter',
+    'angulartics',
+    'angulartics.google.analytics',
+    'nemLogging',
+    'ui-leaflet',
+    'bib.services',
+    'bib.directives',
+    'bib.controller.navbar',
+    'bib.controller.home',
+    'bib.controller.data',
+    'bib.controller.methodologie',
+    'map.service'
+]);
 
-.config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+        .when('/accueil', {
+            templateUrl: 'views/home.html',
+            controller: 'home'
+        })
+        .when('/donnees', {
+            templateUrl: 'views/data.html',
+            controller: 'data'
+        })
+        .when('/projet', {
+            templateUrl: 'views/methodologie.html',
+            controller: 'methodologie'
+        })
+        .otherwise({
+            redirectTo: '/accueil'
+        });
+}]);
 
-  $routeProvider.when('/accueil', {
-  	templateUrl: 'views/home.html',
-    controller: 'home'
-  });
-  $routeProvider.when('/donnees', {
-
-    templateUrl: 'views/data.html',
-    controller: 'data'
-  });
-  $routeProvider.when('/projet', {
-
-    templateUrl: 'views/methodologie.html',
-    controller: 'methodologie'
-  });
- 
-  $routeProvider.otherwise({redirectTo: '/accueil'});
-}])
-
-.filter('visibleColumns', function($rootScope) {
+app.filter('visibleColumns', function($rootScope) {
     return function(data, grid, query) {
 
         var matches = [];
@@ -66,10 +65,10 @@ angular.module('bib', [
                 var fieldName = grid.columnDefs[j].field;
                 var renderedData = dataItem[fieldName];
 
-        // apply cell filter
+                // apply cell filter
                 if (grid.columnDefs[j].cellFilter) {
-          scope.value = renderedData;
-          renderedData = scope.$eval('value | ' + grid.columnDefs[j].cellFilter);
+                    scope.value = renderedData;
+                    renderedData = scope.$eval('value | ' + grid.columnDefs[j].cellFilter);
                 }
 
                 //as soon as search term is found, add to match and move to next dataItem
@@ -79,12 +78,10 @@ angular.module('bib', [
                 }
             }
         }
-    scope.$destroy();
+        scope.$destroy();
 
         return matches;
     };
-})
+});
 
-//.constant('Lunr', lunr)
-.constant('_', _);
-// .constant('Elasticlunr', elasticlunr);
+app.constant('_', _);
