@@ -48,19 +48,18 @@ gulp.task('js', function() {
     .pipe(gulp.dest('./app/assets/js/'));
 });
 
-// Concat all css used in website
+// Concat all CSS files from libs
 gulp.task('css', function() {
     return gulp.src([
         'bower_components/angular-ui-select/dist/select.css',
         'bower_components/ng-grid/ng-grid.css',
         'bower_components/angular-loading-bar/build/loading-bar.css',
-        //'bower_components/leaflet/dist/leaflet.css',
+        'bower_components/leaflet/dist/leaflet.css',
         'bower_components/angular-ui-grid/ui-grid.css'
       ],
       {base: 'bower_components/'}
     )
     .pipe(concat('allcss.css'))
-    // .pipe(uglify())
     .pipe(gulp.dest('./app/assets/css/'));
 });
 
