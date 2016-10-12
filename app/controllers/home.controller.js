@@ -48,7 +48,6 @@ angular.module('bib.controller.home', [])
     fileService
         .getFile(url)
         .then(function (result) {
-            console.log("result", result);
             /*
              * Init list, map & search
              */
@@ -175,7 +174,6 @@ angular.module('bib.controller.home', [])
                 }
 
                 if ($scope.filterSearch || word) {
-                    console.log("$scope.filterSearch", $scope.filterSearch);
                     if (word)
                         $scope.filterSearch = word;
                     $scope.centerActive = true;
@@ -306,9 +304,6 @@ angular.module('bib.controller.home', [])
                 $scope.centerSelected = item;
 
                 // display details center & tooltip on map
-                console.log("key", key)
-                console.log("item", item)
-                console.log("keyCenter", keyCenter)
                 mapService.displayCenterSelected(item, key, keyCenter, $scope);
 
                 // updated navigation'centers buttons

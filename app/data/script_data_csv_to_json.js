@@ -93,8 +93,6 @@ lodash.forIn(allCenters, function (v, k) {
 	}
 
 	if (v.hasOwnProperty('administration')) {
-		console.log("here");
-
 		var adress = v.administration['Adresse(s)'].replace(/\n/g, '');
 		adress = v.administration['Adresse(s)'].split(';');
 		var coordinates = v.administration['Géolocalisation(s)'].split(';');
@@ -159,7 +157,7 @@ lodash.forIn(allCenters, function (v, k) {
 	})
 
 	v.recherche = recherche;
-})
+});
 
 console.log("allCenters Done");
 
@@ -217,9 +215,6 @@ lodash.forIn(allCenters, function(tab, center) {
 				content = content.split(' ');
 
 				allWords = allWords.concat(content);
-			}
-			else {
-				//console.log("prop out", prop);
 			}
 		})
 	})
