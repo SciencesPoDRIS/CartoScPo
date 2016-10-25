@@ -20,7 +20,8 @@ angular.module('bib.controller.home', [])
                 window.location.reload();
             }
 
-            var url = './data/data.json?ver=timestamp';
+            // Add the current timestamp in second to force the data update, no cache
+            var url = './data/data.json?ver=' + Math.floor(Date.now() / 1000);
 
             // navigation
             function navigation(key) {
