@@ -5,8 +5,8 @@ var  Baby = require('babyparse'),
 	 lodash = require('lodash');
 
 // store csv (each onglet (cf google drive)) in object
-var csv = { 
-			administration : 	'Donnees_centres_de_recherche_SP_2015 - Description administrative (1) 15.04.27.csv',
+var csv = {
+			administration : 	'Donnees_centres_de_recherche_SP_2015 - Description administrative.csv',
 			personnel : 		'Donnees_centres_de_recherche_SP_2015 - Personnel.csv',
 			ecole : 			'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales.csv',
 			recherche : 		'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv',
