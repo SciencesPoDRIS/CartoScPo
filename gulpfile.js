@@ -33,7 +33,7 @@ gulp.task('js', function() {
       'bower_components/angulartics/dist/angulartics.min.js',
       'bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
       'bower_components/d3/d3.min.js',
-      'bower_components/papaparse/papaparse/min.js',
+      'bower_components/papaparse/papaparse.min.js',
       'bower_components/elasticlunr.js/elasticlunr.js',
       'bower_components/showdown/src/showdown.js',
       'bower_components/angular-ui-grid/ui-grid.js',
