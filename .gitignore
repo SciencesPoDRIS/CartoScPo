@@ -28,3 +28,5 @@ app/lib
 # Assets
 #
 app/assets
+
+npm-debug.log
