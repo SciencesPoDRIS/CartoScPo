@@ -3,6 +3,9 @@
     <img id="logo-bib" src="img/logo_bibliothèque.png" alt="Sciences Po Bibliothèque" >
   </a>
   <ul class="nav navbar-nav">
+    <li><a href="#/">
+      <i class="fa fa-home" aria-hidden="true"></i>
+    </a></li>
     <li ng-repeat="view in views" ng-class="{ active: isActive(view)}">
       <a href="#/{{view.slug}}">{{view.label}}</a>
     </li>

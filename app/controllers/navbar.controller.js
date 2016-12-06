@@ -7,7 +7,6 @@ angular.module('bib.controllers')
   };
 
   $scope.views = [
-    {slug: '', label: ''},
     {slug: 'map', label: 'Cartographie de la Science Politique en France'},
     {slug: 'project', label: 'Le projet'},
     {slug: 'team', label: 'L\'équipe'}
