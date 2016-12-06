@@ -19,25 +19,24 @@ var app = angular.module('bib', [
   'bib.directives',
   'bib.services',
   'map.service'
-]);
-
-app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-        .when('/accueil', {
-            templateUrl: 'views/home.html',
-            controller: 'home'
-        })
-        .when('/donnees', {
-            templateUrl: 'views/data.html',
-            controller: 'data'
-        })
-        .when('/projet', {
-            templateUrl: 'views/methodologie.html',
-            controller: 'methodologie'
-        })
-        .otherwise({
-            redirectTo: '/accueil'
-        });
-}]);
-
-app.constant('_', _);
+])
+.config(function($routeProvider) {
+  $routeProvider
+  .when('/', {
+    templateUrl: 'views/home.html',
+    controller: 'home'
+  })
+  .when('/map', {
+    template: '<h1>split</h1>'
+  })
+  .when('/project', {
+    templateUrl: 'views/project.html'
+  })
+  .when('/team', {
+    template: '<br/><br/><h1>TODO team</h1>'
+  })
+  .otherwise({
+    redirectTo: '/'
+  });
+})
+.constant('_', _);
