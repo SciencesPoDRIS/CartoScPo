@@ -5,7 +5,9 @@ module.exports = {
         "node": true
     },
     "globals": {
-        "angular": true
+        "angular": true,
+        "_": true,
+        "$": true
     },
     "extends": "eslint:recommended",
     "rules": {
