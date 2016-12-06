@@ -6,10 +6,8 @@
  */
 
 angular.module('bib.controllers')
-.controller('MapCtrl', function($scope, $location, $anchorScroll, fileService, $http,
-leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapService) {
-
-  // to fix relaod page to load map when changing page
+.controller('MapCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData, mapService, fileService) {
+  // to fix reload page to load map when changing page
   var test = JSON.parse(localStorage.getItem('loadingPage'));
   if (!test) {
     localStorage.setItem('loadingPage', true);
@@ -34,16 +32,10 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
     $('#listCenters').scrollTo($('#' + key));
   }
 
-  /*
-   * Load Data & init business logic
-   */
+  // Load Data & init business logic
   fileService
     .get(url)
     .then(function(result) {
-      /*
-       * Init list, map & search
-       */
-      // bind result to scope
       $scope.result = result;
 
       // create all markers from result
@@ -56,9 +48,6 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
 
       //bind allMarkers to scope
       $scope.allMarkers = allMarkers;
-
-      // check markers on map
-      $scope.centersInMap;
 
       // create list for first renderer
       $scope.allCenters = [];
@@ -96,7 +85,7 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
       });
 
       // populate index with props
-      _.forEach($scope.result.allProps, function(d) {
+      _.forEach(result.allProps, function(d) {
         index.add(d);
       });
 
@@ -178,19 +167,15 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
             bool: 'AND',
             expand: false
           });
-
-          var resultWithPath = [],
-          updateMarkers = [];
+          var resultWithPath = [];
+          var updateMarkers = [];
 
           // split slug
           _.forEach(searchResult, function(d) {
             if (d) {
               var searchPath = d.ref.split('_');
-              var tab = '';
-              if (searchPath[1] === 'personnel' || searchPath[1] === 'administration') {
-                tab = 'description administrative';
-              } else
-                tab = searchPath[1];
+              var tab = searchPath[1] === 'personnel' || searchPath[1] === 'administration'
+                ? 'description administrative' : searchPath[1];
 
               resultWithPath.push({
                 id: searchPath[0],
@@ -220,13 +205,13 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
               $scope.keyInList[v.search[0].id] = k;
           });
 
-          // reacreate list ?
+          // recreate list ?
           var listCentersFiltered = {};
           _.forEach(updateMarkers, function(d) {
             listCentersFiltered[d] = $scope.result.allCenters[d];
           });
 
-          // rreacreate allMarkers , maybe filtered ?
+          // recreate allMarkers, maybe filtered ?
           allMarkers = {};
           _.forIn(listCentersFiltered, function(v, k) {
             mapService.createMarkers(v, allMarkers);
@@ -316,8 +301,7 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
         // display center details
         mapService.displayCenterSelected(center, null, keyCenter, $scope);
 
-        var tab = '';
-        item.tab === 'description administrative' ? tab = 'description' : tab = item.tab;
+        var tab = item.tab === 'description administrative' ? 'description' : item.tab;
 
         // active good tab
         $('#myTab li').removeClass('active');
@@ -333,8 +317,7 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
       $scope.goPrecedentCenter = function(item) {
         if (item) {
           navigation(item.key);
-          var keyCenter = item.key;
-          mapService.displayCenterSelected(item, 0, keyCenter, $scope);
+          mapService.displayCenterSelected(item, 0, item.key, $scope);
           $('#listCenters').scrollTo($('.' + item.key));
         }
       };
@@ -342,8 +325,7 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
       $scope.goNextCenter = function(item) {
         if (item) {
           navigation(item.key);
-          var keyCenter = item.key;
-          mapService.displayCenterSelected(item, 0, keyCenter, $scope);
+          mapService.displayCenterSelected(item, 0, item.key, $scope);
           $('#listCenters').scrollTo($('.' + item.key));
         }
       };
@@ -354,7 +336,6 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
         updateMapFromList();
       };
 
-      // center map on France
       $scope.zoomFrance = function() {
         angular.extend($scope, {
           center: {
@@ -383,7 +364,6 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
         var eventName = 'leafletDirectiveMap.' + mapEvents[k];
         $scope.$on(eventName, function(event, args) {
           if (event.name === 'leafletDirectiveMap.zoomstart' || event.name === 'leafletDirectiveMap.move') {
-            //
             var centersInMap = [];
 
             // get lat & lng of map
@@ -400,10 +380,10 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
               });
 
               // get coordinate of map -> make function then a service
-              var mapNorthEastLat = map.getBounds()._northEast.lat,
-              mapNorthEastLng = map.getBounds()._northEast.lng,
-              mapSouthWestLat = map.getBounds()._southWest.lat,
-              mapSouthWestLng = map.getBounds()._southWest.lng;
+              var mapNorthEastLat = map.getBounds()._northEast.lat;
+              var mapNorthEastLng = map.getBounds()._northEast.lng;
+              var mapSouthWestLat = map.getBounds()._southWest.lat;
+              var mapSouthWestLng = map.getBounds()._southWest.lng;
 
               // check if centers are between lat & lng of map
               _.forIn($scope.allMarkers, function(v, k) {
@@ -435,12 +415,10 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
                     $scope.allCenters.push({ center: $scope.result.allCenters[idCenter] });
                   }
                 });
-
                 // set list og centers
                 $scope.allCenters = _.uniqBy($scope.allCenters, 'center');
               } else { // list of centers with search result
                 // convert array to obj with center key
-
                 var allCentersObj = {};
 
                 // get id of centers in current list
@@ -475,7 +453,6 @@ leafletMarkerEvents, leafletMapEvents, $interpolate, leafletData, $sce, mapServi
               // create keyInList
               $scope.keyInList = {};
               _.forEach($scope.allCenters, function(v, k) {
-
                 if (v) {
                   var id = v.center.administration['id'].trim();
                   id = id.replace(/ /g, '');
