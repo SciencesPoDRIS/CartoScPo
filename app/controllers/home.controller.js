@@ -5,7 +5,7 @@
  * visualisations (dualtimeline, brushing & comparison timeline). ******
  */
 
-angular.module('bib.controller.home', [])
+angular.module('bib.controllers')
     .controller('home', ['$scope', '$location', '$anchorScroll', 'fileService',
         '$http', '_', 'leafletMarkerEvents', 'leafletMapEvents',
         '$interpolate', 'leafletData', '$sce', 'mapService', '$timeout',

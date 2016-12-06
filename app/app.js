@@ -1,28 +1,24 @@
 'use strict';
 
-/*
- * Declare app level module which depends on filters, and services
- */
+angular.module('bib.controllers', []);
+angular.module('bib.directives', []);
 var app = angular.module('bib', [
-    'ngRoute',
-    'ngAnimate',
-    'ngSanitize',
-    'ui.bootstrap',
-    'ngTouch',
-    'ui.grid',
-    'ui.grid.selection',
-    'ui.grid.exporter',
-    'angulartics',
-    'angulartics.google.analytics',
-    'nemLogging',
-    'ui-leaflet',
-    'bib.services',
-    'bib.directives',
-    'bib.controller.navbar',
-    'bib.controller.home',
-    'bib.controller.data',
-    'bib.controller.methodologie',
-    'map.service'
+  'ngRoute',
+  'ngAnimate',
+  'ngSanitize',
+  'ui.bootstrap',
+  'ngTouch',
+  'ui.grid',
+  'ui.grid.selection',
+  'ui.grid.exporter',
+  'angulartics',
+  'angulartics.google.analytics',
+  'nemLogging',
+  'ui-leaflet',
+  'bib.controllers',
+  'bib.directives',
+  'bib.services',
+  'map.service'
 ]);
 
 app.config(['$routeProvider', function($routeProvider) {

@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('bib.controller.data', [])
+angular.module('bib.controllers')
     .controller('data', ['$scope', '$location', "$http", "fileService", "_", "uiGridConstants", "$filter",
         function($scope, $location, $http, fileService, _, uiGridConstants, $filter) {
 

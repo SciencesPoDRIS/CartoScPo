@@ -3,11 +3,14 @@ module.exports = {
         "browser": true,
         "es6": true
     },
+    "globals": {
+        "angular": true
+    },
     "extends": "eslint:recommended",
     "rules": {
         "indent": [
             "error",
-            4
+            2
         ],
         "linebreak-style": [
             "error",

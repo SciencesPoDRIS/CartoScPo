@@ -1,16 +1,10 @@
 'use strict';
 
-/* Directives */
-
-angular.module('bib.directive.navbar', [])
-
-  .directive('navbar',[ 'fileService', '$timeout', function (fileService, $timeout){
-    return {
-      restrict: 'A',
-      replace: false,
-      templateUrl: 'views/navbar.html',
-      link: function(scope, element, attrs) {
-      	
-      }
-    }
-  }])
+angular.module('bib.directives')
+.directive('navbar', function () {
+  return {
+    restrict: 'EA',
+    templateUrl: 'views/navbar.html',
+    controller: 'NavbarCtrl'
+  };
+});

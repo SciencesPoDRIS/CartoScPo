@@ -1,22 +1,10 @@
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      
-    </div>
-    <div class="collapse navbar-collapse">
-        <a class="navbar-brand" href="http://www.sciencespo.fr/bibliotheque/fr" >
-          <img id="logoBib" src="img/logo_bibliothèque.png" alt="Sciences Po Bibliothèque" >
-        </a> 
-      <ul class="nav navbar-nav navbar-right">
-        <li style="margin-top:20px;" ng-repeat="view in views" ng-class="{ active: isActive('/' + view.slug)}"><a href="#/{{view.slug}}" style="float:right; font-size: 14px;" >{{view.label}}</a></li>
-      </ul>
-    </div>
-  </div>
+<div class="navbar navbar-default navbar-fixed-top container-fluid" role="navigation">
+  <a class="navbar-brand navbar-right" href="http://www.sciencespo.fr/bibliotheque/fr" >
+    <img id="logo-bib" src="img/logo_bibliothèque.png" alt="Sciences Po Bibliothèque" >
+  </a>
+  <ul class="nav navbar-nav">
+    <li ng-repeat="view in views" ng-class="{ active: isActive(view)}">
+      <a href="#/{{view.slug}}">{{view.label}}</a>
+    </li>
+  </ul>
 </div>

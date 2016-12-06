@@ -11,21 +11,23 @@
 </head>
 
 <body>
-    <div id="nav" ng-controller="navbar" navbar></div>
+    <navbar></navbar>
     <div id="view" ng-view></div>
-    <!-- Project lib dependencies -->
+
     <script type="text/javascript" src="assets/js/all.min.js"></script>
     <script type="text/javascript" src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script type="text/javascript" src="http://ui-grid.info/release/ui-grid.js"></script>
     <script type="text/javascript" src="lib/lunr.min.js"></script>
-    <!-- Project AngularJS -->
+
     <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="controllers/navbar.controller.js"></script>
-    <script type="text/javascript" src="controllers/home.controller.js"></script>
+
     <script type="text/javascript" src="controllers/data.controller.js"></script>
+    <script type="text/javascript" src="controllers/home.controller.js"></script>
     <script type="text/javascript" src="controllers/methodologie.controller.js"></script>
-    <script type="text/javascript" src="directives/directives.js"></script>
+    <script type="text/javascript" src="controllers/navbar.controller.js"></script>
+
     <script type="text/javascript" src="directives/navbar.directive.js"></script>
+
     <script type="text/javascript" src="services/services.js"></script>
     <script type="text/javascript" src="services/map.service.js"></script>
 </body>
