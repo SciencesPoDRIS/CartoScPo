@@ -24,10 +24,10 @@ var app = angular.module('bib', [
   $routeProvider
   .when('/', {
     templateUrl: 'views/home.html',
-    controller: 'home'
   })
   .when('/map', {
-    template: '<h1>split</h1>'
+    templateUrl: 'views/map.html',
+    controller: 'MapCtrl'
   })
   .when('/project', {
     templateUrl: 'views/project.html'
@@ -38,5 +38,4 @@ var app = angular.module('bib', [
   .otherwise({
     redirectTo: '/'
   });
-})
-.constant('_', _);
+});

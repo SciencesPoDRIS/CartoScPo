@@ -1,6 +1,5 @@
 angular.module('map.service', [])
-  .factory('mapService', [ "$sce", "leafletData", "_",
-    function($sce, leafletData, _) {
+  .factory('mapService', function($sce, leafletData) {
 
     return {
         createMarkers: function (v, allMarkers) {
@@ -10,13 +9,13 @@ angular.module('map.service', [])
                 if (v) {
                     if (v.personnel['Personnels permanents'] <= 20)
                         personnelSize = 'small';
-                    else if (v.personnel['Personnels permanents'] > 20 
+                    else if (v.personnel['Personnels permanents'] > 20
                         && v.personnel['Personnels permanents'] <= 40)
                         personnelSize = 'medium';
-                    else if (v.personnel['Personnels permanents'] > 40 
+                    else if (v.personnel['Personnels permanents'] > 40
                         && v.personnel['Personnels permanents'] <= 80)
                         personnelSize = 'large';
-                    else 
+                    else
                         personnelSize = 'extraLarge';
 
                     return personnelSize;
@@ -25,7 +24,7 @@ angular.module('map.service', [])
 
             if (v && v.administration)
                 if (v.administration.adressesGeo)
-                    v.administration.adressesGeo.forEach(function(a, i) {                       
+                    v.administration.adressesGeo.forEach(function(a, i) {
                         // if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
                         //     v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace(/-/g, '_');
                         // }
@@ -43,8 +42,8 @@ angular.module('map.service', [])
                                 className: colorMarker,
                                 popupAnchor:  [0, -10]
                             }
-                        }
-                        
+                        };
+
                         // clean id
                         var id = v.administration['id'].trim();
                         id = id.replace(/ /g, '');
@@ -68,10 +67,10 @@ angular.module('map.service', [])
                             id: id + '_' + i
                         };
 
-                    })
+                    });
         },
         displayCenterSelected: function (item, key, keyCenter, $scope) {
-            // display details of center                    
+            // display details of center
             $scope.centerActive = true;
 
             // convert markdown to html
@@ -79,21 +78,18 @@ angular.module('map.service', [])
 
             // bind center's data to tabs
             if (item && item.center) {
-                
                 // bind markdown data
                 $scope.administration = item.center.administration;
                 $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Acronyme (nom court)'] + '.jpg';
-                
                 $scope.sigle = item.center.administration['Acronyme (nom court)'];
                 $scope.personnel = item.center.personnel;
                 $scope.personnelCNRSUrl = item.center.personnel['Lien vers la page "personnel" du site Web du CNRS'];
-                $scope.personnelSiteWebCentre = item.center.personnel['Lien vers la page "personnel" sur le site Web du centre']
-                
+                $scope.personnelSiteWebCentre = item.center.personnel['Lien vers la page "personnel" sur le site Web du centre'];
                 $scope.ecole = item.center.ecole;
                 $scope.recherche = item.center.recherche;
                 $scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
-                $scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR']
-                $scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR']
+                $scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR'];
+                $scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR'];
                 $scope.section = item.center.recherche['Sections CNRS'];
 
                 $scope.ressources = item.center.ressources;
@@ -105,8 +101,8 @@ angular.module('map.service', [])
 
                 $scope.publications = item.center.publication;
 
-                $scope.etablissements = item.center.administration['Etablissements de rattachement'].split(';')
-                
+                $scope.etablissements = item.center.administration['Etablissements de rattachement'].split(';');
+
                 // create axes
                 var axes = '';
                 if (Array.isArray(item.center.recherche['Axes de recherche'])) {
@@ -150,15 +146,11 @@ angular.module('map.service', [])
                     $scope.collaboration = converter.makeHtml(collaboration);
                 }
                 else
-                    $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);    
+                    $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);
 
-                
                 if (item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'])
                     $scope.motsClefs = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'].split(';');
-                      
             }
-
-               
 
             // highlight search in fulltxt
             $scope.highlight = function(text, search) {
@@ -179,7 +171,6 @@ angular.module('map.service', [])
                     return id_center + '_' + i;
                 });
 
-
                 // create popup
                 var showPopup = function(marker_key) {
                     // get the marker
@@ -187,31 +178,22 @@ angular.module('map.service', [])
                         content = marker.message,
                         latLng = [marker.lat, marker.lng],
                         popup = L.popup({ className : 'custom-popup' }).setContent(content).setLatLng(latLng);
-                   
                     leafletData.getMap().then(function(map) {
                         popup.openOn(map);
                     });
-
-                }
+                };
 
                 // get the key === adress position
                 if (key !== null)
                     showPopup(id_center+'_'+key);
-            });   
+            });
         },
         setAllAdressActive: function(allCenters) {
-         _.map(allCenters, function(c) {  
+         _.map(allCenters, function(c) {
                 return _.map(c.center.administration.adressesGeo, function (a) {
                     c.active = true;
                 });
             });
         }
-    }
-}])  
-
-
-
-
-
-
-
+    };
+});
