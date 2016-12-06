@@ -1,13 +1,10 @@
 var gulp = require('gulp'),
-    server = require('gulp-server-livereload'),
-    connect = require('gulp-connect'),
-    sass = require('gulp-sass'),
     less = require('gulp-less'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     ngAnnotate = require('gulp-ng-annotate'),
     browserSync = require('browser-sync').create();
- 
+
 // Concat all bower libraries used in website
 gulp.task('js', function() {
     return gulp.src([
@@ -62,13 +59,6 @@ gulp.task('css', function() {
     .pipe(gulp.dest('./app/assets/css/'));
 });
 
-// gulp.task('sass', function() {
-//     return gulp.src('app/style/*.scss')
-//         .pipe(sass())
-//         .pipe(gulp.dest('./app/assets/css'))
-//         .pipe(browserSync.stream());
-// });
-
 gulp.task('less', function() {
     return gulp.src('./app/style/*.less')
         .pipe(less())
@@ -78,21 +68,20 @@ gulp.task('less', function() {
 
 // Launch server with livereload
 gulp.task('serve', function() {
-    browserSync.init({ server: "./app" });
+    browserSync.init({ server: './app' });
 
-    //gulp.watch('./app/assets/scss/*.scss', ['sass']);
     gulp.watch('app/style/*.less').on('change', browserSync.reload);
     gulp.watch(['app/*.js', 'app/**/*js']).on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
 
 gulp.task('prod', function() {
-   return gulp.src(['app/app.js', 'app/controllers/*.js', 'app/services/*.js', 'app/directives/*.js'])
-    .pipe(concat('app.js'))
-    .pipe(ngAnnotate())
-    .pipe(uglify())
-    .pipe(gulp.dest('./app/assets/js'))
-})
+    return gulp.src(['app/app.js', 'app/controllers/*.js', 'app/services/*.js', 'app/directives/*.js'])
+      .pipe(concat('app.js'))
+      .pipe(ngAnnotate())
+      .pipe(uglify())
+      .pipe(gulp.dest('./app/assets/js'));
+});
 
 // Default task that launch concat js, css & less then launch server
 gulp.task('default', ['js', 'css', 'less', 'serve']);
