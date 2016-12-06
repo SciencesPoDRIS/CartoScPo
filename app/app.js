@@ -33,7 +33,7 @@ var app = angular.module('bib', [
     templateUrl: 'views/project.html'
   })
   .when('/team', {
-    template: '<br/><br/><h1>TODO team</h1>'
+    templateUrl: 'views/team.html'
   })
   .otherwise({
     redirectTo: '/'
