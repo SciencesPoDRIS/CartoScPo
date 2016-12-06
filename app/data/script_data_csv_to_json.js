@@ -9,7 +9,7 @@ var csv = {
   administration: 'Donnees_centres_de_recherche_SP_2015 - Description administrative.csv',
   personnel:      'Donnees_centres_de_recherche_SP_2015 - Personnel.csv',
   ecole:          'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales.csv',
-  recherche:      'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv',
+  recherche:      'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv',
   publication:    'Donnees_centres_de_recherche_SP_2015 - Publications.csv',
   ressources:     'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
 };
