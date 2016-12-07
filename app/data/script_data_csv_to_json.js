@@ -167,13 +167,14 @@ function cleanWord(content) {
   content = content.replace('-' , ' ');
   content = content.replace('(' , ' ');
   content = content.replace(/\)/gi, ' ');
-  content = content.replace('\n' , ' ');
+  content = content.replace(/\n/g , ' ');
+  content = content.replace(/\r/g , ' ');
   content = content.replace('\/' , ' ');
   content = content.replace(/#/gi , ' ');
   content = content.replace(/\./gi , ' ');
   //content = content.replace(/\*/gi , ' ');
 
-  return content;
+  return content.toLowerCase();
 }
 
 // create list of all words
@@ -183,13 +184,11 @@ lodash.forIn(allCenters, function(tab, center) {
     lodash.forIn(contentTab, function(content, prop) {
       if (Array.isArray(content) && prop !== 'adressesGeo') {
         var arrayContent = '';
-
         lodash.forEach(content, function (d) {
           // create a long string of all axes
           arrayContent = arrayContent + ' ' + d + ' ';
         });
-        arrayContent = cleanWord(arrayContent);
-        arrayContent = arrayContent.toLowerCase().split(' ');
+        arrayContent = cleanWord(arrayContent).split(' ');
         allWords = allWords.concat(arrayContent);
       }
       else if (prop === 'Intitulé (centre ou unité de recherche)'
@@ -200,10 +199,7 @@ lodash.forIn(allCenters, function(tab, center) {
           || prop === 'Acronyme (nom court)'
           ) {
 
-        content = cleanWord(content);
-        content = content.toLowerCase();
-        content = content.split(' ');
-
+        content = cleanWord(content).split(' ');
         allWords = allWords.concat(content);
       }
     });
@@ -212,7 +208,7 @@ lodash.forIn(allCenters, function(tab, center) {
 
 allWords = lodash.uniq(allWords).filter(function (d) {
   return d.length > 2;
-});
+}).sort();
 
 console.log('list of all words in data created');
 
