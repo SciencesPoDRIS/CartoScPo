@@ -25,27 +25,27 @@
 
         <!-- Navigation in list -->
         <div id="centerNavigation" class="row">
-            <div class="col-md-4">
-                <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)" ng-if="precedentCenter">
-                    <span>< </span>
-                    <span>{{precedentCenter.center.administration['Intitulé']}}</span>
-                    <span ng-if="precedentCenter.center.administration['Intitulé'] && precedentCenter.center.administration['Sigle ou acronyme']"> - </span>
-                    <span>{{precedentCenter.center.administration['Sigle ou acronyme']}}</span>
-                </button>
-            </div>
-            <h3 class="col-md-4" style="text-align:center;">
-                <span>{{currentCenter.center.administration['Intitulé']}}</span>
-                <span ng-if="currentCenter.center.administration['Intitulé'] && currentCenter.center.administration['Sigle ou acronyme']"> - </span>
-                <span>{{currentCenter.center.administration['Sigle ou acronyme']}}</span>
-            </h3>
-            <div class="col-md-4">
-                <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)" ng-if="nextCenter">
-                    <span>{{nextCenter.center.administration['Intitulé']}}</span>
-                    <span ng-if="nextCenter.center.administration['Intitulé'] && nextCenter.center.administration['Sigle ou acronyme']"> - </span>
-                    <span>{{nextCenter.center.administration['Sigle ou acronyme']}}</span>
-                    <span> > </span>
-                </button>
-            </div>
+          <div class="col-md-4">
+            <button id="precedentCenter" type="button" class="btn" ng-click="goToCenter(precedentCenter)" ng-if="precedentCenter">
+              <span> &lt; </span>
+              <span>{{precedentCenter.center.administration['Intitulé']}}</span>
+              <span ng-if="precedentCenter.center.administration['Intitulé'] && precedentCenter.center.administration['Sigle ou acronyme']"> - </span>
+              <span>{{precedentCenter.center.administration['Sigle ou acronyme']}}</span>
+            </button>
+          </div>
+          <h3 class="col-md-4" style="text-align:center;">
+            <span>{{currentCenter.center.administration['Intitulé']}}</span>
+            <span ng-if="currentCenter.center.administration['Intitulé'] && currentCenter.center.administration['Sigle ou acronyme']"> - </span>
+            <span>{{currentCenter.center.administration['Sigle ou acronyme']}}</span>
+          </h3>
+          <div class="col-md-4">
+            <button id="nextCenter" type="button" class="btn" ng-click="goToCenter(nextCenter)" ng-if="nextCenter">
+              <span>{{nextCenter.center.administration['Intitulé']}}</span>
+              <span ng-if="nextCenter.center.administration['Intitulé'] && nextCenter.center.administration['Sigle ou acronyme']"> - </span>
+              <span>{{nextCenter.center.administration['Sigle ou acronyme']}}</span>
+              <span> &gt; </span>
+            </button>
+          </div>
         </div>
         <hr class="separation">
         <!-- Center details with bootstrap tabs  -->

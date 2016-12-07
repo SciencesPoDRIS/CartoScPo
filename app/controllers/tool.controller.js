@@ -314,15 +314,7 @@ angular.module('bib.controllers')
       };
 
       // center navigation with buttons
-      $scope.goPrecedentCenter = function(item) {
-        if (item) {
-          navigation(item.key);
-          mapService.displayCenterSelected(item, 0, item.key, $scope);
-          $('#listCenters').scrollTo($('.' + item.key));
-        }
-      };
-
-      $scope.goNextCenter = function(item) {
+      $scope.goToCenter = function(item) {
         if (item) {
           navigation(item.key);
           mapService.displayCenterSelected(item, 0, item.key, $scope);
