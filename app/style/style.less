@@ -63,23 +63,9 @@ a {
   margin-bottom: 2em;
 }
 
-#textTitle {
-  position: absolute;
-  top: 190px;
-  left: 20px;
-  font-size:12px;
-}
-
-#textTitle span {
-  font-weight:bold;
-}
-
 /*
  * Icons
  */
-.iconPresentation {
-  text-align:center;
-}
 
 /* zoom buttons */
 .zoom {
@@ -243,23 +229,27 @@ navbar .navbar-nav > li > a {
  /*
   * Liste
   */
-#listCenters {
+#center-list {
   height: 600px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-.centers:hover {
-  color: red;
+.center-list-item:hover {
+  background: #eee;
+
+  .center-title {
+    color: red;
+  }
 }
 
-.centerTitle {
-  color: red;
-  font-size:17px;
+.center-title {
+  color: #333;
+  font-size: 17px;
 }
 
-.adresses {
-  font-size: 13px;
+.center-logo {
+  width: 150px;
 }
 
 /*

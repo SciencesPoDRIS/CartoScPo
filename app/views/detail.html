@@ -20,12 +20,11 @@
           <div class="col-md-6" style="border-left:solid 1px black;">
             <p>{{administration['CNRS']}}</p>
             <p>Année de création : {{administration['Année de création']}}</p>
-            <p>Code unité : {{administration['Code Unité']}}
-              <p>Directeur : {{administration['Directeur']}}</p>
-              <p>Courriel direction : {{administration['Courrier Direction']}}</p>
-              <p>Téléphone : {{administration['Téléphone']}}</p>
-              <p>Site web : <a target="_blank" href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
-            </div>
+            <p>Code unité : {{administration['Code Unité']}}</p>
+            <p>Directeur : {{administration['Directeur']}}</p>
+            <p>Courriel direction : {{administration['Courrier Direction']}}</p>
+            <p>Téléphone : {{administration['Téléphone']}}</p>
+            <p>Site web : <a target="_blank" href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
             <p>Etablissements de rattachement : </p>
             <p ng-repeat="etablissement in etablissements" class="keyWord" ng-click="showNameChanged(etablissement)">{{etablissement}}</p>
           </div>

@@ -1,27 +1,20 @@
-<div id="listCenters">
-  <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index"
+<div id="center-list">
+  <div class="center-list-item" ng-repeat="(keyCenter, value) in allCenters track by $index"
     ng-class="{selected : keyCenter === idSelectedCenter}">
     <h3>
-      <a class="centerTitle" href="" ng-click="displayCenter(0, value, keyCenter)">
+      <a class="center-title" href="" ng-click="displayCenter(0, value, keyCenter)">
         <span>{{value.center.administration['Intitulé']}}</span>
         <span ng-if="value.center.administration['Intitulé'] && value.center.administration['Sigle ou acronyme']"> - </span>
         <span>{{value.center.administration['Sigle ou acronyme']}}</span>
       </a>
     </h3>
-    <!-- List of adresses -->
-    <ul>
-      <li ng-repeat="(keyAdress, item) in value.center.administration['adressesGeo']" ng-if="item.active===true">
-        <a class="adresses" href="" ng-click="displayCenter(keyAdress, value, keyCenter)">{{item.adresse}}</a>
-      </li>
-    </ul>
-    <!-- List of element search -->
-    <div ng-if="value.search">
-      L'élément recherché se trouve dans :
-      <ul>
-        <li ng-repeat="item in value.search">
-          <a href="" ng-click="openSpecificTab(item, keyCenter)">Thème : {{item.tab}} > champs : {{item.prop}}</a>
-        </li>
-      </ul>
+    <div class="row">
+      <div class="col-md-8">
+        <p>Code unité : {{value.center.administration['Code Unité']}}</p>
+      </div>
+      <div class="col-md-4">
+        <img alt="logo" class="center-logo" ng-src="/img/logos_centres_de_recherche_jpeg/{{value.center.administration['Acronyme (nom court)'] + '.jpg'}}">
+      </div>
     </div>
   </div>
 </div>
