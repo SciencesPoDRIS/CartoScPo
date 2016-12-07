@@ -45,11 +45,13 @@ gulp.task('js', function() {
 
 // Concat all CSS files from libs
 gulp.task('css', function() {
+    gulp.src('bower_components/font-awesome/fonts/*.*').pipe(gulp.dest('./app/assets/fonts'))
     return gulp.src([
         'bower_components/angular-ui-select/dist/select.css',
         'bower_components/ng-grid/ng-grid.css',
         'bower_components/leaflet/dist/leaflet.css',
-        'bower_components/angular-ui-grid/ui-grid.css'
+        'bower_components/angular-ui-grid/ui-grid.css',
+        'bower_components/font-awesome/css/font-awesome.min.css'
       ],
       {base: 'bower_components/'}
     )
