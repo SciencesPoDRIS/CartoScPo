@@ -28,7 +28,7 @@ angular.module('bib', [
   .when('/', {
     templateUrl: 'views/home.html',
   })
-  .when('/map', {
+  .when('/centers', {
     templateUrl: 'views/tool.html',
     controller: 'ToolCtrl'
   })
