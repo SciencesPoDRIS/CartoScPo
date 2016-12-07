@@ -14,7 +14,6 @@ angular.module('bib', [
   'ui.grid.exporter',
   'angulartics',
   'angulartics.google.analytics',
-  'nemLogging',
   'ui-leaflet',
   'bib.controllers',
   'bib.directives',
