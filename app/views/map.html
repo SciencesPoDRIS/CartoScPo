@@ -1,5 +1,12 @@
 <div class="col-md-5 col-md-offset-1" style="padding:0 20px 0">
-  <leaflet lf-center="center" markers="markers" layers="layers" event-broadcast="events" width="100%" height="600px">
-  </leaflet>
-</div>
 
+  <button class="btn btn-lg zoom btn-search"
+    ng-click="initMap()">Ré-initialiser la carte</button>
+  <button id="zoomFrance" class="btn btn-lg zoom btn-search"
+    ng-click="zoomFrance()">Zoomer sur la France métropolitaine</button>
+
+  <leaflet lf-center="center" markers="markers" layers="layers"
+    event-broadcast="events" width="100%" height="600px">
+  </leaflet>
+
+</div>
