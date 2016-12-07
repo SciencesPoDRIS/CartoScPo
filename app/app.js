@@ -2,7 +2,8 @@
 
 angular.module('bib.controllers', []);
 angular.module('bib.directives', []);
-var app = angular.module('bib', [
+angular.module('bib.services', []);
+angular.module('bib', [
   'ngRoute',
   'ngAnimate',
   'ngSanitize',
@@ -17,9 +18,11 @@ var app = angular.module('bib', [
   'ui-leaflet',
   'bib.controllers',
   'bib.directives',
-  'bib.services',
-  'map.service'
+  'bib.services'
 ])
+.config(function ($httpProvider) {
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+})
 .config(function($routeProvider) {
   $routeProvider
   .when('/', {

@@ -1,9 +1,6 @@
 'use strict';
 
-angular.module('bib.services', [])
-.config(function ($httpProvider) {
-  delete $httpProvider.defaults.headers.common['X-Requested-With'];
-})
+angular.module('bib.services')
 .factory('fileService', function($http) {
   return {
     get: function(file) {

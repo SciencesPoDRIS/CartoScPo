@@ -1,4 +1,4 @@
-angular.module('map.service', [])
+angular.module('bib.services')
   .factory('mapService', function($sce, leafletData) {
 
     return {
