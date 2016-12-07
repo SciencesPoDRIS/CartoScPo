@@ -2,7 +2,7 @@
 
 angular.module('bib.controllers')
 .controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData,
-  mapService, fileService, autocompleteService) {
+  mapService, fileService, autocompleteService, searchService) {
   // to fix reload page to load map when changing page
   var test = JSON.parse(localStorage.getItem('loadingPage'));
   if (!test) {
@@ -69,22 +69,6 @@ angular.module('bib.controllers')
         var id = v.administration['id'].trim();
         id = id.replace(/ /g, '');
         $scope.keyInList[id] = k;
-      });
-
-
-      // create index for fulltext search
-      // var index = Elasticlunr(function() {
-      //     this.addField('content');
-      // });
-
-      var index = lunr(function() {
-        this.field('content', { boost: 10 });
-        this.ref('id');
-      });
-
-      // populate index with props
-      _.forEach(result.allProps, function(d) {
-        index.add(d);
       });
 
       // if no word in input display allcenters
@@ -157,14 +141,7 @@ angular.module('bib.controllers')
             $scope.filterSearch = word;
           $scope.centerActive = true;
           $scope.filtersOn = true;
-          //search fulltext
-          var searchResult = index.search($scope.filterSearch, {
-            fields: {
-              content: { boost: 2 }
-            },
-            bool: 'AND',
-            expand: false
-          });
+          var searchResult = searchService.search($scope.filterSearch);
           var resultWithPath = [];
           var updateMarkers = [];
 

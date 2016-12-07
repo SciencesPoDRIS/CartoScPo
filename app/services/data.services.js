@@ -1,3 +1,4 @@
+/* global lunr */
 'use strict';
 
 angular.module('bib.services')
@@ -15,6 +16,31 @@ angular.module('bib.services')
     get: function() {
       return dataService.get().then(function (data) {
         return data.allWords;
+      });
+    }
+  };
+})
+.factory('searchService', function (dataService) {
+  var searchIndex;
+  dataService.get().then(function (data) {
+    searchIndex = lunr(function() {
+      this.field('content', { boost: 10 });
+      this.ref('id');
+    });
+
+    data.allProps.forEach(function(p) {
+      searchIndex.add(p);
+    });
+  });
+
+  return {
+    search: function (query) {
+      return searchIndex.search(query, {
+        fields: {
+          content: { boost: 2 }
+        },
+        bool: 'AND',
+        expand: false
       });
     }
   };
