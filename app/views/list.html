@@ -1,5 +1,6 @@
-<div id="listCenters" class="col-md-6 centersList" style="padding:0 20px 0">
-  <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index" ng-class="{selected : keyCenter === idSelectedCenter}">
+<div id="listCenters">
+  <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index"
+    ng-class="{selected : keyCenter === idSelectedCenter}">
     <h3>
       <a class="centerTitle" href="" ng-click="displayCenter(0, value, keyCenter)">
         <span>{{value.center.administration['Intitulé']}}</span>

@@ -1,22 +1,42 @@
 <div class="view-page">
   <div class="container-fluid">
-    <!-- Search bar -->
+
     <div class="row">
       <div class="col-md-4">
-        <input id="search" type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch" typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
-        <p>Nombre de centres trouvés : {{allCenters.length}}</p>
+        <div class="row">
+          <input id="search" type="text" placeholder="Entrez votre recherche ..."
+            ng-model="filterSearch" typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
+          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="showNameChanged()">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-lg btn-search" title="Annuler" ng-click="resetFilter(key)">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="row">
+          Nombre de centres trouvés : {{allCenters.length}}
+        </div>
+        <div>TODO facettes</div>
       </div>
-      <div class="col-md-3">
-        <button class="btn  btn-lg  btn-search" type="submit" ng-click="showNameChanged()">Rechercher</button>
-        <button class="btn  btn-lg btn-search" type="submit" ng-model="key" ng-click="resetFilter(key)">Annuler</button>
-      </div>
-      <div class="col-md-5">
-      </div>
-    </div>
 
-    <div id="listAndMap" class="row">
-      <ng-include src="'views/list.html'"></ng-include>
-      <ng-include src="'views/map.html'"></ng-include>
+      <div class="col-md-8">
+        <div class="row">
+          <ul class="nav nav-tabs">
+            <li class="tabTitle active"><a data-target="#tab-list" data-toggle="tab">List</a></li>
+            <li class="tabTitle"><a data-target="#tab-map" data-toggle="tab">Map</a></li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-list">
+              <ng-include src="'views/list.html'"></ng-include>
+            </div>
+            <div class="tab-pane" id="tab-map">
+              <ng-include src="'views/map.html'"></ng-include>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <hr class="separation">
