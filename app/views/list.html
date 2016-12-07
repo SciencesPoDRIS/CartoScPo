@@ -20,9 +20,7 @@
       <div class="col-md-10">
         <button class="btn" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + keyCenter }}">Voir plus</button>
         <div class="collapse" id="{{ 'see-more-' + keyCenter }}">
-          <div class="well">
-            DETAILS
-          </div>
+          <ng-include src="'views/detail.html'" ng-init="administration = value.center.administration"></ng-include>
         </div>
       </div>
     </div>
