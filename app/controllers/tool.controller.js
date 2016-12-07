@@ -17,12 +17,22 @@ angular.module('bib.controllers')
     $scope.allWords = words;
   });
 
+  $scope.currentTab = 'list';
+
+  $scope.displayListTab = function () {
+    $scope.currentTab = 'list';
+  };
+
+  $scope.displayMapTab = function () {
+    $scope.currentTab = 'map';
+    $scope.refreshMap();
+  };
+
   // Load Data & init business logic
   fileService
     .get(url)
     .then(function(result) {
       $scope.result = result;
-
       $scope.centersSearch = [];
       _.forIn($scope.result.allCenters, function(v) {
         $scope.centersSearch.push(v);
@@ -198,8 +208,8 @@ angular.module('bib.controllers')
 
         // updated navigation'centers buttons
         $('#myTab li').removeClass('active');
-        $('.tab-pane').removeClass('active');
-        $('.description').addClass('active');
+        $('.collapse .tab-pane').removeClass('active');
+        $('.collapse .description').addClass('active');
       }
 
       // Select first center by default
@@ -236,8 +246,8 @@ angular.module('bib.controllers')
 
         // active good tab
         $('#myTab li').removeClass('active');
-        $('.tab-pane').removeClass('active');
-        $('.' + tab).addClass('active');
+        $('.collapse .tab-pane').removeClass('active');
+        $('.collapse .' + tab).addClass('active');
       };
 
       // display map with markers choosen
@@ -273,6 +283,7 @@ angular.module('bib.controllers')
       for (var k in mapEvents) {
         var eventName = 'leafletDirectiveMap.' + mapEvents[k];
         $scope.$on(eventName, function(event) {
+          if ($scope.currentTab !== 'map') return;
           if (event.name === 'leafletDirectiveMap.zoomstart' || event.name === 'leafletDirectiveMap.move') {
             var centersInMap = [];
 
@@ -332,8 +343,7 @@ angular.module('bib.controllers')
                 // get id of centers in current list
                 _.forEach($scope.allCenters, function(v) {
                   if (v) {
-                    var id = v.center.administration.id.trim();
-                    id = id.replace(/ /g, '');
+                    var id = v.center.administration.id.trim().replace(/ /g, '');
                     allCentersObj[id] = v;
                   }
                 });
@@ -341,8 +351,7 @@ angular.module('bib.controllers')
                 // get all id of center in map
                 var allCenterIdSearch = [];
                 centersInMap.forEach(function(d) {
-                  d = d.split('_');
-                  var idCenter = d[0];
+                  var idCenter = d.split('_')[0];
                   allCenterIdSearch.push(idCenter);
                 });
 
@@ -362,8 +371,7 @@ angular.module('bib.controllers')
               $scope.keyInList = {};
               _.forEach($scope.allCenters, function(v, k) {
                 if (v) {
-                  var id = v.center.administration['id'].trim();
-                  id = id.replace(/ /g, '');
+                  var id = v.center.administration.id.trim().replace(/ /g, '');
                   $scope.keyInList[id] = k;
                 }
               });
@@ -481,4 +489,14 @@ angular.module('bib.controllers')
       }
     });
   }
+
+  // https://github.com/tombatossals/angular-leaflet-directive/issues/49
+  $scope.refreshMap = function () {
+    leafletData.getMap().then(function(map) {
+      // shameless timeout of the death
+      setTimeout(function () {
+        map.invalidateSize();
+      }, 100);
+    });
+  };
 });
