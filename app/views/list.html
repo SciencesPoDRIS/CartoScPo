@@ -1,0 +1,27 @@
+<div id="listCenters" class="col-md-6 centersList" style="padding:0 20px 0">
+  <div class="centers {{$index}}" ng-repeat="(keyCenter, value) in allCenters track by $index" ng-class="{selected : keyCenter === idSelectedCenter}">
+    <h3>
+      <a class="centerTitle" href="" ng-click="displayCenter(0, value, keyCenter)">
+        <span>{{value.center.administration['Intitulé']}}</span>
+        <span ng-if="value.center.administration['Intitulé'] && value.center.administration['Sigle ou acronyme']"> - </span>
+        <span>{{value.center.administration['Sigle ou acronyme']}}</span>
+      </a>
+    </h3>
+    <!-- List of adresses -->
+    <ul>
+      <li ng-repeat="(keyAdress, item) in value.center.administration['adressesGeo']" ng-if="item.active===true">
+        <a class="adresses" href="" ng-click="displayCenter(keyAdress, value, keyCenter)">{{item.adresse}}</a>
+      </li>
+    </ul>
+    <!-- List of element search -->
+    <div ng-if="value.search">
+      L'élément recherché se trouve dans :
+      <ul>
+        <li ng-repeat="item in value.search">
+          <a href="" ng-click="openSpecificTab(item, keyCenter)">Thème : {{item.tab}} > champs : {{item.prop}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

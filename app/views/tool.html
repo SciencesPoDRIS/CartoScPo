@@ -1,0 +1,183 @@
+<div class="view-page">
+    <div class="container-fluid">
+        <!-- Search bar -->
+        <div class="row">
+            <div class="col-md-4">
+                <input id="search" type="text" placeholder="Entrez votre recherche ..." ng-model="filterSearch" typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
+                <p>Nombre de centres trouvés : {{allCenters.length}}</p>
+            </div>
+            <div class="col-md-3">
+                <button class="btn  btn-lg  btn-search" type="submit" ng-click="showNameChanged()">Rechercher</button>
+                <button class="btn  btn-lg btn-search" type="submit" ng-model="key" ng-click="resetFilter(key)">Annuler</button>
+            </div>
+            <div class="col-md-5">
+                <button class="btn  btn-lg zoom  btn-search" type="submit" ng-click="initMap()">Ré-initialiser la carte</button>
+                <button id="zoomFrance" class="btn  btn-lg zoom  btn-search" type="submit" ng-click="zoomFrance()">Zoomer sur la France métropolitaine</button>
+            </div>
+        </div>
+
+        <div id="listAndMap" class="row">
+            <ng-include src="'views/list.html'"></ng-include>
+            <ng-include src="'views/map.html'"></ng-include>
+        </div>
+
+        <hr class="separation">
+
+        <!-- Navigation in list -->
+        <div id="centerNavigation" class="row">
+            <div class="col-md-4">
+                <button id="precedentCenter" type="button" class="btn " ng-model="precedentCenter" ng-click="goPrecedentCenter(precedentCenter)" ng-if="precedentCenter">
+                    <span>< </span>
+                    <span>{{precedentCenter.center.administration['Intitulé']}}</span>
+                    <span ng-if="precedentCenter.center.administration['Intitulé'] && precedentCenter.center.administration['Sigle ou acronyme']"> - </span>
+                    <span>{{precedentCenter.center.administration['Sigle ou acronyme']}}</span>
+                </button>
+            </div>
+            <h3 class="col-md-4" style="text-align:center;">
+                <span>{{currentCenter.center.administration['Intitulé']}}</span>
+                <span ng-if="currentCenter.center.administration['Intitulé'] && currentCenter.center.administration['Sigle ou acronyme']"> - </span>
+                <span>{{currentCenter.center.administration['Sigle ou acronyme']}}</span>
+            </h3>
+            <div class="col-md-4">
+                <button id="nextCenter" type="button" class="btn " ng-model="nextCenter" ng-click="goNextCenter(nextCenter)" ng-if="nextCenter">
+                    <span>{{nextCenter.center.administration['Intitulé']}}</span>
+                    <span ng-if="nextCenter.center.administration['Intitulé'] && nextCenter.center.administration['Sigle ou acronyme']"> - </span>
+                    <span>{{nextCenter.center.administration['Sigle ou acronyme']}}</span>
+                    <span> > </span>
+                </button>
+            </div>
+        </div>
+        <hr class="separation">
+        <!-- Center details with bootstrap tabs  -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <ul class="nav nav-tabs" id="myTab" ng-show="centerActive">
+                    <li class="tabTitle description"><a data-target="#description" data-toggle="tab">Description administrative</a></li>
+                    <li class="tabTitle ecole"><a data-target="#ecole" data-toggle="tab">Ecoles doctorales</a></li>
+                    <li class="tabTitle recherche"><a data-target="#recherche" data-toggle="tab">Thématiques recherches</a></li>
+                    <li class="tabTitle publications"><a data-target="#publication" data-toggle="tab">Publications</a></li>
+                    <li class="tabTitle ressources"><a data-target="#ressources" data-toggle="tab">Ressources documentaires</a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="tab-content" ng-show="centerActive" id="centerDetailsTabs">
+                <div class="row tab-pane administration description administrative" id="description">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="row">
+                            <div class="col-md-6" style="margin-top:50px;">
+                                <img id="logoCenter" ng-src="{{link}}">
+                            </div>
+                            <div class="col-md-6" style="border-left:solid 1px black;">
+                                <p>{{administration['CNRS']}}</p>
+                                <p>Année de création : {{administration['Année de création']}}</p>
+                                <p>Code unité : {{administration['Code Unité']}}
+                                    <p>Directeur : {{administration['Directeur']}}</p>
+                                    <p>Courriel direction : {{administration['Courrier Direction']}}</p>
+                                    <p>Téléphone : {{administration['Téléphone']}}</p>
+                                    <p>Site web : <a target="_blank" href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
+                            </div>
+                            <p>Etablissements de rattachement : </p>
+                            <p ng-repeat="etablissement in etablissements" class="keyWord" ng-click="showNameChanged(etablissement)">{{etablissement}}</p>
+                        </div>
+                        <div class="row">
+                            <h1 class="titleProps">Personnel</h1>
+                            <div class="col-md-6">
+                                <p>Effectif total : {{ personnel['Effectif total'] }}</p>
+                                <p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
+                                <p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Lien vers la page "personnel" du site Web du CNRS : <a target="_blank" href="{{ personnelCNRSUrl }}">Lien</a></p>
+                                <p>Lien vers la page "personnel" sur le site Web du centre : <a target="_blank" href="{{ personnelSiteWebCentre }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
+                            </div>
+                        </div>
+                        <h1 class="titleProps">Historique</h1>
+                        <p> {{administration['Historique']}}</p>
+                    </div>
+                </div>
+                <div class="tab-pane ecole col-md-6 col-md-offset-3" id="ecole">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="titleProps">Liste des écoles doctorales</h1>
+                            <div ng-repeat="ecole in ecole.ecoles" id="ecoleDetails" class="col-md-4">
+                                <p>Intitulé Ecole Doctorale : {{ ecole.intitule }}</p>
+                                <p>Numéro d'Ecole Doctorale : {{ ecole.numero }}</p>
+                                <p>Directeur école doctorale : {{ ecole.directeur}}</p>
+                                <p>Courriel de l'Ecole doctorale : {{ ecole.courriel }}</p>
+                                <br>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <h1 class="titleProps">Nombre de doctorants et thèses du centre</h1>
+                            <p>Nombre de doctorants : {{ ecole['Nombre de doctorants'] }}</p>
+                            <p>Nombre de doctorants en science politique : {{ ecole['Nombre de doctorants en science politique'] }}</p>
+                            <p>Nombre de thèses soutenues en 2015 : {{ ecole['Nombre de thèses soutenues en 2015'] }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane recherche" id="recherche">
+                    <div class="row">
+                        <div class="col-md-6 colTab">
+                            <h1 class="titleProps">Sections CNRS</h1> {{section}}
+                            <h1 class="titleProps">Annuaire du MENESR</h1>
+                            <h2 class="disciplinePrincipale"> {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</h2>
+                            <h2 class="disciplineSecondaire"> {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
+                            <h1 class="titleProps">Mots-clefs</h1>
+                            <p ng-repeat="word in motsClefs track by $index" class="keyWord" ng-click="showNameChanged(word)">{{word}}</p>
+                            <h1 class="titleProps">Axes de recherche</h1>
+                            <div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
+                            </div>
+                            <h1 class="titleProps">Contrats de recherche</h1>
+                            <div ng-bind-html="highlight(contrats, filterSearch)" class="recherche">
+                            </div>
+                        </div>
+                        <div class="col-md-6 colTab">
+                            <h1 class="titleProps">Séminaires de recherche</h1>
+                            <div ng-bind-html="highlight(seminaires, filterSearch)" class="recherche">
+                            </div>
+                            <h1 class="titleProps">Collaborations / réseaux</h1>
+                            <div ng-bind-html="highlight(collaboration, filterSearch)" class="recherche">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane publication" id="publication">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <h1 class="titleProps">Collections auprès d'éditeurs</h1> {{publications['Collections auprès d\'éditeurs : description']}}
+                            <h1 class="titleProps">Revues en propre</h1> {{publications['Revues en propre : description']}}
+                            <h1 class="titleProps">Autres activités éditoriales sur les revues</h1> {{publications['Autres activités éditoriales sur les revues (directeurs de rédaction, membres comités éditoriaux, partenariats...) Garder que directeurs?']}}
+                            <h1 class="titleProps">Publications versées dans HAL</h1> {{publications['Publications versées dans HAL (oui/non)']}}
+                            <h1 class="titleProps">Publications versées dans un dépôt institutionnel</h1> {{publications['Publications versées dans un dépôt institutionnel (oui/non)']}}
+                            <h1 class="titleProps">Préconisations pour le dépôt en open access des publications</h1> {{publications['Préconisations pour le dépôt en open access des publications']}}
+                            <h1 class="titleProps">Archivage des données de la recherche</h1> {{publications['Archivage des données de la recherche : description des projets']}}
+                            <h1 class="titleProps">Valorisation des publications par le laboratoire</h1> {{publications['Valorisation des publications par le laboratoire']}}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane ressources" id="ressources">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <h1 class="titleProps">Bibliothèques utilisées</h1> {{ressources['Bibliothèques utilisées']}}
+                            <h1 class="titleProps">Ressources numériques à disposition des chercheurs</h1> {{ressources['Ressources numériques à disposition des chercheurs']}}
+                            <h1 class="titleProps">Personne ressource - documentaliste</h1> {{ressources['Personne ressource - documentaliste']}}
+                            <!-- afficher seulement ceux qui ont des centres de documentation-->
+                            <h1 class="titleProps">Centre de documentation ou bibliothèque en propre</h1> {{ressourcesIntitule}}
+                            <h1 class="titleProps">Site web</h1>
+                            <a href="{{ressourcesSiteWeb}}"> Lien </a>
+                            <h1 class="titleProps">Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h1>
+                            <div ng-bind-html="ressourcesDesciption" class="recherche">
+                            </div>
+                            <!-- {{ressourcesDesciption}} -->
+                            <h1 class="titleProps">Politique documentaire</h1> {{ressources['Politique documentaire']}}
+                            <h1 class="titleProps">Offre de formations documentaires</h1> {{ressources['Offre de formations documentaires']}}
+                            <h1 class="titleProps">Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h1> {{ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

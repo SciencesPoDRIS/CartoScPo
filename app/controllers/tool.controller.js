@@ -6,7 +6,7 @@
  */
 
 angular.module('bib.controllers')
-.controller('MapCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData, mapService, fileService) {
+.controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData, mapService, fileService) {
   // to fix reload page to load map when changing page
   var test = JSON.parse(localStorage.getItem('loadingPage'));
   if (!test) {
