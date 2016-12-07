@@ -88,7 +88,6 @@ angular.module('bib.controllers')
 
       // reset all filters : list, map, navigation, center displayed
       $scope.resetFilter = function() {
-        // reset search
         $scope.filterSearch = '';
 
         // reset selection in list
@@ -98,6 +97,7 @@ angular.module('bib.controllers')
         leafletData.getMap().then(function(map) {
           map.closePopup();
         });
+
         $scope.precedentCenter = null;
         $scope.nextCenter = null;
         $scope.currentCenter = null;
@@ -123,7 +123,6 @@ angular.module('bib.controllers')
 
           $scope.allMarkers = allMarkers;
 
-          // update map
           updateMapFromList();
         }
       };

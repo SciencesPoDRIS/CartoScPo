@@ -1,26 +1,17 @@
 angular.module('bib.services')
   .factory('mapService', function($sce, leafletData) {
 
+    function fixIconSize(v) {
+      var size = v.personnel['Personnels permanents'];
+      if (!v) return '';
+      if (size <= 20) return 'small';
+      if (size > 20 && size <= 40) return 'medium';
+      if (size > 40 && size <= 80) return 'large';
+      return 'extraLarge';
+    }
+
     return {
         createMarkers: function (v, allMarkers) {
-            function fixIconSize(v) {
-                var personnelSize;
-
-                if (v) {
-                    if (v.personnel['Personnels permanents'] <= 20)
-                        personnelSize = 'small';
-                    else if (v.personnel['Personnels permanents'] > 20
-                        && v.personnel['Personnels permanents'] <= 40)
-                        personnelSize = 'medium';
-                    else if (v.personnel['Personnels permanents'] > 40
-                        && v.personnel['Personnels permanents'] <= 80)
-                        personnelSize = 'large';
-                    else
-                        personnelSize = 'extraLarge';
-
-                    return personnelSize;
-                }
-            }
 
             if (v && v.administration)
                 if (v.administration.adressesGeo)
