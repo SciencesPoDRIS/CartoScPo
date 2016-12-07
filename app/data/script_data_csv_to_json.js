@@ -23,21 +23,20 @@ lodash.forIn(csv, function (v, k) {
   var parsed = Baby.parse(content, { header: true });
 
   for (var i = 0, len = parsed.data.length; i < len; i++) {
-    // create a reagex
     if (parsed.data[i]['Code Unité'] && parsed.data[i]['Code Unité'].length > 0) {
-      var code = parsed.data[i]['Code Unité'].replace(' ', '');
-
       // need regex
-      code = code.replace(/\t/g, '');
-      code = code.replace(/\n/g, '');
-      code = code.replace(/\r/g, '');
-      code = code.replace(/;/g, '');
-      code = code.replace('        ', '');
-      code = code.replace('\'', '');
-      code = code.replace(/ /g, '');
+      var code = parsed.data[i]['Code Unité']
+        .replace(' ', '')
+        .replace(/\t/g, '')
+        .replace(/\n/g, '')
+        .replace(/\r/g, '')
+        .replace(/;/g, '')
+        .replace('        ', '')
+        .replace('\'', '')
+        .replace(/ /g, '')
+        .toLowerCase();
 
-      parsed.data[i].id = code.toLowerCase();
-
+      parsed.data[i].id = code;
       parsed.data[i].theme = k;
     }
   }
@@ -156,25 +155,21 @@ console.log('allCenters Done');
 
 // clean allWords function -> huge regex ;)
 function cleanWord(content) {
-  content = content.replace(/ /gi , ' ');
-  content = content.replace(/\,/gi , ' ');
-  content = content.replace(', ' , ' ');
-  content = content.replace(/,/g , ' ');
-  content = content.replace(/\:/gi , ' ');
-  content = content.replace(': ' , ' ');
-  content = content.replace(/\;/gi , ' ');
-  content = content.replace('; ' , ' ');
-  content = content.replace('-' , ' ');
-  content = content.replace('(' , ' ');
-  content = content.replace(/\)/gi, ' ');
-  content = content.replace(/\n/g , ' ');
-  content = content.replace(/\r/g , ' ');
-  content = content.replace('\/' , ' ');
-  content = content.replace(/#/gi , ' ');
-  content = content.replace(/\./gi , ' ');
-  //content = content.replace(/\*/gi , ' ');
-
-  return content.toLowerCase();
+  return content.replace(/ /g , ' ')
+    .replace(/\,|\:|\;/g , ' ')
+    .replace(', ' , ' ')
+    .replace(/,/g , ' ')
+    .replace(': ' , ' ')
+    .replace('; ' , ' ')
+    .replace('-' , ' ')
+    .replace('(' , ' ')
+    .replace(/\)/g, ' ')
+    .replace(/\n|\r/g , ' ')
+    .replace('\/' , ' ')
+    .replace(/#/g , ' ')
+    .replace(/\./g , ' ')
+    .replace(/[cdl]['’]/g , '')
+    .toLowerCase();
 }
 
 // create list of all words
