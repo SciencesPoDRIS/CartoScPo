@@ -38,16 +38,12 @@ angular.module('bib.controllers')
     .then(function(result) {
       $scope.result = result;
 
-      // create all markers from result
       $scope.centersSearch = [];
-      var allMarkers = {};
       _.forIn($scope.result.allCenters, function(v) {
         $scope.centersSearch.push(v);
-        mapService.createMarkers(v, allMarkers);
       });
 
-      //bind allMarkers to scope
-      $scope.allMarkers = allMarkers;
+      $scope.allMarkers = mapService.createMarkers(result.allCenters);
 
       // create list for first renderer
       $scope.allCenters = [];
@@ -115,13 +111,7 @@ angular.module('bib.controllers')
             listCentersFiltered[k] = v;
           });
 
-          // create allMarkers
-          allMarkers = {};
-          _.forIn(listCentersFiltered, function(v) {
-            mapService.createMarkers(v, allMarkers);
-          });
-
-          $scope.allMarkers = allMarkers;
+          $scope.allMarkers = mapService.createMarkers(listCentersFiltered);
 
           updateMapFromList();
         }
@@ -186,12 +176,7 @@ angular.module('bib.controllers')
           });
 
           // recreate allMarkers, maybe filtered ?
-          allMarkers = {};
-          _.forIn(listCentersFiltered, function(v) {
-            mapService.createMarkers(v, allMarkers);
-          });
-
-          $scope.allMarkers = allMarkers;
+          $scope.allMarkers = mapService.createMarkers(listCentersFiltered);
 
           updateMapFromList();
         }

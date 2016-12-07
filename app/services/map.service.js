@@ -3,9 +3,9 @@ angular.module('bib.services')
 
     var iconSize = 10;
 
-    function fixIconSize(v) {
-      var size = v.personnel['Personnels permanents'];
-      if (!v) return '';
+    function fixIconSize(center) {
+      var size = center.personnel['Personnels permanents'];
+      if (!center) return '';
       if (size <= 20) return 'small';
       if (size > 20 && size <= 40) return 'medium';
       if (size > 40 && size <= 80) return 'large';
@@ -13,35 +13,37 @@ angular.module('bib.services')
     }
 
     return {
-        createMarkers: function (v, allMarkers) {
-          _.get(v, 'administration.adressesGeo', []).forEach(function(a, i) {
-            var colorMarker = fixIconSize(v);
+        createMarkers: function (centers) {
+          var markers = {};
+          _.forIn(centers, function (center) {
+            _.get(center, 'administration.adressesGeo', []).forEach(function(a, i) {
+              var colorMarker = fixIconSize(center);
+              var id = center.administration.id.trim().replace(/( |;|\n|_)/g, '') + '_' + i;
 
-            // clean id
-            var id = v.administration.id.trim().replace(/( |;|\n|_)/g, '') + '_' + i;
+              //create message for the popup
+              var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpg"' + '">'
+                + '<p>' + center.administration['Intitulé'] + ' - ' + center.administration['Acronyme (nom court)'] + '</p>'
+                + '<p>'  + a.adresse + '</p>';
 
-            //create message for the popup
-            var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + v.administration['Acronyme (nom court)'] + '.jpg"' + '">'
-              + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Acronyme (nom court)'] + '</p>'
-              + '<p>'  + a.adresse + '</p>';
-
-            // create one marker by adress and one cluster by city
-            allMarkers[id] = {
-              group: 'France', //city or France for clustering
-              lat: a.lat,
-              lng: a.lon,
-              message: message,
-              icon: {
-                type: 'div',
-                iconSize: [iconSize, iconSize],
-                html: '<div></div>',
-                className: colorMarker,
-                popupAnchor:  [0, -10]
-              },
-              focus: false,
-              id: id
-            };
+              // create one marker by adress and one cluster by city
+              markers[id] = {
+                group: 'France', //city or France for clustering
+                lat: a.lat,
+                lng: a.lon,
+                message: message,
+                icon: {
+                  type: 'div',
+                  iconSize: [iconSize, iconSize],
+                  html: '<div></div>',
+                  className: colorMarker,
+                  popupAnchor:  [0, -10]
+                },
+                focus: false,
+                id: id
+              };
+            });
           });
+          return markers;
         },
 
         displayCenterSelected: function (item, key, keyCenter, $scope) {
