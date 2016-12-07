@@ -1,6 +1,6 @@
 <div id="center-list">
   <div class="center-list-item" ng-repeat="(keyCenter, value) in allCenters track by $index"
-    ng-class="{selected : keyCenter === idSelectedCenter}">
+    ng-class="{selected: keyCenter === idSelectedCenter}">
     <h3>
       <a class="center-title" href="" ng-click="displayCenter(0, value, keyCenter)">
         <span>{{value.center.administration['Intitulé']}}</span>
@@ -14,6 +14,16 @@
       </div>
       <div class="col-md-4">
         <img alt="logo" class="center-logo" ng-src="/img/logos_centres_de_recherche_jpeg/{{value.center.administration['Acronyme (nom court)'] + '.jpg'}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <button class="btn" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + keyCenter }}">Voir plus</button>
+        <div class="collapse" id="{{ 'see-more-' + keyCenter }}">
+          <div class="well">
+            DETAILS
+          </div>
+        </div>
       </div>
     </div>
   </div>
