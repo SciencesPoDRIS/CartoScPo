@@ -61,16 +61,17 @@ gulp.task('css', function() {
 
 gulp.task('less', function() {
     return gulp.src('./app/style/*.less')
-        .pipe(less())
-        .pipe(gulp.dest('./app/assets/css'))
-        .pipe(browserSync.stream());
+      .pipe(less())
+      .pipe(gulp.dest('./app/assets/css'))
+      .pipe(browserSync.stream());
 });
 
 // Launch server with livereload
 gulp.task('serve', function() {
     browserSync.init({ server: './app' });
 
-    gulp.watch('app/style/*.less').on('change', browserSync.reload);
+    gulp.watch('app/style/*.less', ['less']);
+    gulp.watch('app/style/*.css').on('change', browserSync.reload);
     gulp.watch(['app/*.js', 'app/**/*js']).on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
