@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('bib.controllers')
-.controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData, mapService, fileService) {
+.controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData,
+  mapService, fileService, autocompleteService) {
   // to fix reload page to load map when changing page
   var test = JSON.parse(localStorage.getItem('loadingPage'));
   if (!test) {
@@ -26,6 +27,10 @@ angular.module('bib.controllers')
     $scope.currentCenter = $scope.allCenters[key];
     $('#listCenters').scrollTo($('#' + key));
   }
+
+  autocompleteService.get().then(function (words) {
+    $scope.allWords = words;
+  });
 
   // Load Data & init business logic
   fileService
@@ -66,8 +71,6 @@ angular.module('bib.controllers')
         $scope.keyInList[id] = k;
       });
 
-      // create scope with all words from data
-      $scope.allWords = $scope.result.allWords;
 
       // create index for fulltext search
       // var index = Elasticlunr(function() {
