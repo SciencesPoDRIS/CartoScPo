@@ -1,6 +1,8 @@
 angular.module('bib.services')
   .factory('mapService', function($sce, leafletData) {
 
+    var iconSize = 10;
+
     function fixIconSize(v) {
       var size = v.personnel['Personnels permanents'];
       if (!v) return '';
@@ -12,54 +14,36 @@ angular.module('bib.services')
 
     return {
         createMarkers: function (v, allMarkers) {
+          _.get(v, 'administration.adressesGeo', []).forEach(function(a, i) {
+            var colorMarker = fixIconSize(v);
 
-            if (v && v.administration)
-                if (v.administration.adressesGeo)
-                    v.administration.adressesGeo.forEach(function(a, i) {
-                        // if (v.administration['Sigle ou acronyme'].indexOf('-') > -1) {
-                        //     v.administration['Sigle ou acronyme'] = v.administration['Sigle ou acronyme'].replace(/-/g, '_');
-                        // }
+            // clean id
+            var id = v.administration.id.trim().replace(/( |;|\n|_)/g, '') + '_' + i;
 
-                        // set size & color marker
-                        var iconSize = 10,
-                            colorMarker = fixIconSize(v);
+            //create message for the popup
+            var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + v.administration['Acronyme (nom court)'] + '.jpg"' + '">'
+              + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Acronyme (nom court)'] + '</p>'
+              + '<p>'  + a.adresse + '</p>';
 
-                        // create class for principal or secondaire adress (carre ou cercle)
-                        var local_icons = {
-                            principal: {
-                                type: 'div',
-                                iconSize: [iconSize, iconSize],
-                                html: '<div></div>',
-                                className: colorMarker,
-                                popupAnchor:  [0, -10]
-                            }
-                        };
-
-                        // clean id
-                        var id = v.administration['id'].trim();
-                        id = id.replace(/ /g, '');
-                        id = id.replace(/;/g, '');
-                        id = id.replace(/\n/g, '');
-                        id = id.replace(/_/g, '');
-
-                        //create message for the popup
-                        var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + v.administration['Acronyme (nom court)'] + '.jpg"' + '">' 
-                                    + '<p>' + v.administration['Intitulé'] + ' - ' + v.administration['Acronyme (nom court)'] + '</p>' 
-                                    + '<p>'  + a.adresse + '</p>';
-
-                        // create one marker by adress and one cluster by city
-                        allMarkers[id + '_' + i] = {
-                            group: 'France', //city or France for clustering
-                            lat: a.lat,
-                            lng: a.lon,
-                            message: message,
-                            icon: local_icons.principal,
-                            focus: false,
-                            id: id + '_' + i
-                        };
-
-                    });
+            // create one marker by adress and one cluster by city
+            allMarkers[id] = {
+              group: 'France', //city or France for clustering
+              lat: a.lat,
+              lng: a.lon,
+              message: message,
+              icon: {
+                type: 'div',
+                iconSize: [iconSize, iconSize],
+                html: '<div></div>',
+                className: colorMarker,
+                popupAnchor:  [0, -10]
+              },
+              focus: false,
+              id: id
+            };
+          });
         },
+
         displayCenterSelected: function (item, key, keyCenter, $scope) {
             // display details of center
             $scope.centerActive = true;
@@ -145,9 +129,8 @@ angular.module('bib.services')
 
             // highlight search in fulltxt
             $scope.highlight = function(text, search) {
-                if (!search)
-                    return $sce.trustAsHtml(text);
-                return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
+              return !search ? $sce.trustAsHtml(text)
+                : $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
             };
 
             // highlight center in list
@@ -179,6 +162,7 @@ angular.module('bib.services')
                     showPopup(id_center+'_'+key);
             });
         },
+
         setAllAdressActive: function(allCenters) {
          _.map(allCenters, function(c) {
                 return _.map(c.center.administration.adressesGeo, function (a) {
