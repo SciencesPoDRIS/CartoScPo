@@ -33,9 +33,6 @@
   },
   "dependencies": {
     "babyparse": "^0.4.6",
-    "leaflet": "^1.0.0-rc.1",
-    "lodash": "^4.11.1",
-    "shufflejs": "^4.0.0",
-    "st": "^1.1.0"
+    "lodash": "^4.11.1"
   }
 }
