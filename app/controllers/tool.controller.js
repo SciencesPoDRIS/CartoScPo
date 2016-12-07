@@ -13,21 +13,6 @@ angular.module('bib.controllers')
   // Add the current timestamp in second to force the data update, no cache
   var url = './data/data.json?ver=' + Math.floor(Date.now() / 1000);
 
-  // navigation
-  function navigation(key) {
-    $scope.key = key;
-    if (key === 0)
-      $scope.precedentCenter = null;
-    if (key > 0)
-      $scope.precedentCenter = { center: $scope.allCenters[key - 1].center, key: key - 1 };
-    if (key < $scope.allCenters.length - 1)
-      $scope.nextCenter = { center: $scope.allCenters[key + 1].center, key: key + 1 };
-    if (key === $scope.allCenters.length - 1)
-      $scope.nextCenter = null;
-    $scope.currentCenter = $scope.allCenters[key];
-    $('#listCenters').scrollTo($('#' + key));
-  }
-
   autocompleteService.get().then(function (words) {
     $scope.allWords = words;
   });
@@ -93,10 +78,6 @@ angular.module('bib.controllers')
         leafletData.getMap().then(function(map) {
           map.closePopup();
         });
-
-        $scope.precedentCenter = null;
-        $scope.nextCenter = null;
-        $scope.currentCenter = null;
 
         if ($scope.filtersOn) {
           $scope.allCenters = immutableAllCenters;
@@ -216,11 +197,9 @@ angular.module('bib.controllers')
         mapService.displayCenterSelected(item, key, keyCenter, $scope);
 
         // updated navigation'centers buttons
-        navigation(keyCenter);
         $('#myTab li').removeClass('active');
         $('.tab-pane').removeClass('active');
         $('.description').addClass('active');
-        window.scrollTo(0, $('.description').offset().top);
       }
 
       // Select first center by default
@@ -235,13 +214,6 @@ angular.module('bib.controllers')
 
         // display details center & tooltip on map
         mapService.displayCenterSelected(item, key, keyCenter, $scope);
-
-        // updated navigation'centers buttons
-        navigation(keyCenter);
-        // $('#myTab li').removeClass('active');
-        // $('.tab-pane').removeClass('active');
-        // $('.description').addClass( 'active' );
-        // window.scrollTo(0, $('.description').offset().top);
       };
 
       // desactive tabs
@@ -265,20 +237,7 @@ angular.module('bib.controllers')
         // active good tab
         $('#myTab li').removeClass('active');
         $('.tab-pane').removeClass('active');
-
         $('.' + tab).addClass('active');
-        window.scrollTo(0, $('.' + tab).offset().top);
-        // update navigation
-        navigation(keyCenter);
-      };
-
-      // center navigation with buttons
-      $scope.goToCenter = function(item) {
-        if (item) {
-          navigation(item.key);
-          mapService.displayCenterSelected(item, 0, item.key, $scope);
-          $('#listCenters').scrollTo($('.' + item.key));
-        }
       };
 
       // display map with markers choosen
@@ -321,8 +280,6 @@ angular.module('bib.controllers')
             leafletData.getMap().then(function(map) {
 
               // desactivate center selected
-              $scope.nextCenter = null;
-              $scope.precedentCenter = null;
               $scope.idSelectedCenter = null;
 
               // close popup
@@ -513,9 +470,6 @@ angular.module('bib.controllers')
 
         // display center in list
         $('#listCenters').scrollTo($('.' + key));
-
-        // update navigation controls
-        navigation(key);
       }
 
       if ($scope.eventDetected === 'leafletDirectiveMarker.mouseover') {
