@@ -25,7 +25,6 @@ gulp.task('js', function() {
       'bower_components/angular-ui-select/dist/select.js',
       'bower_components/ng-grid/build/ng-grid.js',
       'bower_components/ng-grid/plugins/ng-grid-csv-export.js',
-      'bower_components/angular-loading-bar/build/loading-bar.js',
       'bower_components/angulartics/dist/angulartics.min.js',
       'bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
       'bower_components/d3/d3.min.js',
@@ -49,7 +48,6 @@ gulp.task('css', function() {
     return gulp.src([
         'bower_components/angular-ui-select/dist/select.css',
         'bower_components/ng-grid/ng-grid.css',
-        'bower_components/angular-loading-bar/build/loading-bar.css',
         'bower_components/leaflet/dist/leaflet.css',
         'bower_components/angular-ui-grid/ui-grid.css'
       ],
