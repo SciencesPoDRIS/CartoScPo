@@ -23,11 +23,11 @@ lodash.forIn(csv, function (v, k) {
   var parsed = Baby.parse(content, { header: true });
 
   for (var i = 0, len = parsed.data.length; i < len; i++) {
-    //create a reagex
+    // create a reagex
     if (parsed.data[i]['Code Unité'] && parsed.data[i]['Code Unité'].length > 0) {
       var code = parsed.data[i]['Code Unité'].replace(' ', '');
 
-      //need regex
+      // need regex
       code = code.replace(/\t/g, '');
       code = code.replace(/\n/g, '');
       code = code.replace(/\r/g, '');
@@ -47,7 +47,7 @@ lodash.forIn(csv, function (v, k) {
 
 console.log('csv parsed');
 
-// transform array of center in list of center with Code Unité as key
+// transform array of centers in list of centers with Code Unité as key
 allData = lodash.flatten(allData);
 allData = lodash.groupBy(allData, 'id');
 
@@ -69,7 +69,6 @@ lodash.forIn(allData, function (v, k) {
   k = k.replace(/;/g,'_');
   allCenters[k] = arrayToListofObj(v);
 });
-
 
 /*
  * create adress object of key administration (aka onlget description administration)
@@ -109,12 +108,10 @@ lodash.forIn(allCenters, function (v) {
         active: true
       });
     }
-
     v.administration.adressesGeo = adressesGeo;
   }
 
   if (v.hasOwnProperty('ecole')) {
-
     var numeroEcole = v.ecole['Numéro de l\'Ecole Doctorale'].split(';');
     var intituleEcole = v.ecole['Intitulé de l\'Ecole Doctorale'].split(';');
     var directeurEcole = v.ecole['Directeur de l\'Ecole Doctorale'].split(';');
@@ -182,10 +179,9 @@ function cleanWord(content) {
 // create list of all words
 var allWords = [];
 lodash.forIn(allCenters, function(tab, center) {
-  lodash.forIn(tab, function(contentTab, tabName){
-    lodash.forIn(contentTab, function(content, prop){
+  lodash.forIn(tab, function(contentTab, tabName) {
+    lodash.forIn(contentTab, function(content, prop) {
       if (Array.isArray(content) && prop !== 'adressesGeo') {
-
         var arrayContent = '';
 
         lodash.forEach(content, function (d) {
@@ -193,8 +189,7 @@ lodash.forIn(allCenters, function(tab, center) {
           arrayContent = arrayContent + ' ' + d + ' ';
         });
         arrayContent = cleanWord(arrayContent);
-        arrayContent = arrayContent.toLowerCase();
-        arrayContent = arrayContent.split(' ');
+        arrayContent = arrayContent.toLowerCase().split(' ');
         allWords = allWords.concat(arrayContent);
       }
       else if (prop === 'Intitulé (centre ou unité de recherche)'
@@ -215,8 +210,7 @@ lodash.forIn(allCenters, function(tab, center) {
   });
 });
 
-allWords = lodash.uniq(allWords);
-allWords = allWords.filter(function (d) {
+allWords = lodash.uniq(allWords).filter(function (d) {
   return d.length > 2;
 });
 
@@ -248,19 +242,15 @@ lodash.forIn(allCenters, function(tab, center) {
 
 console.log('allProps created');
 
-//Create object with allCenters, allWords & index
-var data = {};
-data.allCenters = allCenters;
-data.allWords = allWords;
-data.allProps = allProps;
+var data = {
+  allCenters: allCenters,
+  allWords: allWords,
+  allProps: allProps
+};
 
-data = JSON.stringify(data, null, 2);
-
-console.log('allCenters stringify');
 console.log('There are : ', lodash.size(allCenters), ' unique centers.');
 console.log('There are : ', allWords.length, ' unique words.');
 console.log('There are : ', allProps.length, ' unique contents indexed.');
 
-//write data in file
-fs.writeFile('data.json', data);
+fs.writeFile('data.json', JSON.stringify(data, null, 2));
 

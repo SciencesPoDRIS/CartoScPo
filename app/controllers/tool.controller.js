@@ -1,10 +1,5 @@
 'use strict';
 
-/*
- * Bilateral view controller : api call and data manipulation to serve three
- * visualisations (dualtimeline, brushing & comparison timeline). ******
- */
-
 angular.module('bib.controllers')
 .controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData, mapService, fileService) {
   // to fix reload page to load map when changing page
@@ -213,7 +208,7 @@ angular.module('bib.controllers')
 
           // recreate allMarkers, maybe filtered ?
           allMarkers = {};
-          _.forIn(listCentersFiltered, function(v, k) {
+          _.forIn(listCentersFiltered, function(v) {
             mapService.createMarkers(v, allMarkers);
           });
 
@@ -354,7 +349,7 @@ angular.module('bib.controllers')
       var mapEvents = leafletMapEvents.getAvailableMapEvents();
       for (var k in mapEvents) {
         var eventName = 'leafletDirectiveMap.' + mapEvents[k];
-        $scope.$on(eventName, function(event, args) {
+        $scope.$on(eventName, function(event) {
           if (event.name === 'leafletDirectiveMap.zoomstart' || event.name === 'leafletDirectiveMap.move') {
             var centersInMap = [];
 
@@ -511,7 +506,7 @@ angular.module('bib.controllers')
       options: {
         position: 'bottomleft'
       },
-      onAdd: function(map) {
+      onAdd: function() {
         // create the control container with a particular class name
         var container = L.DomUtil.create('div', 'my-custom-control');
         container.innerHTML = '<svg width="250" height="150"> ' + '<text x="15" y="100" fill="black" font-size="14">Nombre de chercheurs permanents</text>' + '<rect width="30" height="30" x="105" y="110" fill="#e74c3c" />' + '<text x="130" y="150" fill="black">+ 80</text>' + '<rect width="30" height="30" x="75" y="110" fill="#d35400" />' + '<text x="100" y="150" fill="black">80</text>' + '<rect width="30" height="30" x="45" y="110" fill="#e67e22" />' + '<text x="70" y="150" fill="black">40</text>' + '<rect width="30" height="30" x="15" y="110" fill="#f1c40f" />' + '<text x="40" y="150" fill="black">20</text>' + '</svg>';
@@ -542,8 +537,7 @@ angular.module('bib.controllers')
 
         // hightlight center in list
         var centerId = args.leafletEvent.target.options.id;
-        centerId = centerId.split('_');
-        centerId = centerId[0];
+        centerId = centerId.split('_')[0];
         $scope.idSelectedCenter = $scope.keyInList[centerId];
 
         // save position in list
