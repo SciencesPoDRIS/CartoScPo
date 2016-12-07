@@ -4,3 +4,6 @@ indent_size = 2
 [app/**.html]
 indent_style = space
 indent_size = 2
+[app/**.less]
+indent_style = space
+indent_size = 2
