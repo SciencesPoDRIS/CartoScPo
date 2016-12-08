@@ -17,10 +17,10 @@ angular.module('bib.services')
   return {
     createMarkers: function (centers) {
       var markers = {};
-      _.forIn(centers, function (center) {
+      _.forIn(centers, function (center, centerId) {
         _.get(center, 'administration.addressesGeo', []).forEach(function(a, i) {
           var colorMarker = fixIconSize(center);
-          var id = center.administration.id.trim().replace(/( |;|\n|_)/g, '') + '_' + i;
+          var id = centerId + '_' + i;
           var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpg"' + '">'
             + '<p>' + center.administration['Intitulé'] + ' - ' + center.administration['Acronyme (nom court)'] + '</p>'
             + '<p>'  + a.address + '</p>';

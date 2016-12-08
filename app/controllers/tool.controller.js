@@ -57,8 +57,7 @@ angular.module('bib.controllers')
       // keep the place of center in list
       $scope.keyInList = {};
       _.forEach($scope.allCenters, function(v, k) {
-        var id = v.administration['id'].trim();
-        id = id.replace(/ /g, '');
+        var id = v.administration['id'];
         $scope.keyInList[id] = k;
       });
 

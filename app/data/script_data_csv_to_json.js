@@ -5,7 +5,7 @@ var fs = require('fs');
 var lodash = require('lodash');
 
 // store csv (each onglet (cf google drive)) in object
-var csv = {
+var csvs = {
   administration: 'Donnees_centres_de_recherche_SP_2015 - Description administrative.csv',
   personnel:      'Donnees_centres_de_recherche_SP_2015 - Personnel.csv',
   ecole:          'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales.csv',
@@ -14,6 +14,17 @@ var csv = {
   ressources:     'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
 };
 
+/* structure we want to obtain:
+{
+  "centerId": {
+    // raw (but cleaned)
+    administration: {…},
+    personnel: {…}
+    …
+  }
+}
+*/
+
 function trimNL (str) {
   return str
     .replace(/^[\t|\r|\n]/g, '')
@@ -21,56 +32,52 @@ function trimNL (str) {
     .trim();
 }
 
-// csv to JSON
-
+// primary key
+// examples of returned ids: 'ea7033', 'fre3706', 'umr3320'
 var KEY_CODE = 'Code Unité';
-
-var allData = lodash.map(csv, function (v, k) {
-  var content = fs.readFileSync(v, { encoding: 'utf8' });
-  // columns names are in parsed.meta.fields
-  var parsed = Baby.parse(content, { header: true });
-
-  return parsed.data.map(function (center) {
-    delete center[''];
-    Object.keys(center).forEach(function (key) {
-      center[key] = trimNL(center[key]);
-    });
-    if (center[KEY_CODE]) {
-      // need better regex
-      center.id = center[KEY_CODE]
-        .replace(/\t|\r|\n|\'|;/g, '')
-        .replace(/ /g, '')
-        .toLowerCase();
-    }
-    center.theme = k;
-    return center;
-  });
-});
-
-console.log('csv parsed');
-
-// transform array of centers in list of centers with Code Unité as key
-allData = lodash.flatten(allData);
-allData = lodash.groupBy(allData, 'id');
-
-// transform array of onglet by center to list of object with onglet as key
-function arrayToListofObj(array) {
-  var obj = {};
-
-  array.forEach(function (d) {
-    obj[d.theme] = d;
-  });
-
-  return obj;
+var RE_CODE = /([a-zA-Z]+)\s*([0-9]+)/;
+function getCenterId (code) {
+  var m = RE_CODE.exec(code);
+  return (m[1] + m[2]).toLowerCase();
 }
 
-// clean data
+// csv to JSON
+
+function getAllData (csvs) {
+  return lodash.map(csvs, function (v, csv) {
+    var content = fs.readFileSync(v, { encoding: 'utf8' });
+    // columns names are in parsed.meta.fields
+    var parsed = Baby.parse(content, { header: true });
+
+    return parsed.data.map(function (center) {
+      delete center[''];
+      Object.keys(center).forEach(function (key) {
+        center[key] = trimNL(center[key]);
+      });
+      // temp, used for grouping
+      center.id = getCenterId(center[KEY_CODE]);
+      center.csv = csv;
+      return center;
+    });
+  });
+}
+
+// transform array of centers in list of centers with clean Code Unité as key
+var allData = lodash.flatten(getAllData(csvs));
+allData = lodash.groupBy(allData, 'id');
+
 var allCenters = {};
-lodash.forIn(allData, function (v, k) {
-  k = k.replace(/ /g,'');
-  k = k.replace(/;/g,'_');
-  allCenters[k] = arrayToListofObj(v);
+lodash.forIn(allData, function (lines, centerId) {
+  allCenters[centerId] = lines.reduce(function (acc, line) {
+    var csv = line.csv;
+    // remove groupng helpers
+    delete line.csv;
+    // delete line.id;
+    acc[csv] = line;
+    return acc;
+  }, {});
 });
+console.log('csv parsed', 'centerIds', Object.keys(allCenters).sort())
 
 /*
  * create address object of key administration (aka onlget description administration)

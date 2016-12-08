@@ -40,9 +40,7 @@ angular.module('bib.controllers')
 
                 var dataSelected = []
                 _.forEach($scope.gridApi.grid.renderContainers.body.visibleRowCache, function(d) {
-                    delete d.entity["id"];
                     delete d.entity["addressesGeo"];
-                    delete d.entity["theme"];
                     delete d.entity["$$hashKey"];
                     delete d.entity["Commentaires"];
                     delete d.entity["Logo"];
@@ -78,10 +76,8 @@ angular.module('bib.controllers')
                         var center = {};
                         _.forEach(tab, function(onglet, k) {
                             _.forEach(onglet, function(content, prop) {
-                                if (prop !== "theme" && prop !== "id") {
-                                    center[prop] = content;
-                                    headers.push({ field: prop, enableFiltering: true });
-                                }
+                                  center[prop] = content;
+                                  headers.push({ field: prop, enableFiltering: true });
                             });
                         });
                         data.push(center);
