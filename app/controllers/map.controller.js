@@ -30,7 +30,7 @@ angular.module('bib.controllers')
 
   // display map with markers choosen
   $scope.initMap = function() {
-    mapService.setAllAdressActive($scope.allCenters);
+    mapService.setAllAddressActive($scope.allCenters);
     // updateMapFromList();
   };
 

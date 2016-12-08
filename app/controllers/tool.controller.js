@@ -283,11 +283,11 @@ angular.module('bib.controllers')
                 }
               });
 
-              // display number of marker/adress on map
+              // display number of marker/address on map
               $scope.centersInMap = centersInMap.length;
 
-              function inMap(adress) {
-                return (adress.lat <= mapNorthEastLat && mapSouthWestLat <= adress.lat && mapSouthWestLng <= adress.lon && adress.lon <= mapNorthEastLng);
+              function inMap(address) {
+                return (address.lat <= mapNorthEastLat && mapSouthWestLat <= address.lat && mapSouthWestLng <= address.lon && address.lon <= mapNorthEastLng);
               }
 
               // create list of centers if no search
@@ -298,9 +298,9 @@ angular.module('bib.controllers')
 
                   var idCenter = d[0];
                   if ($scope.result.allCenters[idCenter]) {
-                    // check if adress in map
-                    _.map($scope.result.allCenters[idCenter].administration.adressesGeo, function(d) {
-                      inMap(d) ? d.active = true : d.active = false;
+                    // check if address in map
+                    _.map($scope.result.allCenters[idCenter].administration.addressesGeo, function(d) {
+                      d.active = inMap(d);
                     });
 
                     $scope.allCenters.push({ center: $scope.result.allCenters[idCenter] });
@@ -327,13 +327,13 @@ angular.module('bib.controllers')
                   allCenterIdSearch.push(idCenter);
                 });
 
-                // set on list of adress to keep only centers
+                // set on list of address to keep only centers
                 allCenterIdSearch = _.uniq(allCenterIdSearch);
 
                 // select only center in map and display in list
                 $scope.allCenters = [];
                 _.forEach(allCenterIdSearch, function(d) {
-                  // filter only adress on the map
+                  // filter only address on the map
                   $scope.allCenters.push(allCentersObj[d]);
                 });
               }

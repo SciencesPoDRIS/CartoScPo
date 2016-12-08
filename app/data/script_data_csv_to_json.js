@@ -73,18 +73,17 @@ lodash.forIn(allData, function (v, k) {
 });
 
 /*
- * create adress object of key administration (aka onlget description administration)
+ * create address object of key administration (aka onlget description administration)
  */
 lodash.forIn(allCenters, function (v) {
-  var adressesGeo = [];
   var ecoles = [];
 
   function clean(d) {
-    // create a regex
-    d = d.replace('(', '');
-    d = d.replace(')', '');
-    d = d.replace(/\n/g, '');
-    d = d.split(',');
+    // TODO create a regex
+    d = d.replace('(', '')
+      .replace(')', '')
+      .replace(/\n/g, '')
+      .split(',');
     d[0] = Number(d[0]);
     d[1] = Number(d[1]);
 
@@ -92,25 +91,20 @@ lodash.forIn(allCenters, function (v) {
   }
 
   if (v.hasOwnProperty('administration')) {
-    var adress = v.administration['Adresse(s)'].replace(/\n/g, '');
-    adress = v.administration['Adresse(s)'].split(';');
-    var coordinates = v.administration['Géolocalisation(s)'].split(';');
+    var address = v.administration['Adresse(s)'].replace(/\n/g, '');
+    address = v.administration['Adresse(s)'].split(';');
+    var coordinates = v.administration['Géolocalisation(s)'].split(';').map(clean);
     var cities = v.administration['Ville'].split(';');
 
-    // clean coordinate and transform to integer
-    coordinates = lodash.map(coordinates, clean);
-
-    // create object adress
-    for (var i = 0, len = adress.length; i < len; i++) {
-      adressesGeo.push({
-        adresse: trimNL(adress[i]),
+    v.administration.addressesGeo = address.map(function (a, i) {
+      return {
+        address: trimNL(a),
         lat: coordinates[i][0],
         lon: coordinates[i][1],
         city: trimNL(cities[i]),
         active: true
-      });
-    }
-    v.administration.adressesGeo = adressesGeo;
+      };
+    });
   }
 
   if (v.hasOwnProperty('ecole')) {
@@ -119,8 +113,8 @@ lodash.forIn(allCenters, function (v) {
     var directeurEcole = v.ecole['Directeur de l\'Ecole Doctorale'].split(';');
     var courrielEcole = v.ecole['Courriel de l\'Ecole doctorale'].split(';');
 
-    // create object adress
-    for (i = 0, len = numeroEcole.length; i < len; i++) {
+    // create object address
+    for (var i = 0, len = numeroEcole.length; i < len; i++) {
       numeroEcole[i] = numeroEcole[i].replace(/\n/g, '');
       if (intituleEcole[i])
         intituleEcole[i] = intituleEcole[i].replace(/\n/g, '');
@@ -177,10 +171,10 @@ function cleanWord(content) {
 
 // create list of all words
 var allWords = [];
-lodash.forIn(allCenters, function(tab, center) {
-  lodash.forIn(tab, function(contentTab, tabName) {
+lodash.forIn(allCenters, function(tab) {
+  lodash.forIn(tab, function(contentTab) {
     lodash.forIn(contentTab, function(content, prop) {
-      if (Array.isArray(content) && prop !== 'adressesGeo') {
+      if (Array.isArray(content) && prop !== 'addressesGeo') {
         var arrayContent = '';
         lodash.forEach(content, function (d) {
           // create a long string of all axes

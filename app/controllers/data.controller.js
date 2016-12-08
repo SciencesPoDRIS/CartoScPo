@@ -41,7 +41,7 @@ angular.module('bib.controllers')
                 var dataSelected = []
                 _.forEach($scope.gridApi.grid.renderContainers.body.visibleRowCache, function(d) {
                     delete d.entity["id"];
-                    delete d.entity["adressesGeo"];
+                    delete d.entity["addressesGeo"];
                     delete d.entity["theme"];
                     delete d.entity["$$hashKey"];
                     delete d.entity["Commentaires"];

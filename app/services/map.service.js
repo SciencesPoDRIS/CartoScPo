@@ -18,14 +18,14 @@ angular.module('bib.services')
     createMarkers: function (centers) {
       var markers = {};
       _.forIn(centers, function (center) {
-        _.get(center, 'administration.adressesGeo', []).forEach(function(a, i) {
+        _.get(center, 'administration.addressesGeo', []).forEach(function(a, i) {
           var colorMarker = fixIconSize(center);
           var id = center.administration.id.trim().replace(/( |;|\n|_)/g, '') + '_' + i;
-          var message = '<img style="width:20%; height:"20%;" src="./img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpg"' + '">'
+          var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpg"' + '">'
             + '<p>' + center.administration['Intitulé'] + ' - ' + center.administration['Acronyme (nom court)'] + '</p>'
-            + '<p>'  + a.adresse + '</p>';
+            + '<p>'  + a.address + '</p>';
 
-          // create one marker by adress and one cluster by city
+          // create one marker by address and one cluster by city
           markers[id] = {
             group: 'France', //city or France for clustering
             lat: a.lat,
@@ -138,9 +138,9 @@ angular.module('bib.services')
       // highlight center in list
       $scope.idSelectedCenter = keyCenter;
 
-      // open popup of center selected only if adress click, not navigation
+      // open popup of center selected only if address click, not navigation
       leafletData.getMap().then(function() {
-        // display all adresses available
+        // display all addresses available
         var id_center = item.center.administration.id.replace(/ /g, '');
 
         // create popup
@@ -155,15 +155,15 @@ angular.module('bib.services')
           });
         };
 
-        // get the key === adress position
+        // get the key === address position
         if (key !== null)
           showPopup(id_center+'_'+key);
       });
     },
 
-    setAllAdressActive: function(allCenters) {
+    setAllAddressActive: function(allCenters) {
       _.map(allCenters, function(c) {
-        return _.map(c.center.administration.adressesGeo, function () {
+        return _.map(c.center.administration.addressesGeo, function () {
           c.active = true;
         });
       });
