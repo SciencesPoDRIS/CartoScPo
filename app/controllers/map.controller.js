@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('bib.controllers')
-.controller('MapCtrl', function($scope, leafletData) {
+.controller('MapCtrl', function($scope, leafletData, mapService) {
   // add custom legend
   leafletData.getMap().then(function(map) {
     var MyControl = L.Control.extend({
@@ -27,5 +27,33 @@ angular.module('bib.controllers')
     });
     map.addControl(new MyControl());
   });
+
+  // display map with markers choosen
+  $scope.initMap = function() {
+    mapService.setAllAdressActive($scope.allCenters);
+    // updateMapFromList();
+  };
+
+  $scope.zoomFrance = function() {
+    angular.extend($scope, {
+      center: {
+        lat: 46.227638,
+        lng: 2.213749,
+        zoom: 6
+      },
+      markers: $scope.allMarkers,
+      position: {
+        lat: 51,
+        lng: 0,
+        zoom: 4
+      },
+      events: { // or just {} //all events
+        markers: {
+          enable: ['click', 'mouseover', 'mouseout'],
+          logic: 'broadcast'
+        }
+      }
+    });
+  };
 });
 

@@ -250,34 +250,6 @@ angular.module('bib.controllers')
         $('.collapse .' + tab).addClass('active');
       };
 
-      // display map with markers choosen
-      $scope.initMap = function() {
-        mapService.setAllAdressActive($scope.allCenters);
-        updateMapFromList();
-      };
-
-      $scope.zoomFrance = function() {
-        angular.extend($scope, {
-          center: {
-            lat: 46.227638,
-            lng: 2.213749,
-            zoom: 6
-          },
-          markers: $scope.allMarkers,
-          position: {
-            lat: 51,
-            lng: 0,
-            zoom: 4
-          },
-          events: { // or just {} //all events
-            markers: {
-              enable: ['click', 'mouseover', 'mouseout'],
-              logic: 'broadcast'
-            }
-          }
-        });
-      };
-
       // refresh list from zoom
       var mapEvents = leafletMapEvents.getAvailableMapEvents();
       for (var k in mapEvents) {
@@ -364,7 +336,6 @@ angular.module('bib.controllers')
                   // filter only adress on the map
                   $scope.allCenters.push(allCentersObj[d]);
                 });
-
               }
 
               // create keyInList
@@ -428,7 +399,6 @@ angular.module('bib.controllers')
   if (!$scope.$$phase) {
     $scope.$apply();
   }
-
 
   // catch map events
   $scope.events = {
