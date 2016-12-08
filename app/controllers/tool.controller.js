@@ -4,9 +4,7 @@ angular.module('bib.controllers')
 .controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData,
   mapService, centerService, autocompleteService, searchService) {
 
-  autocompleteService.get().then(function (words) {
-    $scope.allWords = words;
-  });
+  // tabs
 
   $scope.currentTab = 'list';
 
@@ -17,6 +15,19 @@ angular.module('bib.controllers')
   $scope.displayMapTab = function () {
     $scope.currentTab = 'map';
     $scope.refreshMap();
+  };
+
+  // search
+
+  $scope.filterSearch = '';
+
+  autocompleteService.get().then(function (words) {
+    $scope.allWords = words;
+  });
+
+  // all Words in typeahead search in lowercase
+  $scope.startsWith = function(state, viewValue) {
+    return state.substr(0, viewValue.length).toLowerCase() === viewValue.toLowerCase();
   };
 
   // Load Data & init business logic
@@ -37,7 +48,6 @@ angular.module('bib.controllers')
     var immutableAllCenters = [];
     _.forIn($scope.result.allCenters, function(v) {
       if (v.administration) {
-        v.administration['Adresse(s)'] = v.administration['Adresse(s)'].replace(/\n/g, '').split(';');
         $scope.allCenters.push(v);
         immutableAllCenters.push({ center: v });
       }
@@ -59,11 +69,6 @@ angular.module('bib.controllers')
     /*
      * All functions used in view
      */
-
-    // all Words in search in lowercase
-    $scope.startsWith = function(state, viewValue) {
-      return state.substr(0, viewValue.length).toLowerCase() === viewValue.toLowerCase();
-    };
 
     // reset all filters : list, map, navigation, center displayed
     $scope.resetFilter = function() {
@@ -105,11 +110,12 @@ angular.module('bib.controllers')
       }
 
       if ($scope.filterSearch || word) {
-        if (word)
-          $scope.filterSearch = word;
+        if (word) $scope.filterSearch = word;
         $scope.centerActive = true;
         $scope.filtersOn = true;
+
         var searchResult = searchService.search($scope.filterSearch);
+        console.log(searchResult);
         var resultWithPath = [];
         var updateMarkers = [];
 

@@ -77,33 +77,24 @@ lodash.forIn(allData, function (lines, centerId) {
     return acc;
   }, {});
 });
-console.log('csv parsed', 'centerIds', Object.keys(allCenters).sort())
+console.log('csv parsed', 'centerIds', Object.keys(allCenters).sort());
 
-/*
- * create address object of key administration (aka onlget description administration)
- */
+var RE_COORDS = /(\-?\d+\.\d+),\s*(\-?\d+\.\d+)/;
+function getCoords (str) {
+  var m = RE_COORDS.exec(str)
+  return [Number(m[1]), Number(m[2])];
+}
+
+// create address object of key administration (aka onglet description administration)
 lodash.forIn(allCenters, function (v) {
   var ecoles = [];
 
-  function clean(d) {
-    // TODO create a regex
-    d = d.replace('(', '')
-      .replace(')', '')
-      .replace(/\n/g, '')
-      .split(',');
-    d[0] = Number(d[0]);
-    d[1] = Number(d[1]);
-
-    return d;
-  }
-
-  if (v.hasOwnProperty('administration')) {
-    var address = v.administration['Adresse(s)'].replace(/\n/g, '');
-    address = v.administration['Adresse(s)'].split(';');
-    var coordinates = v.administration['Géolocalisation(s)'].split(';').map(clean);
+  if (v['administration']) {
+    var addresses = v.administration['Adresse(s)'].split(';');
+    var coordinates = v.administration['Géolocalisation(s)'].split(';').map(getCoords);
     var cities = v.administration['Ville'].split(';');
 
-    v.administration.addressesGeo = address.map(function (a, i) {
+    v.administration.addressesGeo = addresses.map(function (a, i) {
       return {
         address: trimNL(a),
         lat: coordinates[i][0],
