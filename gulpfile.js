@@ -45,6 +45,7 @@ gulp.task('js', function() {
 
 // Concat all CSS files from libs
 gulp.task('css', function() {
+    gulp.src('app/img/layers.png').pipe(gulp.dest('./app/assets/css/images/'))
     gulp.src('bower_components/font-awesome/fonts/*.*').pipe(gulp.dest('./app/assets/fonts'))
     return gulp.src([
         'bower_components/angular-ui-select/dist/select.css',
