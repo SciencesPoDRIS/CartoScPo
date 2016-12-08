@@ -14,34 +14,30 @@ var csv = {
   ressources:     'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
 };
 
-/*
- * Transform csv to json & push it in array
- */
-var allData = [];
-lodash.forIn(csv, function (v, k) {
+// csv to JSON
+
+var KEY_CODE = 'Code Unité';
+var KEY_SIGLE ='Acronyme (nom court)';
+
+var allData = lodash.map(csv, function (v, k) {
   var content = fs.readFileSync(v, { encoding: 'utf8' });
+  // columns names are in parsed.meta.fields
   var parsed = Baby.parse(content, { header: true });
 
-  for (var i = 0, len = parsed.data.length; i < len; i++) {
-    if (parsed.data[i]['Code Unité'] && parsed.data[i]['Code Unité'].length > 0) {
-      // need regex
-      var code = parsed.data[i]['Code Unité']
-        .replace(' ', '')
-        .replace(/\t/g, '')
-        .replace(/\n/g, '')
-        .replace(/\r/g, '')
-        .replace(/;/g, '')
-        .replace('        ', '')
-        .replace('\'', '')
+  return parsed.data.map(function (center) {
+    if (center[KEY_CODE]) {
+      // need better regex
+      center.id = center[KEY_CODE]
+        .replace(/\t|\r|\n|\'|;/g, '')
         .replace(/ /g, '')
         .toLowerCase();
-
-      parsed.data[i].id = code;
-      parsed.data[i].theme = k;
     }
-  }
-
-  allData.push(parsed.data);
+    if (center[KEY_SIGLE]) {
+      center[KEY_SIGLE] = center[KEY_SIGLE].trim();
+    }
+    center.theme = k;
+    return center;
+  });
 });
 
 console.log('csv parsed');
