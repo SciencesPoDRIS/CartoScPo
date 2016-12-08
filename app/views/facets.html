@@ -1,0 +1,11 @@
+<div ng-controller="FacetsCtrl as ctrl">
+  <label>Ville(s):</label>
+  <ui-select multiple ng-model="ctrl.selected.cities" theme="bootstrap"
+    close-on-select="false" title="Choisissez des villes…">
+    <ui-select-match placeholder="Choisissez des villes…">{{$item}}</ui-select-match>
+    <ui-select-choices repeat="color in ctrl.cities | filter:$select.search">
+      {{color}}
+    </ui-select-choices>
+  </ui-select>
+  <p>Selected: {{ ctrl.selected.cities }}</p>
+</div>
