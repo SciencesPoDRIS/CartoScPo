@@ -25,6 +25,7 @@ var allData = lodash.map(csv, function (v, k) {
   var parsed = Baby.parse(content, { header: true });
 
   return parsed.data.map(function (center) {
+    delete center[''];
     if (center[KEY_CODE]) {
       // need better regex
       center.id = center[KEY_CODE]
