@@ -85,10 +85,13 @@ function getCoords (str) {
   return [Number(m[1]), Number(m[2])];
 }
 
+function trimStar(str) {
+  if (!str) return '';
+  return str.replace(/\*/, '').trim();
+}
+
 // create address object of key administration (aka onglet description administration)
 lodash.forIn(allCenters, function (v) {
-  var ecoles = [];
-
   if (v['administration']) {
     var addresses = v.administration['Adresse(s)'].split(';');
     var coordinates = v.administration['Géolocalisation(s)'].split(';').map(getCoords);
@@ -105,30 +108,25 @@ lodash.forIn(allCenters, function (v) {
     });
   }
 
-  if (v.hasOwnProperty('ecole')) {
-    var numeroEcole = v.ecole['Numéro de l\'Ecole Doctorale'].split(';');
-    var intituleEcole = v.ecole['Intitulé de l\'Ecole Doctorale'].split(';');
-    var directeurEcole = v.ecole['Directeur de l\'Ecole Doctorale'].split(';');
-    var courrielEcole = v.ecole['Courriel de l\'Ecole doctorale'].split(';');
+  if (v['ecole']) {
+    var numeroEcoles = v.ecole['Numéro de l\'Ecole Doctorale'].split(/;|\n/);
+    var intituleEcoles = v.ecole['Intitulé de l\'Ecole Doctorale'].split(/;|\n/);
+    var directeurEcoles = v.ecole['Directeur de l\'Ecole Doctorale'].split(/;|\n/);
+    var courrielEcoles = v.ecole['Courriel de l\'Ecole doctorale'].split(/;|\n/);
 
-    // create object address
-    for (var i = 0, len = numeroEcole.length; i < len; i++) {
-      numeroEcole[i] = numeroEcole[i].replace(/\n/g, '');
-      if (intituleEcole[i])
-        intituleEcole[i] = intituleEcole[i].replace(/\n/g, '');
-      if (directeurEcole[i])
-        directeurEcole[i] = directeurEcole[i].replace(/\n/g, '');
-      if (courrielEcole[i])
-        courrielEcole[i] = courrielEcole[i].replace(/\n/g, '');
-
-      ecoles.push({
-        numero: numeroEcole[i],
-        intitule: intituleEcole[i],
-        directeur: directeurEcole[i],
-        courriel: courrielEcole[i]
+    v.ecole.ecoles = numeroEcoles
+      .filter(function (n) {
+        return n && n !== 'X';
+      })
+      .map(function (n, i) {
+        // console.log(n, intituleEcoles[i], directeurEcoles[i], courrielEcoles[i])
+        return {
+          numero: trimStar(n),
+          intitule: trimStar(intituleEcoles[i]),
+          directeur: trimStar(directeurEcoles[i]),
+          courriel: trimStar(courrielEcoles[i])
+        };
       });
-    }
-    v.ecole.ecoles = ecoles;
   }
 
   // clean recherche data
