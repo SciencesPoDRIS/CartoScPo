@@ -17,10 +17,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <button class="btn" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + keyCenter }}">Voir plus</button>
         <div class="collapse" id="{{ 'see-more-' + keyCenter }}">
-          <ng-include src="'views/detail.html'" ng-init="administration = value.center.administration"></ng-include>
+          <center-detail org="value.center"></center-detail>
         </div>
       </div>
     </div>
