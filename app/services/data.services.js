@@ -44,5 +44,14 @@ angular.module('bib.services')
       });
     }
   };
+})
+.factory('centerService', function (dataService) {
+  return {
+    get: function () {
+      return dataService.get().then(function (data) {
+        return data.allCenters;
+      });
+    }
+  };
 });
 

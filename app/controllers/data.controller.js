@@ -1,17 +1,10 @@
 'use strict';
 
-/* Controllers */
-
 angular.module('bib.controllers')
-    .controller('data', ['$scope', '$location', "$http", "fileService", "_", "uiGridConstants", "$filter",
-        function($scope, $location, $http, fileService, _, uiGridConstants, $filter) {
-
-            localStorage.setItem("loadingPage", false);
-
+    .controller('data', ['$scope', '$location', "$http", "fileService", "uiGridConstants", "$filter",
+        function($scope, $location, $http, fileService, uiGridConstants, $filter) {
             var url = './data/data.json'
                 // get csv from url
-
-
             //grid settings
             $scope.gridOptions = {
                 enableFiltering: true,
