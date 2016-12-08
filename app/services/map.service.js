@@ -56,28 +56,17 @@ angular.module('bib.services')
       // bind center's data to tabs
       if (item && item.center) {
         // bind markdown data
-        $scope.administration = item.center.administration;
         $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Acronyme (nom court)'] + '.jpg';
         $scope.sigle = item.center.administration['Acronyme (nom court)'];
-        $scope.personnel = item.center.personnel;
         $scope.personnelCNRSUrl = item.center.personnel['Lien vers la page "personnel" du site Web du CNRS'];
         $scope.personnelSiteWebCentre = item.center.personnel['Lien vers la page "personnel" sur le site Web du centre'];
-        $scope.ecole = item.center.ecole;
-        $scope.recherche = item.center.recherche;
         $scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
         $scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR'];
         $scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR'];
         $scope.section = item.center.recherche['Sections CNRS'];
-
-        $scope.ressources = item.center.ressources;
-
         $scope.ressourcesDesciption = converter.makeHtml(item.center.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
-
         $scope.ressourcesIntitule = item.center.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'];
         $scope.ressourcesSiteWeb = item.center.ressources['Site Web'];
-
-        $scope.publications = item.center.publication;
-
         $scope.etablissements = item.center.administration['Etablissements de rattachement'].split(';');
 
         // create axes
@@ -114,7 +103,6 @@ angular.module('bib.services')
           $scope.seminaires = converter.makeHtml(item.center.recherche['Séminaires de recherche']);
 
         // create collaboration
-        // create seminaires
         var collaboration = '';
         if (Array.isArray(item.center.recherche['Collaborations / réseaux'])) {
           _.forEach(item.center.recherche['Collaborations / réseaux'], function (d) {
