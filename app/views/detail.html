@@ -1,16 +1,16 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" id="myTab">
-      <li class="tabTitle description"><a data-target="#description" data-toggle="tab">Description administrative</a></li>
-      <li class="tabTitle ecole"><a data-target="#ecole" data-toggle="tab">Ecoles doctorales</a></li>
-      <li class="tabTitle recherche"><a data-target="#recherche" data-toggle="tab">Thématiques recherches</a></li>
-      <li class="tabTitle publications"><a data-target="#publication" data-toggle="tab">Publications</a></li>
-      <li class="tabTitle ressources"><a data-target="#ressources" data-toggle="tab">Ressources documentaires</a></li>
+      <li class="tabTitle description active"><a data-target="#description{{centerId}}" data-toggle="tab">Description administrative</a></li>
+      <li class="tabTitle ecole"><a data-target="#ecole{{centerId}}" data-toggle="tab">Ecoles doctorales</a></li>
+      <li class="tabTitle recherche"><a data-target="#recherche{{centerId}}" data-toggle="tab">Thématiques recherches</a></li>
+      <li class="tabTitle publications"><a data-target="#publication{{centerId}}" data-toggle="tab">Publications</a></li>
+      <li class="tabTitle ressources"><a data-target="#ressources{{centerId}}" data-toggle="tab">Ressources documentaires</a></li>
     </ul>
   </div>
 </div>
 <div class="tab-content" id="centerDetailsTabs">
-  <div class="row tab-pane administration description administrative" id="description">
+  <div class="row tab-pane administration description administrative active" id="description{{centerId}}">
     <div class="col-md-12">
       <p>{{administration['CNRS']}}</p>
       <p>Année de création : {{administration['Année de création']}}</p>
@@ -36,7 +36,7 @@
     <h1 class="titleProps">Historique</h1>
     <p> {{administration['Historique']}}</p>
   </div>
-  <div class="row tab-pane ecole" id="ecole">
+  <div class="row tab-pane ecole" id="ecole{{centerId}}">
     <div class="col-md-12">
       <h1 class="titleProps">Liste des écoles doctorales</h1>
       <div ng-repeat="ecole in ecole.ecoles" id="ecoleDetails" class="col-md-4">
@@ -54,7 +54,7 @@
       <p>Nombre de thèses soutenues en 2015 : {{ ecole['Nombre de thèses soutenues en 2015'] }}</p>
     </div>
   </div>
-  <div class="row tab-pane recherche" id="recherche">
+  <div class="row tab-pane recherche" id="recherche{{centerId}}">
     <div class="col-md-6 colTab">
       <h1 class="titleProps">Sections CNRS</h1> {{section}}
       <h1 class="titleProps">Annuaire du MENESR</h1>
@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <div class="row tab-pane publication" id="publication">
+  <div class="row tab-pane publication" id="publication{{centerId}}">
     <div class="col-md-12">
       <h1 class="titleProps">Collections auprès d'éditeurs</h1> {{publications['Collections auprès d\'éditeurs : description']}}
       <h1 class="titleProps">Revues en propre</h1> {{publications['Revues en propre : description']}}
@@ -90,7 +90,7 @@
       <h1 class="titleProps">Valorisation des publications par le laboratoire</h1> {{publications['Valorisation des publications par le laboratoire']}}
     </div>
   </div>
-  <div class="row tab-pane ressources" id="ressources">
+  <div class="row tab-pane ressources" id="ressources{{centerId}}">
     <div class="col-md-12">
       <h1 class="titleProps">Bibliothèques utilisées</h1> {{ressources['Bibliothèques utilisées']}}
       <h1 class="titleProps">Ressources numériques à disposition des chercheurs</h1> {{ressources['Ressources numériques à disposition des chercheurs']}}

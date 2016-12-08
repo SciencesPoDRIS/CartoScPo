@@ -10,6 +10,12 @@ angular.module('bib.directives')
       org: '='
     },
     link: function (scope) {
+      // TODO better destructuring
+      Object.keys(scope.org).forEach(function (key) {
+        scope[key] = scope.org[key];
+      });
+      // TODO remove bullet points before
+      scope.centerId = scope.administration.id.replace(/\*/g, '');
     }
   };
 });
