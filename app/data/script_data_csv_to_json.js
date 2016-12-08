@@ -14,10 +14,16 @@ var csv = {
   ressources:     'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
 };
 
+function trimNL (str) {
+  return str
+    .replace(/^[\t|\r|\n]/g, '')
+    .replace(/[\t|\r|\n]$/g, '')
+    .trim();
+}
+
 // csv to JSON
 
 var KEY_CODE = 'Code Unité';
-var KEY_SIGLE ='Acronyme (nom court)';
 
 var allData = lodash.map(csv, function (v, k) {
   var content = fs.readFileSync(v, { encoding: 'utf8' });
@@ -26,15 +32,15 @@ var allData = lodash.map(csv, function (v, k) {
 
   return parsed.data.map(function (center) {
     delete center[''];
+    Object.keys(center).forEach(function (key) {
+      center[key] = trimNL(center[key]);
+    });
     if (center[KEY_CODE]) {
       // need better regex
       center.id = center[KEY_CODE]
         .replace(/\t|\r|\n|\'|;/g, '')
         .replace(/ /g, '')
         .toLowerCase();
-    }
-    if (center[KEY_SIGLE]) {
-      center[KEY_SIGLE] = center[KEY_SIGLE].trim();
     }
     center.theme = k;
     return center;
@@ -97,10 +103,10 @@ lodash.forIn(allCenters, function (v) {
     // create object adress
     for (var i = 0, len = adress.length; i < len; i++) {
       adressesGeo.push({
-        adresse: adress[i],
+        adresse: trimNL(adress[i]),
         lat: coordinates[i][0],
         lon: coordinates[i][1],
-        city: cities[i],
+        city: trimNL(cities[i]),
         active: true
       });
     }
