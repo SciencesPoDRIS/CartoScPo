@@ -45,17 +45,29 @@ gulp prod
 
 Ajouter dans /app/data les csv téléchargés à partir des onglets du spreadsheet du drive.
 
-Lancer le script suivant dans /app/data
+Lancer le script suivant dans /app/data :
 
 ```
 node script_data_csv_to_json.js
 ```
 
-La sortie est un json qui comprend : 
+La sortie est `app/data/data.json` qui comprend :
 
 * Un objet avec tous les centres en clés qui contiennent eux-mêmes leurs onglets en clés.
 * Un index de toutes les propriétés de tous les centres afin de faciliter la recherche fulltext.
 * Un tableau de tous les mots de toutes ces propriétés pour l'auto-complétion dans la recherche fulltext.
+
+## Création des métadonnées
+
+Ajouter dans /app/data le csv listant les props et le nommer `metadata.csv`
+
+Lancer le script suivant dans /app/data :
+
+```
+node script_metadata_csv_to_json.js
+```
+
+La sortie est `app/data/metadata.json`.
 
 ### Parsing des csv issus de la collecte des données
 Réalisé avec BabyParse <https://github.com/Rich-Harris/BabyParse>
