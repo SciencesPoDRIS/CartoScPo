@@ -59,12 +59,13 @@ angular.module('bib.services')
     }
   };
 })
-.factory('facetService', function ($q, centerService) {
+.factory('facetService', function ($filter, $q, centerService) {
   /* TODO put this in a config
   * this object describes the fields available in the sidebar
   * - id has to be unique
   * - path and key indictates when to grab the info in data.json
   * - type multi (ui-select) / boolean (checkbox triple state)
+  * - parser (optional) function to clean data if not already done during csv parsing
   */
 
   var facets = {
@@ -72,7 +73,11 @@ angular.module('bib.services')
       id: 'city',
       path: 'administration',
       key: 'Ville',
-      type: 'multi'
+      type: 'multi',
+      // example Toulouse;\nToulouse
+      parser: function (items) {
+        return items.split(';').map($filter('trimNL'));
+      }
     },
     attach: {
       id: 'attach',
@@ -111,12 +116,13 @@ angular.module('bib.services')
     },
 
     getItems: function (facetId) {
+      var facet = facets[facetId];
       return centerService.get().then(function (centers) {
-        return _.uniq(Object.keys(centers).map(function (centerId) {
-          var path = facets[facetId].path;
-          var key = facets[facetId].key;
-          return centers[centerId][path][key];
-        }));
+        var items = Object.keys(centers).map(function (centerId) {
+          var parser = facet.parser || _.identity;
+          return parser(centers[centerId][facet.path][facet.key]);
+        });
+        return _.uniq(_.flatten(items)).sort();
       });
     }
   };

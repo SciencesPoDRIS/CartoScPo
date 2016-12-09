@@ -37,6 +37,15 @@ angular.module('bib')
 
     return matches;
   };
-});
-
+})
+.filter('trimNL', function () {
+  return function trimNL (str) {
+    if (typeof str != 'string') return str;
+    return str
+      .replace(/^[\t|\r|\n]/g, '')
+      .replace(/[\t|\r|\n]$/g, '')
+      .trim();
+  };
+})
+;
 
