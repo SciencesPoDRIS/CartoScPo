@@ -1,126 +1,198 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" id="myTab">
-      <li class="tabTitle description active"><a data-target="#description{{centerId}}" data-toggle="tab">Description administrative</a></li>
-      <li class="tabTitle ecole"><a data-target="#ecole{{centerId}}" data-toggle="tab">Ecoles doctorales</a></li>
-      <li class="tabTitle recherche"><a data-target="#recherche{{centerId}}" data-toggle="tab">Thématiques recherches</a></li>
-      <li class="tabTitle publications"><a data-target="#publication{{centerId}}" data-toggle="tab">Publications</a></li>
-      <li class="tabTitle ressources"><a data-target="#ressources{{centerId}}" data-toggle="tab">Ressources documentaires</a></li>
+      <li class="description active"><a data-target="#description-{{ centerId }}" data-toggle="tab">Description administrative</a></li>
+      <li class="ecole"><a data-target="#ecole-{{ centerId }}" data-toggle="tab">Ecoles doctorales</a></li>
+      <li class="recherche"><a data-target="#recherche-{{ centerId }}" data-toggle="tab">Thématiques recherches</a></li>
+      <li class="publications"><a data-target="#publication-{{ centerId }}" data-toggle="tab">Publications</a></li>
+      <li class="ressources"><a data-target="#ressources-{{ centerId }}" data-toggle="tab">Ressources documentaires</a></li>
     </ul>
   </div>
 </div>
 
 <div class="tab-content" id="centerDetailsTabs">
-  <div class="tab-pane administration description administrative active" id="description{{centerId}}">
+  <div class="tab-pane active" id="description-{{ centerId }}">
 
     <div class="col-md-6">
-      <p>CNRS: {{administration['CNRS (Oui/Non)']}}</p>
-      <p>Année de création : {{administration['Année de création']}}</p>
-      <p>Directeur : {{administration['Directeur']}}</p>
+      <p>CNRS: {{ administration['CNRS (Oui/Non)'] }}</p>
+      <p>Année de création : {{ administration['Année de création'] }}</p>
+      <p>Directeur : {{ administration['Directeur'] }}</p>
     </div>
     <div class="col-md-6">
-      <p>Courriel direction : {{administration['Courriel Direction']}}</p>
-      <p>Téléphone : {{administration['Téléphone']}}</p>
-      <p>Site web : <a target="_blank" href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
+      <p>Courriel direction : {{ administration['Courriel Direction'] }}</p>
+      <p>Téléphone : {{ administration['Téléphone'] }}</p>
+      <p>Site web : <a target="_blank" href="{{ administration['Site Web'] }}">{{ administration['Site Web'] }}</a></p>
     </div>
-    <h1 class="titleProps">Etablissements de rattachement : </h1>
+
+    <h2>Etablissements de rattachement : </h2>
     <div class="col-md-12">
       <p ng-if="etablissement.length" ng-repeat="etablissement in administration['Etablissements de rattachement'].split('*')"
-        class="keyWord" ng-click="showNameChanged(etablissement)">{{etablissement}}</p>
+        class="keyWord" ng-click="showNameChanged(etablissement)">{{ etablissement }}</p>
     </div>
 
-    <h1 class="titleProps">Personnel</h1>
+    <h2>Personnel</h2>
     <div class="col-md-6">
       <p>Effectif total : {{ personnel['Effectif total'] }}</p>
       <p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
       <p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
     </div>
     <div class="col-md-6">
-      <p>Lien vers la page "personnel" du site Web du CNRS : <a target="_blank" href="{{ personnelCNRSUrl }}">Lien</a></p>
-      <p>Lien vers la page "personnel" sur le site Web du centre : <a target="_blank" href="{{ personnelSiteWebCentre }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
+      <p>Lien vers la page "personnel" du site Web du CNRS :
+        <a target="_blank" href="{{ personnelCNRSUrl }}">Lien</a></p>
+      <p>Lien vers la page "personnel" sur le site Web du centre :
+        <a target="_blank" href="{{ personnelSiteWebCentre }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
     </div>
 
     <div class="col-md-12">
-      <h1 class="titleProps">Historique</h1>
-      <p>{{administration['Historique']}}</p>
+      <h2>Historique</h2>
+      <p>{{ administration['Historique'] }}</p>
     </div>
 
   </div>
 
-  <div class="row tab-pane ecole" id="ecole{{centerId}}">
+  <div class="tab-pane" id="ecole-{{ centerId }}">
+
+    <h2>Liste des écoles doctorales</h2>
     <div class="col-md-12">
-      <h1 class="titleProps">Liste des écoles doctorales</h1>
-      <div ng-repeat="ecole in ecole.ecoles" id="ecoleDetails" class="col-md-4">
+      <div ng-repeat="ecole in ecole.ecoles" class="col-md-4 ecole-details">
         <p>Intitulé Ecole Doctorale : {{ ecole.intitule }}</p>
         <p>Numéro d'Ecole Doctorale : {{ ecole.numero }}</p>
         <p>Directeur école doctorale : {{ ecole.directeur}}</p>
         <p>Courriel de l'Ecole doctorale : {{ ecole.courriel }}</p>
       </div>
-      <br>
     </div>
+
+    <h2>Nombre de doctorants et thèses du centre</h2>
     <div class="col-md-12">
-      <h1 class="titleProps">Nombre de doctorants et thèses du centre</h1>
       <p>Nombre de doctorants : {{ ecole['Nombre de doctorants'] }}</p>
       <p>Nombre de doctorants en science politique : {{ ecole['Nombre de doctorants en science politique'] }}</p>
       <p>Nombre de thèses soutenues en 2015 : {{ ecole['Nombre de thèses soutenues en 2015'] }}</p>
     </div>
   </div>
 
-  <div class="row tab-pane recherche" id="recherche{{centerId}}">
+  <div class="tab-pane" id="recherche-{{ centerId }}">
     <div class="col-md-6 colTab">
-      <h1 class="titleProps">Sections CNRS</h1> {{section}}
-      <h1 class="titleProps">Annuaire du MENESR</h1>
-      <h2 class="disciplinePrincipale"> {{ recherche['Discipline principale selon l\'annuaire du MENESR'] }}</h2>
-      <h2 class="disciplineSecondaire"> {{ recherche['Disciplines secondaires selon l\'annuaire du MENESR'] }}</h2>
-      <h1 class="titleProps">Mots-clefs</h1>
-      <p ng-repeat="word in motsClefs track by $index" class="keyWord" ng-click="showNameChanged(word)">{{word}}</p>
-      <h1 class="titleProps">Axes de recherche</h1>
+      <h2>Sections CNRS</h2>
+      <div>{{ recherche['Sections CNRS'] }}</div>
+
+      <h2>Annuaire du MENESR</h2>
+      <p>{{ recherche['Discipline principale  selon l\'annuaire du MENESR'] }}</p>
+      <p>{{ recherche['Disciplines secondaires  selon l\'annuaire du MENESR'] }}</p>
+
+      <h2>Mots-clefs</h2>
+      <p ng-repeat="word in motsClefs track by $index" class="keyWord" ng-click="showNameChanged(word)">{{ word }}</p>
+
+      <h2>Axes de recherche</h2>
       <div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
       </div>
-      <h1 class="titleProps">Contrats de recherche</h1>
+
+      <h2>Contrats de recherche</h2>
+
       <div ng-bind-html="highlight(contrats, filterSearch)" class="recherche">
       </div>
     </div>
+
     <div class="col-md-6 colTab">
-      <h1 class="titleProps">Séminaires de recherche</h1>
+      <h2>Séminaires de recherche</h2>
       <div ng-bind-html="highlight(seminaires, filterSearch)" class="recherche">
       </div>
-      <h1 class="titleProps">Collaborations / réseaux</h1>
+
+      <h2>Collaborations / réseaux</h2>
       <div ng-bind-html="highlight(collaboration, filterSearch)" class="recherche">
       </div>
     </div>
+
   </div>
 
-  <div class="row tab-pane publication" id="publication{{centerId}}">
+  <div class="tab-pane" id="publication-{{ centerId }}">
+    <h2>Collections auprès d'éditeurs</h2>
     <div class="col-md-12">
-      <h1 class="titleProps">Collections auprès d'éditeurs</h1> {{publication['Collections auprès d\'éditeurs : description']}}
-      <h1 class="titleProps">Revues en propre</h1> {{publication['Revues en propre : description']}}
-      <h1 class="titleProps">Autres activités éditoriales sur les revues</h1> {{publication['Autres activités éditoriales sur les revues (directeurs de rédaction, membres comités éditoriaux, partenariats...) Garder que directeurs?']}}
-      <h1 class="titleProps">Publications versées dans HAL</h1> {{publication['Publications versées dans HAL (oui/non)']}}
-      <h1 class="titleProps">Publications versées dans un dépôt institutionnel</h1> {{publication['Publications versées dans un dépôt institutionnel (oui/non)']}}
-      <h1 class="titleProps">Préconisations pour le dépôt en open access des publications</h1> {{publication['Préconisations pour le dépôt en open access des publications']}}
-      <h1 class="titleProps">Archivage des données de la recherche</h1> {{publication['Archivage des données de la recherche : description des projets']}}
-      <h1 class="titleProps">Valorisation des publications par le laboratoire</h1> {{publication['Valorisation des publications par le laboratoire']}}
+      {{publication['Collections auprès d\'éditeurs : description']}}
     </div>
+
+    <h2>Revues en propre</h2>
+    <div class="col-md-12">
+      {{publication['Revues en propre : description'] }}
+    </div>
+
+    <h2>Autres activités éditoriales sur les revues</h2>
+    <div class="col-md-12">
+      {{publication['Autres activités éditoriales sur les revues (directeurs de rédaction, membres comités éditoriaux, partenariats...) Garder que directeurs?'] }}
+    </div>
+
+    <h2>Publications versées dans HAL</h2>
+    <div class="col-md-12">
+      {{publication['Publications versées dans HAL (oui/non)'] }}
+    </div>
+
+    <h2>Publications versées dans un dépôt institutionnel</h2>
+    <div class="col-md-12">
+      {{publication['Publications versées dans un dépôt institutionnel (oui/non)'] }}
+    </div>
+
+    <h2>Préconisations pour le dépôt en open access des publications</h2>
+    <div class="col-md-12">
+      {{publication['Préconisations pour le dépôt en open access des publications'] }}
+    </div>
+
+    <h2>Archivage des données de la recherche</h2>
+    <div class="col-md-12">
+      {{publication['Archivage des données de la recherche : description des projets'] }}
+    </div>
+
+    <h2>Valorisation des publications par le laboratoire</h2>
+    <div class="col-md-12">
+      {{publication['Valorisation des publications par le laboratoire'] }}
+    </div>
+
   </div>
 
-  <div class="row tab-pane ressources" id="ressources{{centerId}}">
+  <div class="tab-pane ressources" id="ressources-{{ centerId }}">
+    <h2>Bibliothèques utilisées</h2>
     <div class="col-md-12">
-      <h1 class="titleProps">Bibliothèques utilisées</h1> {{ressources['Bibliothèques utilisées']}}
-      <h1 class="titleProps">Ressources numériques à disposition des chercheurs</h1> {{ressources['Ressources numériques à disposition des chercheurs']}}
-      <h1 class="titleProps">Personne ressource - documentaliste</h1> {{ressources['Personne ressource - documentaliste']}}
-      <!-- afficher seulement ceux qui ont des centres de documentation-->
-      <h1 class="titleProps">Centre de documentation ou bibliothèque en propre</h1> {{ressourcesIntitule}}
-      <h1 class="titleProps">Site web</h1>
-      <a href="{{ressourcesSiteWeb}}"> Lien </a>
-      <h1 class="titleProps">Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h1>
-      <div ng-bind-html="ressourcesDesciption" class="recherche">
-      </div>
-      <!-- {{ressourcesDesciption}} -->
-      <h1 class="titleProps">Politique documentaire</h1> {{ressources['Politique documentaire']}}
-      <h1 class="titleProps">Offre de formations documentaires</h1> {{ressources['Offre de formations documentaires']}}
-      <h1 class="titleProps">Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h1> {{ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']}}
+      {{ ressources['Bibliothèques utilisées'] }}
     </div>
+
+    <h2>Ressources numériques à disposition des chercheurs</h2>
+    <div class="col-md-12">
+      {{ ressources['Ressources numériques à disposition des chercheurs'] }}
+    </div>
+
+    <h2>Personne ressource - documentaliste</h2>
+    <div class="col-md-12">
+      {{ ressources['Personne ressource - documentaliste'] }}
+    </div>
+
+    <h2>Centre de documentation ou bibliothèque en propre</h2>
+    <div class="col-md-12">
+      {{ ressources['Centre de documentation ou bibliothèque en propre : Intitulé'] }}
+    </div>
+
+    <h2>Site web</h2>
+    <div class="col-md-12">
+      <a href="{{ ressources['Site Web'] }}">{{ ressources['Site Web'] }}</a>
+    </div>
+
+    <h2>Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h2>
+    <div class="col-md-12">
+      <div ng-bind-html="ressourcesDesciption" class="recherche"></div>
+    </div>
+
+    <h2>Politique documentaire</h2>
+    <div class="col-md-12">
+      {{ ressources['Politique documentaire'] }}
+    </div>
+
+    <h2>Offre de formations documentaires</h2>
+    <div class="col-md-12">
+      {{ ressources['Offre de formations documentaires'] }}
+    </div>
+
+    <h2>Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h2>
+    <div class="col-md-12">
+      {{ ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)'] }}
+    </div>
+
   </div>
 </div>
 

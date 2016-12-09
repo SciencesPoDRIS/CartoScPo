@@ -1,6 +1,5 @@
 <div id="center-list">
-  <div class="center-list-item" ng-repeat="(keyCenter, value) in allCenters track by $index"
-    ng-class="{selected: keyCenter === idSelectedCenter}">
+  <div class="center-list-item" ng-repeat="(keyCenter, value) in allCenters track by $index">
     <h3>
       <a class="center-title" href="" ng-click="displayCenter(0, value, keyCenter)">
         <span>{{value.center.administration['Intitulé']}}</span>
@@ -12,7 +11,7 @@
       <div class="col-md-8">
         <p>Code unité : {{value.center.administration['Code Unité']}}</p>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3 text-right">
         <logo org="value.center"></logo>
       </div>
     </div>

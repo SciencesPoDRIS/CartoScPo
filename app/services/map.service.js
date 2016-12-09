@@ -54,15 +54,8 @@ angular.module('bib.services')
       if (item && item.center) {
         // bind markdown data
         $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Acronyme (nom court)'] + '.jpg';
-        $scope.personnelCNRSUrl = item.center.personnel['Lien vers la page "personnel" du site Web du CNRS'];
-        $scope.personnelSiteWebCentre = item.center.personnel['Lien vers la page "personnel" sur le site Web du centre'];
         $scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
-        $scope.disciplinePrincipale = item.center.recherche['Discipline principale selon l\'annuaire du MENESR'];
-        $scope.disciplineSecondaire = item.center.recherche['Disciplines secondaires selon l\'annuaire du MENESR'];
-        $scope.section = item.center.recherche['Sections CNRS'];
         $scope.ressourcesDesciption = converter.makeHtml(item.center.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
-        $scope.ressourcesIntitule = item.center.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'];
-        $scope.ressourcesSiteWeb = item.center.ressources['Site Web'];
 
         // create axes
         var axes = '';

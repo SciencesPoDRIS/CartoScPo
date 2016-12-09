@@ -8,21 +8,19 @@
   font-style: normal;
 }
 
-/*
- * Global style
- */
+// Global style
+
 html {
   position: relative;
   min-height: 100%;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 body {
-  font-family: 'Trebuchet MS', 'merriweather', 'Georgia', serif;
+  font-family: 'Trebuchet MS', 'montserrat', 'Arial', sans-serif;
 }
 
-h1,h2,h3,h4,h5{
-  font-family: 'Trebuchet MS', 'montserrat', 'Arial', sans-serif;
+h1, h2, h3 {
   font-weight: bold;
 }
 
@@ -52,19 +50,16 @@ a {
   text-align: justify;
   top: 20px;
   width: 50%;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  h3 {
+    margin-bottom: 2em;
+  }
 }
 
-#home-text h2 {
-  margin-top: 0;
-}
-
-#home-text h3 {
-  margin-bottom: 2em;
-}
-
-/*
- * Icons
- */
 
 /* zoom buttons */
 .zoom {
@@ -267,43 +262,20 @@ navbar .navbar-nav > li > a {
  * centerDetails
  */
 
-#exTab1 .tab-content {
-  color : white;
-  background-color: #428bca;
-  padding : 5px 15px;
+center-detail {
+  .nav-tabs {
+    margin: 20px 0;
+  }
+
+  h2 {
+    border-bottom: solid 1px #666;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+  }
 }
 
-#exTab2 h3 {
-  color : white;
-  background-color: #428bca;
-  padding : 5px 15px;
-}
-
-/* remove border radius for the tab */
-#exTab1 .nav-pills > li {
-  border-radius: 0;
-  margin:auto;
-}
-
-#exTab1 .nav-pills > li > a {
-  border-radius: 0;
-  width:200px;
-  margin:auto;
-}
-
-/* change border radius for the tab , apply corners on top*/
-
-#exTab3 .nav-pills > li > a {
-  border-radius: 4px 4px 0 0 ;
-}
-
-#exTab3 .tab-content {
-  color : white;
-  background-color: #428bca;
-  padding : 5px 15px;
-}
-
-.tabTitle a {
+.nav-tabs a {
   color: #666;
   font-size: 16px;
   font-weight: bold;
@@ -349,10 +321,6 @@ navbar .navbar-nav > li > a {
  */
 
 
-.selected {
-  background-color: #E0E0E0;
-}
-
 .highlighted {
   background: yellow;
 }
@@ -361,16 +329,6 @@ span.highlight{
   background: #f1c40f;
 }
 
-.panesStyle {
-  width: 25%;
-}
-
-.titleProps {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  border-bottom: solid 1px grey;
-}
 
 .recherche > h1 {
   font-size: 18px;
@@ -401,15 +359,7 @@ span.highlight{
   font-weight: bold;
 }
 
-#logoCenter {
-  width:50%; height:50%;
-  display: block;
-  vertical-align: middle;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#ecoleDetails {
+.ecole-details {
   border-right:solid 1px black;
   min-height:170px;
 }
