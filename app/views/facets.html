@@ -1,13 +1,22 @@
 <div ng-controller="FacetsCtrl as ctrl">
   <div class="facet" ng-repeat="facet in ctrl.facets track by facet.id">
     <label>{{ facet.key }}</label>
-    <ui-select multiple ng-model="ctrl.selected[facet.id]" theme="bootstrap"
-      close-on-select="false" title="">
-      <ui-select-match placeholder="">{{ $item }}</ui-select-match>
-      <ui-select-choices repeat="item in facet.items | filter:$select.search">
-        {{ item }}
-      </ui-select-choices>
-    </ui-select>
+
+    <div ng-if="facet.type === 'multi'">
+      <ui-select multiple ng-model="ctrl.selected[facet.id]" theme="bootstrap"
+        close-on-select="false" title="">
+        <ui-select-match placeholder="">{{ $item }}</ui-select-match>
+        <ui-select-choices repeat="item in facet.items | filter:$select.search">
+          {{ item }}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+
+    <div ng-if="facet.type === 'boolean'">
+      <!-- TODO tri-state checkbox (with indeterminate) -->
+      <input type="checkbox" ng-model="ctrl.selected[facet.id]">
+    </div>
+
     <p>Selected: {{ ctrl.selected[facet.id] }}</p>
   </div>
 </div>

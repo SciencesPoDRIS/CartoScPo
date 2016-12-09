@@ -60,32 +60,43 @@ angular.module('bib.services')
   };
 })
 .factory('facetService', function ($q, centerService) {
-  // TODO put this in a config
+  /* TODO put this in a config
+  * this object describes the fields available in the sidebar
+  * - id has to be unique
+  * - path and key indictates when to grab the info in data.json
+  * - type multi (ui-select) / boolean (checkbox triple state)
+  */
+
   var facets = {
     city: {
       id: 'city',
       path: 'administration',
-      key: 'Ville'
+      key: 'Ville',
+      type: 'multi'
     },
     attach: {
       id: 'attach',
       path: 'administration',
-      key: 'Etablissements de rattachement'
+      key: 'Etablissements de rattachement',
+      type: 'multi'
     },
     keywords: {
       id: 'keywords',
       path: 'recherche',
-      key: 'Mots-clés sujet  selon l\'annuaire du MENESR'
+      key: 'Mots-clés sujet  selon l\'annuaire du MENESR',
+      type: 'multi'
     },
     cnrs: {
       id: 'cnrs',
       path: 'recherche',
-      key: 'Sections CNRS'
+      key: 'Sections CNRS',
+      type: 'multi'
     },
     hal: {
       id: 'hal',
       path: 'publication',
-      key: 'Publications versées dans HAL (oui/non)'
+      key: 'Publications versées dans HAL (oui/non)',
+      type: 'boolean'
     }
   };
 
