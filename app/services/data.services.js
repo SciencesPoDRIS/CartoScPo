@@ -1,4 +1,4 @@
-/* global lunr */
+/* global elasticlunr */
 'use strict';
 
 angular.module('bib.services')
@@ -28,25 +28,22 @@ angular.module('bib.services')
 .factory('searchService', function (dataService) {
   var searchIndex;
   dataService.get().then(function (data) {
-    searchIndex = lunr(function() {
-      this.field('content', { boost: 10 });
-      this.ref('id');
+    // elaticlunr instead of regular lunr so we can query by field
+    searchIndex = elasticlunr(function() {
+      this.setRef('id');
+      this.addField('content', { boost: 10 });
     });
 
     data.allProps.forEach(function(p) {
-      searchIndex.add(p);
+      searchIndex.addDoc(p);
     });
   });
 
   return {
-    search: function (query) {
-      return searchIndex.search(query, {
-        fields: {
-          content: { boost: 2 }
-        },
-        bool: 'AND',
-        expand: false
-      });
+    // options can be used to search on a specific field
+    search: function (query, options) {
+      options = options || {};
+      return searchIndex.search(query, options);
     }
   };
 })
@@ -87,22 +84,22 @@ angular.module('bib.services')
       type: 'multi',
       parser: parsers[';']
     },
-    attach: {
-      id: 'attach',
+    affiliation: {
+      id: 'affiliation',
       path: 'administration',
       key: 'Etablissements de rattachement',
       type: 'multi',
       parser: parsers['*']
     },
-    keywords: {
-      id: 'keywords',
+    subject_terms: {
+      id: 'subject_terms',
       path: 'recherche',
       key: 'Mots-clés sujet  selon l\'annuaire du MENESR',
       type: 'multi',
       parser: parsers['*']
     },
-    cnrs: {
-      id: 'cnrs',
+    cnrs_sections: {
+      id: 'cnrs_sections',
       path: 'recherche',
       key: 'Sections CNRS',
       type: 'multi',
