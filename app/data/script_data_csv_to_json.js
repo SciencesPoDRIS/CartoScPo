@@ -166,6 +166,7 @@ function cleanWord(content) {
 }
 
 // create list of all words
+// TODO: this should be elasticlunr stemmer's role to do it.
 var allWords = [];
 lodash.forIn(allCenters, function(tab) {
   lodash.forIn(tab, function(contentTab) {

@@ -115,7 +115,7 @@ angular.module('bib.controllers')
         $scope.filtersOn = true;
 
         var searchResult = searchService.search($scope.filterSearch);
-        console.log(searchResult);
+        console.log('searchResult', searchResult);
         var resultWithPath = [];
         var updateMarkers = [];
 

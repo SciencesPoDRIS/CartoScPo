@@ -15,28 +15,6 @@ angular.module('bib.services')
     }
   };
 })
-.factory('metadataService', function ($q, fileService) {
-  var url = './data/metadata.json?ver=' + Math.floor(Date.now() / 1000);
-  var cache;
-  var searchableTypes = ['String', 'Markdown'];
-
-  return {
-    get: function () {
-      return cache ? $q.when(cache) : fileService.get(url).then(function (data) {
-        cache = data;
-        return data;
-      });
-    },
-
-    getSearchableFields: function () {
-      return this.get().then(function (fields) {
-        return fields.filter(function (field) {
-          return searchableTypes.indexOf(field['Saisie : string, number, liste ou markdown']) !== -1;
-        });
-      });
-    }
-  };
-})
 .factory('autocompleteService', function(dataService) {
   return {
     get: function() {
@@ -46,22 +24,60 @@ angular.module('bib.services')
     }
   };
 })
-.factory('searchService', function (dataService) {
+.factory('searchService', function ($q, metadataService, centerService) {
   var searchIndex;
-  dataService.get().then(function (data) {
-    // elaticlunr instead of regular lunr so we can query by field
-    searchIndex = elasticlunr(function() {
-      this.setRef('id');
-      this.addField('content', { boost: 10 });
-    });
 
-    data.allProps.forEach(function(p) {
-      searchIndex.addDoc(p);
+  var indexableFieldsP = metadataService.getIndexableFields();
+  var fieldsAndCentersP = $q.all([
+    centerService.get(),
+    indexableFieldsP
+  ]);
+  $q.all([
+    indexableFieldsP.then(buildSearchIndex),
+    fieldsAndCentersP.then(_.spread(buildDocs))
+  ])
+  .then(_.spread(fillSearchIndex));
+
+  // elaticlunr instead of regular lunr so we can query by field later
+  function buildSearchIndex (fields) {
+    // TODO remove global
+    searchIndex = elasticlunr(function() {
+      // add fields needed for fulltext and the ones needed by facets
+      fields.forEach(function (f) {
+        this.addField(f);
+      }.bind(this));
+      this.setRef('id');
     });
-  });
+    return searchIndex;
+  }
+
+  // TODO refactor
+  // center objects are deep and huge
+  // so we transform them in more practical docs to be indexed by lunr
+  function buildDocs (centers, fields) {
+    return Object.keys(centers).map(function (centerId) {
+      var center = centers[centerId];
+      var doc = { id: centerId };
+      Object.keys(center).forEach(function (topic) {
+        fields.forEach(function (field) {
+          if (center[topic][field]) {
+            doc[field] = center[topic][field];
+          }
+        });
+      });
+      return doc;
+    });
+  }
+
+  function fillSearchIndex (searchIndex, docs) {
+    docs.forEach(function (doc) {
+      searchIndex.addDoc(doc);
+    });
+    return searchIndex;
+  }
 
   return {
-    // options can be used to search on a specific field
+    // options can be used to search on a specific field with bools
     search: function (query, options) {
       options = options || {};
       return searchIndex.search(query, options);
@@ -97,46 +113,48 @@ angular.module('bib.services')
     }
   };
 
-  var facets = {
-    city: {
+  var facets = [
+    {
       id: 'city',
       path: 'administration',
       key: 'Ville',
       type: 'multi',
       parser: parsers[';']
     },
-    affiliation: {
+    {
       id: 'affiliation',
       path: 'administration',
       key: 'Etablissements de rattachement',
       type: 'multi',
       parser: parsers['*']
     },
-    subject_terms: {
+    {
       id: 'subject_terms',
       path: 'recherche',
       key: 'Mots-clés sujet  selon l\'annuaire du MENESR',
       type: 'multi',
       parser: parsers['*']
     },
-    cnrs_sections: {
+    {
       id: 'cnrs_sections',
       path: 'recherche',
       key: 'Sections CNRS',
       type: 'multi',
       parser: parsers['*']
     },
-    hal: {
+    {
       id: 'hal',
       path: 'publication',
       key: 'Publications versées dans HAL (oui/non)',
       type: 'boolean'
     }
-  };
+  ];
 
   return {
+    facets: facets,
+
     get: function () {
-      return $q.all(_.values(facets).map(function (facet) {
+      return $q.all(facets.map(function (facet) {
         return this.getItems(facet.id).then(function (items) {
           facet.items = items;
           return facet;
@@ -145,7 +163,7 @@ angular.module('bib.services')
     },
 
     getItems: function (facetId) {
-      var facet = facets[facetId];
+      var facet = _.find(facets, {id: facetId});
       return centerService.get().then(function (centers) {
         var items = Object.keys(centers).map(function (centerId) {
           var parser = facet.parser || _.identity;
