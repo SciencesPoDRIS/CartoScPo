@@ -8,7 +8,7 @@ angular.module('bib.services')
 
   return {
     // raw collection
-    get: function () {
+    getAll: function () {
       return cache ? $q.when(cache) : fileService.get(url).then(function (data) {
         cache = data;
         return data;
@@ -17,7 +17,7 @@ angular.module('bib.services')
 
     // used by the master search input
     getSearchableFields: function () {
-      return this.get().then(function (fields) {
+      return this.getAll().then(function (fields) {
         return fields.filter(function (field) {
           return searchableTypes.indexOf(field['Saisie : string, number, liste ou markdown']) !== -1;
         });

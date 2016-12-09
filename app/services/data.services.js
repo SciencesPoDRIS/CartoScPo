@@ -17,7 +17,7 @@ angular.module('bib.services')
 })
 .factory('autocompleteService', function(dataService) {
   return {
-    get: function() {
+    getWords: function() {
       return dataService.get().then(function (data) {
         return data.allWords;
       });
@@ -29,7 +29,7 @@ angular.module('bib.services')
 
   var indexableFieldsP = metadataService.getIndexableFields();
   var fieldsAndCentersP = $q.all([
-    centerService.get(),
+    centerService.getAll(),
     indexableFieldsP
   ]);
   $q.all([
@@ -86,7 +86,7 @@ angular.module('bib.services')
 })
 .factory('centerService', function (dataService) {
   return {
-    get: function () {
+    getAll: function () {
       return dataService.get().then(function (data) {
         return data.allCenters;
       });
@@ -153,7 +153,7 @@ angular.module('bib.services')
   return {
     facets: facets,
 
-    get: function () {
+    getAll: function () {
       return $q.all(facets.map(function (facet) {
         return this.getItems(facet.id).then(function (items) {
           facet.items = items;
@@ -162,9 +162,10 @@ angular.module('bib.services')
       }.bind(this)));
     },
 
+    // example for the city facet: Toulouse, Paris, Brest…
     getItems: function (facetId) {
       var facet = _.find(facets, {id: facetId});
-      return centerService.get().then(function (centers) {
+      return centerService.getAll().then(function (centers) {
         var items = Object.keys(centers).map(function (centerId) {
           var parser = facet.parser || _.identity;
           return parser(centers[centerId][facet.path][facet.key]);

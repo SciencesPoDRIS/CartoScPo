@@ -22,7 +22,7 @@ angular.module('bib.controllers')
   // ng-model
   $scope.filterSearch = '';
 
-  autocompleteService.get().then(function (words) {
+  autocompleteService.getWords().then(function (words) {
     $scope.allWords = words;
   });
 
@@ -32,7 +32,7 @@ angular.module('bib.controllers')
   };
 
   // Load Data & init business logic
-  centerService.get().then(function(centers) {
+  centerService.getAll().then(function(centers) {
     $scope.result = { allCenters: centers };
     $scope.centersSearch = [];
     _.forIn($scope.result.allCenters, function(v) {
@@ -204,7 +204,6 @@ angular.module('bib.controllers')
 
     // active tabs
     $scope.displayCenter = function(key, item, keyCenter) {
-      //$scope.filtersOn = true;
       $scope.centerSelected = item;
 
       // display details center & tooltip on map
