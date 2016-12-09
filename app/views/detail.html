@@ -11,31 +11,40 @@
 </div>
 
 <div class="tab-content" id="centerDetailsTabs">
-  <div class="row tab-pane administration description administrative active" id="description{{centerId}}">
-    <div class="col-md-12">
-      <p>{{administration['CNRS']}}</p>
+  <div class="tab-pane administration description administrative active" id="description{{centerId}}">
+
+    <div class="col-md-6">
+      <p>CNRS: {{administration['CNRS (Oui/Non)']}}</p>
       <p>Année de création : {{administration['Année de création']}}</p>
       <p>Directeur : {{administration['Directeur']}}</p>
-      <p>Courriel direction : {{administration['Courrier Direction']}}</p>
+    </div>
+    <div class="col-md-6">
+      <p>Courriel direction : {{administration['Courriel Direction']}}</p>
       <p>Téléphone : {{administration['Téléphone']}}</p>
       <p>Site web : <a target="_blank" href="{{administration['Site Web']}}">{{administration['Site Web']}}</a></p>
-      <p>Etablissements de rattachement : </p>
-      <p ng-repeat="etablissement in etablissements" class="keyWord" ng-click="showNameChanged(etablissement)">{{etablissement}}</p>
     </div>
-    <div class="row">
-      <h1 class="titleProps">Personnel</h1>
-      <div class="col-md-6">
-        <p>Effectif total : {{ personnel['Effectif total'] }}</p>
-        <p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
-        <p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
-      </div>
-      <div class="col-md-6">
-        <p>Lien vers la page "personnel" du site Web du CNRS : <a target="_blank" href="{{ personnelCNRSUrl }}">Lien</a></p>
-        <p>Lien vers la page "personnel" sur le site Web du centre : <a target="_blank" href="{{ personnelSiteWebCentre }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
-      </div>
+    <h1 class="titleProps">Etablissements de rattachement : </h1>
+    <div class="col-md-12">
+      <p ng-if="etablissement.length" ng-repeat="etablissement in administration['Etablissements de rattachement'].split('*')"
+        class="keyWord" ng-click="showNameChanged(etablissement)">{{etablissement}}</p>
     </div>
-    <h1 class="titleProps">Historique</h1>
-    <p>{{administration['Historique']}}</p>
+
+    <h1 class="titleProps">Personnel</h1>
+    <div class="col-md-6">
+      <p>Effectif total : {{ personnel['Effectif total'] }}</p>
+      <p>Personnels non permanents : {{ personnel['Personnels non permanents'] }}</p>
+      <p>Personnels permanents : {{ personnel['Personnels permanents'] }}</p>
+    </div>
+    <div class="col-md-6">
+      <p>Lien vers la page "personnel" du site Web du CNRS : <a target="_blank" href="{{ personnelCNRSUrl }}">Lien</a></p>
+      <p>Lien vers la page "personnel" sur le site Web du centre : <a target="_blank" href="{{ personnelSiteWebCentre }}">{{ personnel['Lien vers la page \"personnel\" sur le site Web du centre'] }}</a></p>
+    </div>
+
+    <div class="col-md-12">
+      <h1 class="titleProps">Historique</h1>
+      <p>{{administration['Historique']}}</p>
+    </div>
+
   </div>
 
   <div class="row tab-pane ecole" id="ecole{{centerId}}">
