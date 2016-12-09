@@ -68,34 +68,45 @@ angular.module('bib.services')
   * - parser (optional) function to clean data if not already done during csv parsing
   */
 
+  var parsers = {
+    // example Toulouse;\nToulouse
+    ';': function (items) {
+      return items.split(';').map($filter('trimNL'));
+    },
+    // example * CNRS\n* Sciences Po
+    '*': function (items) {
+      return items.split('*').map($filter('trimNL'));
+    }
+  };
+
   var facets = {
     city: {
       id: 'city',
       path: 'administration',
       key: 'Ville',
       type: 'multi',
-      // example Toulouse;\nToulouse
-      parser: function (items) {
-        return items.split(';').map($filter('trimNL'));
-      }
+      parser: parsers[';']
     },
     attach: {
       id: 'attach',
       path: 'administration',
       key: 'Etablissements de rattachement',
-      type: 'multi'
+      type: 'multi',
+      parser: parsers['*']
     },
     keywords: {
       id: 'keywords',
       path: 'recherche',
       key: 'Mots-clés sujet  selon l\'annuaire du MENESR',
-      type: 'multi'
+      type: 'multi',
+      parser: parsers['*']
     },
     cnrs: {
       id: 'cnrs',
       path: 'recherche',
       key: 'Sections CNRS',
-      type: 'multi'
+      type: 'multi',
+      parser: parsers['*']
     },
     hal: {
       id: 'hal',

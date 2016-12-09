@@ -38,6 +38,7 @@ angular.module('bib')
     return matches;
   };
 })
+// the following filters can also during the csv parsing
 .filter('trimNL', function () {
   return function trimNL (str) {
     if (typeof str != 'string') return str;
@@ -45,6 +46,13 @@ angular.module('bib')
       .replace(/^[\t|\r|\n]/g, '')
       .replace(/[\t|\r|\n]$/g, '')
       .trim();
+  };
+})
+.filter('trimStar', function () {
+  return function trimStar(str) {
+    if (typeof str != 'string') return str;
+    if (!str) return '';
+    return str.replace(/\*/, '').trim();
   };
 })
 ;
