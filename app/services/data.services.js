@@ -3,11 +3,16 @@
 
 angular.module('bib.services')
 // TODO merge with fileService ?
-.factory('dataService', function (fileService) {
+.factory('dataService', function ($q, fileService) {
   var url = './data/data.json?ver=' + Math.floor(Date.now() / 1000);
+  var cache;
+
   return {
     get: function () {
-      return fileService.get(url);
+      return cache ? $q.when(cache) : fileService.get(url).then(function (data) {
+        cache = data;
+        return data;
+      });
     }
   };
 })
@@ -53,5 +58,57 @@ angular.module('bib.services')
       });
     }
   };
-});
+})
+.factory('facetService', function ($q, centerService) {
+  // TODO put this in a config
+  var facets = {
+    city: {
+      id: 'city',
+      path: 'administration',
+      key: 'Ville'
+    },
+    attach: {
+      id: 'attach',
+      path: 'administration',
+      key: 'Etablissements de rattachement'
+    },
+    keywords: {
+      id: 'keywords',
+      path: 'recherche',
+      key: 'Mots-clés sujet  selon l\'annuaire du MENESR'
+    },
+    cnrs: {
+      id: 'cnrs',
+      path: 'recherche',
+      key: 'Sections CNRS'
+    },
+    hal: {
+      id: 'hal',
+      path: 'publication',
+      key: 'Publications versées dans HAL (oui/non)'
+    }
+  };
+
+  return {
+    get: function () {
+      return $q.all(_.values(facets).map(function (facet) {
+        return this.getItems(facet.id).then(function (items) {
+          facet.items = items;
+          return facet;
+        });
+      }.bind(this)));
+    },
+
+    getItems: function (facetId) {
+      return centerService.get().then(function (centers) {
+        return _.uniq(Object.keys(centers).map(function (centerId) {
+          var path = facets[facetId].path;
+          var key = facets[facetId].key;
+          return centers[centerId][path][key];
+        }));
+      });
+    }
+  };
+})
+;
 
