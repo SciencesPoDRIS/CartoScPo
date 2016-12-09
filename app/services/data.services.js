@@ -2,7 +2,6 @@
 'use strict';
 
 angular.module('bib.services')
-// TODO merge with fileService ?
 .factory('dataService', function ($q, fileService) {
   var url = './data/data.json?ver=' + Math.floor(Date.now() / 1000);
   var cache;
@@ -12,6 +11,28 @@ angular.module('bib.services')
       return cache ? $q.when(cache) : fileService.get(url).then(function (data) {
         cache = data;
         return data;
+      });
+    }
+  };
+})
+.factory('metadataService', function ($q, fileService) {
+  var url = './data/metadata.json?ver=' + Math.floor(Date.now() / 1000);
+  var cache;
+  var searchableTypes = ['String', 'Markdown'];
+
+  return {
+    get: function () {
+      return cache ? $q.when(cache) : fileService.get(url).then(function (data) {
+        cache = data;
+        return data;
+      });
+    },
+
+    getSearchableFields: function () {
+      return this.get().then(function (fields) {
+        return fields.filter(function (field) {
+          return searchableTypes.indexOf(field['Saisie : string, number, liste ou markdown']) !== -1;
+        });
       });
     }
   };

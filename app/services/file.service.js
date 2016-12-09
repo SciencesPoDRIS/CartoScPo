@@ -1,5 +1,8 @@
 'use strict';
 
+// this service is kind of agnostic
+// it's currently in charge of retrieving data.json or metadata.json
+
 angular.module('bib.services')
 .factory('fileService', function($http) {
   return {
