@@ -47,9 +47,6 @@ angular.module('bib.services')
     },
 
     displayCenterSelected: function (item, key, keyCenter, $scope) {
-      // display details of center
-      $scope.centerActive = true;
-
       // convert markdown to html
       var converter = new Showdown.converter();
 

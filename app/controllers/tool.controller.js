@@ -19,6 +19,7 @@ angular.module('bib.controllers')
 
   // search
 
+  // ng-model
   $scope.filterSearch = '';
 
   autocompleteService.get().then(function (words) {
@@ -85,8 +86,6 @@ angular.module('bib.controllers')
       if ($scope.filtersOn) {
         $scope.allCenters = immutableAllCenters;
 
-        // center details
-        $scope.centerActive = false;
         $scope.filtersOn = false;
 
         // get allCenters
@@ -106,12 +105,10 @@ angular.module('bib.controllers')
       if (!$scope.filterSearch) {
         $scope.allCenters = immutableAllCenters;
         $scope.filtersOn = false;
-        $scope.centerActive = false;
       }
 
       if ($scope.filterSearch || word) {
         if (word) $scope.filterSearch = word;
-        $scope.centerActive = true;
         $scope.filtersOn = true;
 
         var searchResult = searchService.search($scope.filterSearch);
@@ -169,7 +166,6 @@ angular.module('bib.controllers')
 
     // update map from list
     function updateMapFromList() {
-      $scope.centerActive = false;
       angular.extend($scope, {
         center: {
           lat: 46.22545288226939,
@@ -192,9 +188,6 @@ angular.module('bib.controllers')
     }
 
     function displayCenterByDefault(key, item, keyCenter) {
-      // display tabs
-      $scope.centerActive = true;
-      //$scope.filtersOn = true;
       $scope.centerSelected = item;
 
       // display details center & tooltip on map
@@ -211,8 +204,6 @@ angular.module('bib.controllers')
 
     // active tabs
     $scope.displayCenter = function(key, item, keyCenter) {
-      // display tabs
-      $scope.centerActive = true;
       //$scope.filtersOn = true;
       $scope.centerSelected = item;
 
@@ -228,9 +219,6 @@ angular.module('bib.controllers')
 
     // display a specific tab
     $scope.openSpecificTab = function(item, keyCenter) {
-      // open center details
-      $scope.centerActive = true;
-
       var center = { center: $scope.result.allCenters[item.id] };
 
       // display center details
