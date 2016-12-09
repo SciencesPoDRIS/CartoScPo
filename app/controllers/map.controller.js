@@ -36,12 +36,12 @@ angular.module('bib.controllers')
 
   $scope.zoomFrance = function() {
     angular.extend($scope, {
-      center: {
+      markers: $scope.allMarkers,
+      leafletCenter: {
         lat: 46.227638,
         lng: 2.213749,
         zoom: 6
       },
-      markers: $scope.allMarkers,
       position: {
         lat: 51,
         lng: 0,
@@ -54,6 +54,24 @@ angular.module('bib.controllers')
         }
       }
     });
+  };
+
+  // default leaflet settings
+
+  $scope.layers = {
+    baselayers: {
+      osm: {
+        name: 'OpenStreetMap',
+        url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+        type: 'xyz'
+      }
+    }
+  };
+
+  $scope.leafletCenter = {
+    lat: 46.22545288226939,
+    lng: 3.3618164062499996,
+    zoom: 2
   };
 });
 

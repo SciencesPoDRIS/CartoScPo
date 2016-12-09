@@ -167,12 +167,12 @@ angular.module('bib.controllers')
     // update map from list
     function updateMapFromList() {
       angular.extend($scope, {
-        center: {
+        markers: $scope.allMarkers,
+        leafletCenter: {
           lat: 46.22545288226939,
           lng: 3.3618164062499996,
           zoom: 2
         },
-        markers: $scope.allMarkers,
         position: {
           lat: 51,
           lng: 0,
@@ -335,7 +335,7 @@ angular.module('bib.controllers')
     // display map with markers choosen
     angular.extend($scope, {
       markers: $scope.allMarkers,
-      center: {
+      leafletCenter: {
         lat: 46.22545288226939,
         lng: 3.3618164062499996,
         zoom: 2
@@ -357,24 +357,6 @@ angular.module('bib.controllers')
   /*
    * Map Interactions
    */
-
-  // default map settings
-  angular.extend($scope, {
-    center: {
-      lat: 46.22545288226939,
-      lng: 3.3618164062499996,
-      zoom: 2
-    },
-    layers: {
-      baselayers: {
-        osm: {
-          name: 'OpenStreetMap',
-          url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-          type: 'xyz'
-        }
-      }
-    }
-  });
 
   // to reload map when page changing
   if (!$scope.$$phase) {
