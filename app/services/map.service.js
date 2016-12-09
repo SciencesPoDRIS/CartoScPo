@@ -47,59 +47,6 @@ angular.module('bib.services')
     },
 
     displayCenterSelected: function (item, key, keyCenter, $scope) {
-      // convert markdown to html
-      var converter = new Showdown.converter();
-
-      // bind center's data to tabs
-      if (item && item.center) {
-        // bind markdown data
-        $scope.ressourcesDescription = converter.makeHtml(item.center.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
-
-        // create axes
-        var axes = '';
-        if (Array.isArray(item.center.recherche['Axes de recherche'])) {
-          _.forEach(item.center.recherche['Axes de recherche'], function (d) {
-            axes = axes.concat(d) + ' \n';
-          });
-          $scope.axes = converter.makeHtml(axes);
-        }
-        else
-          $scope.axes = converter.makeHtml(item.center.recherche['Axes de recherche']);
-
-        // create contrats
-        var contrats = '';
-        if (Array.isArray(item.center.recherche['Contrats de recherche'])) {
-          _.forEach(item.center.recherche['Contrats de recherche'], function (d) {
-            contrats = contrats.concat(d) + ' \n';
-          });
-          $scope.contrats = converter.makeHtml(contrats);
-        }
-        else
-          $scope.contrats = converter.makeHtml(item.center.recherche['Contrats de recherche']);
-
-        // create seminaires
-        var seminaires = '';
-        if (Array.isArray(item.center.recherche['Séminaires de recherche'])) {
-          _.forEach(item.center.recherche['Séminaires de recherche'], function (d) {
-            seminaires = seminaires.concat(d) + ' \n';
-          });
-          $scope.seminaires = converter.makeHtml(seminaires);
-        }
-        else
-          $scope.seminaires = converter.makeHtml(item.center.recherche['Séminaires de recherche']);
-
-        // create collaboration
-        var collaboration = '';
-        if (Array.isArray(item.center.recherche['Collaborations / réseaux'])) {
-          _.forEach(item.center.recherche['Collaborations / réseaux'], function (d) {
-            collaboration = collaboration.concat(d) + ' \n';
-          });
-          $scope.collaboration = converter.makeHtml(collaboration);
-        }
-        else
-          $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);
-      }
-
       // highlight search in fulltxt
       $scope.highlight = function(text, search) {
         return !search ? $sce.trustAsHtml(text)
