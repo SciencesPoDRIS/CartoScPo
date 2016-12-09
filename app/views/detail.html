@@ -80,14 +80,14 @@
       <p>{{ recherche['Disciplines secondaires  selon l\'annuaire du MENESR'] }}</p>
 
       <h2>Mots-clefs</h2>
-      <p ng-repeat="word in motsClefs track by $index" class="keyWord" ng-click="showNameChanged(word)">{{ word }}</p>
+      <p ng-repeat="word in recherche['Mots-clés sujet  selon l\'annuaire du MENESR'].split('*') track by $index"
+        ng-if="word" class="keyWord" ng-click="showNameChanged(word)">{{ word }}</p>
 
       <h2>Axes de recherche</h2>
       <div ng-bind-html="highlight(axes, filterSearch)" class="recherche">
       </div>
 
       <h2>Contrats de recherche</h2>
-
       <div ng-bind-html="highlight(contrats, filterSearch)" class="recherche">
       </div>
     </div>
@@ -175,7 +175,7 @@
 
     <h2>Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h2>
     <div class="col-md-12">
-      <div ng-bind-html="ressourcesDesciption" class="recherche"></div>
+      <div ng-bind-html="ressourcesDescription" class="recherche"></div>
     </div>
 
     <h2>Politique documentaire</h2>

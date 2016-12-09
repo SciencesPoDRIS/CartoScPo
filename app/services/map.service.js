@@ -53,9 +53,7 @@ angular.module('bib.services')
       // bind center's data to tabs
       if (item && item.center) {
         // bind markdown data
-        $scope.link = './img/logos_centres_de_recherche_jpeg/' + item.center.administration['Acronyme (nom court)'] + '.jpg';
-        $scope.annuaire = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'];
-        $scope.ressourcesDesciption = converter.makeHtml(item.center.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
+        $scope.ressourcesDescription = converter.makeHtml(item.center.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
 
         // create axes
         var axes = '';
@@ -100,9 +98,6 @@ angular.module('bib.services')
         }
         else
           $scope.collaboration = converter.makeHtml(item.center.recherche['Collaborations / réseaux']);
-
-        if (item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'])
-          $scope.motsClefs = item.center.recherche['Mots-clés sujet selon l\'annuaire du MENESR'].split(';');
       }
 
       // highlight search in fulltxt
