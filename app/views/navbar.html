@@ -6,7 +6,7 @@
     <li><a href="#/">
       <i class="fa fa-home" aria-hidden="true"></i>
     </a></li>
-    <li ng-repeat="view in views" ng-class="{ active: isActive(view)}">
+    <li ng-repeat="view in $ctrl.views" ng-class="{ active: $ctrl.isActive(view)}">
       <a href="#/{{view.slug}}">{{view.label}}</a>
     </li>
   </ul>
