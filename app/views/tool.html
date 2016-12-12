@@ -4,9 +4,9 @@
       <div class="col-md-4">
         <div>
           <input id="search" type="text" placeholder="Entrez votre recherche ..."
-            ng-model="toolCtrl.filterSearch"
+            ng-model="toolCtrl.searchQuery"
             typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
-          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.filterSearch)">
+          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
           <button class="btn btn-lg btn-search" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">

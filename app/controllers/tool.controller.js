@@ -23,7 +23,7 @@ angular.module('bib.controllers')
   // search & facets
 
   // ng-model
-  this.filterSearch = '';
+  this.searchQuery = '';
 
   autocompleteService.getWords().then(function (words) {
     this.words = words;
@@ -44,14 +44,14 @@ angular.module('bib.controllers')
 
   this.toggleFacetItem = function (facet, item) {
     facetService.toggleFacetItem(facet, item);
-    this.triggerSearch(this.filterSearch);
+    this.triggerSearch(this.searchQuery);
   };
 
   this.resetSearch = function () {
-    this.filterSearch = '';
+    this.searchQuery = '';
     facetService.reset();
     this.triggerSearch();
-  }
+  };
 
   // init
   this.triggerSearch();

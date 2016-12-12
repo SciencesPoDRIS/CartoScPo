@@ -76,11 +76,15 @@ angular.module('bib.services')
           var parser = facet.parser || _.identity;
           return parser(center[facet.path][facet.key]);
         })
+        // in case of [Toulouse, Toulouse]
+        .map(_.uniq)
         .flatten()
         .filter(_.identity)
         .groupBy(_.identity)
         .mapValues(_.property('length'))
         .toPairs()
+        .sortBy(_.property(1))
+        .reverse()
         .map(_.spread(function (label, count) {
           var enabled = Boolean(_.find(this.enabledItems, { facetId: facetId, label: label }));
           return {
