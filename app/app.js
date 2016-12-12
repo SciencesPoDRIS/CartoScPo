@@ -2,7 +2,6 @@
 
 angular.module('bib.components', []);
 angular.module('bib.controllers', []);
-angular.module('bib.directives', []);
 angular.module('bib.services', []);
 angular.module('bib', [
   'ngRoute',
@@ -18,7 +17,6 @@ angular.module('bib', [
   'ui-leaflet',
   'bib.components',
   'bib.controllers',
-  'bib.directives',
   'bib.services'
 ])
 .config(function ($httpProvider, $locationProvider) {
