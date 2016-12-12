@@ -31,7 +31,6 @@ angular.module('bib.controllers')
   // display map with markers choosen
   $scope.initMap = function() {
     mapService.setAllAddressActive($scope.allCenters);
-    // updateMapFromList();
   };
 
   $scope.zoomFrance = function() {

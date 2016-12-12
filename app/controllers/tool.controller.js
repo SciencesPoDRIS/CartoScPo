@@ -95,8 +95,6 @@ angular.module('bib.controllers')
         });
 
         $scope.allMarkers = mapService.createMarkers(listCentersFiltered);
-
-        updateMapFromList();
       }
     };
 
@@ -159,33 +157,8 @@ angular.module('bib.controllers')
 
         // recreate allMarkers, maybe filtered ?
         $scope.allMarkers = mapService.createMarkers(listCentersFiltered);
-
-        updateMapFromList();
       }
     };
-
-    // update map from list
-    function updateMapFromList() {
-      angular.extend($scope, {
-        markers: $scope.allMarkers,
-        leafletCenter: {
-          lat: 46.22545288226939,
-          lng: 3.3618164062499996,
-          zoom: 2
-        },
-        position: {
-          lat: 51,
-          lng: 0,
-          zoom: 6
-        },
-        events: { // or just {} //all events
-          markers: {
-            enable: ['click', 'mouseover', 'mouseout'],
-            logic: 'broadcast'
-          }
-        }
-      });
-    }
 
     function displayCenterByDefault(key, item, keyCenter) {
       $scope.centerSelected = item;
@@ -208,12 +181,6 @@ angular.module('bib.controllers')
 
       // display details center & tooltip on map
       mapService.displayCenterSelected(item, key, keyCenter, $scope);
-    };
-
-    // desactive tabs
-    $scope.centerDesactivate = function() {
-      $scope.idSelectedCenter = null;
-      updateMapFromList();
     };
 
     // display a specific tab

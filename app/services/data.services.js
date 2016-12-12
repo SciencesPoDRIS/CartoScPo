@@ -1,4 +1,4 @@
-/* global elasticlunr */
+/* global lunr */
 'use strict';
 
 angular.module('bib.services')
@@ -25,7 +25,7 @@ angular.module('bib.services')
   };
 })
 .factory('searchService', function ($q, metadataService, centerService) {
-  var searchIndex;
+  var svc = {};
 
   var indexableFieldsP = metadataService.getIndexableFields();
   var fieldsAndCentersP = $q.all([
@@ -36,36 +36,32 @@ angular.module('bib.services')
     indexableFieldsP.then(buildSearchIndex),
     fieldsAndCentersP.then(_.spread(buildDocs))
   ])
-  .then(_.spread(fillSearchIndex));
+  .then(_.spread(fillSearchIndex))
+  .then(function (searchIndex) {
+    svc.searchIndex = searchIndex;
+  });
 
-  // elaticlunr instead of regular lunr so we can query by field later
   function buildSearchIndex (fields) {
-    // TODO remove global
-    searchIndex = lunr(function() {
-      // add fields needed for fulltext and the ones needed by facets
-      fields.forEach(function (f) {
-        this.field(f);
-      }.bind(this));
+    return lunr(function() {
+      // add fields needed for fulltext
+      fields.forEach(function (f) { this.field(f); }.bind(this));
       this.ref('id');
     });
-    return searchIndex;
   }
 
-  // TODO refactor
   // center objects are deep and huge
   // so we transform them in more practical docs to be indexed by lunr
   function buildDocs (centers, fields) {
     return Object.keys(centers).map(function (centerId) {
       var center = centers[centerId];
-      var doc = { id: centerId };
-      Object.keys(center).forEach(function (topic) {
+      return Object.keys(center).reduce(function (doc, topic) {
         fields.forEach(function (field) {
           if (center[topic][field]) {
             doc[field] = center[topic][field];
           }
         });
-      });
-      return doc;
+        return doc;
+      }, { id: centerId });
     });
   }
 
@@ -76,13 +72,13 @@ angular.module('bib.services')
     return searchIndex;
   }
 
-  return {
-    // options can be used to search on a specific field with bools
-    search: function (query, options) {
-      options = options || {};
-      return searchIndex.search(query, options);
-    }
+  // public API
+  svc.search = function (query, options) {
+    options = options || {};
+    return this.searchIndex.search(query, options);
   };
+
+  return svc;
 })
 .factory('centerService', function (dataService) {
   return {
@@ -92,4 +88,5 @@ angular.module('bib.services')
       });
     }
   };
-})
+});
+
