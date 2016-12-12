@@ -1,8 +1,9 @@
+/* globals Papa */
 'use strict';
 
 angular.module('bib.controllers')
 .controller('ToolCtrl', function($routeParams, leafletData,
-  mapService, centerService, facetService, autocompleteService, searchService) {
+      mapService, centerService, facetService, autocompleteService, searchService) {
 
   // this collection is refreshed on search
   this.centers = [];
@@ -13,6 +14,10 @@ angular.module('bib.controllers')
 
   this.displayListTab = function () {
     this.currentTab = 'list';
+  };
+
+  this.displayTable = function () {
+    this.currentTab = 'table';
   };
 
   this.displayMapTab = function () {
@@ -39,7 +44,10 @@ angular.module('bib.controllers')
       var facetedCenters = facetService.getCenters(centers);
       this.centers = facetedCenters;
       this.facets = facetService.getAll(facetedCenters);
+      // map
       this.markers = mapService.createMarkers(facetedCenters);
+      // grid
+      this.gridOptions.data = centerService.gridify(facetedCenters);
     }.bind(this));
   };
 
@@ -52,6 +60,41 @@ angular.module('bib.controllers')
     this.searchQuery = '';
     facetService.reset();
     this.triggerSearch();
+  };
+
+  // grid
+
+  this.gridOptions = {
+    enableFiltering: true,
+    onRegisterApi: function(gridApi) {
+      this.gridApi = gridApi;
+    }.bind(this),
+    columnDefs: [
+    { field: 'Intitulé', enableFiltering: true },
+    { field: 'Ville', enableFiltering: true },
+    { field: 'Code Unité', enableFiltering: true }
+    ]
+  };
+
+  this.exportGrid = function() {
+    var selected = this.gridApi.grid.renderContainers.body.visibleRowCache.map(function(d) {
+      delete d.entity['$$hashKey'];
+      delete d.entity['addressesGeo'];
+      delete d.entity['Commentaires'];
+      delete d.entity['Logo'];
+      return d.entity;
+    });
+
+    var csv = Papa.unparse(selected);
+    var blob = new Blob([csv], { type: 'attachment/csv;charset=utf-8' });
+
+    var a = document.createElement('a');
+    a.style.display = 'none';
+    a.setAttribute('href', URL.createObjectURL(blob));
+    a.setAttribute('download', 'data' + '.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   // init
