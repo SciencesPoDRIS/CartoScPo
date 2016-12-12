@@ -1,7 +1,7 @@
 <div id="center-list">
   <div class="center-list-item" ng-repeat="(keyCenter, value) in allCenters track by $index">
     <h3>
-      <a class="center-title" href="" ng-click="displayCenter(0, value, keyCenter)">
+      <a class="center-title" href="">
         <span>{{value.center.administration['Intitulé']}}</span>
         <span ng-if="value.center.administration['Intitulé'] && value.center.administration['Acronyme (nom court)']"> - </span>
         <span>{{value.center.administration['Acronyme (nom court)']}}</span>

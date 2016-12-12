@@ -53,9 +53,6 @@ angular.module('bib.services')
           : $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted">$&</span>'));
       };
 
-      // highlight center in list
-      $scope.idSelectedCenter = keyCenter;
-
       // open popup of center selected only if address click, not navigation
       leafletData.getMap().then(function() {
         // display all addresses available
