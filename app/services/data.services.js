@@ -41,12 +41,12 @@ angular.module('bib.services')
   // elaticlunr instead of regular lunr so we can query by field later
   function buildSearchIndex (fields) {
     // TODO remove global
-    searchIndex = elasticlunr(function() {
+    searchIndex = lunr(function() {
       // add fields needed for fulltext and the ones needed by facets
       fields.forEach(function (f) {
-        this.addField(f);
+        this.field(f);
       }.bind(this));
-      this.setRef('id');
+      this.ref('id');
     });
     return searchIndex;
   }
@@ -71,7 +71,7 @@ angular.module('bib.services')
 
   function fillSearchIndex (searchIndex, docs) {
     docs.forEach(function (doc) {
-      searchIndex.addDoc(doc);
+      searchIndex.add(doc);
     });
     return searchIndex;
   }

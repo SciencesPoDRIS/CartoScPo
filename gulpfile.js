@@ -33,8 +33,8 @@ gulp.task('js', function() {
       'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/angular-touch/angular-touch.min.js',
       'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
-      'bower_components/elasticlunr.js/elasticlunr.js',
-      'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js'
+      'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
+      'bower_components/lunr.js/lunr.js',
       ],
       {base: 'bower_components/'}
     )
