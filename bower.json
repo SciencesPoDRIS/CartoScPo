@@ -41,7 +41,7 @@
     "ui-leaflet": "1.0.1",
     "font-awesome": "^4.7.0",
     "leaflet.markercluster": "0.5.0",
-    "elasticlunr.js": "^0.9.5"
+    "lunr.js": "^0.7.2"
   },
   "resolutions": {
     "angular": "1.x"
