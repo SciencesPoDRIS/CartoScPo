@@ -39,6 +39,7 @@ angular.module('bib.controllers')
       var facetedCenters = facetService.getCenters(centers);
       this.centers = facetedCenters;
       this.facets = facetService.getAll(facetedCenters);
+      this.markers = mapService.createMarkers(facetedCenters);
     }.bind(this));
   };
 

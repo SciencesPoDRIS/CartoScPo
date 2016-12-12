@@ -35,7 +35,6 @@ angular.module('bib.controllers')
 
   $scope.zoomFrance = function() {
     angular.extend($scope, {
-      markers: $scope.allMarkers,
       leafletCenter: {
         lat: 46.227638,
         lng: 2.213749,
