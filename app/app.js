@@ -19,8 +19,10 @@ angular.module('bib', [
   'bib.directives',
   'bib.services'
 ])
-.config(function ($httpProvider) {
+.config(function ($httpProvider, $locationProvider) {
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+  $locationProvider.hashPrefix('');
 })
 .config(function($routeProvider) {
   $routeProvider
