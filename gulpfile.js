@@ -34,7 +34,6 @@ gulp.task('js', function() {
       'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
       'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
 
-      'bower_components/d3/d3.min.js',
       'bower_components/papaparse/papaparse.min.js',
       'bower_components/showdown/src/showdown.js',
       'bower_components/lunr.js/lunr.js',
