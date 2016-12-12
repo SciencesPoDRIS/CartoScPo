@@ -28,6 +28,9 @@ angular.module('bib', [
   .when('/', {
     templateUrl: 'views/home.html',
   })
+  .when('/centers/:centerId', {
+    templateUrl: 'views/tool.html',
+  })
   .when('/centers', {
     templateUrl: 'views/tool.html',
   })

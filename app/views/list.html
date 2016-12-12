@@ -1,7 +1,7 @@
 <div id="center-list">
   <div class="center-list-item" ng-repeat="center in toolCtrl.centers track by center.id">
-    <h3>
-      <a class="center-title" href="">
+    <h3 id="center-{{ center.id }}">
+      <a class="center-title" href="#/centers/{{ center.id }}">
         <span>{{center.administration['Intitulé']}}</span>
         <span ng-if="center.administration['Intitulé'] && center.administration['Acronyme (nom court)']"> - </span>
         <span>{{center.administration['Acronyme (nom court)']}}</span>
@@ -17,8 +17,8 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button class="btn" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + keyCenter }}">Voir plus</button>
-        <div class="collapse" id="{{ 'see-more-' + keyCenter }}">
+        <button class="btn" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + center.id }}">Voir plus</button>
+        <div class="collapse" id="{{ 'see-more-' + center.id }}">
           <center-detail org="center"></center-detail>
         </div>
       </div>
