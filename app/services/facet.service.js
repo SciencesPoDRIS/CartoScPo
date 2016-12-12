@@ -115,6 +115,8 @@ angular.module('bib.services')
     },
 
     getCenters: function (centers) {
+      if (!this.enabledItems.length) return centers;
+
       return centers.filter(function (center) {
         return this.enabledItems.every(function (item) {
           var facet = _.find(facets, {id: item.facetId});
