@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bib.controllers')
-.controller('ToolCtrl', function($scope, leafletMarkerEvents, leafletMapEvents, leafletData,
+.controller('ToolCtrl', function($scope, leafletMapEvents, leafletData,
   mapService, centerService, autocompleteService, searchService) {
 
   // tabs
@@ -361,51 +361,6 @@ angular.module('bib.controllers')
   // to reload map when page changing
   if (!$scope.$$phase) {
     $scope.$apply();
-  }
-
-  // catch map events
-  $scope.events = {
-    markers: {
-      enable: leafletMarkerEvents.getAvailableEvents(),
-    }
-  };
-
-  var markerEvents = leafletMarkerEvents.getAvailableEvents();
-
-  // detect event on markers and display or close popup
-  for (var k in markerEvents) {
-    var eventName = 'leafletDirectiveMarker.' + markerEvents[k];
-    $scope.$on(eventName, function(event, args) {
-      $scope.eventDetected = event.name;
-
-      if ($scope.eventDetected === 'leafletDirectiveMarker.click') {
-        // open popup
-        args.leafletEvent.target.openPopup();
-
-        // hightlight center in list
-        var centerId = args.leafletEvent.target.options.id;
-        centerId = centerId.split('_')[0];
-        $scope.idSelectedCenter = $scope.keyInList[centerId];
-
-        // save position in list
-        var key = $scope.idSelectedCenter;
-        $scope.key = key;
-
-        // display center details -> need keycenter
-        mapService.displayCenterSelected($scope.allCenters[key], null, key, $scope);
-
-        // display center in list
-        $('#listCenters').scrollTo($('.' + key));
-      }
-
-      if ($scope.eventDetected === 'leafletDirectiveMarker.mouseover') {
-        args.leafletEvent.target.openPopup();
-      }
-
-      if ($scope.eventDetected === 'leafletDirectiveMarker.mouseout') {
-        args.leafletEvent.target.closePopup();
-      }
-    });
   }
 
   // https://github.com/tombatossals/angular-leaflet-directive/issues/49
