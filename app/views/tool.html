@@ -16,7 +16,9 @@
         <h4 class="search-count">
           Nombre de centres trouvés : {{toolCtrl.centers.length}}
         </h4>
-        <ng-include src="'views/facets.html'"></ng-include>
+        <facets
+          facets="toolCtrl.facets"
+          on-toggle-item="toolCtrl.toggleFacetItem($event)"></facets>
       </div>
 
       <div class="col-md-8">

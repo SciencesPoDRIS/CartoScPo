@@ -1,12 +1,12 @@
 <div>
-  <div class="facet" ng-repeat="facet in toolCtrl.facets track by facet.id">
+  <div class="facet" ng-repeat="facet in $ctrl.facets track by facet.id">
     <h2>{{ facet.key }} ({{ facet.items.length }})</h2>
 
     <div class="facet-item-list">
       <ul>
         <li ng-class="{'facet-item': true, 'facet-item-enabled': item.enabled}"
           ng-repeat="item in facet.items track by item.label"
-          ng-click="toolCtrl.toggleFacetItem(facet, item)">
+          ng-click="$ctrl.onToggleItem({ $event: { facet: facet, item: item } })">
           {{ item.label }} — {{ item.count }}
 
           <span class="facet-item-remove" ng-show="item.enabled"

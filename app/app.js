@@ -1,5 +1,6 @@
 'use strict';
 
+angular.module('bib.components', []);
 angular.module('bib.controllers', []);
 angular.module('bib.directives', []);
 angular.module('bib.services', []);
@@ -15,6 +16,7 @@ angular.module('bib', [
   'angulartics',
   'angulartics.google.analytics',
   'ui-leaflet',
+  'bib.components',
   'bib.controllers',
   'bib.directives',
   'bib.services'
