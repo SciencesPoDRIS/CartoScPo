@@ -1,19 +1,20 @@
-<div class="view-page">
+<div class="view-page" ng-controller="ToolCtrl as toolCtrl">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
         <div>
           <input id="search" type="text" placeholder="Entrez votre recherche ..."
-            ng-model="filterSearch" typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
-          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="triggerSearch(filterSearch)">
+            ng-model="toolCtrl.filterSearch"
+            typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
+          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.filterSearch)">
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-lg btn-search" title="Annuler" ng-click="filterSearch='';triggerSearch()">
+          <button class="btn btn-lg btn-search" title="Annuler" ng-click="toolCtrl.filterSearch='';toolCtrl.triggerSearch()">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </div>
         <h4 class="search-count">
-          Nombre de centres trouvés : {{centers.length}}
+          Nombre de centres trouvés : {{toolCtrl.centers.length}}
         </h4>
         <ng-include src="'views/facets.html'"></ng-include>
       </div>
@@ -21,8 +22,8 @@
       <div class="col-md-8">
         <div>
           <ul class="nav nav-tabs">
-            <li class="active"><a data-target="#tab-list" data-toggle="tab" ng-click="displayListTab()">List</a></li>
-            <li><a data-target="#tab-map" data-toggle="tab" ng-click="displayMapTab()">Map</a></li>
+            <li class="active"><a data-target="#tab-list" data-toggle="tab" ng-click="toolCtrl.displayListTab()">List</a></li>
+            <li><a data-target="#tab-map" data-toggle="tab" ng-click="toolCtrl.displayMapTab()">Map</a></li>
           </ul>
         </div>
         <div>

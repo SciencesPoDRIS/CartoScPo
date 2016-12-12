@@ -30,7 +30,6 @@ angular.module('bib', [
   })
   .when('/centers', {
     templateUrl: 'views/tool.html',
-    controller: 'ToolCtrl'
   })
   .when('/project', {
     templateUrl: 'views/project.html'

@@ -1,46 +1,46 @@
 'use strict';
 
 angular.module('bib.controllers')
-.controller('ToolCtrl', function($scope, leafletMapEvents, leafletData,
+.controller('ToolCtrl', function(leafletMapEvents, leafletData,
   mapService, centerService, autocompleteService, searchService) {
 
   // tabs
 
-  $scope.currentTab = 'list';
+  this.currentTab = 'list';
 
-  $scope.displayListTab = function () {
-    $scope.currentTab = 'list';
+  this.displayListTab = function () {
+    this.currentTab = 'list';
   };
 
-  $scope.displayMapTab = function () {
-    $scope.currentTab = 'map';
-    $scope.refreshMap();
+  this.displayMapTab = function () {
+    this.currentTab = 'map';
+    this.refreshMap();
   };
 
   // search
 
   // ng-model
-  $scope.filterSearch = '';
+  this.filterSearch = '';
 
   autocompleteService.getWords().then(function (words) {
-    $scope.allWords = words;
-  });
+    this.words = words;
+  }.bind(this));
 
   // all Words in typeahead search in lowercase
-  $scope.startsWith = function(state, viewValue) {
+  this.startsWith = function(state, viewValue) {
     return state.substr(0, viewValue.length).toLowerCase() === viewValue.toLowerCase();
   };
 
-  $scope.triggerSearch = function (query) {
+  this.triggerSearch = function (query) {
     searchService.getCenters(query).then(function (centers) {
-      $scope.centers = centers;
-    });
+      this.centers = centers;
+    }.bind(this));
   };
 
-  $scope.triggerSearch();
+  this.triggerSearch();
 
   // https://github.com/tombatossals/angular-leaflet-directive/issues/49
-  $scope.refreshMap = function () {
+  this.refreshMap = function () {
     leafletData.getMap().then(function(map) {
       // shameless timeout of the death
       setTimeout(function () {
