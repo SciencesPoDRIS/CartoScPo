@@ -18,7 +18,6 @@ gulp.task('js', function() {
       'bower_components/angular/angular.js',
       'bower_components/angular-simple-logger/dist/angular-simple-logger.js',
       'bower_components/angular-route/angular-route.min.js',
-      'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.min.js',
       'bower_components/angular-ui-select/dist/select.js',

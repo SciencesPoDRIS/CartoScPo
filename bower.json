@@ -16,12 +16,11 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "1.2.x",
-    "angular-animate": "*",
+    "angular": "^1.x.x",
     "angular-bootstrap": "~0.10.0",
     "angular-markdown-directive": "^0.3.1",
     "angular-marked": "^1.2.1",
-    "angular-route": "1.2.x",
+    "angular-route": "*",
     "angular-sanitize": "*",
     "angular-simple-logger": "0.1.7",
     "angular-touch": "^1.5.7",
@@ -40,8 +39,5 @@
     "font-awesome": "^4.7.0",
     "leaflet.markercluster": "0.5.0",
     "lunr.js": "^0.7.2"
-  },
-  "resolutions": {
-    "angular": "1.x"
   }
 }

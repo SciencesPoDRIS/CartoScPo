@@ -5,7 +5,6 @@ angular.module('bib.directives', []);
 angular.module('bib.services', []);
 angular.module('bib', [
   'ngRoute',
-  'ngAnimate',
   'ngSanitize',
   'ui.bootstrap',
   'ui.grid',
