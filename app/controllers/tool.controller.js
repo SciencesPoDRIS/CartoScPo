@@ -31,126 +31,13 @@ angular.module('bib.controllers')
     return state.substr(0, viewValue.length).toLowerCase() === viewValue.toLowerCase();
   };
 
-  // Load Data & init business logic
-  centerService.getAll().then(function(centers) {
-    $scope.allMarkers = mapService.createMarkers(centers);
-
-    // create list for first renderer
-    $scope.allCenters = [];
-
-    // use filter on allMarkers, don't mute allMarkers, allCenters
-    // create immutable list as reference data
-    var immutableAllCenters = [];
-    _.forIn(centers, function(v) {
-      if (v.administration) {
-        $scope.allCenters.push(v);
-        immutableAllCenters.push({ center: v });
-      }
+  $scope.triggerSearch = function (query) {
+    searchService.getCenters(query).then(function (centers) {
+      $scope.centers = centers;
     });
+  };
 
-    // keep the place of center in list
-    $scope.keyInList = {};
-    _.forEach($scope.allCenters, function(v, k) {
-      var id = v.administration['id'];
-      $scope.keyInList[id] = k;
-    });
-
-    // if no word in input display allcenters
-    if (!$scope.filterSearch) {
-      $scope.allCenters = immutableAllCenters;
-      $scope.filtersOn = false;
-    }
-
-    /*
-     * All functions used in view
-     */
-
-    // reset all filters : list, map, navigation, center displayed
-    $scope.resetFilter = function() {
-      $scope.filterSearch = '';
-
-      // close popup
-      leafletData.getMap().then(function(map) {
-        map.closePopup();
-      });
-
-      if ($scope.filtersOn) {
-        $scope.allCenters = immutableAllCenters;
-        $scope.filtersOn = false;
-
-        // get allCenters
-        var listCentersFiltered = {};
-        _.forIn(centers, function(v, k) {
-          listCentersFiltered[k] = v;
-        });
-
-        $scope.allMarkers = mapService.createMarkers(listCentersFiltered);
-      }
-    };
-
-    // sort list by input search
-    $scope.showNameChanged = function(word) {
-      if (!$scope.filterSearch) {
-        $scope.allCenters = immutableAllCenters;
-        $scope.filtersOn = false;
-      }
-
-      if ($scope.filterSearch || word) {
-        if (word) $scope.filterSearch = word;
-        $scope.filtersOn = true;
-
-        var searchResult = searchService.search($scope.filterSearch);
-        console.log('searchResult', searchResult);
-
-        var resultWithPath = _.groupBy(searchResult, 'ref');
-
-        // aggregate search result and center
-        var resultWithPathBis = [];
-        _.forIn(resultWithPath, function(v, k) {
-          resultWithPathBis.push({ center: centers[k], search: v });
-        });
-
-        // bind center result to scope (list)
-        $scope.allCenters = resultWithPathBis;
-
-        // create index of center in list -> create a function -> service
-        $scope.keyInList = {};
-        _.forEach($scope.allCenters, function(v, k) {
-          if (v) $scope.keyInList[v.search[0].id] = k;
-        });
-
-        // recreate list ?
-        var listCentersFiltered = {};
-        _.forEach(Object.keys(resultWithPath), function(d) {
-          listCentersFiltered[d] = centers[d];
-        });
-
-        // recreate allMarkers, maybe filtered ?
-        $scope.allMarkers = mapService.createMarkers(listCentersFiltered);
-      }
-    };
-
-    // display map with markers choosen
-    angular.extend($scope, {
-      markers: $scope.allMarkers,
-      leafletCenter: {
-        lat: 46.22545288226939,
-        lng: 3.3618164062499996,
-        zoom: 2
-      },
-      position: {
-        lat: 51,
-        lng: 0,
-        zoom: 4
-      },
-      events: { // or just {} //all events
-        markers: {
-          enable: ['click', 'mouseover', 'mouseout'],
-          logic: 'broadcast'
-        }
-      }
-    });
-  });
+  $scope.triggerSearch();
 
   // https://github.com/tombatossals/angular-leaflet-directive/issues/49
   $scope.refreshMap = function () {

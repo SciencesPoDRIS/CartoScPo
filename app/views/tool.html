@@ -5,15 +5,15 @@
         <div>
           <input id="search" type="text" placeholder="Entrez votre recherche ..."
             ng-model="filterSearch" typeahead="word for word in allWords | filter:$viewValue:startsWith | limitTo:8">
-          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="showNameChanged()">
+          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="triggerSearch(filterSearch)">
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-lg btn-search" title="Annuler" ng-click="resetFilter(key)">
+          <button class="btn btn-lg btn-search" title="Annuler" ng-click="filterSearch='';triggerSearch()">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </div>
         <h4 class="search-count">
-          Nombre de centres trouvés : {{allCenters.length}}
+          Nombre de centres trouvés : {{centers.length}}
         </h4>
         <ng-include src="'views/facets.html'"></ng-include>
       </div>

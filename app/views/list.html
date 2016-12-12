@@ -1,25 +1,25 @@
 <div id="center-list">
-  <div class="center-list-item" ng-repeat="(keyCenter, value) in allCenters track by $index">
+  <div class="center-list-item" ng-repeat="center in centers track by center.id">
     <h3>
       <a class="center-title" href="">
-        <span>{{value.center.administration['Intitulé']}}</span>
-        <span ng-if="value.center.administration['Intitulé'] && value.center.administration['Acronyme (nom court)']"> - </span>
-        <span>{{value.center.administration['Acronyme (nom court)']}}</span>
+        <span>{{center.administration['Intitulé']}}</span>
+        <span ng-if="center.administration['Intitulé'] && center.administration['Acronyme (nom court)']"> - </span>
+        <span>{{center.administration['Acronyme (nom court)']}}</span>
       </a>
     </h3>
     <div class="row">
       <div class="col-md-8">
-        <p>Code unité : {{value.center.administration['Code Unité']}}</p>
+        <p>Code unité : {{center.administration['Code Unité']}}</p>
       </div>
       <div class="col-md-3 text-right">
-        <logo org="value.center"></logo>
+        <logo org="center"></logo>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <button class="btn" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + keyCenter }}">Voir plus</button>
         <div class="collapse" id="{{ 'see-more-' + keyCenter }}">
-          <center-detail org="value.center"></center-detail>
+          <center-detail org="center"></center-detail>
         </div>
       </div>
     </div>

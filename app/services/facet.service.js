@@ -72,9 +72,9 @@ angular.module('bib.services')
     getItems: function (facetId) {
       var facet = _.find(facets, {id: facetId});
       return centerService.getAll().then(function (centers) {
-        var items = Object.keys(centers).map(function (centerId) {
+        var items = centers.map(function (center) {
           var parser = facet.parser || _.identity;
-          return parser(centers[centerId][facet.path][facet.key]);
+          return parser(center[facet.path][facet.key]);
         });
         return _.uniq(_.flatten(items)).sort();
       });

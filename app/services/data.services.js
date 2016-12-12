@@ -52,8 +52,7 @@ angular.module('bib.services')
   // center objects are deep and huge
   // so we transform them in more practical docs to be indexed by lunr
   function buildDocs (centers, fields) {
-    return Object.keys(centers).map(function (centerId) {
-      var center = centers[centerId];
+    return centers.map(function (center) {
       return Object.keys(center).reduce(function (doc, topic) {
         fields.forEach(function (field) {
           if (center[topic][field]) {
@@ -61,7 +60,7 @@ angular.module('bib.services')
           }
         });
         return doc;
-      }, { id: centerId });
+      }, { id: center.id });
     });
   }
 
@@ -78,13 +77,28 @@ angular.module('bib.services')
     return this.searchIndex.search(query, options);
   };
 
+  svc.getCenters = function (query) {
+    if (!query) return centerService.getAll();
+
+    var results = this.search(query);
+    return centerService.getAll().then(function (centers) {
+      return results.map(function (result) {
+        return _.find(centers, { id: result.ref });
+      });
+    });
+  };
+
   return svc;
 })
 .factory('centerService', function (dataService) {
   return {
     getAll: function () {
       return dataService.get().then(function (data) {
-        return data.allCenters;
+        // TODO this conversion Obj → Array could be done during paring
+        return _.map(data.allCenters, function (center, centerId) {
+          center.id = centerId;
+          return center;
+        });
       });
     }
   };
