@@ -26,8 +26,6 @@ gulp.task('js', function() {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'bower_components/bootstrap/dist/js/bootstrap.min.js',
 
-      'bower_components/ng-grid/build/ng-grid.js',
-      'bower_components/ng-grid/plugins/ng-grid-csv-export.js',
       'bower_components/angular-ui-grid/ui-grid.js',
 
       'bower_components/angulartics/dist/angulartics.min.js',
@@ -55,7 +53,6 @@ gulp.task('css', function() {
     gulp.src('bower_components/font-awesome/fonts/*.*').pipe(gulp.dest('./app/assets/fonts'))
     return gulp.src([
         'bower_components/angular-ui-select/dist/select.css',
-        'bower_components/ng-grid/ng-grid.css',
         'bower_components/leaflet/dist/leaflet.css',
         'bower_components/angular-ui-grid/ui-grid.css',
         'bower_components/font-awesome/css/font-awesome.min.css'
