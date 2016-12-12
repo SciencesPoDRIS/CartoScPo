@@ -59,6 +59,8 @@ angular.module('bib.services')
   return {
     facets: facets,
 
+    enabledItems: [],
+
     getAll: function (centers) {
       return facets.map(function (facet) {
         facet.items = this.getItems(facet.id, centers);
@@ -66,7 +68,7 @@ angular.module('bib.services')
       }.bind(this));
     },
 
-    // example for the city facet: { label: 'Toulouse', 'count': 2, enable: false }
+    // example for the city facet: { label: 'Toulouse', 'count': 2, enabled: false }
     getItems: function (facetId, centers) {
       var facet = _.find(facets, {id: facetId});
       var items = _(centers)
@@ -79,12 +81,41 @@ angular.module('bib.services')
         .groupBy(_.identity)
         .mapValues(_.property('length'))
         .toPairs()
-        .map(function (item) {
-          return { label: item[0], count: item[1], enable: false };
-        })
+        .map(_.spread(function (label, count) {
+          var enabled = Boolean(_.find(this.enabledItems, { facetId: facetId, label: label }));
+          return {
+            label: label,
+            count: count,
+            enabled: enabled
+          };
+        }.bind(this)))
         .value();
 
       return items;
+    },
+
+    toggleFacetItem: function (facet, item) {
+      var stored = { facetId: facet.id, label: item.label };
+      _.find(this.enabledItems, stored)
+        ? _.remove(this.enabledItems, function (i) {
+          return i.facetId === facet.id && i.label === item.label;
+        })
+        : this.enabledItems.push(stored);
+    },
+
+    reset: function () {
+      this.enabledItems = [];
+    },
+
+    getCenters: function (centers) {
+      return centers.filter(function (center) {
+        return this.enabledItems.every(function (item) {
+          var facet = _.find(facets, {id: item.facetId});
+          var parser = facet.parser || _.identity;
+          var value = parser(center[facet.path][facet.key]);
+          return value.indexOf(item.label) !== -1;
+        }, this);
+      }, this);
     }
   };
 })

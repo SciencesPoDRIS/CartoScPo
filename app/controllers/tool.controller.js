@@ -20,7 +20,7 @@ angular.module('bib.controllers')
     this.refreshMap();
   };
 
-  // search
+  // search & facets
 
   // ng-model
   this.filterSearch = '';
@@ -36,11 +36,24 @@ angular.module('bib.controllers')
 
   this.triggerSearch = function (query) {
     searchService.getCenters(query).then(function (centers) {
-      this.centers = centers;
-      this.facets = facetService.getAll(centers);
+      var facetedCenters = facetService.getCenters(centers);
+      this.centers = facetedCenters;
+      this.facets = facetService.getAll(facetedCenters);
     }.bind(this));
   };
 
+  this.toggleFacetItem = function (facet, item) {
+    facetService.toggleFacetItem(facet, item);
+    this.triggerSearch(this.filterSearch);
+  };
+
+  this.resetSearch = function () {
+    this.filterSearch = '';
+    facetService.reset();
+    this.triggerSearch();
+  }
+
+  // init
   this.triggerSearch();
 
   // https://github.com/tombatossals/angular-leaflet-directive/issues/49

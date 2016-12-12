@@ -1,11 +1,14 @@
 <div>
   <div class="facet" ng-repeat="facet in toolCtrl.facets track by facet.id">
-    <label>{{ facet.key }}</label>
+    <h2>{{ facet.key }}</h2>
 
-    <div ng-if="facet.type === 'multi'" style="max-height: 100px; overflow-x: hidden; overflow-y: auto;">
+    <div class="facet-item-list" ng-if="facet.type === 'multi'" style="max-height: 100px; overflow-x: hidden; overflow-y: auto;">
       <ul>
-        <li class="facet-item" ng-repeat="item in facet.items track by item.label">
+        <li ng-class="{'facet-item': true, 'facet-item-enabled': item.enabled}"
+          ng-repeat="item in facet.items track by item.label"
+          ng-click="toolCtrl.toggleFacetItem(facet, item)">
           {{ item.label }} — {{ item.count }}
+          <span class="facet-item-remove" ng-show="item.enabled">×</span>
         </li>
       </ul>
     </div>
@@ -14,7 +17,5 @@
       <!-- TODO tri-state checkbox (with indeterminate) -->
       <input type="checkbox" ng-model="ctrl.selected[facet.id]">
     </div>
-
-    <p>Selected: {{ ctrl.selected[facet.id] }}</p>
   </div>
 </div>
