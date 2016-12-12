@@ -33,13 +33,7 @@ angular.module('bib.controllers')
 
   // Load Data & init business logic
   centerService.getAll().then(function(centers) {
-    $scope.result = { allCenters: centers };
-    $scope.centersSearch = [];
-    _.forIn($scope.result.allCenters, function(v) {
-      $scope.centersSearch.push(v);
-    });
-
-    $scope.allMarkers = mapService.createMarkers($scope.result.allCenters);
+    $scope.allMarkers = mapService.createMarkers(centers);
 
     // create list for first renderer
     $scope.allCenters = [];
@@ -47,7 +41,7 @@ angular.module('bib.controllers')
     // use filter on allMarkers, don't mute allMarkers, allCenters
     // create immutable list as reference data
     var immutableAllCenters = [];
-    _.forIn($scope.result.allCenters, function(v) {
+    _.forIn(centers, function(v) {
       if (v.administration) {
         $scope.allCenters.push(v);
         immutableAllCenters.push({ center: v });
@@ -86,7 +80,7 @@ angular.module('bib.controllers')
 
         // get allCenters
         var listCentersFiltered = {};
-        _.forIn($scope.result.allCenters, function(v, k) {
+        _.forIn(centers, function(v, k) {
           listCentersFiltered[k] = v;
         });
 
@@ -107,30 +101,13 @@ angular.module('bib.controllers')
 
         var searchResult = searchService.search($scope.filterSearch);
         console.log('searchResult', searchResult);
-        var resultWithPath = [];
 
-        // split slug
-        _.forEach(searchResult, function(d) {
-          if (d) {
-            var searchPath = d.ref.split('_');
-            var tab = searchPath[1] === 'personnel' || searchPath[1] === 'administration'
-              ? 'description administrative' : searchPath[1];
-
-            resultWithPath.push({
-              id: searchPath[0],
-              tab: tab,
-              prop: searchPath[2]
-            });
-          }
-        });
-
-        // manage multiple results for one center
-        resultWithPath = _.groupBy(resultWithPath, 'id');
+        var resultWithPath = _.groupBy(searchResult, 'ref');
 
         // aggregate search result and center
         var resultWithPathBis = [];
         _.forIn(resultWithPath, function(v, k) {
-          resultWithPathBis.push({ center: $scope.result.allCenters[k], search: v });
+          resultWithPathBis.push({ center: centers[k], search: v });
         });
 
         // bind center result to scope (list)
@@ -145,7 +122,7 @@ angular.module('bib.controllers')
         // recreate list ?
         var listCentersFiltered = {};
         _.forEach(Object.keys(resultWithPath), function(d) {
-          listCentersFiltered[d] = $scope.result.allCenters[d];
+          listCentersFiltered[d] = centers[d];
         });
 
         // recreate allMarkers, maybe filtered ?
