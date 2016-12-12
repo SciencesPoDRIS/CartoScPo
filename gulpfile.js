@@ -8,32 +8,38 @@ var gulp = require('gulp'),
 // Concat all bower libraries used in website
 gulp.task('js', function() {
     return gulp.src([
-      'bower_components/jquery-highlight/jquery-highlight.js',
       'bower_components/lodash/dist/lodash.min.js',
+
       'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/jquery-highlight/jquery-highlight.js',
       'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
+      'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
+
       'bower_components/angular/angular.js',
-      'bower_components/leaflet/dist/leaflet.js',
       'bower_components/angular-simple-logger/dist/angular-simple-logger.js',
-      'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
-      'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-      'bower_components/bootstrap/dist/js/bootstrap.min.js',
       'bower_components/angular-route/angular-route.min.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
-      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'bower_components/angular-touch/angular-touch.min.js',
       'bower_components/angular-ui-select/dist/select.js',
+
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'bower_components/bootstrap/dist/js/bootstrap.min.js',
+
       'bower_components/ng-grid/build/ng-grid.js',
       'bower_components/ng-grid/plugins/ng-grid-csv-export.js',
+      'bower_components/angular-ui-grid/ui-grid.js',
+
       'bower_components/angulartics/dist/angulartics.min.js',
       'bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
+
+      'bower_components/leaflet/dist/leaflet.js',
+      'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
+      'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
+
       'bower_components/d3/d3.min.js',
       'bower_components/papaparse/papaparse.min.js',
       'bower_components/showdown/src/showdown.js',
-      'bower_components/angular-ui-grid/ui-grid.js',
-      'bower_components/angular-touch/angular-touch.min.js',
-      'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
-      'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
       'bower_components/lunr.js/lunr.js',
       ],
       {base: 'bower_components/'}
