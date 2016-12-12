@@ -1,15 +1,13 @@
-<div ng-controller="FacetsCtrl as ctrl">
-  <div class="facet" ng-repeat="facet in ctrl.facets track by facet.id">
+<div>
+  <div class="facet" ng-repeat="facet in toolCtrl.facets track by facet.id">
     <label>{{ facet.key }}</label>
 
-    <div ng-if="facet.type === 'multi'">
-      <ui-select multiple ng-model="ctrl.selected[facet.id]" theme="bootstrap"
-        close-on-select="false" title="">
-        <ui-select-match placeholder="">{{ $item }}</ui-select-match>
-        <ui-select-choices repeat="item in facet.items | filter:$select.search">
-          {{ item }}
-        </ui-select-choices>
-      </ui-select>
+    <div ng-if="facet.type === 'multi'" style="max-height: 100px; overflow-x: hidden; overflow-y: auto;">
+      <ul>
+        <li class="facet-item" ng-repeat="item in facet.items track by item.label">
+          {{ item.label }} — {{ item.count }}
+        </li>
+      </ul>
     </div>
 
     <div ng-if="facet.type === 'boolean'">

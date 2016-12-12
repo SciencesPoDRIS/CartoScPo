@@ -1,5 +1,5 @@
 angular.module('bib.services')
-.factory('facetService', function ($filter, $q, centerService) {
+.factory('facetService', function ($filter, $q) {
   /* TODO put this in a config
   * this object describes the fields available in the sidebar
   * - id has to be unique
@@ -59,25 +59,32 @@ angular.module('bib.services')
   return {
     facets: facets,
 
-    getAll: function () {
-      return $q.all(facets.map(function (facet) {
-        return this.getItems(facet.id).then(function (items) {
-          facet.items = items;
-          return facet;
-        });
-      }.bind(this)));
+    getAll: function (centers) {
+      return facets.map(function (facet) {
+        facet.items = this.getItems(facet.id, centers);
+        return facet;
+      }.bind(this));
     },
 
-    // example for the city facet: Toulouse, Paris, Brest…
-    getItems: function (facetId) {
+    // example for the city facet: { label: 'Toulouse', 'count': 2, enable: false }
+    getItems: function (facetId, centers) {
       var facet = _.find(facets, {id: facetId});
-      return centerService.getAll().then(function (centers) {
-        var items = centers.map(function (center) {
+      var items = _(centers)
+        .map(function (center) {
           var parser = facet.parser || _.identity;
           return parser(center[facet.path][facet.key]);
-        });
-        return _.uniq(_.flatten(items)).sort();
-      });
+        })
+        .flatten()
+        .filter(_.identity)
+        .groupBy(_.identity)
+        .mapValues(_.property('length'))
+        .toPairs()
+        .map(function (item) {
+          return { label: item[0], count: item[1], enable: false };
+        })
+        .value();
+
+      return items;
     }
   };
 })

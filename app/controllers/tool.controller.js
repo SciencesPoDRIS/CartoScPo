@@ -2,7 +2,10 @@
 
 angular.module('bib.controllers')
 .controller('ToolCtrl', function(leafletMapEvents, leafletData,
-  mapService, centerService, autocompleteService, searchService) {
+  mapService, centerService, facetService, autocompleteService, searchService) {
+
+  // this collection is refreshed on search
+  this.centers = [];
 
   // tabs
 
@@ -34,6 +37,7 @@ angular.module('bib.controllers')
   this.triggerSearch = function (query) {
     searchService.getCenters(query).then(function (centers) {
       this.centers = centers;
+      this.facets = facetService.getAll(centers);
     }.bind(this));
   };
 
