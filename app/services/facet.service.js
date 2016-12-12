@@ -1,10 +1,9 @@
 angular.module('bib.services')
 .factory('facetService', function ($filter, $q) {
-  /* TODO put this in a config
-  * this object describes the fields available in the sidebar
+  /* this object describes the fields available in the sidebar
   * - id has to be unique
   * - path and key indictates when to grab the info in data.json
-  * - type multi (ui-select) / boolean (checkbox triple state)
+  * - type multi / boolean
   * - parser (optional) function to clean data if not already done during csv parsing
   */
 
@@ -72,14 +71,18 @@ angular.module('bib.services')
     getItems: function (facetId, centers) {
       var facet = _.find(facets, {id: facetId});
       var items = _(centers)
-        .map(function (center) {
+        .flatMap(function (center) {
           var parser = facet.parser || _.identity;
-          return parser(center[facet.path][facet.key]);
+          var value = parser(center[facet.path][facet.key]);
+          return facet.type === 'multi'
+            // in case of [Toulouse, Toulouse]
+            ? _.uniq(value)
+            // boolean (oui / non)
+            : value;
         })
-        // in case of [Toulouse, Toulouse]
-        .map(_.uniq)
-        .flatten()
+        // clean empty values
         .filter(_.identity)
+        // compute count
         .groupBy(_.identity)
         .mapValues(_.property('length'))
         .toPairs()
@@ -98,7 +101,7 @@ angular.module('bib.services')
       return items;
     },
 
-    toggleFacetItem: function (facet, item) {
+    toggleItem: function (facet, item) {
       var stored = { facetId: facet.id, label: item.label };
       _.find(this.enabledItems, stored)
         ? _.remove(this.enabledItems, function (i) {

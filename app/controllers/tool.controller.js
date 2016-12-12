@@ -43,7 +43,7 @@ angular.module('bib.controllers')
   };
 
   this.toggleFacetItem = function (facet, item) {
-    facetService.toggleFacetItem(facet, item);
+    facetService.toggleItem(facet, item);
     this.triggerSearch(this.searchQuery);
   };
 
