@@ -1,14 +1,16 @@
 <div>
   <div class="facet" ng-repeat="facet in toolCtrl.facets track by facet.id">
-    <h2>{{ facet.key }}</h2>
+    <h2>{{ facet.key }} ({{ facet.items.length }})</h2>
 
-    <div class="facet-item-list" ng-if="facet.type === 'multi'" style="max-height: 100px; overflow-x: hidden; overflow-y: auto;">
+    <div class="facet-item-list" ng-if="facet.type === 'multi'">
       <ul>
         <li ng-class="{'facet-item': true, 'facet-item-enabled': item.enabled}"
           ng-repeat="item in facet.items track by item.label"
           ng-click="toolCtrl.toggleFacetItem(facet, item)">
           {{ item.label }} — {{ item.count }}
-          <span class="facet-item-remove" ng-show="item.enabled">×</span>
+
+          <span class="facet-item-remove" ng-show="item.enabled"
+            title="Remove facet item">×</span>
         </li>
       </ul>
     </div>
