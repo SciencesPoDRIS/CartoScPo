@@ -354,15 +354,6 @@ angular.module('bib.controllers')
     });
   });
 
-  /*
-   * Map Interactions
-   */
-
-  // to reload map when page changing
-  if (!$scope.$$phase) {
-    $scope.$apply();
-  }
-
   // https://github.com/tombatossals/angular-leaflet-directive/issues/49
   $scope.refreshMap = function () {
     leafletData.getMap().then(function(map) {
