@@ -86,27 +86,10 @@ angular.module('bib.controllers')
       var target = args.leafletEvent.target;
       if (event.name === 'leafletMarker.click') {
         target.openPopup();
-
-        // hightlight center in list
-        var centerId = args.leafletEvent.target.options.id;
-        centerId = centerId.split('_')[0];
-        $scope.idSelectedCenter = $scope.keyInList[centerId];
-
-        // save position in list
-        var key = $scope.idSelectedCenter;
-        $scope.key = key;
-
-        // display center details -> need keycenter
-        mapService.displayCenterSelected($scope.allCenters[key], null, key, $scope);
-
-        // display center in list
-        $('#listCenters').scrollTo($('.' + key));
       }
-
       if (event.name === 'leafletMarker.mouseover') {
         target.openPopup();
       }
-
       if (event.name === 'leafletMarker.mouseout') {
         target.closePopup();
       }
