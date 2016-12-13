@@ -1,3 +1,11 @@
+<button class="btn" type="button"
+  data-toggle="collapse" data-target="{{ '#see-more-' + center.id }}"
+  ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+  {{ $ctrl.collapsed ? 'Voir plus' : 'Voir moins' }}
+</button>
+
+<div class="collapse" id="{{ 'see-more-' + center.id }}">
+
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" id="myTab">
@@ -194,5 +202,16 @@
     </div>
 
   </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn" type="button"
+      data-toggle="collapse" data-target="{{ '#see-more-' + center.id }}"
+      ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+      {{ $ctrl.collapsed ? 'Voir plus' : 'Voir moins' }}
+    </button>
+  </div>
 </div>
 
+</div>
+</div>

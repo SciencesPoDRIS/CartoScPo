@@ -8,6 +8,8 @@ angular.module('bib.components')
     org: '<'
   },
   controller: function () {
+    this.collapsed = true;
+
     this.$onInit = function () {
       // TODO more predictable destructuring
       Object.keys(this.org).forEach(function (key) {
