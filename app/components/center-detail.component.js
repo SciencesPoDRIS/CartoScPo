@@ -2,7 +2,7 @@
 
 angular.module('bib.components')
 .component('centerDetail', {
-  templateUrl: 'views/detail.html',
+  templateUrl: 'views/center-detail.html',
   bindings: {
     // can't use "center", it's already taken by Leaflet
     org: '<'
