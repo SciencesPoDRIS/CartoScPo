@@ -12,7 +12,8 @@ var csvs = lodash.mapValues({
   ecole:          'Ecoles doctorales.csv',
   recherche:      'Thématiques de recherche.csv',
   publication:    'Publications.csv',
-  ressources:     'Ressources documentaires.csv'
+  ressources:     'Ressources documentaires.csv',
+  commentaires:   'Commentaires & MAJ.csv'
 }, function (csv) {
   return path.join(__dirname, 'Donnees_centres_de_recherche_SP_2015 - ' + csv);
 });
@@ -41,6 +42,9 @@ var KEY_CODE = 'Code Unité';
 var RE_CODE = /([a-zA-Z]+)\s*([0-9]+)/;
 function getCenterId (code) {
   var m = RE_CODE.exec(code);
+  if (!m) {
+    throw Error('invalid Code unité');
+  }
   return (m[1] + m[2]).toLowerCase();
 }
 
@@ -58,9 +62,15 @@ function getAllData (csvs) {
         center[key] = trimNL(center[key]);
       });
       // temp, used for grouping
-      center.id = getCenterId(center[KEY_CODE]);
+      try {
+        center.id = getCenterId(center[KEY_CODE]);
+      } catch (ex) {
+        console.error('invalid Code unité', csv, center)
+      }
       center.csv = csv;
       return center;
+    }).filter(function (center) {
+      return center.id;
     });
   });
 }
