@@ -5,6 +5,7 @@ angular.module('bib.services')
 .factory('searchService', function ($q, metadataService, centerService) {
   var svc = {};
 
+  // build the search index
   var indexableFieldsP = metadataService.getIndexableFields();
   var fieldsAndCentersP = $q.all([
     centerService.getAll(),
@@ -19,6 +20,7 @@ angular.module('bib.services')
     svc.searchIndex = searchIndex;
   });
 
+  // add fields
   function buildSearchIndex (fields) {
     return lunr(function() {
       // add fields needed for fulltext
@@ -42,6 +44,7 @@ angular.module('bib.services')
     });
   }
 
+  // feed index with docs (lightweigtht centers)
   function fillSearchIndex (searchIndex, docs) {
     docs.forEach(function (doc) {
       searchIndex.add(doc);
@@ -49,12 +52,12 @@ angular.module('bib.services')
     return searchIndex;
   }
 
-  // public API
   svc.search = function (query, options) {
     options = options || {};
     return this.searchIndex.search(query, options);
   };
 
+  // retrieve filtered centers according to query
   svc.getCenters = function (query) {
     if (!query) return centerService.getAll();
 
@@ -67,5 +70,5 @@ angular.module('bib.services')
   };
 
   return svc;
-})
+});
 

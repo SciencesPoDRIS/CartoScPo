@@ -58,6 +58,7 @@ angular.module('bib.services')
   return {
     facets: facets,
 
+    // all toggled facet items will be pushed / removed from this array
     enabledItems: [],
 
     getAll: function (centers) {
@@ -101,6 +102,7 @@ angular.module('bib.services')
       return items;
     },
 
+    // when the user click on a facet item
     toggleItem: function (facet, item) {
       var stored = { facetId: facet.id, label: item.label };
       _.find(this.enabledItems, stored)
@@ -114,6 +116,7 @@ angular.module('bib.services')
       this.enabledItems = [];
     },
 
+    // take a list of centers and return only the "faceted" ones
     getCenters: function (centers) {
       if (!this.enabledItems.length) return centers;
 

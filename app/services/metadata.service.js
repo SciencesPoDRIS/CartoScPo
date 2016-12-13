@@ -31,6 +31,7 @@ angular.module('bib.services')
       }));
     },
 
+    // searchable + facets
     getIndexableFields: function () {
       return $q.all([
         this.getSearchableFields(),
