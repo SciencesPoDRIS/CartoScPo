@@ -20,45 +20,21 @@ angular.module('bib.components')
       var converter = new Showdown.converter();
       this.ressourcesDescription = converter.makeHtml(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
 
-      var axes = '';
-      if (Array.isArray(this.org.recherche['Axes de recherche'])) {
-        _.forEach(this.org.recherche['Axes de recherche'], function (d) {
-          axes = axes.concat(d) + ' \n';
-        });
-        this.axes = converter.makeHtml(axes);
+      function convert (fields) {
+        var acc = '';
+        if (Array.isArray(fields)) {
+          _.forEach(fields, function (d) {
+            acc = acc.concat(d) + ' \n';
+          });
+          return converter.makeHtml(acc);
+        }
+        return converter.makeHtml(fields);
       }
-      else
-        this.axes = converter.makeHtml(this.org.recherche['Axes de recherche']);
 
-      var contrats = '';
-      if (Array.isArray(this.org.recherche['Contrats de recherche'])) {
-        _.forEach(this.org.recherche['Contrats de recherche'], function (d) {
-          contrats = contrats.concat(d) + ' \n';
-        });
-        this.contrats = converter.makeHtml(contrats);
-      }
-      else
-        this.contrats = converter.makeHtml(this.org.recherche['Contrats de recherche']);
-
-      var seminaires = '';
-      if (Array.isArray(this.org.recherche['Séminaires de recherche'])) {
-        _.forEach(this.org.recherche['Séminaires de recherche'], function (d) {
-          seminaires = seminaires.concat(d) + ' \n';
-        });
-        this.seminaires = converter.makeHtml(seminaires);
-      }
-      else
-        this.seminaires = converter.makeHtml(this.org.recherche['Séminaires de recherche']);
-
-      var collaboration = '';
-      if (Array.isArray(this.org.recherche['Collaborations / réseaux'])) {
-        _.forEach(this.org.recherche['Collaborations / réseaux'], function (d) {
-          collaboration = collaboration.concat(d) + ' \n';
-        });
-        this.collaboration = converter.makeHtml(collaboration);
-      }
-      else
-        this.collaboration = converter.makeHtml(this.org.recherche['Collaborations / réseaux']);
+      this.axes = convert(this.org.recherche['Axes de recherche']);
+      this.contrats = convert(this.org.recherche['Contrats de recherche']);
+      this.seminaires = convert(this.org.recherche['Séminaires de recherche']);
+      this.collaboration = convert(this.org.recherche['Collaborations / réseaux']);
     }.bind(this);
   }
 });
