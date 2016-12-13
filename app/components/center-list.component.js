@@ -4,7 +4,9 @@ angular.module('bib.components')
 .component('centerList', {
   templateUrl: 'views/center-list.html',
   bindings: {
-    centers: '<'
+    centers: '<',
+    // expanded details
+    expandedCenters: '<'
   }
 });
 

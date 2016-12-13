@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('bib.controllers')
-.controller('ToolCtrl', function($routeParams, leafletData,
+.controller('ToolCtrl', function($timeout, $routeParams, leafletData,
       mapService, centerService, facetService, autocompleteService, searchService) {
 
   // this collection is refreshed on search
@@ -98,18 +98,23 @@ angular.module('bib.controllers')
   };
 
   // init
+
+  // centers with the details expanded
+  this.expandedCenters = [];
+
   this.triggerSearch().then(function () {
     // jQuery + setTimeout === 'mega ouuhh'
-    setTimeout(function () {
+    $timeout(function () {
       $('#center-list').scrollTo($('#center-' + $routeParams.centerId));
-    }, 2000);
-  });
+      this.expandedCenters.push($routeParams.centerId);
+    }.bind(this), 2000);
+  }.bind(this));
 
   // https://github.com/tombatossals/angular-leaflet-directive/issues/49
   this.refreshMap = function () {
     leafletData.getMap().then(function(map) {
       // shameless timeout of the death
-      setTimeout(function () {
+      $timeout(function () {
         map.invalidateSize();
       }, 100);
     });

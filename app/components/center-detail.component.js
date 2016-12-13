@@ -5,7 +5,8 @@ angular.module('bib.components')
   templateUrl: 'views/center-detail.html',
   bindings: {
     // can't use "center", it's already taken by Leaflet
-    org: '<'
+    org: '<',
+    expanded: '<'
   },
   controller: function () {
     this.collapsed = true;
@@ -15,6 +16,7 @@ angular.module('bib.components')
       Object.keys(this.org).forEach(function (key) {
         this[key] = this.org[key];
       }, this);
+
       // TODO remove bullet points before
       this.centerId = this.administration.id.replace(/\*/g, '');
 

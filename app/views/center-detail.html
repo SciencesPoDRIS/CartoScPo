@@ -1,10 +1,10 @@
 <button class="btn" type="button"
-  data-toggle="collapse" data-target="{{ '#see-more-' + center.id }}"
+  data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.centerId }}"
   ng-click="$ctrl.collapsed = !$ctrl.collapsed">
-  {{ $ctrl.collapsed ? 'Voir plus' : 'Voir moins' }}
+  {{ $ctrl.collapsed && !$ctrl.expanded ? 'Voir plus' : 'Voir moins' }}
 </button>
 
-<div class="collapse" id="{{ 'see-more-' + center.id }}">
+<div class="collapse" ng-class="{in: $ctrl.expanded }" id="{{ 'see-more-' + $ctrl.centerId }}">
 
 <div class="row">
   <div class="col-md-12">
@@ -206,9 +206,9 @@
 <div class="row">
   <div class="col-md-12">
     <button class="btn" type="button"
-      data-toggle="collapse" data-target="{{ '#see-more-' + center.id }}"
+      data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.centerId }}"
       ng-click="$ctrl.collapsed = !$ctrl.collapsed">
-      {{ $ctrl.collapsed ? 'Voir plus' : 'Voir moins' }}
+      {{ $ctrl.collapsed && !$ctrl.expanded ? 'Voir plus' : 'Voir moins' }}
     </button>
   </div>
 </div>
