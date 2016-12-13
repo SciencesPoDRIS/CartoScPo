@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npm run test",
     "lint": "eslint app",
+    "parse-data": "node app/data/script_data_csv_to_json",
     "start": "gulp"
   },
   "keywords": [

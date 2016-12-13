@@ -2,17 +2,20 @@
 
 var Baby = require('babyparse');
 var fs = require('fs');
+var path = require('path');
 var lodash = require('lodash');
 
 // store csv (each onglet (cf google drive)) in object
-var csvs = {
-  administration: 'Donnees_centres_de_recherche_SP_2015 - Description administrative.csv',
-  personnel:      'Donnees_centres_de_recherche_SP_2015 - Personnel.csv',
-  ecole:          'Donnees_centres_de_recherche_SP_2015 - Ecoles doctorales.csv',
-  recherche:      'Donnees_centres_de_recherche_SP_2015 - Thématiques de recherche.csv',
-  publication:    'Donnees_centres_de_recherche_SP_2015 - Publications.csv',
-  ressources:     'Donnees_centres_de_recherche_SP_2015 - Ressources documentaires.csv'
-};
+var csvs = lodash.mapValues({
+  administration: 'Description administrative.csv',
+  personnel:      'Personnel.csv',
+  ecole:          'Ecoles doctorales.csv',
+  recherche:      'Thématiques de recherche.csv',
+  publication:    'Publications.csv',
+  ressources:     'Ressources documentaires.csv'
+}, function (csv) {
+  return path.resolve(__dirname + '/Donnees_centres_de_recherche_SP_2015 - ' + csv);
+});
 
 /* structure we want to obtain:
 {
@@ -237,5 +240,5 @@ console.log('There are : ', lodash.size(allCenters), ' unique centers.');
 console.log('There are : ', allWords.length, ' unique words.');
 console.log('There are : ', allProps.length, ' unique contents indexed.');
 
-fs.writeFile('data.json', JSON.stringify(data, null, 2));
+fs.writeFile(__dirname + '/data.json', JSON.stringify(data, null, 2));
 
