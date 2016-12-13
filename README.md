@@ -40,8 +40,15 @@ gulp less
 gulp prod
 ```
 
-***
 ## Création des données
+
+TL;DR:
+
+```
+npm run parse
+```
+
+Long version:
 
 Ajouter dans /app/data les csv téléchargés à partir des onglets du spreadsheet du drive.
 

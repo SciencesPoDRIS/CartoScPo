@@ -14,7 +14,7 @@ var csvs = lodash.mapValues({
   publication:    'Publications.csv',
   ressources:     'Ressources documentaires.csv'
 }, function (csv) {
-  return path.resolve(__dirname + '/Donnees_centres_de_recherche_SP_2015 - ' + csv);
+  return path.join(__dirname, 'Donnees_centres_de_recherche_SP_2015 - ' + csv);
 });
 
 /* structure we want to obtain:
@@ -240,5 +240,5 @@ console.log('There are : ', lodash.size(allCenters), ' unique centers.');
 console.log('There are : ', allWords.length, ' unique words.');
 console.log('There are : ', allProps.length, ' unique contents indexed.');
 
-fs.writeFile(__dirname + '/data.json', JSON.stringify(data, null, 2));
+fs.writeFile(path.join(__dirname, 'data.json'), JSON.stringify(data, null, 2));
 
