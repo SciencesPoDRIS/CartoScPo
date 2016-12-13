@@ -1,5 +1,7 @@
+'use strict';
+
 angular.module('bib.services')
-.factory('facetService', function ($filter, $q) {
+.factory('facetService', function ($filter) {
   /* this object describes the fields available in the sidebar
   * - id has to be unique
   * - path and key indictates when to grab the info in data.json

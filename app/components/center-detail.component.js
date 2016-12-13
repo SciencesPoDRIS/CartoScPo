@@ -1,3 +1,4 @@
+/* globals Showdown */
 'use strict';
 
 angular.module('bib.components')
