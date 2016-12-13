@@ -2,14 +2,15 @@
   <div class="center-list-item" ng-repeat="center in $ctrl.centers track by center.id">
     <h3 id="center-{{ center.id }}">
       <a class="center-title" href="#/centers/{{ center.id }}">
-        <span>{{center.administration['Intitulé']}}</span>
+        <span>{{ center.administration['Intitulé'] }}</span>
         <span ng-if="center.administration['Intitulé'] && center.administration['Acronyme (nom court)']"> - </span>
-        <span>{{center.administration['Acronyme (nom court)']}}</span>
+        <span>{{ center.administration['Acronyme (nom court)'] }}</span>
       </a>
     </h3>
     <div class="row">
       <div class="col-md-8">
-        <p>Code unité : {{center.administration['Code Unité']}}</p>
+        <p>Code unité : {{ center.administration['Code Unité'] }}</p>
+        <p>Date MAJ: {{ center.commentaires['Date de mise à jour'] }}</p>
       </div>
       <div class="col-md-3 text-right">
         <logo org="center"></logo>
