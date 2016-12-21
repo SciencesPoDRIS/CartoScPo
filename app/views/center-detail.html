@@ -63,11 +63,11 @@
 
     <h2>Liste des écoles doctorales</h2>
     <div class="col-md-12">
-      <div ng-repeat="ecole in ecole.ecoles" class="col-md-4 ecole-details">
-        <p>Intitulé Ecole Doctorale : {{ $ctrl.ecole.intitule }}</p>
-        <p>Numéro d'Ecole Doctorale : {{ $ctrl.ecole.numero }}</p>
-        <p>Directeur école doctorale : {{ $ctrl.ecole.directeur}}</p>
-        <p>Courriel de l'Ecole doctorale : {{ $ctrl.ecole.courriel }}</p>
+      <div ng-repeat="ecole in $ctrl.ecole.ecoles" class="col-md-4 ecole-details">
+        <p>Intitulé Ecole Doctorale : {{ ecole.intitule }}</p>
+        <p>Numéro d'Ecole Doctorale : {{ ecole.numero }}</p>
+        <p>Directeur école doctorale : {{ ecole.directeur}}</p>
+        <p>Courriel de l'Ecole doctorale : {{ ecole.courriel }}</p>
       </div>
     </div>
 
