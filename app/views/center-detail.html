@@ -34,8 +34,9 @@
 
     <h2>Etablissements de rattachement : </h2>
     <div class="col-md-12">
-      <p ng-if="etablissement.length" ng-repeat="etablissement in administration['Etablissements de rattachement'].split('*')"
-        class="keyWord" ng-click="showNameChanged(etablissement)">{{ $ctrl.etablissement }}</p>
+      <p ng-if="etablissement.length" ng-repeat="etablissement in $ctrl.administration['Etablissements de rattachement'].split('*')">
+        {{ etablissement }}
+      </p>
     </div>
 
     <h2>Personnel</h2>
