@@ -111,8 +111,8 @@
       <h2>Séminaires de recherche</h2>
       <div ng-bind-html="$ctrl.seminaires" class="recherche"></div>
 
-      <h2>Collaborations / réseaux</h2>
-      <div ng-bind-html="$ctrl.collaboration" class="recherche"></div>
+      <h2 ng-if="{{ $ctrl.collaboration != 'X' }}">Collaborations / réseaux</h2>
+      <div ng-bind-html="$ctrl.collaboration" ng-if="{{ $ctrl.collaboration != 'X' }}" class="recherche"></div>
     </div>
 
   </div>
