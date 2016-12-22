@@ -82,11 +82,17 @@
   <div class="tab-pane" id="recherche-{{ $ctrl.centerId }}">
     <div class="col-md-6 colTab">
       <h2>Sections CNRS</h2>
-      <div>{{ $ctrl.recherche['Sections CNRS'] }}</div>
+      <div ng-repeat="axe in $ctrl.recherche['Sections CNRS'].split('*')">
+        {{ axe }}
+      </div>
 
       <h2>Annuaire du MENESR</h2>
-      <p>{{ $ctrl.recherche['Discipline principale  selon l\'annuaire du MENESR'] }}</p>
-      <p>{{ $ctrl.recherche['Disciplines secondaires  selon l\'annuaire du MENESR'] }}</p>
+      <p ng-repeat="discipline in $ctrl.recherche['Discipline principale  selon l\'annuaire du MENESR'].split('*')" ng-if="discipline != 'X'">
+        {{ discipline }}
+      </p>
+      <p ng-repeat="discipline in $ctrl.recherche['Disciplines secondaires  selon l\'annuaire du MENESR'].split('*')" ng-if="discipline != 'X'">
+        {{ discipline }}
+      </p>
 
       <h2>Mots-clefs</h2>
       <p ng-repeat="word in $ctrl.recherche['Mots-clés sujet  selon l\'annuaire du MENESR'].split('*') track by $index"
