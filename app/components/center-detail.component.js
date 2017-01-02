@@ -23,8 +23,7 @@ angular.module('bib.components')
 
       // convert markdown to html
       var converter = new Showdown.converter();
-      this.ressourcesDescription = converter.makeHtml(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
-
+      
       function convert (fields) {
         var acc = '';
         if (Array.isArray(fields)) {
@@ -36,10 +35,21 @@ angular.module('bib.components')
         return converter.makeHtml(fields);
       }
 
+      this.ressourcesDescription = convert(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
       this.axes = convert(this.org.recherche['Axes de recherche']);
       this.contrats = convert(this.org.recherche['Contrats de recherche']);
       this.seminaires = convert(this.org.recherche['Séminaires de recherche']);
       this.collaboration = convert(this.org.recherche['Collaborations / réseaux']);
+      this.historic = convert(this.administration['Historique']);
+      this.collections = convert(this.publication['Collections auprès d\'éditeurs : description']);
+      this.collectionTitle = convert(this.publication['Revues en propre : description']);
+      this.oa_policy = convert(this.publication['Préconisations pour le dépôt en open access des publications']);
+      this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire']);
+      this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
+      this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs']);
+      this.library_staff = convert(this.ressources['Personne ressource - documentaliste']);
+      this.information_skills_training = convert(this.ressources['Offre de formations documentaires']);
+      this.library_network = convert(this.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']);
     }.bind(this);
   }
 });
