@@ -118,8 +118,8 @@
   </div>
 
   <div class="tab-pane" id="publication-{{ $ctrl.centerId }}">
-    <h2>Collections auprès d'éditeurs</h2>
-    <div class="col-md-12">
+    <h2 ng-if="{{ $ctrl.publication['Collections auprès d\'éditeurs : description'] != 'X' }}">Collections auprès d'éditeurs</h2>
+    <div class="col-md-12" ng-if="{{ $ctrl.publication['Collections auprès d\'éditeurs : description'] != 'X' }}">
       {{ $ctrl.publication['Collections auprès d\'éditeurs : description'] }}
     </div>
 
