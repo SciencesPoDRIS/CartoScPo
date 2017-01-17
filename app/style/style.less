@@ -33,16 +33,21 @@ a {
  */
 
 #cover {
+  background: rgba(248, 248, 248, 1);
   display: block;
-  height: 100%;
   margin: auto;
   overflow-x: hidden;
   position: relative;
-  width: 100%;
+  height: 350px;
+}
+
+#cover img {
+  float: right;
+  height:100%;
 }
 
 #home-text {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 1);
   font-size: 20px;
   left: 20px;
   padding: 20px;
@@ -50,6 +55,23 @@ a {
   text-align: justify;
   top: 20px;
   width: 50%;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  h3 {
+    margin-bottom: 2em;
+  }
+}
+
+#home-content {
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  left: 20px;
+  padding: 20px;
+  text-align: justify;
+  top: 20px;
 
   h2 {
     margin-top: 0;
