@@ -1,7 +1,7 @@
-<button class="btn" type="button"
+<button class="btn btn-sm btn-secondary" type="button" style="float:right;"
   data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.centerId }}"
   ng-click="$ctrl.collapsed = !$ctrl.collapsed">
-  {{ $ctrl.collapsed && !$ctrl.expanded ? 'Voir plus' : 'Voir moins' }}
+  <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
 </button>
 
 <div class="collapse" ng-class="{in: $ctrl.expanded }" id="{{ 'see-more-' + $ctrl.centerId }}">
@@ -9,11 +9,11 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" id="myTab">
-      <li class="description active"><a data-target="#description-{{ $ctrl.centerId }}" data-toggle="tab">Description administrative</a></li>
+      <li class="description active"><a data-target="#description-{{ $ctrl.centerId }}" data-toggle="tab">Description</a></li>
       <li class="ecole"><a data-target="#ecole-{{ $ctrl.centerId }}" data-toggle="tab">Ecoles doctorales</a></li>
-      <li class="recherche"><a data-target="#recherche-{{ $ctrl.centerId }}" data-toggle="tab">Thématiques recherches</a></li>
+      <li class="recherche"><a data-target="#recherche-{{ $ctrl.centerId }}" data-toggle="tab">Thématiques</a></li>
       <li class="publications"><a data-target="#publication-{{ $ctrl.centerId }}" data-toggle="tab">Publications</a></li>
-      <li class="ressources"><a data-target="#ressources-{{ $ctrl.centerId }}" data-toggle="tab">Ressources documentaires</a></li>
+      <li class="ressources"><a data-target="#ressources-{{ $ctrl.centerId }}" data-toggle="tab">Documentations</a></li>
     </ul>
   </div>
 </div>
@@ -188,10 +188,10 @@
 
 <div class="row">
   <div class="col-md-12">
-    <button class="btn" type="button"
+    <button class="btn btn-sm btn-secondary" style="float: right;" type="button"
       data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.centerId }}"
       ng-click="$ctrl.collapsed = !$ctrl.collapsed">
-      {{ $ctrl.collapsed && !$ctrl.expanded ? 'Voir plus' : 'Voir moins' }}
+      <i class="fa fa-times" aria-hidden="true"></i>
     </button>
   </div>
 </div>

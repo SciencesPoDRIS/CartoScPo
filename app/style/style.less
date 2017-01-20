@@ -120,6 +120,8 @@ body > .container {
   margin-top: 20px;
 }
 
+
+
 /*
  * Navbar
  */
@@ -168,13 +170,11 @@ navbar .navbar-nav > li > a {
  * Search
  */
 #search {
+  border-width: 0px;
+  border-bottom-width: 1px;
   padding: 10px;
   font-size: 15px;
-  width: 400px;
-}
-
-.btn-search {
-  font-size: 13px;
+  width: 330px;
 }
 
 .facet {
@@ -187,6 +187,14 @@ navbar .navbar-nav > li > a {
   max-height: 100px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.facet-item-list ul {
+  padding-left: 15px;
+}
+
+.facet-item-list li{
+  list-style-type: None;
 }
 
 .facet-item {
@@ -269,6 +277,10 @@ navbar .navbar-nav > li > a {
   overflow-y: scroll;
 }
 
+.center-list-item{
+  padding:10px;
+}
+
 .center-list-item:hover {
   background: #eee;
 
@@ -327,6 +339,11 @@ center-detail {
 /*
  * Search
  */
+
+.search-count {
+  font-size: 15px;
+  float: right;   
+}
 
 .recherche > h1 {
   font-size: 18px;

@@ -6,15 +6,15 @@
           <input id="search" type="text" placeholder="Entrez votre recherche ..."
             ng-model="toolCtrl.searchQuery"
             uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
-          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
+          <button class="btn btn-lg btn-sm" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-lg btn-search" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
+          <button class="btn btn-lg btn-sm" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </div>
         <h4 class="search-count">
-          Nombre de centres trouvés : {{toolCtrl.centers.length}}
+          {{toolCtrl.centers.length}} centres trouvés
         </h4>
         <facets
           facets="toolCtrl.facets"
@@ -24,9 +24,9 @@
       <div class="col-md-8">
         <div>
           <ul class="nav nav-tabs">
-            <li class="active"><a data-target="#tab-list" data-toggle="tab" ng-click="toolCtrl.displayListTab()">List</a></li>
-            <li><a data-target="#tab-table" data-toggle="tab" ng-click="toolCtrl.displayTableTab()">Table</a></li>
-            <li><a data-target="#tab-map" data-toggle="tab" ng-click="toolCtrl.displayMapTab()">Map</a></li>
+            <li class="active"><a data-target="#tab-list" data-toggle="tab" ng-click="toolCtrl.displayListTab()">Liste</a></li>
+            <li><a data-target="#tab-map" data-toggle="tab" ng-click="toolCtrl.displayMapTab()">Carte</a></li>
+            <li><a data-target="#tab-table" data-toggle="tab" ng-click="toolCtrl.displayTableTab()">Données</a></li>
           </ul>
         </div>
         <div>
