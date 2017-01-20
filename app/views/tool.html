@@ -1,50 +1,49 @@
 <div class="view-page" ng-controller="ToolCtrl as toolCtrl">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4">
-        <div>
-          <input id="search" type="text" placeholder="Entrez votre recherche ..."
-            ng-model="toolCtrl.searchQuery"
-            uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
-          <button class="btn btn-lg btn-search" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
-          <button class="btn btn-lg btn-search" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
-        <h4 class="search-count">
-          Nombre de centres trouvés : {{toolCtrl.centers.length}}
-        </h4>
-        <facets
-          facets="toolCtrl.facets"
-          on-toggle-item="toolCtrl.toggleFacetItem($event)"></facets>
-      </div>
-
-      <div class="col-md-8">
-        <div>
-          <ul class="nav nav-tabs">
-            <li class="active"><a data-target="#tab-list" data-toggle="tab" ng-click="toolCtrl.displayListTab()">List</a></li>
-            <li><a data-target="#tab-table" data-toggle="tab" ng-click="toolCtrl.displayTableTab()">Table</a></li>
-            <li><a data-target="#tab-map" data-toggle="tab" ng-click="toolCtrl.displayMapTab()">Map</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab-list">
-              <center-list
-                centers="toolCtrl.centers"
-                expanded-centers="toolCtrl.expandedCenters"></center-list>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-10 search">
+                        <input id="search" type="text" placeholder="Entrez votre recherche ..." ng-model="toolCtrl.searchQuery" uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
+                    </div>
+                    <div class="col-md-1 btn-search">
+                        <button class="btn btn-lg" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-md-1 btn-search">
+                        <button class="btn btn-lg" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <h4 class="search-count">
+                    Nombre de centres trouvés : {{toolCtrl.centers.length}}
+                </h4>
+                <facets facets="toolCtrl.facets" on-toggle-item="toolCtrl.toggleFacetItem($event)"></facets>
             </div>
-            <div class="tab-pane" id="tab-table">
-              <ng-include src="'views/table.html'"></ng-include>
+            <div class="col-md-8">
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-target="#tab-list" data-toggle="tab" ng-click="toolCtrl.displayListTab()">List</a></li>
+                        <li><a data-target="#tab-table" data-toggle="tab" ng-click="toolCtrl.displayTableTab()">Table</a></li>
+                        <li><a data-target="#tab-map" data-toggle="tab" ng-click="toolCtrl.displayMapTab()">Map</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-list">
+                            <center-list centers="toolCtrl.centers" expanded-centers="toolCtrl.expandedCenters"></center-list>
+                        </div>
+                        <div class="tab-pane" id="tab-table">
+                            <ng-include src="'views/table.html'"></ng-include>
+                        </div>
+                        <div class="tab-pane" id="tab-map">
+                            <center-map center-markers="toolCtrl.markers"></center-map>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="tab-pane" id="tab-map">
-              <center-map center-markers="toolCtrl.markers"></center-map>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
