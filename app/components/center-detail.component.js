@@ -22,17 +22,18 @@ angular.module('bib.components')
       this.centerId = this.administration.id.replace(/\*/g, '');
 
       // convert markdown to html
-      var converter = new Showdown.converter();
+      var converter = new Showdown.converter({simplifiedAutoLink: true});
       
-      function convert (fields) {
+      function convert(fields) {
         var acc = '';
         if (Array.isArray(fields)) {
           _.forEach(fields, function (d) {
             acc = acc.concat(d) + ' \n';
           });
           return converter.makeHtml(acc);
+        } else {
+          return converter.makeHtml(fields);
         }
-        return converter.makeHtml(fields);
       }
 
       this.ressourcesDescription = convert(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
@@ -44,7 +45,7 @@ angular.module('bib.components')
       this.collections = convert(this.publication['Collections auprès d\'éditeurs : description']);
       this.collectionTitle = convert(this.publication['Revues en propre : description']);
       this.oa_policy = convert(this.publication['Préconisations pour le dépôt en open access des publications']);
-      this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire']);
+      this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire'].replace(/\n/g, '\n\n'));
       this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
       this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs']);
       this.library_staff = convert(this.ressources['Personne ressource - documentaliste']);
