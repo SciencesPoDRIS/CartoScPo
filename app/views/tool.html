@@ -2,23 +2,30 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
-        <div>
-          <input id="search" type="text" placeholder="Entrez votre recherche ..."
-            ng-model="toolCtrl.searchQuery"
-            uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
-          <button class="btn btn-lg btn-sm" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
-          <button class="btn btn-lg btn-sm" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
+       
+          <div class="col-md-9">
+            <input id="search" type="text" placeholder="Entrez votre recherche ..."
+              ng-model="toolCtrl.searchQuery"
+              uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-lg btn-sm" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-lg btn-sm" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+        <div class="col-md-12">
         <h4 class="search-count">
           {{toolCtrl.centers.length}} centres trouvés
         </h4>
+        </div>
+        <div class="col-md-12">
         <facets
           facets="toolCtrl.facets"
           on-toggle-item="toolCtrl.toggleFacetItem($event)"></facets>
+        </div>
       </div>
 
       <div class="col-md-8">
@@ -38,13 +45,13 @@
             </div>
             <div class="tab-pane" id="tab-table">
               <ng-include src="'views/table.html'"></ng-include>
+                        </div>
+                        <div class="tab-pane" id="tab-map">
+                            <center-map center-markers="toolCtrl.markers"></center-map>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="tab-pane" id="tab-map">
-              <center-map center-markers="toolCtrl.markers"></center-map>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

@@ -38,8 +38,8 @@ angular.module('bib', [
   .when('/project', {
     templateUrl: 'views/project.html'
   })
-  .when('/team', {
-    templateUrl: 'views/team.html'
+  .when('/about', {
+    templateUrl: 'views/about.html'
   })
   .otherwise({
     redirectTo: '/'

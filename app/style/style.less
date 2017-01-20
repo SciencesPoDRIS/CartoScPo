@@ -120,7 +120,13 @@ body > .container {
   margin-top: 20px;
 }
 
-
+.tab-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+#centerDetailsTabs{
+  border: None
+}
 
 /*
  * Navbar
@@ -169,12 +175,25 @@ navbar .navbar-nav > li > a {
 /*
  * Search
  */
+
+.search {
+  padding: 0 2px;
+}
+
 #search {
   border-width: 0px;
   border-bottom-width: 1px;
   padding: 10px;
   font-size: 15px;
-  width: 330px;
+  width: 100%;
+}
+
+.btn-search {
+  font-size: 13px;
+  padding: 1px 1px;
+  button {
+    padding: 10px 9px;
+  }
 }
 
 .facet {

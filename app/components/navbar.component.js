@@ -11,7 +11,7 @@ angular.module('bib.components')
     this.views = [
       {slug: 'centers', label: 'Cartographie de la Science Politique en France'},
       {slug: 'project', label: 'Le projet'},
-      {slug: 'team', label: 'L\'équipe'}
+      {slug: 'about', label: 'A propos'}
     ];
   }
 });
