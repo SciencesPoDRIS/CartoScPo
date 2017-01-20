@@ -47,7 +47,7 @@ angular.module('bib.components')
       this.oa_policy = convert(this.publication['Préconisations pour le dépôt en open access des publications']);
       this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire'].replace(/\n/g, '\n\n'));
       this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
-      this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs']);
+      this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs'].replace(/\n/g, '\n\n'));
       this.library_staff = convert(this.ressources['Personne ressource - documentaliste']);
       this.information_skills_training = convert(this.ressources['Offre de formations documentaires']);
       this.library_network = convert(this.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']);
