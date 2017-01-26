@@ -15,7 +15,7 @@ var csvs = lodash.mapValues({
   ressources:     'Ressources documentaires.csv',
   commentaires:   'Commentaires & MAJ.csv'
 }, function (csv) {
-  return path.join(__dirname, 'Donnees_centres_de_recherche_SP_2015 - ' + csv);
+  return path.join(__dirname, 'Donnees_centres_de_recherche_SP_2016 - ' + csv);
 });
 
 /* structure we want to obtain:
