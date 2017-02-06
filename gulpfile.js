@@ -74,7 +74,7 @@ gulp.task('serve', function() {
 
     gulp.watch('app/style/*.less', ['less']);
     gulp.watch('app/style/*.css').on('change', browserSync.reload);
-    gulp.watch(['app/*.js', 'app/**/*js']).on('change', browserSync.reload);
+    gulp.watch(['app/*.js', 'app/**/*.js']).on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
 
