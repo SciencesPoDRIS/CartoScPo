@@ -21,7 +21,7 @@ angular.module('bib.services')
         _.get(center, 'administration.addressesGeo', []).forEach(function(a, i) {
           var colorMarker = fixIconSize(center);
           var id = center.id + '_' + i;
-          var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpg"' + '">'
+          var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpeg"' + '">'
             + '<p>' + center.administration['Intitulé'] + ' - ' + center.administration['Acronyme (nom court)'] + '</p>'
             + '<p>'  + a.address + '</p>';
 
