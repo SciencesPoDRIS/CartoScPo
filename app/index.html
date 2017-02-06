@@ -1,41 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="bib">
-
-<head>
-    <meta charset="utf-8">
-    <title>Carto</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/allcss.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-</head>
-
-<body>
-    <navbar></navbar>
-    <div id="view" ng-view></div>
-
-    <script src="assets/js/all.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/release/ui-grid.js"></script>
-
-    <script src="app.js"></script>
-
-    <script src="components/center-detail.component.js"></script>
-    <script src="components/center-list.component.js"></script>
-    <script src="components/center-map.component.js"></script>
-    <script src="components/facets.component.js"></script>
-    <script src="components/logo.component.js"></script>
-    <script src="components/navbar.component.js"></script>
-
-    <script src="controllers/tool.controller.js"></script>
-
-    <script src="filters/filters.js"></script>
-
-    <script src="services/center.service.js"></script>
-    <script src="services/data.services.js"></script>
-    <script src="services/facet.service.js"></script>
-    <script src="services/file.service.js"></script>
-    <script src="services/map.service.js"></script>
-    <script src="services/metadata.service.js"></script>
-    <script src="services/search.service.js"></script>
-</body>
-
+    <head>
+        <meta charset="utf-8">
+        <title>Cartographie de la science politique</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/allcss.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    </head>
+    <body>
+        <navbar></navbar>
+        <div id="view" ng-view></div>
+        <!-- Project lib dependencies -->
+        <script src="assets/js/all.min.js"></script>
+        <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+        <script src="http://ui-grid.info/release/ui-grid.js"></script>
+        <!-- Project angular js -->
+        <script src="app.js"></script>
+        <script src="components/center-detail.component.js"></script>
+        <script src="components/center-list.component.js"></script>
+        <script src="components/center-map.component.js"></script>
+        <script src="components/facets.component.js"></script>
+        <script src="components/logo.component.js"></script>
+        <script src="components/navbar.component.js"></script>
+        <script src="controllers/tool.controller.js"></script>
+        <script src="filters/filters.js"></script>
+        <script src="services/center.service.js"></script>
+        <script src="services/data.services.js"></script>
+        <script src="services/facet.service.js"></script>
+        <script src="services/file.service.js"></script>
+        <script src="services/map.service.js"></script>
+        <script src="services/metadata.service.js"></script>
+        <script src="services/search.service.js"></script>
+    </body>
 </html>
