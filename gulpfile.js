@@ -5,42 +5,51 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate'),
     browserSync = require('browser-sync').create();
 
-// Concat all bower libraries used in website
+// Concat all JS libraries
 gulp.task('js', function() {
     return gulp.src([
       'bower_components/lodash/dist/lodash.min.js',
-
       'bower_components/jquery/dist/jquery.min.js',
       'bower_components/jquery-highlight/jquery-highlight.js',
       'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
       'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
-
       'bower_components/angular/angular.js',
       'bower_components/angular-simple-logger/dist/angular-simple-logger.js',
       'bower_components/angular-route/angular-route.min.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.min.js',
       'bower_components/angular-ui-select/dist/select.js',
-
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'bower_components/bootstrap/dist/js/bootstrap.min.js',
-
       'bower_components/angular-ui-grid/ui-grid.js',
-
       'bower_components/angulartics/dist/angulartics.min.js',
       'bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
-
       'bower_components/leaflet/dist/leaflet.js',
       'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
       'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
-
       'bower_components/papaparse/papaparse.min.js',
       'bower_components/showdown/src/showdown.js',
       'bower_components/lunr.js/lunr.js',
-      ],
-      {base: 'bower_components/'}
+      'app/app.js',
+      'app/components/center-detail.component.js',
+      'app/components/center-list.component.js',
+      'app/components/center-map.component.js',
+      'app/components/facets.component.js',
+      'app/components/logo.component.js',
+      'app/components/navbar.component.js',
+      'app/controllers/tool.controller.js',
+      'app/filters/filters.js',
+      'app/services/center.service.js',
+      'app/services/data.services.js',
+      'app/services/facet.service.js',
+      'app/services/file.service.js',
+      'app/services/map.service.js',
+      'app/services/metadata.service.js',
+      'app/services/search.service.js'
+      ]
     )
     .pipe(concat('all.min.js'))
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('./app/assets/js/'));
 });
@@ -76,14 +85,6 @@ gulp.task('serve', function() {
     gulp.watch('app/style/*.css').on('change', browserSync.reload);
     gulp.watch(['app/*.js', 'app/**/*.js']).on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
-});
-
-gulp.task('prod', function() {
-    return gulp.src(['app/app.js', 'app/controllers/*.js', 'app/services/*.js', 'app/directives/*.js'])
-      .pipe(concat('app.js'))
-      .pipe(ngAnnotate())
-      .pipe(uglify())
-      .pipe(gulp.dest('./app/assets/js'));
 });
 
 // Default task that launch concat js, css & less then launch server
