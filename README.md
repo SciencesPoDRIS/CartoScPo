@@ -20,24 +20,36 @@ bower install
 gulp
 ```
 
-Par défaut, gulp effectue les tâches de concaténations des css, des librairies javascript utilisées et lance l'application en démarrant un server qui possède le livereload.
+Par défaut, gulp effectue les tâches de concaténations et minification js puis des css, copie les assets et finalement lance l'application en démarrant un serveur qui possède le livereload.
 
-### Concaténation des librairies externes
+### Concaténation et minification de tous les JS
 
 ```
 gulp js
 ```
 
-### Concaténation du css
+### Conversion du fichier de style principal du less en CSS
 
 ```
 gulp less
 ```
 
-### Mise en production
+### Concaténation et minificaton de tous les css
 
 ```
-gulp prod
+gulp css
+```
+
+### Copie une image ainsi les polices d'écriture dans le dossier "assets"
+
+```
+gulp assets
+```
+
+### Démarre le serveur avec livereload
+
+```
+gulp serve
 ```
 
 ## Création des données
