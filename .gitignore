@@ -7,6 +7,10 @@
 # Node NPM modules
 #
 node_modules
+#
+# NPM log file
+#
+npm-debug.log
 
 #
 # Bower modules
@@ -23,5 +27,3 @@ app/data/*.json
 # Assets
 #
 app/assets
-
-npm-debug.log
