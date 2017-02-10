@@ -27,3 +27,8 @@ app/data/*.json
 # Assets
 #
 app/assets
+
+#
+# Generated CSS file
+#
+app/style/style.css
