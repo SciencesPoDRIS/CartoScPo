@@ -20,11 +20,6 @@ app/data/*.csv
 app/data/*.json
 
 #
-# Libs
-#
-app/lib
-
-#
 # Assets
 #
 app/assets
