@@ -1,4 +1,4 @@
-<div class="view-page">
+<div class="view-page project" ng-controller="project">
     <div class="container-fluid">
         <h1>Projet</h1>
         <p>
@@ -6,36 +6,36 @@
         </p>
         <ul class="no-bullet">
             <li>
-                1. Objectifs du projet
+                <a ng-click="scrollTo('first')">1. Objectifs du projet</a>
             </li>
             <li>
-                2. Contexte du projet
+                <a ng-click="scrollTo('second')">2. Contexte du projet</a>
             </li>
             <li>
-                3. Réalisation du projet : méthodologie
+                <a ng-click="scrollTo('third')">3. Réalisation du projet : méthodologie</a>
                 <ul>
                     <li>
-                        Construction de la liste des centres
+                        <a ng-click="scrollTo('third_a')">Construction de la liste des centres</a>
                     </li>
                     <li>
-                        Collecte des données
+                        <a ng-click="scrollTo('third_b')">Collecte des données</a>
                     </li>
                 </ul>
             </li>
             <li>
-                4. Description des données : A quelles questions ce site répond-il?
+                <a ng-click="scrollTo('fourth')">4. Description des données : A quelles questions ce site répond-il?</a>
             </li>
             <li>
-                5. Diffusion
+                <a ng-click="scrollTo('fifth')">5. Diffusion</a>
             </li>
             <li>
-                6. Évolutions à venir
+                <a ng-click="scrollTo('sixth')">6. Évolutions à venir</a>
             </li>
             <li>
-                7. Bibliographie
+                <a ng-click="scrollTo('seventh')">7. Bibliographie</a>
             </li>
         </ul>
-        <h2>
+        <h2 id="first">
             1. Objectifs du projet : Pourquoi un tel travail a été entrepris
         </h2>
         <p>
@@ -50,7 +50,7 @@
         <p>
             Cette cartographie comporte un important volet documentaire visant à identifier les ressources et pratiques documentaires au sein des centres de recherche. Ainsi, cela permettra de mieux cerner les besoins documentaires et de déployer des services appropriés pour servir la communauté de chercheurs identifiée. Cette dimension documentaire s’explique par le contexte qui a vu naître ce projet.
         </p>
-        <h2>
+        <h2 id="second">
             2. Contexte du projet
         </h2>
         <p>
@@ -63,10 +63,10 @@
         <p>
             Ainsi, depuis 2014, la dotation de base habituellement perçue pour l’acquisition a été en partie remplacée par une dotation sur projets. Ces projets se devant d’aller au-delà de l’unique mission d’acquisition en s’inscrivant également dans une démarche de services à la recherche, la bibliothèque de SciencesPo a donc proposé comme projet initial l’élaboration de cette cartographie. Saisir la « communauté » de chercheurs de la discipline est un préalable aux projets d’évolution des outils et des services d’une bibliothèque CADIST ou Collex à destination de celle-ci.
         </p>
-        <h2>
+        <h2 id="third">
             3. Réalisation du projet : méthodologie
         </h2>
-        <h3>
+        <h3 id="third_a">
             Construction de la liste des centres
         </h3>
         <p>
@@ -385,7 +385,7 @@
         <p>
             Cette liste est évidemment susceptible d’évoluer. Il est aussi possible que nous venions à intégrer ou à retirer des centres qui en feraient la demande. Nous réfléchissons actuellement à la mise en place d’un comité scientifique représentant les différentes institutions et sensibilités de la science politique qui soit chargé notamment de définir au mieux le périmètres des centres traités dans la cartographie.
         </p>
-        <h3>
+        <h3 id="third_b">
             Collecte des données
         </h3>
         <p>
@@ -406,7 +406,7 @@
         <p>
             A l’inverse, nous nous sommes heurtés au silence de nombreuses personnes contactées : soit par une absence de réponse, soit par l’expression d’une volonté de ne pas participer à l’enquête. Dans un souci de transparence, lorsqu’une donnée est manquante, nous avons opté pour une identification du silence délibéré des interlocuteurs dans notre collecte par la mention “NC” (Non Communiqué), ceci dans le but de le démarquer de l’absence totale de l’information, symbolisée par X.
         </p>
-        <h2>
+        <h2 id="fourth">
             4. Description des données : A quelles questions ce site répond-il?
         </h2>
         <p>
@@ -544,7 +544,7 @@
         <p>
             C’est aussi pour cela que nous avons souhaité que les données de cette cartographie soient diffusées au plus grand nombre, dans l’espoir notamment que des chercheurs se l’approprient dans le cadre de recherches sur la science politique comme discipline.
         </p>
-        <h2>
+        <h2 id="fifth">
             5. Diffusion
         </h2>
         <p>
@@ -556,7 +556,7 @@
         <p>
             De plus, nous souhaitons nous inscrire dans une démarche collaborative afin de faire évoluer au mieux cet outil. Libre à chacun de nous contacter pour faire procéder à des corrections ou à des mises à jour.
         </p>
-        <h2>
+        <h2 id="sixth">
             6. Évolutions à venir
         </h2>
         <p>
@@ -583,7 +583,7 @@
         <p>
             Enfin, même si cette cartographie a d’abord été pensée à partir des centres de recherche, il pourrait être envisagé d’y intégrer le réseau des bibliothèques qui disposent d’un fonds en science politique (Bibliothèques universitaires, bibliothèques des IEP, BNF). Pour l’instant il est seulement fait mention des bibliothèques utilisées et seuls les fonds et les activités des centres de documentation au sein des laboratoires ont fait l’objet de récolte de données.
         </p>
-        <h2>
+        <h2 id="seventh">
             7. Bibliographie
         </h2>
         <p>
