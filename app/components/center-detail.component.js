@@ -26,6 +26,7 @@ angular.module('bib.components')
       
       function convert(fields) {
         var acc = '';
+        fields = fields.replace(/\n/g, '\n\n');
         if (Array.isArray(fields)) {
           _.forEach(fields, function (d) {
             acc = acc.concat(d) + ' \n';
@@ -36,7 +37,7 @@ angular.module('bib.components')
         }
       }
 
-      this.ressourcesDescription = convert(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
+      this.administration_phones = this.org.administration['Téléphone'].split(';').map(function(x){ return x.trim(); });
       this.axes = convert(this.org.recherche['Axes de recherche']);
       this.contrats = convert(this.org.recherche['Contrats de recherche']);
       this.seminaires = convert(this.org.recherche['Séminaires de recherche']);
@@ -45,10 +46,14 @@ angular.module('bib.components')
       this.collections = convert(this.publication['Collections auprès d\'éditeurs : description']);
       this.collectionTitle = convert(this.publication['Revues en propre : description']);
       this.oa_policy = convert(this.publication['Préconisations pour le dépôt en open access des publications']);
-      this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire'].replace(/\n/g, '\n\n'));
+      this.archive = convert(this.publication['Archivage des données de la recherche : description des projets']);
+      this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire']);
       this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
-      this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs'].replace(/\n/g, '\n\n'));
+      this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs']);
       this.library_staff = convert(this.ressources['Personne ressource - documentaliste']);
+      this.resources_title = convert(this.ressources['Centre de documentation ou bibliothèque en propre : Intitulé']);
+      this.ressources_description = convert(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
+      this.documentary_politics = convert(this.ressources['Politique documentaire']);
       this.information_skills_training = convert(this.ressources['Offre de formations documentaires']);
       this.library_network = convert(this.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']);
     }.bind(this);

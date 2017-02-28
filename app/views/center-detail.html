@@ -27,8 +27,10 @@
       <p>Directeur : {{ $ctrl.administration['Directeur'] }}</p>
     </div>
     <div class="col-md-6">
-      <p><i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}</p>
-      <p><i class="fa fa-phone"></i> {{ $ctrl.administration['Téléphone'] }}</p>
+      <p ng-if="$ctrl.administration['Courriel Direction'] != ''"><i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}</p>
+      <p ng-repeat="phone in $ctrl.administration_phones">
+        <i class="fa fa-phone"></i> {{ phone }}
+      </p>
       <p><i class="fa fa-globe"></i> <a target="_blank" href="{{ $ctrl.administration['Site Web'] }}">{{ $ctrl.administration['Site Web'] }}</a></p>
     </div>
 
@@ -138,9 +140,7 @@
     <div class="col-md-12" ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''" ng-bind-html="$ctrl.oa_policy"></div>
 
     <h2 ng-if="$ctrl.publication['Archivage des données de la recherche : description des projets'] != ''">Archivage des données de la recherche</h2>
-    <div class="col-md-12" ng-if="$ctrl.publication['Archivage des données de la recherche : description des projets'] != ''">
-      {{ $ctrl.publication['Archivage des données de la recherche : description des projets'] }}
-    </div>
+    <div class="col-md-12" ng-if="$ctrl.publication['Archivage des données de la recherche : description des projets'] != ''" ng-bind-html="$ctrl.archive"></div>
 
     <h2 ng-if="$ctrl.publication_development != ''">Valorisation des publications par le laboratoire</h2>
     <div class="col-md-12" ng-if="$ctrl.publication_development != ''" ng-bind-html="$ctrl.publication_development"></div>
@@ -158,24 +158,24 @@
     <div class="col-md-12" ng-bind-html="$ctrl.library_staff"></div>
 
     <h2>Centre de documentation ou bibliothèque en propre</h2>
-    <div class="col-md-12">
-      {{ $ctrl.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'] }}
-    </div>
+    <div class="col-md-12" ng-bind-html="$ctrl.resources_title"></div>
 
     <h2>Site web</h2>
     <div class="col-md-12">
-      <a href="{{ $ctrl.ressources['Site Web'] }}" target="_blank" ng-if="$ctrl.ressources['Site Web'] != 'X'">{{ $ctrl.ressources['Site Web'] }}</a>
-      <span ng-if="$ctrl.ressources['Site Web'] == 'X'">{{ $ctrl.ressources['Site Web'] }}</sapn>
+      <div ng-repeat="website in $ctrl.ressources['Site Web'].split('*')">
+        <a href="{{ website }}" target="_blank" ng-if="website != 'X'" >{{ website }}</a>
+        <span ng-if="website == 'X' || website == '?'">{{ website }}</span>
+      </div>
+      
     </div>
 
     <h2>Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h2>
     <div class="col-md-12">
-      <div ng-bind-html="$ctrl.ressourcesDescription" class="recherche"></div>
+      <div ng-bind-html="$ctrl.ressources_description" class="recherche"></div>
     </div>
 
     <h2 ng-if="$ctrl.ressources['Politique documentaire'] != ''">Politique documentaire</h2>
-    <div class="col-md-12" ng-if="$ctrl.ressources['Politique documentaire'] != ''">
-      {{ $ctrl.ressources['Politique documentaire'] }}
+    <div class="col-md-12" ng-if="$ctrl.ressources['Politique documentaire'] != ''" ng-bind-html="$ctrl.documentary_politics">
     </div>
 
     <h2 ng-if="$ctrl.ressources['Offre de formations documentaires'] != ''">Offre de formations documentaires</h2>
