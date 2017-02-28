@@ -28,6 +28,7 @@ a {
   cursor: pointer;
 }
 
+
 /*
  * Home
  */
@@ -137,101 +138,105 @@ body > .container {
   border: None
 }
 
+
 /*
  * Navbar
  */
 
-#logo-bib {
-  max-height: 100%;
-  max-width: 100%;
+navbar {
+
+  .navbar {
+    background: white;
+    border-bottom-color: red;
+    border-top-color: #222;
+    border-width: 3px 0 1px 0;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    .navbar-brand {
+      height: 100%;
+      padding: 0;
+
+      #logo-bib {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .navbar-nav {
+      margin-top: 22px;
+
+      > li {
+        border-right: 1px solid #e7e7e7;
+
+        &:last-child {
+          border-right: 0;
+        }
+
+        > a {
+          font-family: 'montserrat', 'Arial', sans-serif;
+          font-size: 14px;
+          font-variant: small-caps;
+          font-weight: bold;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
 }
 
-navbar .navbar {
-  background: white;
-  border-bottom-color: red;
-  border-top-color: #222;
-  border-width: 3px 0 1px 0;
-  height: 100px;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-navbar .navbar-brand {
-  padding: 0;
-}
-
-navbar .navbar-nav {
-  margin-top: 22px;
-}
-
-navbar .navbar-nav > li {
-  border-right: 1px solid #e7e7e7;
-}
-navbar .navbar-nav > li:last-child {
-  border-right: 0;
-}
-
-navbar .navbar-nav > li > a {
-  font-family: 'montserrat', 'Arial', sans-serif;
-  font-size: 14px;
-  font-variant: small-caps;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
 
 /*
  * Search
  */
 
 .search {
-  padding: 0 2px;
-}
 
-#search {
-  border-width: 0px;
-  border-bottom-width: 1px;
-  padding: 10px;
-  font-size: 15px;
-  width: 100%;
-}
+  #search {
+    border-width: 0px;
+    border-bottom-width: 1px;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+  }
 
-.btn-search {
-  font-size: 13px;
-  padding: 1px 1px;
-  button {
-    padding: 10px 9px;
+  .search-buttons {
+    padding: 0;
+    text-align: center;
+  }
+
+  .facet {
+    h2 {
+      font-size: 1.2em;
+    }
+  }
+
+  .facet-item-list {
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .facet-item-list ul {
+    padding-left: 15px;
+  }
+
+  .facet-item-list li{
+    list-style-type: None;
+  }
+
+  .facet-item {
+    cursor: pointer;
+  }
+
+  .facet-item-enabled {
+    font-weight: bold;
   }
 }
 
-.facet {
-  h2 {
-    font-size: 1.2em;
-  }
-}
-
-.facet-item-list {
-  max-height: 100px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.facet-item-list ul {
-  padding-left: 15px;
-}
-
-.facet-item-list li{
-  list-style-type: None;
-}
-
-.facet-item {
-  cursor: pointer;
-}
-
-.facet-item-enabled {
-  font-weight: bold;
-}
 
 /*
  * Center navigation
@@ -244,6 +249,7 @@ navbar .navbar-nav > li > a {
 #nextCenter {
   float: right;
 }
+
 
 /*
  * Map
@@ -296,6 +302,7 @@ navbar .navbar-nav > li > a {
   opacity: 0.7;
 }
 
+
  /*
   * Liste
   */
@@ -331,6 +338,7 @@ navbar .navbar-nav > li > a {
   max-width: 150px;
 }
 
+
 /*
  * listAndMap
  */
@@ -338,6 +346,7 @@ navbar .navbar-nav > li > a {
 #listAndMap {
   height: 60%;
 }
+
 
 /*
  * centerDetails
@@ -363,6 +372,7 @@ center-detail {
   text-align: center;
   min-width: 160px;
 }
+
 
 /*
  * Search
@@ -402,10 +412,10 @@ center-detail {
   font-weight: bold;
 }
 
+
 /*
  * Center details
  */
-
 
 .highlighted {
   background: yellow;
@@ -450,6 +460,7 @@ span.highlight{
   min-height:170px;
 }
 
+
 /*
  * keyWord on center details
  */
@@ -474,6 +485,7 @@ span.highlight{
   cursor: pointer;
 }
 
+
 /*
  * Grid
  */
@@ -482,6 +494,7 @@ span.highlight{
   width: 100%;
   height: 1000px;
 }
+
 
 /*
  * Cluster on Map
@@ -501,6 +514,7 @@ span.highlight{
   -o-transition: -o-stroke-dashoffset 0.3s ease-out, -o-stroke-opacity 0.3s ease-in;
   transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
 }
+
 
 /*
  * Cluster color on map
@@ -569,6 +583,7 @@ span.highlight{
   line-height: 30px;
 }
 
+
 /*
  * color center on map
  */
@@ -609,6 +624,7 @@ span.highlight{
   border-radius:50%;
 }
 
+
 /*
  * Separation line
  */
@@ -618,3 +634,25 @@ span.highlight{
   height:1px;
 }
 
+
+/*
+ * Projct page
+ */
+
+.project {
+
+  table,
+  tr,
+  td {
+    border: 1px solid #333;
+  }
+
+  table {
+    margin: auto;
+    width: 75%;
+  }
+
+  td {
+    padding: 2px 5px;
+  }
+}
