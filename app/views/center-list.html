@@ -6,10 +6,10 @@
             </div>
             <div class="col-md-8">
                 <h3 id="center-{{ center.id }}">
-                    <a class="center-title" href="#/centers/{{ center.id }}">
+                    <span class="center-title" ng-click="$ctrl.toogleCenter(center.id)">
                         <span ng-if="center.administration['Acronyme (nom court)']">{{ center.administration['Acronyme (nom court)'] }}<br /></span>
                         <span>{{ center.administration['Intitulé'] }}</span>
-                    </a>
+                    </span>
                 </h3>
                 <p>{{ center.administration['Code Unité'] | trimStar}}</p>
                 <p ng-if="center.commentaires['Date de mise à jour']">
