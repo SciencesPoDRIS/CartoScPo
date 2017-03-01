@@ -5,7 +5,8 @@
           <div class="col-md-9">
             <input id="search" type="text" placeholder="Entrez votre recherche ..."
               ng-model="toolCtrl.searchQuery"
-              uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8">
+              uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8"
+              ng-keyup="$event.keyCode == 13 ? toolCtrl.triggerSearch(toolCtrl.searchQuery) : null">
           </div>
           <div class="col-md-3 search-buttons">
             <button class="btn btn-lg btn-sm" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
