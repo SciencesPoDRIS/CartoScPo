@@ -6,13 +6,12 @@
             </div>
             <div class="col-md-8">
                 <h3 id="center-{{ center.id }}">
-          <a class="center-title" href="#/centers/{{ center.id }}">
-            <span ng-if="center.administration['Acronyme (nom court)']">{{ center.administration['Acronyme (nom court)'] }}</span>
-            <span ng-if="!center.administration['Acronyme (nom court)']">{{ center.administration['Intitulé'] }}</span>
-            <span ng-if="center.administration['Acronyme (nom court)']"><br />{{ center.administration['Intitulé'] }}</span>
-          </a>
-        </h3>
-                <p>{{ center.administration['Code Unité'] }}</p>
+                    <a class="center-title" href="#/centers/{{ center.id }}">
+                        <span ng-if="center.administration['Acronyme (nom court)']">{{ center.administration['Acronyme (nom court)'] }}<br /></span>
+                        <span>{{ center.administration['Intitulé'] }}</span>
+                    </a>
+                </h3>
+                <p>{{ center.administration['Code Unité'] | trimStar}}</p>
                 <p ng-if="center.commentaires['Date de mise à jour']">
                     <small>Données récoltées en {{center.commentaires['Date de mise à jour'] }}</small>
                 </p>
