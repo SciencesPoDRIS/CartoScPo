@@ -1,28 +1,27 @@
 <div id="center-list">
-  <div class="center-list-item" ng-repeat="center in $ctrl.centers track by center.id">
-    <div class="row">
-       <div class="col-md-3 text-left">
-        <logo org="center"></logo>
-       </div>
-      <div class="col-md-8">
-        <h3 id="center-{{ center.id }}">
+    <div class="center-list-item" ng-repeat="center in $ctrl.centers track by center.id">
+        <div class="row">
+            <div class="col-md-3 text-left">
+                <logo org="center"></logo>
+            </div>
+            <div class="col-md-8">
+                <h3 id="center-{{ center.id }}">
           <a class="center-title" href="#/centers/{{ center.id }}">
             <span ng-if="center.administration['Acronyme (nom court)']">{{ center.administration['Acronyme (nom court)'] }}</span>
             <span ng-if="!center.administration['Acronyme (nom court)']">{{ center.administration['Intitulé'] }}</span>
-            <span ng-if="center.administration['Acronyme (nom court)']"><br>{{ center.administration['Intitulé'] }}</span>
+            <span ng-if="center.administration['Acronyme (nom court)']"><br />{{ center.administration['Intitulé'] }}</span>
           </a>
         </h3>
-        <p>{{ center.administration['Code Unité'] }}</p>
-        <p ng-if="center.commentaires['Date de mise à jour']">
-          <small>Données récoltées en {{center.commentaires['Date de mise à jour'] }}</small>
-        </p>
-      </div>
+                <p>{{ center.administration['Code Unité'] }}</p>
+                <p ng-if="center.commentaires['Date de mise à jour']">
+                    <small>Données récoltées en {{center.commentaires['Date de mise à jour'] }}</small>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <center-detail org="center" expanded="$ctrl.expandedCenters.indexOf(center.id) !== -1"></center-detail>
+            </div>
+        </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <center-detail org="center" expanded="$ctrl.expandedCenters.indexOf(center.id) !== -1"></center-detail>
-      </div>
-  </div>
 </div>
-</div>
-
