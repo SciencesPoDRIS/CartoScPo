@@ -26,9 +26,9 @@
     <div class="tab-content" id="centerDetailsTabs">
         <div class="tab-pane active" id="description-{{ $ctrl.centerId }}">
             <div class="col-md-6">
-                <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
                 <p>Année de création : {{ $ctrl.administration['Année de création'] }}</p>
                 <p>Directeur : {{ $ctrl.administration['Directeur'] }}</p>
+                <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
             </div>
             <div class="col-md-6">
                 <p ng-if="$ctrl.administration['Courriel Direction'] != ''"><i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}</p>
