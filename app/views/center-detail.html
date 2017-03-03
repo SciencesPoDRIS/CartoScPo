@@ -26,16 +26,21 @@
     <div class="tab-content" id="centerDetailsTabs">
         <div class="tab-pane active" id="description-{{ $ctrl.centerId }}">
             <div class="col-md-6">
-                <p>Année de création : {{ $ctrl.administration['Année de création'] }}</p>
-                <p>Directeur : {{ $ctrl.administration['Directeur'] }}</p>
-                <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
-            </div>
-            <div class="col-md-6">
-                <p ng-if="$ctrl.administration['Courriel Direction'] != ''"><i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}</p>
+                <p>
+                    <i class="fa fa-globe"></i> 
+                    <a target="_blank" href="{{ $ctrl.administration['Site Web'] }}">{{ $ctrl.administration['Site Web'] }}</a>
+                </p>
                 <p ng-repeat="phone in $ctrl.administration_phones">
                     <i class="fa fa-phone"></i> {{ phone }}
                 </p>
-                <p><i class="fa fa-globe"></i> <a target="_blank" href="{{ $ctrl.administration['Site Web'] }}">{{ $ctrl.administration['Site Web'] }}</a></p>
+                <p>Année de création : {{ $ctrl.administration['Année de création'] }}</p>
+                <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
+            </div>
+            <div class="col-md-6">
+                <p>Directeur : {{ $ctrl.administration['Directeur'] }}</p>
+                <p ng-if="$ctrl.administration['Courriel Direction'] != ''">
+                    <i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}
+                </p>
             </div>
             <h2>Etablissements de rattachement</h2>
             <div class="col-md-12">
