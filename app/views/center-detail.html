@@ -42,6 +42,10 @@
                     <i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}
                 </p>
             </div>
+            <h2>Adresse(s)</h2>
+            <ul>
+                <li ng-repeat="address in $ctrl.administration['Adresse(s)'].split(';')">{{ address }}</li>
+            </ul>
             <h2>Etablissements de rattachement</h2>
             <div class="col-md-12">
                 <p ng-if="etablissement.length" ng-repeat="etablissement in $ctrl.administration['Etablissements de rattachement'].split('*')">
