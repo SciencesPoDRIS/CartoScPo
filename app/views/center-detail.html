@@ -37,7 +37,7 @@
                 </p>
                 <p><i class="fa fa-globe"></i> <a target="_blank" href="{{ $ctrl.administration['Site Web'] }}">{{ $ctrl.administration['Site Web'] }}</a></p>
             </div>
-            <h2>Etablissements de rattachement : </h2>
+            <h2>Etablissements de rattachement</h2>
             <div class="col-md-12">
                 <p ng-if="etablissement.length" ng-repeat="etablissement in $ctrl.administration['Etablissements de rattachement'].split('*')">
                     {{ etablissement }}
@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-12">
                 <h2>Historique</h2>
-                <p ng-bind-html="$ctrl.historic"></p>
+                <p ng-bind-html="$ctrl.historic" class="text-justify"></p>
             </div>
         </div>
         <div class="tab-pane" id="ecole-{{ $ctrl.centerId }}">
