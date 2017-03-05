@@ -21,9 +21,11 @@ angular.module('bib.components')
       // TODO remove bullet points before
       this.centerId = this.administration.id.replace(/\*/g, '');
 
-      // convert markdown to html
-      var converter = new Showdown.converter({simplifiedAutoLink: true});
-      
+      // Convert markdown to html
+      var converter = new showdown.Converter();
+      // Transform url into link even if no markdown
+      converter.setOption('simplifiedAutoLink', true);
+
       function convert(fields) {
         var acc = '';
         fields = fields.replace(/\n/g, '\n\n');
