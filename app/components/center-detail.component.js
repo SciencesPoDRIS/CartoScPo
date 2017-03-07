@@ -39,17 +39,25 @@ angular.module('bib.components')
         }
       }
 
+      // Administration
       this.administration_phones = this.org.administration['Téléphone'].split(';').map(function(x){ return x.trim(); });
+      this.historic = convert(this.administration['Historique']);
+      // Personnel
+      this.personnelCNRSUrl = this.org.personnel['Lien vers la page \"personnel\" du site Web du CNRS'];
+      this.personnelSiteWebCentre = this.org.personnel['Lien vers la page \"personnel\" sur le site Web du centre'];
+      // Ecole
+      // Recherche
       this.axes = convert(this.org.recherche['Axes de recherche']);
       this.contrats = convert(this.org.recherche['Contrats de recherche']);
       this.seminaires = convert(this.org.recherche['Séminaires de recherche']);
       this.collaboration = convert(this.org.recherche['Collaborations / réseaux']);
-      this.historic = convert(this.administration['Historique']);
+      // Publication
       this.collections = convert(this.publication['Collections auprès d\'éditeurs : description']);
       this.collectionTitle = convert(this.publication['Revues en propre : description']);
       this.oa_policy = convert(this.publication['Préconisations pour le dépôt en open access des publications']);
       this.archive = convert(this.publication['Archivage des données de la recherche : description des projets']);
       this.publication_development = convert(this.publication['Valorisation des publications par le laboratoire']);
+      // Ressources
       this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
       this.eresources = convert(this.ressources['Ressources numériques à disposition des chercheurs']);
       this.library_staff = convert(this.ressources['Personne ressource - documentaliste']);
@@ -58,6 +66,7 @@ angular.module('bib.components')
       this.documentary_politics = convert(this.ressources['Politique documentaire']);
       this.information_skills_training = convert(this.ressources['Offre de formations documentaires']);
       this.library_network = convert(this.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']);
+      // Commentaires
     }.bind(this);
   }
 });
