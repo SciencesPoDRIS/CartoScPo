@@ -102,11 +102,15 @@ angular.module('bib.controllers')
   // centers with the details expanded
   this.expandedCenters = [];
 
-  this.triggerSearch().then(function () {
+  this.triggerSearch()
+  .then(function () {
     // jQuery + setTimeout === 'mega ouuhh'
     $timeout(function () {
-      $('#center-list').scrollTo($('#center-' + $routeParams.centerId));
-      this.expandedCenters.push($routeParams.centerId);
+      if($routeParams.centerId && $routeParams.centerId != '') {
+        $('#center-list').scrollTo($('#center-' + $routeParams.centerId));
+        this.expandedCenters = [$routeParams.centerId];
+      }
+      
     }.bind(this), 2000);
   }.bind(this));
 

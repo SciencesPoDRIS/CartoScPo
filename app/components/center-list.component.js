@@ -10,10 +10,10 @@ angular.module('bib.components')
         },
         controller: function($scope) {
             this.toogleCenter = function(centerId) {
-                if(this.expandedCenters.indexOf(centerId) !== -1) {
-                    this.expandedCenters.splice(this.expandedCenters.indexOf(centerId), 1);
+                if($scope.$ctrl.expandedCenters.indexOf(centerId) !== -1) {
+                    $scope.$ctrl.expandedCenters = [];
                 } else {
-                    this.expandedCenters.push(centerId);
+                    $scope.$ctrl.expandedCenters = [centerId];
                 }
             }
         }
