@@ -7,13 +7,13 @@ var lodash = require('lodash');
 
 // store csv (each onglet (cf google drive)) in object
 var csvs = lodash.mapValues({
-  administration: 'Description administrative.csv',
+  administration: 'Description.csv',
   personnel:      'Personnel.csv',
   ecole:          'Ecoles doctorales.csv',
-  recherche:      'Thématiques de recherche.csv',
+  recherche:      'Thématiques.csv',
   publication:    'Publications.csv',
-  ressources:     'Ressources documentaires.csv',
-  commentaires:   'Commentaires & MAJ.csv'
+  ressources:     'Documentation.csv',
+  commentaires:   'Commentaires.csv'
 }, function (csv) {
   return path.join(__dirname, 'Donnees_centres_de_recherche_SP_2016 - ' + csv);
 });
