@@ -37,35 +37,23 @@ a {
  */
 
 #cover {
-  background: rgba(248, 248, 248, 1);
-  display: block;
-  margin: auto;
-  overflow-x: hidden;
-  position: relative;
-  height: 350px;
-}
-
-#cover img {
-  float: right;
-  height:100%;
+  background: rgba(248, 248, 248, 1) url("../../img/header.jpg") no-repeat fixed center;
+  background-size: cover;
 }
 
 #home-text {
-  background: rgba(255, 255, 255, 1);
   font-size: 20px;
-  left: 20px;
   padding: 20px;
-  position: absolute;
   text-align: justify;
-  top: 20px;
   width: 50%;
 
   h2 {
     margin-top: 0;
   }
 
-  h3 {
-    margin-bottom: 2em;
+  a {
+    color: black;
+    font-weight: bold;
   }
 }
 
@@ -159,7 +147,10 @@ navbar {
     text-align: center;
 
     .navbar-brand {
+      align-items: center;
+      display: flex;
       height: 100%;
+      justify-content: center;
       padding: 0;
 
       #logo-bib {
@@ -644,6 +635,11 @@ span.highlight{
  */
 
 .project {
+
+  .map {
+    float: right;
+    width: 40%;
+  }
 
   table,
   tr,
