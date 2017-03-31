@@ -54,6 +54,13 @@ gulp serve
 
 ## Création des données
 
+1. Ouvrir le fichier Drive des données
+2. Pour chaque onglet : 
+- Sélectionner l'onglet
+- File / Download as / Comma-separated values (.csv, current sheet)
+3. Copier les 9 fichiers obtenus dans le dossier www/dris_devdoc/CartoScPo/app/data
+4. Ouvrir un terminal et saisir "carto" et appuyer sur "Entrée"
+
 TL;DR:
 
 ```
