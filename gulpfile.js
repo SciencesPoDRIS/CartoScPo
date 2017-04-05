@@ -86,7 +86,6 @@ gulp.task('assets', function() {
       .pipe(gulp.dest('./app/assets/css/images/'));
     gulp.src('bower_components/font-awesome/fonts/*.*')
         .pipe(gulp.dest('./app/assets/fonts'));
-
 });
 
 // Launch server with livereload

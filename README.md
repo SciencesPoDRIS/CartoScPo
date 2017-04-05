@@ -54,24 +54,15 @@ gulp serve
 
 ## Création des données
 
-1. Ouvrir le fichier Drive des données
-2. Pour chaque onglet : 
-- Sélectionner l'onglet
-- File / Download as / Comma-separated values (.csv, current sheet)
-3. Copier les 9 fichiers obtenus dans le dossier www/dris_devdoc/CartoScPo/app/data
-4. Ouvrir un terminal et saisir "carto" et appuyer sur "Entrée"
-
-TL;DR:
-
 ```
 npm run parse
 ```
 
 Long version:
 
-Ajouter dans /app/data les csv téléchargés à partir des onglets du spreadsheet du drive.
+Ajouter dans /app/data tous les CSV générés à partir des onglets du spreadsheet du drive.
 
-Lancer le script suivant dans /app/data :
+Dans le dossier /app/data, lancer le script suivant (requiert l'installation de NodeJS) :
 
 ```
 node script_data_csv_to_json.js
