@@ -93,7 +93,7 @@ gulp.task('serve', function() {
     browserSync.init({ server: './app' });
     gulp.watch('app/style/style.less', ['css']);
     gulp.watch('app/style/style.css').on('change', browserSync.reload);
-    gulp.watch(['app/*.js', 'app/**/*.js'], ['js'])
+    gulp.watch(['app/*.js', 'app/**/*.js', '!app/assets/**/*.js'], ['js']);
     gulp.watch('app/assets/js/all.min.js').on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
