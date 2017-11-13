@@ -37,7 +37,7 @@
                 <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
             </div>
             <div class="col-md-6">
-                <p>Directeur : {{ $ctrl.administration['Directeur'] }}</p>
+                <p>Directeur·rice : {{ $ctrl.administration['Directeur'] }}</p>
                 <p ng-if="$ctrl.administration['Courriel Direction'] != ''">
                     <i class="fa fa-envelope-o"></i> {{ $ctrl.administration['Courriel Direction'] }}
                 </p>
@@ -78,14 +78,14 @@
                 <div ng-repeat="ecole in $ctrl.ecole.ecoles" class="col-md-4 ecole-details">
                     <p>Intitulé Ecole Doctorale : {{ ecole.intitule }}</p>
                     <p>Numéro d'Ecole Doctorale : {{ ecole.numero }}</p>
-                    <p>Directeur école doctorale : {{ ecole.directeur}}</p>
+                    <p>Directeur·rice école doctorale : {{ ecole.directeur}}</p>
                     <p>Courriel de l'Ecole doctorale : {{ ecole.courriel }}</p>
                 </div>
             </div>
-            <h2>Nombre de doctorants et thèses du centre</h2>
+            <h2>Nombre de doctorant·e·s et thèses du centre</h2>
             <div class="col-md-12">
-                <p>Nombre de doctorants : {{ $ctrl.ecole['Nombre de doctorants'] }}</p>
-                <p>Nombre de doctorants en science politique : {{ $ctrl.ecole['Nombre de doctorants en science politique'] }}</p>
+                <p>Nombre de doctorant·e·s : {{ $ctrl.ecole['Nombre de doctorants'] }}</p>
+                <p>Nombre de doctorant·e·s en science politique : {{ $ctrl.ecole['Nombre de doctorants en science politique'] }}</p>
                 <p>Nombre de thèses soutenues en 2016 : {{ $ctrl.ecole['Nombre de thèses soutenues en 2015'] }}</p>
             </div>
         </div>
@@ -141,7 +141,7 @@
         <div class="tab-pane ressources" id="ressources-{{ $ctrl.centerId }}">
             <h2>Bibliothèques utilisées</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.libraries_network"></div>
-            <h2>Ressources numériques à disposition des chercheurs</h2>
+            <h2>Ressources numériques à disposition des chercheur·se·s</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.eresources"></div>
             <h2>Personne ressource - documentaliste</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.library_staff"></div>
