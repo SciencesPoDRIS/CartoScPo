@@ -149,8 +149,8 @@
             <div class="col-md-12" ng-bind-html="$ctrl.resources_title"></div>
             <h2>Site web</h2>
             <div class="col-md-12">
-                <div ng-repeat="website in $ctrl.ressources['Site web'].split('*')">
-                    <a href="{{ website }}" target="_blank" ng-if="website != 'X'">{{ website }}</a>
+                <div ng-repeat="website in $ctrl.ressources['Site Web'].split('*')">
+                    <a href="{{ website }}" target="_blank" ng-if="website != 'X' && website != '?'">{{ website }}</a>
                     <span ng-if="website == 'X' || website == '?'">{{ website }}</span>
                 </div>
             </div>
