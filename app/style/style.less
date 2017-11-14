@@ -8,6 +8,15 @@
   font-style: normal;
 }
 
+.nav-text {
+  font-family: 'montserrat', 'Arial', sans-serif;
+  font-size: 14px;
+  font-variant: small-caps;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
 // Global style
 
 html {
@@ -103,10 +112,6 @@ a {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#view{
-  padding-top: 100px;
-}
-
 body > .container {
   padding: 53px 15px 60px 15px;
 }
@@ -142,12 +147,20 @@ navbar {
   .navbar {
     background: white;
     border-bottom-color: red;
-    border-top-color: #222;
-    border-width: 3px 0 1px 0;
-    height: 100px;
+    border-width: 0 0 1px 0;
+    height: 60px;
     margin: 0;
     padding: 0;
     text-align: center;
+
+    &:first-child {
+      border-color: #777;
+      border-top-width: 3px;
+    }
+
+    &:last-child {
+      margin-top: 60px;
+    }
 
     .navbar-brand {
       align-items: center;
@@ -156,14 +169,24 @@ navbar {
       justify-content: center;
       padding: 0;
 
+      a {
+        .nav-text();
+        color: #777;
+        text-decoration: none;
+        &:hover {
+          color: #333;
+        }
+      }
+
       #logo-bib {
         max-height: 100%;
         max-width: 100%;
+        padding: 2px;
       }
     }
 
     .navbar-nav {
-      margin-top: 22px;
+      margin-top: 5px;
 
       > li {
         border-right: 1px solid #e7e7e7;
@@ -173,12 +196,7 @@ navbar {
         }
 
         > a {
-          font-family: 'montserrat', 'Arial', sans-serif;
-          font-size: 14px;
-          font-variant: small-caps;
-          font-weight: bold;
-          letter-spacing: 2px;
-          text-transform: uppercase;
+          .nav-text();
         }
       }
     }
