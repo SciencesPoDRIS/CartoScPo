@@ -48,8 +48,8 @@ angular.module('bib', [
 angular.module('bib.analytics', ['angular-google-analytics', 'ngRoute'])
     .config(['AnalyticsProvider', function (AnalyticsProvider) {
         // Add configuration code as desired
-        AnalyticsProvider.setAccount('UA-29905028-18')
-            // Track all URL query params (default is false). 
+        AnalyticsProvider.setAccount('UA-2835049-22')
+            // Track all URL query params (default is false).
             .trackUrlParams(true)
             // Activate reading custom tracking urls from $routeProvider config (default is false)
             .readFromRoute(true);
