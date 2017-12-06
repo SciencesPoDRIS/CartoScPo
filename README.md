@@ -1,4 +1,4 @@
-# Etude des centres de recherche en Sciences Politiques 
+# Etude des centres de recherche en Sciences Politiques
 
 Réalisée par la Bibliothèque de Sciences Po Paris en collaboration avec le Medialab
 
@@ -8,13 +8,17 @@ A la racine du projet :
 ```
 npm install
 ```
-A la racine du projet : 
+A la racine du projet :
 
 ```
-bower install 
+bower install
 ```
 
-## Lancement de l'app 
+Copier le fichier app/conf/conf.default.js vers app/conf/conf.js.
+
+Editer app/conf/conf.js et modifier les paramètres voulus (googleAnalyticsId).
+
+## Lancement de l'app
 
 ```
 gulp
@@ -118,10 +122,9 @@ app/services/map.services
 
 ### Configuration des données sur le site
 
-Il est possible d'éditer une configuration afin de paramétrer : 
+Il est possible d'éditer une configuration afin de paramétrer :
 
 * les onglets à agréger
 * la taille des centres sur la carte
 * les champs de recherches disponibles dans la recherche fulltext
 * les mots à prendre en compte dans l'auto-complétion
-
