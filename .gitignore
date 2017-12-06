@@ -32,3 +32,8 @@ app/assets
 # Generated CSS file
 #
 app/style/style.css
+
+#
+# Conf file
+#
+app/conf/conf.js

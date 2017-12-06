@@ -51,7 +51,8 @@ gulp.task('js', function() {
         'app/services/file.service.js',
         'app/services/map.service.js',
         'app/services/metadata.service.js',
-        'app/services/search.service.js'
+        'app/services/search.service.js',
+        'app/conf/conf.js'
     ])
     .pipe(concat('all.min.js'))
     .pipe(ngAnnotate())
