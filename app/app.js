@@ -22,7 +22,6 @@
             'ui.grid.exporter',
             'ui.select',
             'ngTouch',
-            'angulartics',
             'ui-leaflet',
             'bib.components',
             'bib.controllers',
