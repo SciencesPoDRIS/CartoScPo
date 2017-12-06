@@ -25,8 +25,6 @@ gulp.task('js', function() {
         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'bower_components/bootstrap/dist/js/bootstrap.min.js',
         'bower_components/angular-ui-grid/ui-grid.js',
-        'bower_components/angulartics/dist/angulartics.min.js',
-        'bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
         'bower_components/leaflet/dist/leaflet.js',
         'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
         'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
