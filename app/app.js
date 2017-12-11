@@ -10,7 +10,7 @@
         .config(['AnalyticsProvider', 'googleAnalyticsId', function(AnalyticsProvider, googleAnalyticsId) {
             AnalyticsProvider.setAccount(googleAnalyticsId);
         }])
-        .run(['Analytics', function(Analytics) { }]);
+        .run(['Analytics', function() { }]);
 
     angular.module('bib', [
             'ngRoute',

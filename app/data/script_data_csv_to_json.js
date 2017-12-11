@@ -65,7 +65,7 @@ function getAllData (csvs) {
       try {
         center.id = getCenterId(center[KEY_CODE]);
       } catch (ex) {
-        console.error('invalid Code unité', csv, center)
+        console.error('invalid Code unité', csv, center);
       }
       center.csv = csv;
       return center;
@@ -94,7 +94,7 @@ console.log('csv parsed', 'centerIds', Object.keys(allCenters).sort());
 
 var RE_COORDS = /(\-?\d+\.\d+),\s*(\-?\d+\.\d+)/;
 function getCoords (str) {
-  var m = RE_COORDS.exec(str)
+  var m = RE_COORDS.exec(str);
   return [Number(m[1]), Number(m[2])];
 }
 

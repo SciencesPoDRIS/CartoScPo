@@ -4,7 +4,7 @@ angular.module('bib.controllers')
     .controller('project', ['$scope',
         function($scope) {
             $scope.scrollTo = function(elementId) {
-                $.scrollTo($('#' + elementId).offset().top - 120)
-            }
+                $.scrollTo($('#' + elementId).offset().top - 120);
+            };
         }
 ]);

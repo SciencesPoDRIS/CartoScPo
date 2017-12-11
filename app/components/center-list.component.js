@@ -15,6 +15,6 @@ angular.module('bib.components')
                 } else {
                     $scope.$ctrl.expandedCenters = [centerId];
                 }
-            }
+            };
         }
     });
