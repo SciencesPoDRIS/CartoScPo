@@ -87,7 +87,7 @@ gulp.task('assets', function() {
         .pipe(gulp.dest('./app/assets/fonts'));
 });
 
-// Launch server with livereload
+// Launch server with browserSync
 gulp.task('serve', function() {
     browserSync.init({ server: './app' });
     gulp.watch('app/style/style.less', ['css']);
