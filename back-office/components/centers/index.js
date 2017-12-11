@@ -1,4 +1,5 @@
 import angular from 'angular'
+import logoMod from '../logo'
 
 class controller {
   constructor($http) {
@@ -20,5 +21,5 @@ const component = {
 }
 
 export default angular
-  .module('bobib.centers', [])
+  .module('bobib.centers', [logoMod])
   .component('centers', component).name

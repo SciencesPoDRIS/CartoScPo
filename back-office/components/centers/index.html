@@ -3,11 +3,15 @@
   <thead>
     <tr>
       <th>id</th>
+      <th>acronyme</th>
+      <th>logo</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="center in $ctrl.centers track by center.id">
       <td>{{ center.id }}</td>
+      <td>{{ center.administration['Acronyme (nom court)'] }}</td>
+      <td><logo center="center"></logo></td>
     </tr>
   </tbody>
 </table>
