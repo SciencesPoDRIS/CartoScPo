@@ -37,3 +37,5 @@ app/style/style.css
 # Conf file
 #
 app/conf/conf.js
+
+back-office/bundle.js

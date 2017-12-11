@@ -1,10 +1,11 @@
 <!DOCTYPE>
-<html>
+<html lang="fr" ng-app="bobib" ng-strict-di>
 <head>
     <meta charset="utf-8" />
     <title>Back Office - Cartographie de la Science Politique en France</title>
+    <script src="bundle.js"></script>
 </head>
-<body>
-<h1>Back Office</h1>
+<body ng-controller="HomeCtrl as home">
+   <h1>{{ home.title }}</h1>
 </body>
 </html>
