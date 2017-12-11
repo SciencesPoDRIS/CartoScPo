@@ -1,5 +1,7 @@
-const angular = require('angular')
+import angular from 'angular'
 
-angular.module('bobib', []).controller('HomeCtrl', function () {
-  this.title = 'bobib'
-})
+import appComponent from './components/app'
+
+angular.module('bobib', [
+  appComponent
+])
