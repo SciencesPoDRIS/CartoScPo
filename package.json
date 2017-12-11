@@ -9,7 +9,8 @@
     "parse:data": "node app/data/script_data_csv_to_json",
     "parse:metadata": "node app/data/script_metadata_csv_to_json",
     "parse": "npm-run-all -p parse:*",
-    "start": "gulp"
+    "start": "gulp",
+    "server": "DEBUG=express node server/index.js"
   },
   "keywords": [
     "Sciences",
@@ -37,6 +38,10 @@
   },
   "dependencies": {
     "babyparse": "^0.4.6",
-    "lodash": "^4.11.1"
+    "config": "^1.28.1",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "lodash": "^4.11.1",
+    "toml": "^2.3.3"
   }
 }
