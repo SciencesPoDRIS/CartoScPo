@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-var Baby = require('babyparse');
+const { readFile, writeFile } = require('fs')
+const { join } = require('path')
+const { parse } = require('babyparse')
 
-fs.readFile(path.join(__dirname, 'metadata.csv'), 'utf8', function (err, content) {
-  if (err) throw err;
+readFile(join(__dirname, 'metadata.csv'), 'utf8', (err, content) => {
+  if (err) throw err
 
-  var parsed = Baby.parse(content, { header: true });
-  fs.writeFile(path.join(__dirname, 'metadata.json'), JSON.stringify(parsed.data, null, 2));
-});
+  const { data } = parse(content, { header: true })
+  writeFile(
+    join(__dirname, 'metadata.json'),
+    JSON.stringify(data, null, 2),
+    err => {
+      if (err) throw err
+    },
+  )
+})
