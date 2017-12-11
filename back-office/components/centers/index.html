@@ -1,2 +1,14 @@
-<h1 class="title">Centres</h1>
+<h1 class="title">Centres {{ $ctrl.centers.length }}</h1>
+<table class="table is-bordered is-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="center in $ctrl.centers track by center.id">
+      <td>{{ center.id }}</td>
+    </tr>
+  </tbody>
+</table>
 
