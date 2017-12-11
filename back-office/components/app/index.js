@@ -1,4 +1,5 @@
 import angular from 'angular'
+import centersMod from '../centers'
 
 class controller {}
 
@@ -7,4 +8,6 @@ const component = {
   controller,
 }
 
-export default angular.module('bobib.app', []).component('app', component).name
+export default angular
+  .module('bobib.app', [centersMod])
+  .component('app', component).name
