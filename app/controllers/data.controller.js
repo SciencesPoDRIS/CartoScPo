@@ -2,10 +2,9 @@
 'use strict';
 
 angular.module('bib.controllers')
-    .controller('data', ['$scope', '$location', '$http', 'fileService', 'uiGridConstants', '$filter',
-        function($scope, $location, $http, fileService, uiGridConstants, $filter) {
+    .controller('data', function($scope, $location, $http, fileService, uiGridConstants, $filter) {
             var url = './data/data.json';
-                // get csv from url
+            // get csv from url
             //grid settings
             $scope.gridOptions = {
                 enableFiltering: true,
@@ -63,7 +62,7 @@ angular.module('bib.controllers')
                 .getFile(url)
                 .then(function(result) {
 
-                    // select only five colomns in csv
+                    // select only five columns in csv
                     var data = [],
                         headers = [];
                     _.forEach(result.allCenters, function(tab) {
@@ -81,4 +80,4 @@ angular.module('bib.controllers')
                     $scope.gridOptions.data = $scope.myData;
                 });
         }
-    ]);
+    );
