@@ -41,7 +41,7 @@
     "angular-google-analytics": "^1.1.9"
   },
   "resolutions": {
-    "angular": "^1.x.x",
+    "angular": "^1.6.x",
     "showdown": "1.x"
   }
 }
