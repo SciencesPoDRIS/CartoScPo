@@ -1,6 +1,7 @@
 import angular from 'angular'
 
-import centersMod from '../centers'
+import centerFormMod from '../center-form'
+import centersListMod from '../centers-list'
 import navbarMod from '../navbar'
 
 class controller {}
@@ -11,5 +12,5 @@ const component = {
 }
 
 export default angular
-  .module('bobib.app', [centersMod, navbarMod])
+  .module('bobib.app', [centerFormMod, centersListMod, navbarMod])
   .component('app', component).name

@@ -12,6 +12,7 @@
       </th>
       <th>acronyme</th>
       <th>logo</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,14 @@
       <td>{{ center.id }}</td>
       <td>{{ center.administration['Acronyme (nom court)'] }}</td>
       <td><logo center="center"></logo></td>
+      <td>
+        <a class="button" href="/centers/{{ center.id }}">
+          <span>Modifier</span>
+          <span class="icon is-small">
+            <i class="fa fa-pencil"></i>
+          </span>
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>

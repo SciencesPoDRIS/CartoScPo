@@ -12,8 +12,18 @@ angular.module('bobib', [ngRoute, appComponent]).config([
       .when('/', {
         template: '<h1 class="title">Home</h1>',
       })
+      .when('/centers/:id', {
+        template: '<center-form id="$resolve.id" />',
+        resolve: {
+          id: [
+            '$q',
+            '$route',
+            ($q, { current }) => $q.resolve(current.params.id),
+          ],
+        },
+      })
       .when('/centers', {
-        template: '<centers />',
+        template: '<centers-list />',
       })
       .when('/modifications', {
         template: '<h1 class="title">Modifications</h1>',

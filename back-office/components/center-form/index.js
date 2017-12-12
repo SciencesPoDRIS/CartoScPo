@@ -3,14 +3,11 @@ import logoMod from '../logo'
 
 class controller {
   constructor($http) {
-    this.centers = []
+    this.center = {}
     this.$http = $http
   }
 
   $onInit() {
-    this.$http
-      .get('/api/centers')
-      .then(({ data }) => (this.centers = data.centers))
   }
 }
 controller.$inject = ['$http']
@@ -18,8 +15,11 @@ controller.$inject = ['$http']
 const component = {
   template: require('./index.html'),
   controller,
+  bindings: {
+    id: '=',
+  },
 }
 
 export default angular
-  .module('bobib.centers', [logoMod])
-  .component('centers', component).name
+  .module('bobib.center-form', [logoMod])
+  .component('centerForm', component).name
