@@ -1,1 +1,97 @@
 <h1 class="title">Centre {{ $ctrl.id }}</h1>
+
+<form>
+  <div class="tabs is-boxed">
+    <ul>
+      <li ng-repeat="tab in $ctrl.tabs" ng-class="{'is-active': $ctrl.isActive(tab)}">
+        <a ng-click="$ctrl.setTab(tab)">{{ tab.label }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <section ng-if="$ctrl.tab === 'administration'">
+  <div class="columns">
+  <div class="column">
+    <div class="field">
+      <label class="label">Site web</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Année de création</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">CNRS ?</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="field">
+      <label class="label">Directeur·rice</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Courriel direction</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Fiche du centre dans ScanR</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <h2 class="subtitle">Adresse(s)</h2>
+  <h2 class="subtitle">Etablissements de rattachement</h2>
+
+  <h2 class="subtitle">Personnel</h2>
+  <div class="columns">
+  <div class="column">
+    <div class="field">
+      <label class="label">Effectif total</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Personnels non permanents</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Personnels permanents</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="field">
+      <label class="label">Lien vers la page "personnel" du site Web du CNRS</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Liens vers la page "personnel" sur le site Web du centre</label>
+      <div class="control">
+        <input class="input" />
+      </div>
+    </div>
+  </div>
+  </div>
+  </section>
+</form>
