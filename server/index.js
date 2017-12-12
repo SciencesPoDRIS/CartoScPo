@@ -12,6 +12,7 @@ const db = require(DB)
 const app = express()
 
 app.use(express.static(PUBLIC))
+app.use(express.json())
 app.use(boom())
 
 app.get('/api/centers/:id', ({ params }, res) => {
@@ -30,6 +31,12 @@ app.get('/api/centers', (req, res) => {
     },
   )
   res.json({ centers })
+})
+
+app.put('/api/centers/:id', ({ params, body }, res) => {
+  if (!db.allCenters[params.id]) return res.boom.notFound()
+  db.allCenters[params.id] = body.center
+  res.send('ok')
 })
 
 // single page application

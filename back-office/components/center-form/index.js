@@ -2,8 +2,9 @@ import angular from 'angular'
 import logoMod from '../logo'
 
 class controller {
-  constructor($http) {
+  constructor($http, $location) {
     this.$http = $http
+    this.$location = $location
 
     this.center = {}
     this.tab = 'administration'
@@ -33,8 +34,15 @@ class controller {
   setTab(tab) {
     this.tab = tab.id
   }
+
+  submit() {
+    const redirect = () => this.$location.path('/centers')
+    this.$http
+      .put(`/api/centers/${this.id}`, { center: this.center })
+      .then(redirect, console.error)
+  }
 }
-controller.$inject = ['$http']
+controller.$inject = ['$http', '$location']
 
 const component = {
   template: require('./index.html'),

@@ -15,19 +15,19 @@
     <div class="field">
       <label class="label">Site web</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.administration['Site web']" />
       </div>
     </div>
     <div class="field">
       <label class="label">Année de création</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.administration['Année de création']" />
       </div>
     </div>
     <div class="field">
       <label class="label">CNRS ?</label>
       <div class="control">
-        <input class="input" />
+        <input type="checkbox" ng-model="$ctrl.center.administration['CNRS (Oui/Non)']" />
       </div>
     </div>
   </div>
@@ -35,19 +35,19 @@
     <div class="field">
       <label class="label">Directeur·rice</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.administration['Directeur']" />
       </div>
     </div>
     <div class="field">
       <label class="label">Courriel direction</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.administration['Courriel Direction']" />
       </div>
     </div>
     <div class="field">
       <label class="label">Fiche du centre dans ScanR</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.administration['Lien_ScanR']" />
       </div>
     </div>
   </div>
@@ -62,19 +62,19 @@
     <div class="field">
       <label class="label">Effectif total</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.personnel['Effectif total']" />
       </div>
     </div>
     <div class="field">
       <label class="label">Personnels non permanents</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.personnel['Personnels non permanents']" />
       </div>
     </div>
     <div class="field">
       <label class="label">Personnels permanents</label>
       <div class="control">
-        <input class="input" />
+        <input class="input" ng-model="$ctrl.center.personnel['Personnels permanents']" />
       </div>
     </div>
   </div>
@@ -93,5 +93,25 @@
     </div>
   </div>
   </div>
+
+  <h2 class="subtitle">Historique</h2>
   </section>
+
+	<section class="section">
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <a class="button is-success" ng-click="$ctrl.submit()">
+        <span class="icon is-small">
+          <i class="fa fa-check"></i>
+        </span>
+        <span>Save</span>
+      </a>
+    </div>
+    <div class="control">
+      <a class="button is-outlined">
+        <span>Annuler</span>
+      </a>
+    </div>
+  </div>
+	</section>
 </form>
