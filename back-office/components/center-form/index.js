@@ -45,6 +45,12 @@ class controller {
       .put(`/api/centers/${this.id}`, { center: this.center })
       .then(redirect, console.error)
   }
+
+  // to fill textareas
+  splitBy(char, value) {
+    if (!value) return ''
+    return value.split(char).map(v => v.trim()).filter(v => v).join('\n')
+  }
 }
 controller.$inject = ['$http', '$location', '$rootScope']
 
