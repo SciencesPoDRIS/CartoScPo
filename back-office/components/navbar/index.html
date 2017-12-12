@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item"
+         ng-class="{'is-active': $ctrl.isActive(menu)}"
+         href="{{menu.url}}"
+         ng-repeat="menu in $ctrl.menus">
+        {{menu.label}}
+      </a>
+    </div>
+  </div>
+</nav>
+
