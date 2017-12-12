@@ -1,0 +1,8 @@
+navbar {
+  border-bottom: 1px solid red;
+  display: block;
+}
+
+navbar a.navbar-item.is-active {
+  background-color: #e7e7e7 !important;
+}

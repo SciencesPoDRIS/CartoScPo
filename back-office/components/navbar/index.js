@@ -1,4 +1,5 @@
 import angular from 'angular'
+import './index.css'
 
 class controller {
   constructor($location) {
