@@ -2,9 +2,10 @@ import angular from 'angular'
 import logoMod from '../logo'
 
 class controller {
-  constructor($http, $location) {
+  constructor($http, $location, $rootScope) {
     this.$http = $http
     this.$location = $location
+    this.$rootScope = $rootScope
 
     this.center = {}
     this.tab = 'administration'
@@ -36,13 +37,16 @@ class controller {
   }
 
   submit() {
-    const redirect = () => this.$location.path('/centers')
+    const redirect = () => {
+      this.$rootScope.flashes.push('Centre sauvegardé')
+      this.$location.path('/centers')
+    }
     this.$http
       .put(`/api/centers/${this.id}`, { center: this.center })
       .then(redirect, console.error)
   }
 }
-controller.$inject = ['$http', '$location']
+controller.$inject = ['$http', '$location', '$rootScope']
 
 const component = {
   template: require('./index.html'),
