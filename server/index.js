@@ -1,6 +1,7 @@
 const path = require('path')
 const debug = require('debug')('express')
 const express = require('express')
+const boom = require('express-boom')
 const { server: config } = require('config')
 
 const PUBLIC = path.join(__dirname, '../back-office')
@@ -11,6 +12,15 @@ const db = require(DB)
 const app = express()
 
 app.use(express.static(PUBLIC))
+app.use(boom())
+
+app.get('/api/centers/:id', ({ params }, res) => {
+  const center = db.allCenters[params.id]
+  if (!center) return res.boom.notFound()
+
+  center.id = params.id
+  res.json({ center })
+})
 
 app.get('/api/centers', (req, res) => {
   const centers = Array.from(Object.entries(db.allCenters)).map(
