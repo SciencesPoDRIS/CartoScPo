@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "angular": "^1.6.7",
+    "angular-route": "^1.6.7",
     "babyparse": "^0.4.6",
     "config": "^1.28.1",
     "debug": "^3.1.0",
