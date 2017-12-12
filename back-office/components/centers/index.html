@@ -2,13 +2,20 @@
 <table class="table is-bordered is-striped">
   <thead>
     <tr>
-      <th>id</th>
+      <th>
+        <div class="control has-icons-left">
+          <input class="input is-small" placeholder="id" ng-model="$ctrl.search.id">
+          <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+      </th>
       <th>acronyme</th>
       <th>logo</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="center in $ctrl.centers track by center.id">
+    <tr ng-repeat="center in $ctrl.centers | filter:$ctrl.search track by center.id">
       <td>{{ center.id }}</td>
       <td>{{ center.administration['Acronyme (nom court)'] }}</td>
       <td><logo center="center"></logo></td>
