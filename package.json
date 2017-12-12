@@ -54,6 +54,7 @@
     "express": "^4.16.2",
     "express-boom": "^2.0.0",
     "lodash": "^4.11.1",
+    "mongoose": "^4.13.7",
     "toml": "^2.3.3"
   }
 }

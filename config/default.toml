@@ -1,2 +1,5 @@
 [server]
 port = 42000
+[mongo]
+uri = "mongodb://localhost:27017/bobib"
+

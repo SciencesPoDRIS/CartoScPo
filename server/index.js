@@ -4,6 +4,7 @@ const express = require('express')
 const boom = require('express-boom')
 const { server: config } = require('config')
 
+const { Center } = require('./models')
 const PUBLIC = path.join(__dirname, '../back-office')
 const DB = path.join(__dirname, '../app/data/data.json')
 
@@ -36,7 +37,13 @@ app.get('/api/centers', (req, res) => {
 app.put('/api/centers/:id', ({ params, body }, res) => {
   if (!db.allCenters[params.id]) return res.boom.notFound()
   db.allCenters[params.id] = body.center
-  res.send('ok')
+
+  Center.update(
+    { id: params.id },
+    { id: params.id, raw: JSON.stringify(body.center) },
+    { upsert: true },
+    () => res.send('ok'),
+  )
 })
 
 // single page application
