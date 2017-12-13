@@ -27,14 +27,12 @@ app.get('/api/centers', (req, res) => {
 })
 
 app.put('/api/centers/:id', ({ params, body }, res) => {
-  if (!db.allCenters[params.id]) return res.boom.notFound()
-  db.allCenters[params.id] = body.center
-
   Center.update(
     { id: params.id },
-    { $set: { raw: JSON.stringify(body.center) } },
+    { $set: { ...body.center } },
     { upsert: true },
-    () => {
+    (err) => {
+      if (err) return res.boom.badRequest()
       const m = new Modification({ centerId: params.id })
       m.save()
       res.send('ok')
