@@ -2,22 +2,6 @@
   "id": "center",
   "type": "object",
   "properties": {
-    "id": {
-      "label": "Identifiant",
-      "type": "string",
-      "required": true,
-      "multievaluation": false,
-      "front": false,
-      "queryable": false
-    },
-    "name": {
-      "label": "Intitulé",
-      "type": "string",
-      "required": true,
-      "multievaluation": false,
-      "front": true,
-      "queryable": true
-    },
     "acronym": {
       "label": "Acronyme (nom court)",
       "type": "string",
@@ -89,7 +73,7 @@
       "queryable": false
     },
     "affiliation": {
-      "label": "Etablissement de rattachement",
+      "label": "Etablissements de rattachement",
       "type": "markdown",
       "required": true,
       "multievaluation": false,
@@ -327,8 +311,8 @@
       "front": false,
       "queryable": false
     },
-    "collection_title": {
-      "label": "Collections auprès d'éditeurs",
+    "collections_titles": {
+      "label": "Collections auprès d'éditeurs description",
       "type": "markdown",
       "required": false,
       "multievaluation": false,
@@ -345,9 +329,8 @@
       "queryable": false,
       "repeatable": true
     },
-    "journal_title": {
-      "Propriété": "journal_title",
-      "label": "Revues en propre",
+    "journal_titles": {
+      "label": "Revues en propre description",
       "type": "markdown",
       "required": false,
       "multievaluation": false,
@@ -431,7 +414,7 @@
       "repeatable": true
     },
     "library": {
-      "label": "Centre de documentation ou bibliothèque en propre ?",
+      "label": "Centre de documentation ou bibliothèque en propre",
       "type": "boolean",
       "required": true,
       "multievaluation": false,
