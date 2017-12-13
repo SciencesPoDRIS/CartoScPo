@@ -14,16 +14,6 @@ if (!mongoose.connection.db) {
 }
 
 exports.connection = mongoose.connection
+exports.Center = require('./center')
+exports.Modification = require('./modification')
 
-const centerSchema = new mongoose.Schema(
-  {
-    id: { type: String, required: true },
-    // should this center be hidden on the front office?
-    hidden: { type: Boolean, required: true, default: false },
-    raw: { type: String, required: true },
-  },
-  { timestamps: true },
-)
-centerSchema.index({ id: 1 }, { unique: true })
-
-exports.Center = mongoose.model('Center', centerSchema)

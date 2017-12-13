@@ -4,7 +4,7 @@ const express = require('express')
 const boom = require('express-boom')
 const { server: config } = require('config')
 
-const { Center } = require('./models')
+const { Center, Modification } = require('./models')
 const PUBLIC = path.join(__dirname, '../back-office')
 const DB = path.join(__dirname, '../app/data/data.json')
 
@@ -42,7 +42,11 @@ app.put('/api/centers/:id', ({ params, body }, res) => {
     { id: params.id },
     { $set: { raw: JSON.stringify(body.center) } },
     { upsert: true },
-    () => res.send('ok'),
+    () => {
+      const m = new Modification()
+      m.save()
+      res.send('ok')
+    },
   )
 })
 
