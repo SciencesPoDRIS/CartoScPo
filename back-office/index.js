@@ -26,7 +26,7 @@ angular.module('bobib', [ngRoute, appComponent]).config([
         template: '<centers-list />',
       })
       .when('/modifications', {
-        template: '<h1 class="title">Modifications</h1>',
+        template: '<modifications-list />',
       })
       .when('/users', {
         template: '<h1 class="title">Users</h1>',

@@ -1,0 +1,34 @@
+<h1 class="title">Modifications {{ $ctrl.modifications.length }}</h1>
+<table class="table is-bordered is-striped">
+  <thead>
+    <tr>
+      <th>
+        <div class="control has-icons-left">
+          <input class="input is-small" placeholder="centerId" ng-model="$ctrl.search.centerId">
+          <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+      </th>
+      <th>
+        <div class="control has-icons-left">
+          <input class="input is-small" placeholder="status" ng-model="$ctrl.search.status">
+          <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+      </th>
+      <th>créée le</th>
+      <th>modifiée le</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search">
+      <td>{{ modif.centerId }}</td>
+      <td>{{ modif.status }}</td>
+      <td>{{ modif.createdAt }}</td>
+      <td>{{ modif.updatedAt }}</td>
+    </tr>
+  </tbody>
+</table>
+

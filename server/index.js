@@ -43,7 +43,7 @@ app.put('/api/centers/:id', ({ params, body }, res) => {
     { $set: { raw: JSON.stringify(body.center) } },
     { upsert: true },
     () => {
-      const m = new Modification()
+      const m = new Modification({ centerId: params.id })
       m.save()
       res.send('ok')
     },
@@ -58,6 +58,10 @@ app.patch('/api/centers/:id/visibility', ({ params }, res) => {
   Center.update({ id: params.id }, { $set: { hidden: center.hidden } }, () =>
     res.send({ hidden: center.hidden }),
   )
+})
+
+app.get('/api/modifications', (req, res) => {
+  Modification.find().then(modifications => res.json({ modifications }))
 })
 
 // single page application
