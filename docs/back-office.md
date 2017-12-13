@@ -32,3 +32,10 @@ Ainsi pour démarrer sa journée de travail sur le BO. Il faut:
 2 - lancer `npm run bo:watch`. Cette commande lance `webpack` qui va venir rebatir le BO (coté client) dès qu'un fichier change. Il faut par contre
 rafraichir son navigateur manuelement (pour le moment). En parallèle, l'application node se lance. Grace à `nodemon`, le serveur redemarre dès que le
 contenu de `/server` est modifié.
+
+## Synchonisation des données
+
+Le fichier `back-office/schema.json` centralise en un seul endroit la définition des champs qui composent un centre. Il est responsable de formaliser à la fois
+la composition des documents de la collection `centers` de `mongodb` ainsi que l'affichage de saisie dynamique coté `angularjs`.
+Partager les régles de validation entre serveur et GUI permet de s'assurer que les deux cotés de la communication restent en phase.
+Le but est de le supplanter à `app/data/metadata.json`.
