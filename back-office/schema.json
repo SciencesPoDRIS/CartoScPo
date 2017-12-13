@@ -1,0 +1,493 @@
+{
+  "id": "center",
+  "type": "object",
+  "properties": {
+    "id": {
+      "label": "Identifiant",
+      "type": "string",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "name": {
+      "label": "Intitulé",
+      "type": "string",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": true
+    },
+    "acronym": {
+      "label": "Acronyme (nom court)",
+      "type": "string",
+      "example": "CEVIPOF",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": true
+    },
+    "code": {
+      "label": "Code Unité",
+      "type": "string",
+      "example": "UMR 7217",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "logo": {
+      "label": "Logo",
+      "type": "image",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "city": {
+      "label": "Ville",
+      "type": "string",
+      "example": "Paris",
+      "required": true,
+      "multievaluation": true,
+      "front": true,
+      "queryable": true
+    },
+    "address": {
+      "label": "Adresse(s)",
+      "type": "string",
+      "example": "27 rue Saint-Guillaume, 75337 Paris Cedex 07",
+      "required": true,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "location": {
+      "label": "Géolocalisation(s)",
+      "type": "string",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "phone": {
+      "label": "Téléphone",
+      "type": "string",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "url": {
+      "label": "Site Web",
+      "type": "url",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "affiliation": {
+      "label": "Etablissement de rattachement",
+      "type": "markdown",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": true,
+      "repeatable": true
+    },
+    "director_name": {
+      "label": "Directeur",
+      "type": "string",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "director_email": {
+      "label": "Courriel Direction",
+      "type": "email",
+      "required": false,
+      "multievaluation": false,
+      "queryable": false
+    },
+    "cnrs": {
+      "label": "CNRS",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "menesr": {
+      "label": "MENESR",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "creation_year": {
+      "label": "Année de création",
+      "type": "number",
+      "example": "1980",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "history": {
+      "label": "Historique",
+      "type": "string",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "staff_number": {
+      "label": "Effectif total",
+      "type": "number",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "staff_permanent": {
+      "label": "Personnels permanents",
+      "type": "number",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "staff_non_permanent": {
+      "label": "Personnels non permanents",
+      "type": "number",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "staff_url": {
+      "label": "Lien vers la page `personnel` sur le site Web du centre",
+      "type": "url",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "staff_url_cnrs": {
+      "label": "Lien vers la page `personnel` du site Web du CNRS",
+      "type": "url",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "ed_number": {
+      "label": "Numéro de l'Ecole Doctorale",
+      "type": "string",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "ed_name": {
+      "label": "Intitulé de l'Ecole Doctorale",
+      "type": "string",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "ed_director": {
+      "label": "Directeur de l'Ecole Doctorale",
+      "type": "string",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "ed_email": {
+      "label": "Courriel de l'Ecole doctorale",
+      "type": "email",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "phd_number": {
+      "label": "Nombre de doctorants",
+      "type": "number",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "phd_scpo_number": {
+      "label": "Nombre de doctorants en science politique",
+      "type": "number",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "thesis_number": {
+      "label": "Nombre de thèses soutenues en 2015",
+      "type": "number",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "cnrs_sections": {
+      "label": "Sections CNRS",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": true,
+      "repeatable": true
+    },
+    "political_science_topic_major_or_political_science_topic_minor": {
+      "label": "Science Politique comme discipline principale / Science Politique comme discipline secondaire",
+      "type": "string",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "topic_major": {
+      "label": "Discipline principale",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "topic_minor": {
+      "label": "Disciplines secondaires",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false
+    },
+    "subject_terms:": {
+      "label": "Mots-clés sujet",
+      "type": "markdown",
+      "required": true,
+      "multievaluation": true,
+      "front": true,
+      "queryable": true
+    },
+    "research_areas": {
+      "label": "Axes de recherche",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": true
+    },
+    "contracts": {
+      "label": "Contrats de recherche",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false
+    },
+    "workshops": {
+      "label": "Séminaires de recherche",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false
+    },
+    "partners": {
+      "label": "Collaborations / réseaux",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "collections": {
+      "label": "Collections auprès d'éditeurs",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "collection_title": {
+      "label": "Collections auprès d'éditeurs",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "journal": {
+      "label": "Revues en propre",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false,
+      "repeatable": true
+    },
+    "journal_title": {
+      "Propriété": "journal_title",
+      "label": "Revues en propre",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "hal": {
+      "label": "Publications versées dans HAL",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "repository": {
+      "label": "Publications versées dans un dépôt institutionnel",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "oa_policy": {
+      "label": "Préconisations pour le dépôt en open access des publications",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "data_repository": {
+      "label": "Archivage des données de la recherche",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "data_projects": {
+      "Propriété": "data_projects",
+      "label": "Archivage des données de la recherche",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "valorisation": {
+      "label": "Valorisation des publications par le laboratoire",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false
+    },
+    "libraries_network": {
+      "label": "Bibliothèques utilisées",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "resources": {
+      "label": "Ressources numériques à disposition des chercheurs",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "library_staff": {
+      "label": "Personne ressource - documentaliste",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": false,
+      "queryable": false,
+      "repeatable": true
+    },
+    "library": {
+      "label": "Centre de documentation ou bibliothèque en propre ?",
+      "type": "boolean",
+      "required": true,
+      "multievaluation": false,
+      "front": false,
+      "queryable": false
+    },
+    "library_name": {
+      "Propriété": "library_name",
+      "label": "Centre de documentation ou bibliothèque en propre",
+      "type": "string",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": true
+    },
+    "library_web": {
+      "label": "Site Web",
+      "type": "url",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false
+    },
+    "library_description": {
+      "label": "Description et fonds spécifiques",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "library_policy": {
+      "label": "Politique documentaire",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": false,
+      "front": true,
+      "queryable": false
+    },
+    "information_skills_training": {
+      "label": "Offre de formations documentaires ",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    },
+    "libraries_network": {
+      "label": "Collaborations documentaires",
+      "type": "markdown",
+      "required": false,
+      "multievaluation": true,
+      "front": true,
+      "queryable": false,
+      "repeatable": true
+    }
+  }
+}
