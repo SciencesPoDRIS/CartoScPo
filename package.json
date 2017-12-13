@@ -57,6 +57,7 @@
     "express-boom": "^2.0.0",
     "lodash": "^4.11.1",
     "mongoose": "^4.13.7",
+    "timeago.js": "^3.0.2",
     "toml": "^2.3.3"
   }
 }

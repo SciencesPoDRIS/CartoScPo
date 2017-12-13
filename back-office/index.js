@@ -2,8 +2,9 @@ import angular from 'angular'
 import ngRoute from 'angular-route'
 
 import appComponent from './components/app'
+import filters from './filters'
 
-angular.module('bobib', [ngRoute, appComponent]).config([
+angular.module('bobib', [ngRoute, appComponent, filters]).config([
   '$locationProvider',
   '$routeProvider',
   ($locationProvider, $routeProvider) => {

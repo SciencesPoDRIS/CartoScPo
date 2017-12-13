@@ -12,6 +12,11 @@ const modificationSchema = new mongoose.Schema(
   },
   { timestamps: true },
 )
-modificationSchema.index({ id: 1 }, { unique: true })
+modificationSchema.index({ createdAt: -1, updatedAt: -1 }, { background: true }) // sorted by date
+
+// Always sort by createdAt DESC, updatedAt DESC
+modificationSchema.pre('find', function() {
+  this.sort({ createdAt: -1, updatedAt: -1 })
+})
 
 module.exports = mongoose.model('Modification', modificationSchema)
