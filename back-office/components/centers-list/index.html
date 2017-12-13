@@ -1,5 +1,8 @@
 <h1 class="title">Centres {{ $ctrl.centers.length }}</h1>
-<table class="table is-bordered is-striped">
+
+<button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
+
+<table ng-if="!$ctrl.loading" class="table is-bordered is-striped">
   <thead>
     <tr>
       <th>

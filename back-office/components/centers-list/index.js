@@ -8,9 +8,11 @@ class controller {
   }
 
   $onInit() {
+    this.loading = true
     this.$http
       .get('/api/centers')
       .then(({ data }) => (this.centers = data.centers), console.error)
+      .then(() => this.loading = false)
   }
 
   toggleVisibility(center) {

@@ -1,6 +1,8 @@
 <h1 class="title">Centre {{ $ctrl.id }}</h1>
 
-<form>
+<button ng-if="!$ctrl.loading" class="button is-loading is-rounded"></button>
+
+<form ng-if="!$ctrl.loading">
   <div class="tabs is-boxed">
     <ul>
       <li ng-repeat="tab in $ctrl.tabs" ng-class="{'is-active': $ctrl.isActive(tab)}">

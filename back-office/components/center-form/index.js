@@ -24,6 +24,7 @@ class controller {
   }
 
   $onInit() {
+    this.loading = true
     this.$http
       .get(`/api/centers/${this.id}`)
       .then(({ data }) => {
@@ -31,6 +32,7 @@ class controller {
         this.sections = Object.keys(data.center).filter(s => s != 'id')
       })
       .catch(console.error)
+      .then(() => (this.loading = false))
   }
 
   isActive(tab) {
