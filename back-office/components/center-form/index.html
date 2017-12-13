@@ -12,9 +12,18 @@
   <section ng-repeat="tab in $ctrl.tabs" ng-if="$ctrl.tab === tab.id">
 
     <div ng-repeat="field in $ctrl.fields | filter:{ tab: tab.id }" class="field">
-      <label class="label">{{ field.label }}</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center[field.key]" />
+      <label class="label" for="field_{{ field.key }}">{{ field.label }}</label>
+      <div class="control" ng-switch on="field.type">
+        <textarea id="field_{{ field.key }}"
+          ng-switch-when="markdown" class="input" ng-model="$ctrl.center[field.key]"></textarea>
+        <input id="field_{{ field.key }}"
+          ng-switch-when="boolean" type="checkbox" ng-model="$ctrl.center[field.key]" />
+        <input id="field_{{ field.key }}"
+          ng-switch-when="number" type="number" class="input" ng-model="$ctrl.center[field.key]" />
+        <input id="field_{{ field.key }}"
+          ng-switch-when="email" type="email" class="input" ng-model="$ctrl.center[field.key]" />
+        <input id="field_{{ field.key }}"
+          ng-switch-default class="input" ng-model="$ctrl.center[field.key]" />
       </div>
     </div>
 
