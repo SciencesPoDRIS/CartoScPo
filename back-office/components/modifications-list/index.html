@@ -18,6 +18,7 @@
           </span>
         </div>
       </th>
+      <th>email</th>
       <th>créée</th>
       <th>modifiée</th>
     </tr>
@@ -26,6 +27,7 @@
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search">
       <td>{{ modif.centerId }}</td>
       <td>{{ modif.status }}</td>
+      <td>{{ modif.email }}</td>
       <td><span title="{{ modif.createdAt }}">{{ modif.createdAt | timeago }}</span></td>
       <td><span title="{{ modif.updatedAt }}">{{ modif.updatedAt | timeago }}</span></td>
     </tr>

@@ -9,6 +9,7 @@ const modificationSchema = new mongoose.Schema(
       required: true,
     },
     centerId: { type: String, required: true },
+    email: { type: String },
   },
   { timestamps: true },
 )
