@@ -6,9 +6,6 @@ const { server: config } = require('config')
 
 const { Center, Modification } = require('./models')
 const PUBLIC = path.join(__dirname, '../back-office')
-const DB = path.join(__dirname, '../app/data/data.json')
-
-const db = require(DB)
 
 const app = express()
 
@@ -16,10 +13,9 @@ app.use(express.static(PUBLIC))
 app.use(express.json())
 app.use(boom())
 
-app.get('/api/centers/:id', ({ params }, res) => {
-  Center.findOne({ id: params.id }).then(
-    center => (center ? res.json({ center }) : res.boom.notFound()),
-  )
+app.get('/api/centers/:id', async ({ params }, res) => {
+  const center = await Center.findOne({ id: params.id })
+  center ? res.json({ center }) : res.boom.notFound()
 })
 
 app.get('/api/centers', (req, res) => {
@@ -31,7 +27,7 @@ app.put('/api/centers/:id', ({ params, body }, res) => {
     { id: params.id },
     { $set: { ...body.center } },
     { upsert: true },
-    (err) => {
+    err => {
       if (err) return res.boom.badRequest()
       const m = new Modification({ centerId: params.id })
       m.save()
@@ -40,14 +36,12 @@ app.put('/api/centers/:id', ({ params, body }, res) => {
   )
 })
 
-app.patch('/api/centers/:id/visibility', ({ params }, res) => {
-  const center = db.allCenters[params.id]
+app.patch('/api/centers/:id/visibility', async ({ params }, res) => {
+  const center = await Center.findOne({ id: params.id })
   if (!center) return res.boom.notFound()
-  db.allCenters[params.id].hidden = !center.hidden
 
-  Center.update({ id: params.id }, { $set: { hidden: center.hidden } }, () =>
-    res.send({ hidden: center.hidden }),
-  )
+  await Center.update({ id: params.id }, { $set: { hidden: !center.hidden } })
+  res.send({ hidden: !center.hidden })
 })
 
 app.get('/api/modifications', (req, res) => {
