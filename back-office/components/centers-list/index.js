@@ -10,7 +10,13 @@ class controller {
   $onInit() {
     this.$http
       .get('/api/centers')
-      .then(({ data }) => (this.centers = data.centers))
+      .then(({ data }) => (this.centers = data.centers), console.error)
+  }
+
+  toggleVisibility(center) {
+    this.$http
+      .patch(`/api/centers/${center.id}/visibility`)
+      .then(({ data }) => (center.hidden = data.hidden), console.error)
   }
 }
 controller.$inject = ['$http']

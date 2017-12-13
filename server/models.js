@@ -17,7 +17,9 @@ exports.connection = mongoose.connection
 
 const centerSchema = new mongoose.Schema(
   {
-    id: { type: String, require: true },
+    id: { type: String, required: true },
+    // should this center be hidden on the front office?
+    hidden: { type: Boolean, required: true, default: false },
     raw: { type: String, required: true },
   },
   { timestamps: true },

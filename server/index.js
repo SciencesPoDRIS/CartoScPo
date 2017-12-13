@@ -40,9 +40,19 @@ app.put('/api/centers/:id', ({ params, body }, res) => {
 
   Center.update(
     { id: params.id },
-    { id: params.id, raw: JSON.stringify(body.center) },
+    { $set: { raw: JSON.stringify(body.center) } },
     { upsert: true },
     () => res.send('ok'),
+  )
+})
+
+app.patch('/api/centers/:id/visibility', ({ params }, res) => {
+  const center = db.allCenters[params.id]
+  if (!center) return res.boom.notFound()
+  db.allCenters[params.id].hidden = !center.hidden
+
+  Center.update({ id: params.id }, { $set: { hidden: center.hidden } }, () =>
+    res.send({ hidden: center.hidden }),
   )
 })
 
