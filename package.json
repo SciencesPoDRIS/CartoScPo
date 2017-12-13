@@ -12,7 +12,9 @@
     "bo:watch": "npm-run-all -p bo:watch:*",
     "bo:watch:client": "webpack -d",
     "bo:watch:server": "DEBUG=express nodemon --watch server server/index.js",
-    "bo:serve": "DEBUG=express node server/index.js"
+    "bo:serve": "DEBUG=express node server/index.js",
+    "bo:populate": "node bin/populate-mongo-db.js",
+    "bo:dump": "node bin/dump-mongo-db.js"
   },
   "keywords": [
     "Sciences",
