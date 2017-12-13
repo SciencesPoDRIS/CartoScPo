@@ -2,9 +2,7 @@ import angular from 'angular'
 
 class controller {
   $onInit() {
-    const { administration } = this.center
-    const src =
-      administration['Acronyme (nom court)'] || administration['Intitulé']
+    const { acronym: src } = this.center
     // TODO
     if (src) this.src = `http://cartosciencepolitique.sciencespo.fr/img/logos_centres_de_recherche_jpeg/${src}.jpeg`
   }

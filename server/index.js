@@ -25,13 +25,7 @@ app.get('/api/centers/:id', ({ params }, res) => {
 })
 
 app.get('/api/centers', (req, res) => {
-  const centers = Array.from(Object.entries(db.allCenters)).map(
-    ([id, center]) => {
-      center.id = id
-      return center
-    },
-  )
-  res.json({ centers })
+  Center.find().then(centers => res.json({ centers }))
 })
 
 app.put('/api/centers/:id', ({ params, body }, res) => {

@@ -19,7 +19,7 @@
     <tr ng-style="{opacity: center.hidden ? 0.5 : 1}"
         ng-repeat="center in $ctrl.centers | filter:$ctrl.search track by center.id">
       <td>{{ center.id }}</td>
-      <td>{{ center.administration['Acronyme (nom court)'] }}</td>
+      <td>{{ center.acronym }}</td>
       <td><logo center="center"></logo></td>
       <td>
         <a class="button" href="/centers/{{ center.id }}">
