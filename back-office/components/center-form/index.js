@@ -1,5 +1,6 @@
 import angular from 'angular'
 import logoMod from '../logo'
+import { properties } from '../../schema.json'
 
 class controller {
   constructor($http, $location, $rootScope) {
@@ -16,6 +17,10 @@ class controller {
       { id: 'publications', label: 'Publications' },
       { id: 'ressources', label: 'Documentation' },
     ]
+    this.fields = Object.keys(properties).map(key => {
+      properties[key].key = key
+      return properties[key]
+    })
   }
 
   $onInit() {
@@ -49,7 +54,11 @@ class controller {
   // to fill textareas
   splitBy(char, value) {
     if (!value) return ''
-    return value.split(char).map(v => v.trim()).filter(v => v).join('\n')
+    return value
+      .split(char)
+      .map(v => v.trim())
+      .filter(v => v)
+      .join('\n')
   }
 }
 controller.$inject = ['$http', '$location', '$rootScope']

@@ -10,239 +10,26 @@
   </div>
 
   <section ng-if="$ctrl.tab === 'administration'">
-  <div class="columns">
-  <div class="column">
-    <div class="field">
-      <label class="label">Site web</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.administration['Site web']" />
-      </div>
-      <a target="_blank" href="{{ $ctrl.center.administration['Site web'] }}" />
-        {{ $ctrl.center.administration['Site web'] }}</a>
-    </div>
-    <div class="field">
-      <label class="label">Année de création</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.administration['Année de création']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Téléphone(s) (1 numéro par ligne)</label>
-      <div class="control">
-        <textarea class="textarea" ng-value="$ctrl.splitBy(';', $ctrl.center.administration['Téléphone'])"></textarea>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="field">
-      <label class="label">Directeur·rice</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.administration['Directeur']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Courriel direction</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.administration['Courriel Direction']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Fiche du centre dans ScanR</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.administration['Lien_ScanR']" />
-      </div>
-      <a target="_blank" href="{{ $ctrl.center.administration['Lien_ScanR'] }}" />
-        {{ $ctrl.center.administration['Lien_ScanR'] }}</a>
-    </div>
-    <div class="field">
-      <label class="label">CNRS ?</label>
-      <div class="control">
-        <input type="checkbox" ng-model="$ctrl.center.administration['CNRS (Oui/Non)']" />
-      </div>
-    </div>
-  </div>
-  </div>
 
-  <div class="field">
-    <label class="label">Adresses (1 adresse par ligne)</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.splitBy(';', $ctrl.center.administration['Adresse(s)'])"></textarea>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Établissements de rattachement (1 établissement par ligne)</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.splitBy('*', $ctrl.center.administration['Etablissements de rattachement'])"></textarea>
-    </div>
-  </div>
-
-  <h2 class="subtitle">Personnel</h2>
-  <div class="columns">
-  <div class="column">
-    <div class="field">
-      <label class="label">Effectif total</label>
+    <div ng-repeat="field in $ctrl.fields" class="field">
+      <label class="label">{{ field.label }}</label>
       <div class="control">
-        <input class="input" ng-model="$ctrl.center.personnel['Effectif total']" />
+        <input class="input" ng-model="$ctrl.center[field.key]" />
       </div>
     </div>
-    <div class="field">
-      <label class="label">Personnels non permanents</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.personnel['Personnels non permanents']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Personnels permanents</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.personnel['Personnels permanents']" />
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="field">
-      <label class="label">Lien vers la page "personnel" du site Web du CNRS</label>
-      <div class="control">
-        <input class="input" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Liens vers la page "personnel" sur le site Web du centre</label>
-      <div class="control">
-        <input class="input" />
-      </div>
-    </div>
-  </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Historique</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.administration['Historique']"></textarea>
-    </div>
-  </div>
 
   </section>
 
   <section ng-if="$ctrl.tab === 'ecole'">
-  <h2 class="subtitle">Liste des écoles doctorales</h2>
-  <div ng-repeat="ecole in $ctrl.center.ecole.ecoles">
-    <div class="field">
-      <label class="label">Intitulé école doctorale</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.ecole.ecoles[$index]['intitule']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Numéro d'école doctorale</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.ecole.ecoles[$index]['numero']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Directeur·rice</label>
-      <div class="control">
-        <input class="input" ng-model="$ctrl.center.ecole.ecoles[$index]['directeur']" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Courriel</label>
-      <div class="control">
-        <input class="input" type="email" ng-model="$ctrl.center.ecole.ecoles[$index]['courriel']" />
-      </div>
-    </div>
-  </div>
-
-  <h2 class="subtitle">Nombre de doctorant·e·s et thèses du centre</h2>
-  <div class="field">
-    <label class="label">Nombre de doctorant·e·s</label>
-    <div class="control">
-      <input class="input" ng-model="$ctrl.center.ecole['Nombre de doctorants']" />
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Nombre de doctorant·e·s en science politique</label>
-    <div class="control">
-      <input class="input" ng-model="$ctrl.center.ecole['Nombre de doctorants en science politique']" />
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Nombre de thèses soutenues en 2016</label>
-    <div class="control">
-      <input class="input" ng-model="$ctrl.center.ecole['Nombre de thèses soutenues en 2015']" />
-    </div>
-  </div>
   </section>
 
   <section ng-if="$ctrl.tab === 'recherche'">
-  <div class="field">
-    <label class="label">Sections CNRS</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.splitBy('*', $ctrl.center.recherche['Sections CNRS'])"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Annuaire du MENESR - Discipline principale</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Discipline principale  selon l\'annuaire du MENESR']"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Annuaire du MENESR - Discipline secondaires</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Disciplines secondaires  selon l\'annuaire du MENESR']"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Mots-clefs</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Mots-clés sujet  selon l\'annuaire du MENESR']"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Axes de recherche</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Axes de recherche']"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Contrats de recherche</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Contrats de recherche']"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Séminaires de recherche</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Séminaires de recherche']"></textarea>
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Collaboration et réseaux</label>
-    <div class="control">
-      <textarea class="textarea" ng-value="$ctrl.center.recherche['Collaborations / réseaux']"></textarea>
-    </div>
-  </div>
   </section>
 
   <section ng-if="$ctrl.tab === 'publications'">
-  <h2 class="subtitle">Publications versées au HAL</h2>
-  <h2 class="subtitle">Publications versées dans un dépôt institutionnel</h2>
-  <h2 class="subtitle">Préconisations pour le dépôt en open access des publications</h2>
-  <h2 class="subtitle">Archivage des données de la recherche</h2>
-  <h2 class="subtitle">Valorisation des publications par le laboratoire</h2>
   </section>
 
   <section ng-if="$ctrl.tab === 'ressources'">
-  <h2 class="subtitle">Bibliothèques utilisées</h2>
-  <h2 class="subtitle">Ressources numériques à disposition des chercheur·se·s</h2>
-  <h2 class="subtitle">Personne ressource - documentaliste</h2>
-  <h2 class="subtitle">Centre de documentation ou bibliothèque en propre</h2>
-  <h2 class="subtitle">Site web</h2>
-  <h2 class="subtitle">Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h2>
-  <h2 class="subtitle">Politique documentaire</h2>
-  <h2 class="subtitle">Offre de formations documentaires</h2>
-  <h2 class="subtitle">Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h2>
   </section>
 
 	<section class="section">

@@ -17,11 +17,9 @@ app.use(express.json())
 app.use(boom())
 
 app.get('/api/centers/:id', ({ params }, res) => {
-  const center = db.allCenters[params.id]
-  if (!center) return res.boom.notFound()
-
-  center.id = params.id
-  res.json({ center })
+  Center.findOne({ id: params.id }).then(
+    center => (center ? res.json({ center }) : res.boom.notFound()),
+  )
 })
 
 app.get('/api/centers', (req, res) => {
