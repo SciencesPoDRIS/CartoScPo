@@ -5,6 +5,7 @@
     "acronym": {
       "label": "Acronyme (nom court)",
       "type": "string",
+      "tab": "administration",
       "example": "CEVIPOF",
       "required": false,
       "multievaluation": false,
@@ -14,6 +15,7 @@
     "code": {
       "label": "Code Unité",
       "type": "string",
+      "tab": "administration",
       "example": "UMR 7217",
       "required": true,
       "multievaluation": false,
@@ -31,6 +33,7 @@
     "city": {
       "label": "Ville",
       "type": "string",
+      "tab": "administration",
       "example": "Paris",
       "required": true,
       "multievaluation": true,
@@ -40,7 +43,7 @@
     "address": {
       "label": "Adresse(s)",
       "type": "string",
-      "example": "27 rue Saint-Guillaume, 75337 Paris Cedex 07",
+      "tab": "administration",
       "required": true,
       "multievaluation": true,
       "front": true,
@@ -50,6 +53,7 @@
     "location": {
       "label": "Géolocalisation(s)",
       "type": "string",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -58,6 +62,7 @@
     "phone": {
       "label": "Téléphone",
       "type": "string",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -67,6 +72,7 @@
     "url": {
       "label": "Site Web",
       "type": "url",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -75,6 +81,7 @@
     "affiliation": {
       "label": "Etablissements de rattachement",
       "type": "markdown",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -82,8 +89,9 @@
       "repeatable": true
     },
     "director_name": {
-      "label": "Directeur",
+      "label": "Directeur·rice",
       "type": "string",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -92,6 +100,7 @@
     "director_email": {
       "label": "Courriel Direction",
       "type": "email",
+      "tab": "administration",
       "required": false,
       "multievaluation": false,
       "queryable": false
@@ -99,6 +108,7 @@
     "cnrs": {
       "label": "CNRS",
       "type": "boolean",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": false,
@@ -107,6 +117,7 @@
     "menesr": {
       "label": "MENESR",
       "type": "boolean",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": false,
@@ -115,6 +126,7 @@
     "creation_year": {
       "label": "Année de création",
       "type": "number",
+      "tab": "administration",
       "example": "1980",
       "required": true,
       "multievaluation": false,
@@ -124,6 +136,7 @@
     "history": {
       "label": "Historique",
       "type": "string",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -132,6 +145,7 @@
     "staff_number": {
       "label": "Effectif total",
       "type": "number",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -140,6 +154,7 @@
     "staff_permanent": {
       "label": "Personnels permanents",
       "type": "number",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -148,6 +163,7 @@
     "staff_non_permanent": {
       "label": "Personnels non permanents",
       "type": "number",
+      "tab": "administration",
       "required": true,
       "multievaluation": false,
       "front": true,
@@ -156,6 +172,7 @@
     "staff_url": {
       "label": "Lien vers la page `personnel` sur le site Web du centre",
       "type": "url",
+      "tab": "administration",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -165,6 +182,7 @@
     "staff_url_cnrs": {
       "label": "Lien vers la page `personnel` du site Web du CNRS",
       "type": "url",
+      "tab": "administration",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -173,6 +191,7 @@
     "ed_number": {
       "label": "Numéro de l'Ecole Doctorale",
       "type": "string",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -182,6 +201,7 @@
     "ed_name": {
       "label": "Intitulé de l'Ecole Doctorale",
       "type": "string",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -191,6 +211,7 @@
     "ed_director": {
       "label": "Directeur de l'Ecole Doctorale",
       "type": "string",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -200,6 +221,7 @@
     "ed_email": {
       "label": "Courriel de l'Ecole doctorale",
       "type": "email",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -208,6 +230,7 @@
     "phd_number": {
       "label": "Nombre de doctorants",
       "type": "number",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -216,6 +239,7 @@
     "phd_scpo_number": {
       "label": "Nombre de doctorants en science politique",
       "type": "number",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -224,6 +248,7 @@
     "thesis_number": {
       "label": "Nombre de thèses soutenues en 2015",
       "type": "number",
+      "tab": "schools",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -232,6 +257,7 @@
     "cnrs_sections": {
       "label": "Sections CNRS",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -241,6 +267,7 @@
     "political_science_topic_major_or_political_science_topic_minor": {
       "label": "Science Politique comme discipline principale / Science Politique comme discipline secondaire",
       "type": "string",
+      "tab": "research",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -249,6 +276,7 @@
     "topic_major": {
       "label": "Discipline principale",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -257,6 +285,7 @@
     "topic_minor": {
       "label": "Disciplines secondaires",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -265,6 +294,7 @@
     "subject_terms:": {
       "label": "Mots-clés sujet",
       "type": "markdown",
+      "tab": "research",
       "required": true,
       "multievaluation": true,
       "front": true,
@@ -273,6 +303,7 @@
     "research_areas": {
       "label": "Axes de recherche",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -281,6 +312,7 @@
     "contracts": {
       "label": "Contrats de recherche",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -289,6 +321,7 @@
     "workshops": {
       "label": "Séminaires de recherche",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -297,6 +330,7 @@
     "partners": {
       "label": "Collaborations / réseaux",
       "type": "markdown",
+      "tab": "research",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -306,6 +340,7 @@
     "collections": {
       "label": "Collections auprès d'éditeurs",
       "type": "boolean",
+      "tab": "publications",
       "required": true,
       "multievaluation": false,
       "front": false,
@@ -314,6 +349,7 @@
     "collections_titles": {
       "label": "Collections auprès d'éditeurs description",
       "type": "markdown",
+      "tab": "publications",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -323,6 +359,7 @@
     "journal": {
       "label": "Revues en propre",
       "type": "boolean",
+      "tab": "publications",
       "required": true,
       "multievaluation": false,
       "front": false,
@@ -332,6 +369,7 @@
     "journal_titles": {
       "label": "Revues en propre description",
       "type": "markdown",
+      "tab": "publications",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -340,6 +378,7 @@
     "hal": {
       "label": "Publications versées dans HAL",
       "type": "boolean",
+      "tab": "publications",
       "required": true,
       "multievaluation": false,
       "front": false,
@@ -348,6 +387,7 @@
     "repository": {
       "label": "Publications versées dans un dépôt institutionnel",
       "type": "boolean",
+      "tab": "publications",
       "required": true,
       "multievaluation": false,
       "front": false,
@@ -356,6 +396,7 @@
     "oa_policy": {
       "label": "Préconisations pour le dépôt en open access des publications",
       "type": "markdown",
+      "tab": "publications",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -364,15 +405,16 @@
     "data_repository": {
       "label": "Archivage des données de la recherche",
       "type": "boolean",
+      "tab": "resources",
       "required": true,
       "multievaluation": false,
       "front": true,
       "queryable": false
     },
     "data_projects": {
-      "Propriété": "data_projects",
       "label": "Archivage des données de la recherche",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -381,6 +423,7 @@
     "valorisation": {
       "label": "Valorisation des publications par le laboratoire",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -389,6 +432,7 @@
     "libraries_network": {
       "label": "Bibliothèques utilisées",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -398,6 +442,7 @@
     "resources": {
       "label": "Ressources numériques à disposition des chercheurs",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -407,6 +452,7 @@
     "library_staff": {
       "label": "Personne ressource - documentaliste",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": true,
       "front": false,
@@ -416,15 +462,16 @@
     "library": {
       "label": "Centre de documentation ou bibliothèque en propre",
       "type": "boolean",
+      "tab": "resources",
       "required": true,
       "multievaluation": false,
       "front": false,
       "queryable": false
     },
     "library_name": {
-      "Propriété": "library_name",
       "label": "Centre de documentation ou bibliothèque en propre",
       "type": "string",
+      "tab": "resources",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -433,6 +480,7 @@
     "library_web": {
       "label": "Site Web",
       "type": "url",
+      "tab": "resources",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -441,6 +489,7 @@
     "library_description": {
       "label": "Description et fonds spécifiques",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -449,6 +498,7 @@
     "library_policy": {
       "label": "Politique documentaire",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": false,
       "front": true,
@@ -457,6 +507,7 @@
     "information_skills_training": {
       "label": "Offre de formations documentaires ",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": true,
       "front": true,
@@ -466,6 +517,7 @@
     "libraries_network": {
       "label": "Collaborations documentaires",
       "type": "markdown",
+      "tab": "resources",
       "required": false,
       "multievaluation": true,
       "front": true,

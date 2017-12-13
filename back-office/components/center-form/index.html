@@ -9,27 +9,15 @@
     </ul>
   </div>
 
-  <section ng-if="$ctrl.tab === 'administration'">
+  <section ng-repeat="tab in $ctrl.tabs" ng-if="$ctrl.tab === tab.id">
 
-    <div ng-repeat="field in $ctrl.fields" class="field">
+    <div ng-repeat="field in $ctrl.fields | filter:{ tab: tab.id }" class="field">
       <label class="label">{{ field.label }}</label>
       <div class="control">
         <input class="input" ng-model="$ctrl.center[field.key]" />
       </div>
     </div>
 
-  </section>
-
-  <section ng-if="$ctrl.tab === 'ecole'">
-  </section>
-
-  <section ng-if="$ctrl.tab === 'recherche'">
-  </section>
-
-  <section ng-if="$ctrl.tab === 'publications'">
-  </section>
-
-  <section ng-if="$ctrl.tab === 'ressources'">
   </section>
 
 	<section class="section">

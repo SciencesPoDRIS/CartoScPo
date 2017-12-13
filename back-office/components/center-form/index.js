@@ -12,10 +12,10 @@ class controller {
     this.tab = 'administration'
     this.tabs = [
       { id: 'administration', label: 'Description' },
-      { id: 'ecole', label: 'Écoles doctorales' },
-      { id: 'recherche', label: 'Thématiques' },
+      { id: 'schools', label: 'Écoles doctorales' },
+      { id: 'research', label: 'Thématiques' },
       { id: 'publications', label: 'Publications' },
-      { id: 'ressources', label: 'Documentation' },
+      { id: 'resources', label: 'Documentation' },
     ]
     this.fields = Object.keys(properties).map(key => {
       properties[key].key = key
