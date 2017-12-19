@@ -1,7 +1,7 @@
 {
   "name": "bib",
-  "version": "0.0.1",
-  "description": "Etude centre de recherche en Sciences Politiques réalisée par la Bibliothèque de Sciences Po Paris et site réalisé par le Medialab",
+  "version": "0.0.2",
+  "description": "Cartographie des centres de recherche en Sciences Politiques, réalisé par la bibliothèque et le médialab de Sciences Po Paris ainsi que ByteClub",
   "main": "index.html",
   "scripts": {
     "start": "gulp",
@@ -17,17 +17,17 @@
     "bo:dump": "node bin/dump-mongo-db.js"
   },
   "keywords": [
-    "Sciences",
-    "Politques",
+    "Science",
+    "Politque",
     "Bibliothèque",
     "SciencesPo",
-    "Medialab",
+    "médialab",
     "angular",
     "Leaflet",
     "Elasticlunr",
     "Lodash"
   ],
-  "author": "Grégory Tible, Anne Lhôte, Mickael Goudoux",
+  "author": "Grégory Tible, Anne L'Hôte, Michaël Goudoux, ByteClub",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
