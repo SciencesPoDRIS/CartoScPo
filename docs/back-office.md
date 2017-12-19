@@ -28,13 +28,18 @@ Toutes les taches préfixées par `bo:` concernent le BO.
 Ainsi pour démarrer sa journée de travail sur le BO. Il faut:
 
 1 - démarrer une base mongodb écoutant sur le port par défaut. (pourra être dockerisé à l'avenir)
+
 `> mongod`
 
-2 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
+2 - Lors du premier lancement, afin de peupler la base de données, lancer la commande
+
+`> npm run bo:populate`
+
+3 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
 rafraichir son navigateur manuellement (pour le moment). En parallèle, l'application node se lance. Grâce à `nodemon`, le serveur redemarre dès que le
 contenu de `/server` est modifié.
 
-3 - Ouvrir son navigateur à l'url <http://localhost:42000/>
+4 - Ouvrir son navigateur à l'url <http://localhost:42000/>
 
 ## Synchonisation des données
 
