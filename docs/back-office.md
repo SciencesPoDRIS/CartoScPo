@@ -10,8 +10,8 @@ BO: Back-Office
 
 FO: Front-Office
 
-- `/app`: FO en `angularjs`. Historiquement la première partie créée : elle utilise `bower` et `gulp` pour se construire.
-Le FO tire ses infos du fichier `app/data/data.json` servi statiquement.
+- `/app`: FO en `angularjs`. Historiquement la première partie créée : elle utilise `npm`, `bower` et `gulp` pour se construire.
+Le FO tire ses infos des fichiers `app/data/data.json` et `app/data/metadata.json` et est servi statiquement.
 - `/back-office`: BO en `angularjs`. Autonome du FO. Cette fois ci une approche de build plus moderne est privilégiée.
 Les librairies sont récupérées via `npm` et bundlées via `webpack`. Contrairement au FO, le BO discute avec le serveur d'API REST.
 - `/bin`: contient 2 *scripts* permettant de peupler ou extraire des infos de la base `mongodb`. A terme le script de peuplement sera inutile.
@@ -20,18 +20,21 @@ Celui d'extraction pourra etre lancé régulièrement pour générer un nouveau 
 seul le BO lit ces fichiers de conf.
 - `/server`: server d'API REST en `node.js`. C'est avec cette application `express` que le BO échange. Elle meme est en relation avec la base `mongodb`.
 
-## Taches du projet
+## Tâches du projet
 
-Les taches sont réunies dans le fichier `package.json` à la racine. Elles se lancent via `npm run [nom de la tache]`.
+Les tâches sont réunies dans le fichier `package.json` à la racine. Elles se lancent via `npm run [nom de la tache]`.
 Toutes les taches préfixées par `bo:` concernent le BO.
 
 Ainsi pour démarrer sa journée de travail sur le BO. Il faut:
 
-1 - démarrer une base mongodb écoutant sur le port par défaut. (peut etre dockerisé à l'avenir)
+1 - démarrer une base mongodb écoutant sur le port par défaut. (pourra être dockerisé à l'avenir)
+`> mongod`
 
-2 - lancer `npm run bo:watch`. Cette commande lance `webpack` qui va venir rebatir le BO (coté client) dès qu'un fichier change. Il faut par contre
-rafraichir son navigateur manuelement (pour le moment). En parallèle, l'application node se lance. Grace à `nodemon`, le serveur redemarre dès que le
+2 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
+rafraichir son navigateur manuellement (pour le moment). En parallèle, l'application node se lance. Grâce à `nodemon`, le serveur redemarre dès que le
 contenu de `/server` est modifié.
+
+3 - Ouvrir son navigateur à l'url <http://localhost:42000/>
 
 ## Synchonisation des données
 
