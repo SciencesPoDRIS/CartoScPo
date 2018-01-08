@@ -1,10 +1,14 @@
 import angular from 'angular'
 import logoMod from '../logo'
+import './index.css'
 
 class controller {
   constructor($http) {
     this.centers = []
     this.$http = $http
+
+    this.search = {}
+    this.orderBy = 'acronym'
   }
 
   $onInit() {

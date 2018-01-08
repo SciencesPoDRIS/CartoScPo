@@ -3,6 +3,10 @@
 // This script parse and adjust the content of data.json
 // to populate the 'centers' collection in the mongodb
 
+const argv = process.argv.slice(2)
+// danger!
+const clearCenters = argv[0] === 'clear'
+
 const path = require('path')
 
 const DATA = path.join(__dirname, '../app/data/data.json')
@@ -15,6 +19,7 @@ const { Center } = require(path.join(__dirname, '../server/models'))
 
 // new: old
 const fixes = {
+  name: 'Intitulé (centre ou unité de recherche)',
   cnrs: 'CNRS (Oui/Non)',
   menesr: 'MENESR (Oui/Non)',
   staff_url: 'Lien vers la page "personnel" sur le site Web du centre',
@@ -76,9 +81,14 @@ function saveToMongo(cleanedCenter) {
 }
 
 // let's go
+if (clearCenters) {
+  Center.remove({}, (err, { result }) =>  console.log(`${result.n} centers deleted`))
+}
+
 Promise.all(
   Object.values(centers)
     .map(sanitize)
     .map(saveToMongo),
-).then(console.log, console.error)
-.then(() => process.exit())
+)
+  .then(console.log, console.error)
+  .then(() => process.exit())

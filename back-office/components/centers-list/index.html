@@ -1,29 +1,49 @@
-<h1 class="title">Centres {{ $ctrl.centers.length }}</h1>
+<h1 class="title">Centres</h1>
+<h2 class="subtitle">{{ filteredCenters.length }} / {{ $ctrl.centers.length }}</h2>
 
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
 
-<table ng-if="!$ctrl.loading" class="table is-bordered is-striped">
+<table ng-show="!$ctrl.loading" class="table is-bordered is-striped">
   <thead>
     <tr>
       <th>
+        <div ng-click="$ctrl.orderBy = 'acronym'">
+          Acronyme
+          <span ng-if="$ctrl.orderBy === 'acronym'">▴</span>
+        </div>
         <div class="control has-icons-left">
-          <input class="input is-small" placeholder="id" ng-model="$ctrl.search.id">
-          <span class="icon is-small is-left">
-            <i class="fa fa-search"></i>
-          </span>
+          <input class="input is-small" ng-model="$ctrl.search.acronym">
+          <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
         </div>
       </th>
-      <th>acronyme</th>
-      <th>logo</th>
-      <th></th>
+      <th>
+        <div ng-click="$ctrl.orderBy = 'name'">
+          Nom
+          <span ng-if="$ctrl.orderBy === 'name'">▴</span>
+        </div>
+        <div class="control has-icons-left">
+          <input class="input is-small" ng-model="$ctrl.search.name">
+          <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+        </div>
+      </th>
+      <th>
+        Code unité
+        <div class="control has-icons-left">
+          <input class="input is-small" ng-model="$ctrl.search.code">
+          <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+        </div>
+      </th>
+      <th>Logo</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-style="{opacity: center.hidden ? 0.5 : 1}"
-        ng-repeat="center in $ctrl.centers | filter:$ctrl.search track by center.id">
-      <td>{{ center.id }}</td>
+        ng-repeat="center in $ctrl.centers | filter:$ctrl.search | orderBy:$ctrl.orderBy as filteredCenters track by center.id">
       <td>{{ center.acronym }}</td>
-      <td><logo center="center"></logo></td>
+      <td>{{ center.name }}</td>
+      <td>{{ center.code }}</td>
+      <td class="td-logo"><logo center="center"></logo></td>
       <td>
         <a class="button" href="/centers/{{ center.id }}">
           <span>Modifier</span>

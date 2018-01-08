@@ -1,16 +1,18 @@
 import angular from 'angular'
+import './index.css'
 
 class controller {
   $onInit() {
     const { acronym: src } = this.center
     // TODO
-    if (src) this.src = `http://cartosciencepolitique.sciencespo.fr/img/logos_centres_de_recherche_jpeg/${src}.jpeg`
+    if (src)
+      this.src = `http://cartosciencepolitique.sciencespo.fr/img/logos_centres_de_recherche_jpeg/${src}.jpeg`
   }
 }
 
 const component = {
   template:
-    '<img ng-if="$ctrl.src" width="100" alt="logo" class="center-logo" ng-src="{{ $ctrl.src }}">',
+    '<img ng-if="$ctrl.src" alt="center logo" class="center-logo" ng-src="{{ $ctrl.src }}">',
   controller,
   bindings: {
     center: '=',

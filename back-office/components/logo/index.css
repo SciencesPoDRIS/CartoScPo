@@ -1,0 +1,7 @@
+logo {
+  display: inline-block;
+}
+
+logo img {
+  max-height: 42px;
+}

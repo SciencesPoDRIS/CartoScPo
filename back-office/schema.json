@@ -22,6 +22,16 @@
       "front": true,
       "queryable": false
     },
+    "name": {
+      "label": "Nom",
+      "type": "string",
+      "tab": "personnel",
+      "example": "Centre d'étude et de recherche travail, organisations, pouvoirs",
+      "required": true,
+      "multievaluation": false,
+      "front": true,
+      "queryable": true
+    },
     "logo": {
       "label": "Logo",
       "type": "image",

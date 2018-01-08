@@ -27,13 +27,24 @@ Toutes les taches préfixées par `bo:` concernent le BO.
 
 Ainsi pour démarrer sa journée de travail sur le BO. Il faut:
 
-1 - démarrer une base mongodb écoutant sur le port par défaut. (pourra être dockerisé à l'avenir)
+1 - démarrer une base mongodb écoutant sur le port par défaut (27017)
+
+Si mongo est installé sur la machine du developpeur:
 
 `> mongod`
+
+Sinon, un container docker est disponible (voir `docker-compose.yml` à la racine du projet).
+Le daemon `docker` doit être préablablement lancé. Mongo sauvegarde alors ces données dans `db/mongo`, dossier
+ignoré par git.
+
+`> npm run docker`
 
 2 - Lors du premier lancement, afin de peupler la base de données, lancer la commande
 
 `> npm run bo:populate`
+
+Il s'agit d'un alias executant `node bin/populate-mongo-db.js`. Ce script peut être executé avec l'argument `clear` permettant d'effacer la collection
+`centers` avant de la repeupler. Attention, cette action est *irréversible*.
 
 3 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
 rafraichir son navigateur manuellement (pour le moment). En parallèle, l'application node se lance. Grâce à `nodemon`, le serveur redemarre dès que le
