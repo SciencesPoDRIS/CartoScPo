@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+
+  mongo:
+    container_name: "bib_mongo"
+    user: "${UID}:${GID}"
+    image: "mongo:3"
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./db/mongo:/data/db"
+

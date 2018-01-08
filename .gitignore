@@ -38,4 +38,12 @@ app/style/style.css
 #
 app/conf/conf.js
 
+#
+# Back Office artefacts
+#
 back-office/bundle.js
+
+#
+# Mongo database
+#
+db/mongo
