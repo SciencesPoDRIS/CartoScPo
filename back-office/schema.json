@@ -145,7 +145,7 @@
     },
     "history": {
       "label": "Historique",
-      "type": "string",
+      "type": "markdown",
       "tab": "administration",
       "required": true,
       "multievaluation": false,

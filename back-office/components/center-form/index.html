@@ -1,6 +1,6 @@
 <h1 class="title">Centre {{ $ctrl.id }}</h1>
 
-<button ng-if="!$ctrl.loading" class="button is-loading is-rounded"></button>
+<button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
 
 <form ng-if="!$ctrl.loading">
   <div class="tabs is-boxed">
@@ -16,7 +16,7 @@
     <div ng-repeat="field in $ctrl.fields | filter:{ tab: tab.id }" class="field">
       <label class="label" for="field_{{ field.key }}">{{ field.label }}</label>
       <div class="control" ng-switch on="field.type">
-        <textarea id="field_{{ field.key }}"
+        <textarea id="field_{{ field.key }}" class="textarea"
           ng-switch-when="markdown" class="input" ng-model="$ctrl.center[field.key]"></textarea>
         <input id="field_{{ field.key }}"
           ng-switch-when="boolean" type="checkbox" ng-model="$ctrl.center[field.key]" />

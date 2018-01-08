@@ -22,6 +22,7 @@ const fixes = {
   name: 'Intitulé (centre ou unité de recherche)',
   cnrs: 'CNRS (Oui/Non)',
   menesr: 'MENESR (Oui/Non)',
+  director_name: 'Directeur',
   staff_url: 'Lien vers la page "personnel" sur le site Web du centre',
   staff_url_cnrs: 'Lien vers la page "personnel" du site Web du CNRS',
   topic_major: "Discipline principale  selon l'annuaire du MENESR",

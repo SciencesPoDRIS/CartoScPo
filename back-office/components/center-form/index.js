@@ -1,6 +1,7 @@
 import angular from 'angular'
 import logoMod from '../logo'
 import { properties } from '../../schema.json'
+import './index.css'
 
 class controller {
   constructor($http, $location, $rootScope) {
@@ -17,10 +18,18 @@ class controller {
       { id: 'publications', label: 'Publications' },
       { id: 'resources', label: 'Documentation' },
     ]
-    this.fields = Object.keys(properties).map(key => {
-      properties[key].key = key
-      return properties[key]
-    })
+    this.fields = Object.keys(properties)
+      .map(key => {
+        properties[key].key = key
+        return properties[key]
+      })
+      .filter(field => field.front)
+      // TODO remove these warts after ultimate populate-db
+      .map(field => {
+        // temp for `nom`
+        if (field.tab === 'personnel') field.tab = 'administration'
+        return field
+      })
   }
 
   $onInit() {
