@@ -2,11 +2,20 @@
   <div class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item"
-         ng-class="{'is-active': $ctrl.isActive(menu)}"
          href="{{menu.url}}"
-         ng-repeat="menu in $ctrl.menus">
+         ng-class="{'is-active': $ctrl.isActive(menu)}"
+         ng-repeat="menu in $ctrl.menus | filter:$ctrl.checkAuth() track by menu.url">
         {{menu.label}}
       </a>
+    </div>
+
+    <div ng-if="!$ctrl.$rootScope.session" class="navbar-end">
+      <a class="navbar-item" href="/login">Connexion</a>
+    </div>
+
+    <div ng-if="$ctrl.$rootScope.session" class="navbar-end">
+      <span class="navbar-item">{{ $ctrl.$rootScope.session }}</span>
+      <a class="navbar-item" ng-click="$ctrl.logout()">Déconnexion</a>
     </div>
   </div>
 </nav>

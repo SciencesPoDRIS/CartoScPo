@@ -18,4 +18,4 @@ exports.connection = mongoose.connection
 // re-exports models
 exports.Center = require('./center')
 exports.Modification = require('./modification')
-
+exports.User = require('./user')

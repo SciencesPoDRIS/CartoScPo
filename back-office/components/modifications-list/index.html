@@ -1,4 +1,6 @@
-<h1 class="title">Modifications {{ $ctrl.modifications.length }}</h1>
+<h1 class="title">Modifications</h1>
+<h2 class="subtitle">{{ filteredModifications.length }} / {{ $ctrl.modifications.length }}</h2>
+
 <table class="table is-bordered is-striped">
   <thead>
     <tr>
@@ -18,13 +20,13 @@
           </span>
         </div>
       </th>
-      <th>email</th>
-      <th>créée</th>
-      <th>modifiée</th>
+      <th>Email</th>
+      <th>Créée</th>
+      <th>Modifiée</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search">
+    <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
       <td>{{ modif.centerId }}</td>
       <td>{{ modif.status }}</td>
       <td>{{ modif.email }}</td>

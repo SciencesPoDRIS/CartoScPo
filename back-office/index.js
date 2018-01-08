@@ -4,6 +4,20 @@ import ngRoute from 'angular-route'
 import appComponent from './components/app'
 import filters from './filters'
 
+// redirect to home if not authorized
+const checkAuth = {
+  checkAuth: [
+    '$rootScope',
+    '$location',
+    '$q',
+    ($rootScope, $location, $q) => {
+      if ($rootScope.session) return $q.resolve()
+      $location.path('/')
+      return $q.reject()
+    },
+  ],
+}
+
 angular.module('bobib', [ngRoute, appComponent, filters]).config([
   '$locationProvider',
   '$routeProvider',
@@ -28,9 +42,18 @@ angular.module('bobib', [ngRoute, appComponent, filters]).config([
       })
       .when('/modifications', {
         template: '<modifications-list />',
+        resolve: checkAuth,
+      })
+      .when('/users/add', {
+        template: '<user-form />',
+        resolve: checkAuth,
       })
       .when('/users', {
-        template: '<h1 class="title">Users</h1>',
+        template: '<users-list />',
+        resolve: checkAuth,
+      })
+      .when('/login', {
+        template: '<login-form />',
       })
       .otherwise('/')
   },

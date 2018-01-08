@@ -4,7 +4,8 @@ const express = require('express')
 const boom = require('express-boom')
 const { server: config } = require('config')
 
-const { Center, Modification } = require('./models')
+const { plugSession, checkAuth } = require('./session')
+const { Center, Modification, User } = require('./models')
 const PUBLIC = path.join(__dirname, '../back-office')
 
 const app = express()
@@ -13,14 +14,16 @@ app.use(express.static(PUBLIC))
 app.use(express.json())
 app.use(boom())
 
+plugSession(app)
+
 app.get('/api/centers/:id', async ({ params }, res) => {
   const center = await Center.findOne({ id: params.id })
-  center ? res.json({ center }) : res.boom.notFound()
+  center ? res.json({ center: center.toJSON() }) : res.boom.notFound()
 })
 
-app.get('/api/centers', (req, res) => {
-  Center.find().then(centers => res.json({ centers }))
-})
+app.get('/api/centers', async (req, res) =>
+  res.json({ centers: (await Center.find()).map(c => c.toJSON()) }),
+)
 
 app.put('/api/centers/:id', ({ params, body }, res) => {
   Center.update(
@@ -44,8 +47,17 @@ app.patch('/api/centers/:id/visibility', async ({ params }, res) => {
   res.send({ hidden: !center.hidden })
 })
 
-app.get('/api/modifications', (req, res) => {
-  Modification.find().then(modifications => res.json({ modifications }))
+app.get('/api/modifications', checkAuth, async (req, res) =>
+  res.json({ modifications: (await Modification.find()).map(m => m.toJSON()) }),
+)
+
+app.get('/api/users', async (req, res) =>
+  res.json({ users: (await User.find()).map(u => u.toJSON()) }),
+)
+
+app.post('/api/users', async ({ body }, res) => {
+  await User.create({ email: body.user.email, password: body.user.password })
+  res.send('ok')
 })
 
 // single page application

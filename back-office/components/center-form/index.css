@@ -1,4 +1,4 @@
-center-form .ng-invalid {
+form .ng-invalid {
   /* TODO bulma is-danger */
   border-color: red;
 }

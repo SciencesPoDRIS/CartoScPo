@@ -1,0 +1,41 @@
+<nav class="level">
+ <div class="level-left">
+    <div class="level-item">
+      <h1 class="title">Utilisateurs</h1>
+    </div>
+ </div>
+ <div class="level-right">
+    <div class="level-item">
+      <a class="button is-success" href="/users/add">
+        <span class="icon is-small">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span>Ajouter un utilisateur</span>
+      </a>
+    </div>
+ </div>
+</nav>
+<h2 class="subtitle">{{ filteredUsers.length }} / {{ $ctrl.users.length }}</h2>
+
+<table class="table is-bordered is-striped">
+  <thead>
+    <tr>
+      <th>Email
+        <div class="control has-icons-left">
+          <input class="input is-small" ng-model="$ctrl.search.email">
+          <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+        </div>
+      </th>
+      <th>Créé</th>
+      <th>Modifié</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in $ctrl.users| filter:$ctrl.search as filteredUsers track by user.email">
+      <td>{{ user.email }}</td>
+      <td><span title="{{ user.createdAt }}">{{ user.createdAt | timeago }}</span></td>
+      <td><span title="{{ user.updatedAt }}">{{ user.updatedAt | timeago }}</span></td>
+    </tr>
+  </tbody>
+</table>
+

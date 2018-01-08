@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { toJSON } = require('./utils')
 
 const modificationSchema = new mongoose.Schema(
   {
@@ -14,6 +15,7 @@ const modificationSchema = new mongoose.Schema(
   { timestamps: true },
 )
 modificationSchema.index({ createdAt: -1, updatedAt: -1 }, { background: true }) // sorted by date
+.plugin(toJSON)
 
 // Always sort by createdAt DESC, updatedAt DESC
 modificationSchema.pre('find', function() {

@@ -1,5 +1,10 @@
 [server]
 port = 42000
+salt = "YOLO"
+secret = "YOLO"
+adminEmail = "admin@admin"
+adminPassword = "admin"
+
 [mongo]
 uri = "mongodb://localhost:27017/bobib"
 

@@ -1,5 +1,6 @@
 const path = require('path')
 const mongoose = require('mongoose')
+const { toJSON } = require('./utils')
 
 const SCHEMA = path.join(__dirname, '../../back-office/schema.json')
 const { properties: schema } = require(SCHEMA)
@@ -38,5 +39,6 @@ const centerSchema = new mongoose.Schema(
   { timestamps: true },
 )
 centerSchema.index({ id: 1 }, { unique: true })
+.plugin(toJSON)
 
 module.exports = mongoose.model('Center', centerSchema)
