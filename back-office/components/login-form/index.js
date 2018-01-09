@@ -1,12 +1,12 @@
 import angular from 'angular'
 
 class controller {
-  constructor($http, $location, $rootScope) {
+  constructor($http, $location, session) {
     this.$http = $http
     this.$location = $location
-    this.$rootScope = $rootScope
+    this.session = session
 
-    this.login = {
+    this.credentials = {
       email: '',
       password: '',
     }
@@ -14,16 +14,10 @@ class controller {
   }
 
   submit() {
-    const redirect = () => {
-      this.$rootScope.session = this.login.email
-      this.$rootScope.flashes.push('Connexion réussie')
-      this.$location.path('/centers')
-    }
-    this.$http.post(`/login`, this.login)
-    .then(redirect, () => this.error = true)
+    this.session.login(this.credentials).catch(() => (this.error = true))
   }
 }
-controller.$inject = ['$http', '$location', '$rootScope']
+controller.$inject = ['$http', '$location', 'session']
 
 const component = {
   template: require('./index.html'),

@@ -3,22 +3,23 @@ import ngRoute from 'angular-route'
 
 import appComponent from './components/app'
 import filters from './filters'
+import session from './services/session'
 
 // redirect to home if not authorized
 const checkAuth = {
   checkAuth: [
-    '$rootScope',
     '$location',
     '$q',
-    ($rootScope, $location, $q) => {
-      if ($rootScope.session) return $q.resolve()
+    'session',
+    ($location, $q, session) => {
+      if (session.email) return $q.resolve()
       $location.path('/')
       return $q.reject()
     },
   ],
 }
 
-angular.module('bobib', [ngRoute, appComponent, filters]).config([
+angular.module('bobib', [ngRoute, appComponent, filters, session]).config([
   '$locationProvider',
   '$routeProvider',
   ($locationProvider, $routeProvider) => {

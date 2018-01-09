@@ -9,12 +9,12 @@
       </a>
     </div>
 
-    <div ng-if="!$ctrl.$rootScope.session" class="navbar-end">
+    <div ng-if="!$ctrl.session.email" class="navbar-end">
       <a class="navbar-item" href="/login">Connexion</a>
     </div>
 
-    <div ng-if="$ctrl.$rootScope.session" class="navbar-end">
-      <span class="navbar-item">{{ $ctrl.$rootScope.session }}</span>
+    <div ng-if="$ctrl.session.email" class="navbar-end">
+      <span class="navbar-item">{{ $ctrl.session.email }}</span>
       <a class="navbar-item" ng-click="$ctrl.logout()">Déconnexion</a>
     </div>
   </div>

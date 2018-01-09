@@ -2,10 +2,10 @@ import angular from 'angular'
 import './index.css'
 
 class controller {
-  constructor($http, $location, $rootScope) {
+  constructor($http, $location, session) {
     this.$http = $http
     this.$location = $location
-    this.$rootScope = $rootScope
+    this.session = session
   }
 
   $onInit() {
@@ -18,7 +18,7 @@ class controller {
   }
 
   checkAuth() {
-    return m => !m.checkAuth || this.$rootScope.session
+    return m => !m.checkAuth || this.session.email
   }
 
   isActive({ url }) {
@@ -26,13 +26,10 @@ class controller {
   }
 
   logout() {
-    this.$http.post('/logout').then(() => {
-      delete this.$rootScope.session
-      this.$location.path('/')
-    })
+    this.session.logout()
   }
 }
-controller.$inject = ['$http', '$location', '$rootScope']
+controller.$inject = ['$http', '$location', 'session']
 
 const component = {
   template: require('./index.html'),

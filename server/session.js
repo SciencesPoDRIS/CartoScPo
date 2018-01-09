@@ -57,6 +57,11 @@ function plugPassport(app) {
 }
 
 function defineRoutes(app) {
+  app.get('/session', (req, res) => {
+    if (req.user) res.json(req.user.email)
+    else res.boom.unauthorized()
+  })
+
   app.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user) => {
       if (err) return next(err)
