@@ -25,14 +25,17 @@ app.get('/api/centers', async (req, res) =>
   res.json({ centers: (await Center.find()).map(c => c.toJSON()) }),
 )
 
-app.put('/api/centers/:id', ({ params, body }, res) => {
+app.put('/api/centers/:id', ({ params, body, user }, res) => {
   Center.update(
     { id: params.id },
     { $set: { ...body.center } },
     { upsert: true },
     err => {
       if (err) return res.boom.badRequest()
-      const m = new Modification({ centerId: params.id })
+      const m = new Modification({
+        centerId: params.id,
+        email: user ? user.email : '',
+      })
       m.save()
       res.send('ok')
     },
@@ -51,11 +54,11 @@ app.get('/api/modifications', checkAuth, async (req, res) =>
   res.json({ modifications: (await Modification.find()).map(m => m.toJSON()) }),
 )
 
-app.get('/api/users', async (req, res) =>
+app.get('/api/users', checkAuth, async (req, res) =>
   res.json({ users: (await User.find()).map(u => u.toJSON()) }),
 )
 
-app.post('/api/users', async ({ body }, res) => {
+app.post('/api/users', checkAuth, async ({ body }, res) => {
   await User.create({ email: body.user.email, password: body.user.password })
   res.send('ok')
 })
