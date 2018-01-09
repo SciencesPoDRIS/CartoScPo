@@ -81,6 +81,10 @@ function findArrayFieldValue(rawCenter, fieldId) {
         director_name: ecole.directeur,
         email: ecole.courriel,
       }))
+    case 'affiliations':
+      return rawCenter.administration['Etablissements de rattachement']
+        .split('\r\n')
+        .map(name => ({ name: name.replace('* ', '') }))
   }
 }
 

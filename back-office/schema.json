@@ -81,14 +81,19 @@
       "front": true,
       "queryable": false
     },
-    "affiliation": {
+    "affiliations": {
       "label": "Etablissements de rattachement",
-      "type": "markdown",
+      "type": "array",
       "tab": "administration",
-      "required": true,
       "front": true,
-      "queryable": true,
-      "repeatable": true
+      "item": {
+        "name": {
+          "label": "Nom de l'établissement",
+          "type": "string",
+          "required": true,
+          "front": true
+        }
+      }
     },
     "director_name": {
       "label": "Directeur·rice",

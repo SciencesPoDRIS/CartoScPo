@@ -40,7 +40,7 @@
     <div class="block" ng-switch-when="array">
 
       <div class="block" dragula="'bag'" dragula-model="$ctrl.item[field.key]">
-        <div ng-repeat="item in $ctrl.item[field.key] track by item.id"
+        <div ng-repeat="item in $ctrl.item[field.key] track by item._id"
           class="notification">
 
           <a class="handle">⇅</a>

@@ -69,9 +69,6 @@ class controller {
       this.$rootScope.flashes.push('Centre sauvegardé')
       this.$location.path('/centers')
     }
-    console.log(this.center.schools)
-
-   return
     this.$http
       .put(`/api/centers/${this.id}`, {
         center: this.center,
