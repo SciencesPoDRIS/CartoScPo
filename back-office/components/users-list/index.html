@@ -32,7 +32,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="user in $ctrl.users| filter:$ctrl.search as filteredUsers track by user.email">
+    <tr ng-repeat="user in $ctrl.users | filter:$ctrl.search as filteredUsers track by user.email">
       <td>{{ user.email }}</td>
       <td><span title="{{ user.createdAt }}">{{ user.createdAt | timeago }}</span></td>
       <td><span title="{{ user.updatedAt }}">{{ user.updatedAt | timeago }}</span></td>

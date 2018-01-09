@@ -5,13 +5,13 @@
 <form ng-if="!$ctrl.loading">
   <div class="tabs is-boxed">
     <ul>
-      <li ng-repeat="tab in $ctrl.tabs" ng-class="{'is-active': $ctrl.isActive(tab)}">
+      <li ng-repeat="tab in $ctrl.tabs track by tab.id" ng-class="{'is-active': $ctrl.isActive(tab)}">
         <a ng-click="$ctrl.setTab(tab)">{{ tab.label }}</a>
       </li>
     </ul>
   </div>
 
-  <section ng-repeat="tab in $ctrl.tabs" ng-if="$ctrl.tab === tab.id">
+  <section ng-repeat="tab in $ctrl.tabs track by tab.id" ng-if="$ctrl.tab === tab.id">
 
     <fields-list
       fields="$ctrl.fieldsByTab[tab.id]"

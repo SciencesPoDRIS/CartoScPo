@@ -37,17 +37,22 @@
       <i class="fa fa-user"></i>
     </span>
 
-    <div ng-switch-when="array">
+    <div class="block" ng-switch-when="array">
 
-      <section class="section" ng-repeat="item in $ctrl.item[field.key]" class="field">
-
+      <div ng-repeat="item in $ctrl.item[field.key] track by item.id" class="notification">
+        <a class="delete" ng-click="$ctrl.deleteField(field.key, $index)"></a>
         <fields-list
           fields="field.fields"
           item="item"></fields-list>
+      </div>
 
-      </section>
+      <div class="field">
 
-      <button class="button">Ajouter</button>
+      <a class="button" ng-click="$ctrl.addField(field.key)">
+        <span>Ajouter</span>
+      </a>
+
+      </div>
     </div>
 
     <input ng-switch-default class="input"
