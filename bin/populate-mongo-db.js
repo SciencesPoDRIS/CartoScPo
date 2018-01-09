@@ -38,6 +38,7 @@ const fixes = {
   data_repository: 'Archivage des données de la recherche (oui/non)',
   data_projects:
     'Archivage des données de la recherche : description des projets',
+  thesis_number: 'Nombre de thèses soutenues en 2015', // year is different
 }
 
 // iterate through 'tabs' (administration, ecole, recherche…)
@@ -67,10 +68,28 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
   return fieldValue
 }
 
+// handle sub schema, like 'schools' or 'addresses'
+// this part is hardcoded considering the time budget of the project
+function findArrayFieldValue(rawCenter, fieldId) {
+  switch (fieldId) {
+    case 'schools':
+      return rawCenter.ecole.ecoles.map(ecole => ({
+        number: ecole.numero,
+        name: ecole.intitule,
+        director_name: ecole.directeur,
+        email: ecole.courriel,
+      }))
+  }
+}
+
 function sanitize(rawCenter) {
   return Array.from(Object.entries(schema)).reduce(
     (c, [fieldId, fieldProps]) => {
-      c[fieldId] = findFieldValue(rawCenter, fieldId, fieldProps)
+      if (Array.isArray(fieldProps)) {
+        c[fieldId] = findArrayFieldValue(rawCenter, fieldId)
+      } else {
+        c[fieldId] = findFieldValue(rawCenter, fieldId, fieldProps)
+      }
       return c
     },
     { id: rawCenter.administration.id },
@@ -82,8 +101,11 @@ function saveToMongo(cleanedCenter) {
 }
 
 // let's go
+
 if (clearCenters) {
-  Center.remove({}, (err, { result }) =>  console.log(`${result.n} centers deleted`))
+  Center.remove({}, (err, { result }) =>
+    console.log(`${result.n} centers deleted`),
+  )
 }
 
 Promise.all(
