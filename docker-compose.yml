@@ -11,3 +11,12 @@ services:
     volumes:
       - "./db/mongo:/data/db"
 
+  redis:
+    container_name: "bib_redis"
+    user: "${UID}:${GID}"
+    image: "redis:4"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./db/redis:/data"
+

@@ -1,10 +1,21 @@
 [server]
 port = 42000
+
+# password hashing
 salt = "YOLO"
+
+# express session
 secret = "YOLO"
+
+# default account the first time the app is launched
 adminEmail = "admin@admin"
 adminPassword = "admin"
 
+# store centers, modifications and users
 [mongo]
 uri = "mongodb://localhost:27017/bobib"
 
+# store sessions
+[redis]
+port = 6379
+host = "localhost"

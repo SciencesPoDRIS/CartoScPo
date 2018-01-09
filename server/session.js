@@ -1,7 +1,9 @@
 const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
+
 const passport = require('passport')
 const { Strategy } = require('passport-local')
-const { server: config } = require('config')
+const { server: config, redis } = require('config')
 const { User } = require('./models')
 
 // auto create admin account if no users in mongo at app launch
@@ -21,7 +23,12 @@ const checkAuth = (exports.checkAuth = (req, res, next) => {
 
 exports.plugSession = app => {
   app.use(
-    session({ secret: config.secret, resave: false, saveUninitialized: false }),
+    session({
+      store: new RedisStore(redis),
+      secret: config.secret,
+      resave: false,
+      saveUninitialized: false,
+    }),
   )
 
   plugPassport(app)
