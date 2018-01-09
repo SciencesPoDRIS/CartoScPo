@@ -45,7 +45,8 @@ function plugPassport(app) {
       if (err) return done(err)
       if (!user || !user.validPassword(password)) return done(null, false)
 
-      return done(null, user)
+      user.connectedAt = new Date().toISOString()
+      user.save().then(() => done(null, user))
     })
   }
 

@@ -18,11 +18,13 @@ const userSchema = new mongoose.Schema(
       required: true,
       set: hashPassword,
     },
+    connectedAt: { type: Date },
   },
   { timestamps: true },
 )
-userSchema.index({ email: 1 }, { unique: true })
-.plugin(toJSON, { hide: ['password'] })
+userSchema
+  .index({ email: 1 }, { unique: true })
+  .plugin(toJSON, { hide: ['password'] })
 
 userSchema.method('validPassword', function validPassword(password) {
   return this.password === hashPassword(password)

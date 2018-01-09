@@ -28,6 +28,7 @@
       </th>
       <th>Créé</th>
       <th>Modifié</th>
+      <th>Connecté</th>
     </tr>
   </thead>
   <tbody>
@@ -35,6 +36,7 @@
       <td>{{ user.email }}</td>
       <td><span title="{{ user.createdAt }}">{{ user.createdAt | timeago }}</span></td>
       <td><span title="{{ user.updatedAt }}">{{ user.updatedAt | timeago }}</span></td>
+      <td><span ng-if="user.connectedAt" title="{{ user.connectedAt }}">{{ user.connectedAt | timeago }}</span></td>
     </tr>
   </tbody>
 </table>
