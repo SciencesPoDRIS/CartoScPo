@@ -11,6 +11,7 @@ const modificationSchema = new mongoose.Schema(
     },
     centerId: { type: String, required: true },
     email: { type: String },
+    notify: { type: Boolean },
   },
   { timestamps: true },
 )

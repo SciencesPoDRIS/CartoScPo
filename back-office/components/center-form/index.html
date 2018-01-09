@@ -31,21 +31,29 @@
 
   </section>
 
-	<section class="section">
-  <div class="field is-grouped is-grouped-centered">
-    <div class="control">
-      <a class="button is-success" ng-click="$ctrl.submit()">
-        <span class="icon is-small">
-          <i class="fa fa-check"></i>
-        </span>
-        <span>Enregistrer</span>
-      </a>
+  <section class="section">
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <a class="button is-success" ng-click="$ctrl.submit()">
+          <span class="icon is-small">
+            <i class="fa fa-check"></i>
+          </span>
+          <span ng-if="!$ctrl.session.email">Proposer une modification de tous les onglets</span>
+          <span ng-if="$ctrl.session.email">Enregistrer tous les onglets</span>
+        </a>
+      </div>
+      <div class="control">
+        <a class="button is-outlined" href="/centers">
+          <span>Annuler</span>
+        </a>
+      </div>
     </div>
-    <div class="control">
-      <a class="button is-outlined" href="/centers">
-        <span>Annuler</span>
-      </a>
+
+    <div class="is-centered" ng-if="!$ctrl.session.email">
+      <div class="control">
+        <label class="label">Renseignez votre email si vous souhaitez être informé de la validation de votre modification:</label>
+        <input class="input" type="email" placeholder="email" ng-model="$ctrl.email" />
+      </div>
     </div>
-  </div>
-	</section>
+  </section>
 </form>

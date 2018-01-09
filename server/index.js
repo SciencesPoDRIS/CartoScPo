@@ -34,7 +34,9 @@ app.put('/api/centers/:id', ({ params, body, user }, res) => {
       if (err) return res.boom.badRequest()
       const m = new Modification({
         centerId: params.id,
-        email: user ? user.email : '',
+        email: user ? user.email : body.email,
+        // only guests should be notified
+        notify: Boolean(body.email)
       })
       m.save()
       res.send('ok')

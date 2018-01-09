@@ -4,10 +4,8 @@ import { properties } from '../../schema.json'
 import './index.css'
 
 class controller {
-  constructor($http, $location, $rootScope) {
-    this.$http = $http
-    this.$location = $location
-    this.$rootScope = $rootScope
+  constructor($http, $location, $rootScope, session) {
+    Object.assign(this, { $http, $location, $rootScope, session })
 
     this.center = {}
     this.tab = 'administration'
@@ -30,6 +28,8 @@ class controller {
         if (field.tab === 'personnel') field.tab = 'administration'
         return field
       })
+      // optionally provided by guest user
+      this.email = ''
   }
 
   $onInit() {
@@ -58,7 +58,7 @@ class controller {
       this.$location.path('/centers')
     }
     this.$http
-      .put(`/api/centers/${this.id}`, { center: this.center })
+      .put(`/api/centers/${this.id}`, { center: this.center, email: this.email })
       .then(redirect, console.error)
   }
 
@@ -72,7 +72,7 @@ class controller {
       .join('\n')
   }
 }
-controller.$inject = ['$http', '$location', '$rootScope']
+controller.$inject = ['$http', '$location', '$rootScope', 'session']
 
 const component = {
   template: require('./index.html'),

@@ -21,6 +21,7 @@
         </div>
       </th>
       <th>Email</th>
+      <th>Notification</th>
       <th>Créée</th>
       <th>Modifiée</th>
     </tr>
@@ -30,6 +31,7 @@
       <td>{{ modif.centerId }}</td>
       <td>{{ modif.status }}</td>
       <td>{{ modif.email }}</td>
+      <td>{{ modif.notify ? '✔' : '' }}</td>
       <td><span title="{{ modif.createdAt }}">{{ modif.createdAt | timeago }}</span></td>
       <td><span title="{{ modif.updatedAt }}">{{ modif.updatedAt | timeago }}</span></td>
     </tr>
