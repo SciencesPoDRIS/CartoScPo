@@ -1,5 +1,6 @@
 import angular from 'angular'
 import logoMod from '../logo'
+import fieldsListMod from '../fields-list'
 import { properties } from '../../schema.json'
 import './index.css'
 
@@ -34,9 +35,10 @@ class controller {
           return field
         })
 
-    this.fields = getFields(properties)
-
-    console.log(this.fields)
+    this.fieldsByTab = getFields(properties).reduce((acc, field) => {
+      acc[field.tab] = [...(acc[field.tab] || []), field]
+      return acc
+    }, {})
 
     // optionally provided by guest user
     this.email = ''
@@ -96,5 +98,5 @@ const component = {
 }
 
 export default angular
-  .module('bobib.center-form', [logoMod])
+  .module('bobib.center-form', [logoMod, fieldsListMod])
   .component('centerForm', component).name

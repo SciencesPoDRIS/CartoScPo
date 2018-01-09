@@ -13,60 +13,9 @@
 
   <section ng-repeat="tab in $ctrl.tabs" ng-if="$ctrl.tab === tab.id">
 
-    <div ng-repeat="field in $ctrl.fields | filter:{ tab: tab.id }" class="field">
-      <label class="label" for="field_{{ field.key }}">{{ field.label }}</label>
-      <div class="control has-icons-left" ng-switch on="field.type">
-
-        <textarea ng-switch-when="markdown" class="textarea"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]"></textarea>
-
-        <input ng-switch-when="boolean" type="checkbox"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-
-        <input ng-switch-when="number" type="number" class="input"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-
-        <input ng-switch-when="email" type="email" class="input"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-        <span ng-switch-when="email" class="icon is-small is-left">
-          <i class="fa fa-envelope"></i>
-        </span>
-
-        <input ng-switch-when="url" type="url" class="input"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-        <span ng-switch-when="url" class="icon is-small is-left">
-          <i class="fa fa-link"></i>
-        </span>
-
-        <input ng-switch-when="tel" type="tel" class="input"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-        <span ng-switch-when="tel" class="icon is-small is-left">
-          <i class="fa fa-phone"></i>
-        </span>
-
-        <input ng-switch-when="person" type="text" class="input"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-        <span ng-switch-when="person" class="icon is-small is-left">
-          <i class="fa fa-user"></i>
-        </span>
-
-        <div ng-switch-when="array">
-
-          <section class="section" ng-repeat="item in $ctrl.center[field.key]" class="field">
-            <div ng-repeat="subField in field.fields" class="field">
-              <label class="label">{{ subField.label }}</label>
-              <input class="input" ng-model="item[subField.key]" />
-            </div>
-          </section>
-
-          <button class="button">Ajouter</button>
-        </div>
-
-        <input ng-switch-default class="input"
-          id="field_{{ field.key }}" ng-model="$ctrl.center[field.key]" />
-        </span>
-      </div>
-    </div>
+    <fields-list
+      fields="$ctrl.fieldsByTab[tab.id]"
+      item="$ctrl.center"></fields-list>
 
   </section>
 
