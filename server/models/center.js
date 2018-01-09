@@ -20,7 +20,9 @@ const getMongooseFields = schema =>
   Array.from(Object.entries(schema)).reduce((acc, [fieldId, fieldProps]) => {
     // sub schemas like 'schools' or addresses
     if (fieldProps.type === 'array') {
-      acc[fieldId] = [new mongoose.Schema(getMongooseFields(fieldProps.item))]
+      acc[fieldId] = [
+        new mongoose.Schema(getMongooseFields(fieldProps.item), { _id: false }),
+      ]
     } else {
       let { type, required } = fieldProps
       acc[fieldId] = {

@@ -6,6 +6,7 @@ const omit = (obj, ...excludedKeys) =>
 exports.toJSON = (schema, options = {}) => {
   const { hide = [] } = options
 
+
   if (!schema.methods.hasOwnProperty('toJSON')) {
     schema.method('toJSON', function() {
       return omit(this.toObject({ virtuals: true }), '_id', '__v', ...hide)

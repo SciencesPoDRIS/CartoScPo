@@ -18,11 +18,11 @@ plugSession(app)
 
 app.get('/api/centers/:id', async ({ params }, res) => {
   const center = await Center.findOne({ id: params.id })
-  center ? res.json({ center: center.toJSON() }) : res.boom.notFound()
+  center ? res.json({ center }) : res.boom.notFound()
 })
 
 app.get('/api/centers', async (req, res) =>
-  res.json({ centers: (await Center.find()).map(c => c.toJSON()) }),
+  res.json({ centers: (await Center.find()) }),
 )
 
 app.put('/api/centers/:id', ({ params, body, user }, res) => {
@@ -53,11 +53,11 @@ app.patch('/api/centers/:id/visibility', async ({ params }, res) => {
 })
 
 app.get('/api/modifications', checkAuth, async (req, res) =>
-  res.json({ modifications: (await Modification.find()).map(m => m.toJSON()) }),
+  res.json({ modifications: (await Modification.find()) }),
 )
 
 app.get('/api/users', checkAuth, async (req, res) =>
-  res.json({ users: (await User.find()).map(u => u.toJSON()) }),
+  res.json({ users: (await User.find()) }),
 )
 
 app.post('/api/users', checkAuth, async ({ body }, res) => {
