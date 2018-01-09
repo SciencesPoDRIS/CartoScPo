@@ -39,19 +39,24 @@
 
     <div class="block" ng-switch-when="array">
 
-      <div ng-repeat="item in $ctrl.item[field.key] track by item.id" class="notification">
-        <a class="delete" ng-click="$ctrl.deleteField(field.key, $index)"></a>
-        <fields-list
-          fields="field.fields"
-          item="item"></fields-list>
+      <div class="block" dragula="'bag'" dragula-model="$ctrl.item[field.key]">
+        <div ng-repeat="item in $ctrl.item[field.key] track by item.id"
+          class="notification">
+
+          <a class="handle">⇅</a>
+          <a class="delete" ng-click="$ctrl.deleteField(field.key, $index)"></a>
+
+          <fields-list
+            fields="field.fields"
+            item="item"></fields-list>
+
+        </div>
       </div>
 
       <div class="field">
-
-      <a class="button" ng-click="$ctrl.addField(field.key)">
-        <span>Ajouter</span>
-      </a>
-
+        <a class="button" ng-click="$ctrl.addField(field.key)">
+          <span>Ajouter</span>
+        </a>
       </div>
     </div>
 
