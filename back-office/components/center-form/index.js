@@ -16,20 +16,30 @@ class controller {
       { id: 'publications', label: 'Publications' },
       { id: 'resources', label: 'Documentation' },
     ]
-    this.fields = Object.keys(properties)
-      .map(key => {
-        properties[key].key = key
-        return properties[key]
-      })
-      .filter(field => field.front)
-      // TODO remove these warts after ultimate populate-db
-      .map(field => {
-        // temp for `nom`
-        if (field.tab === 'personnel') field.tab = 'administration'
-        return field
-      })
-      // optionally provided by guest user
-      this.email = ''
+
+    const getFields = properties =>
+      Object.keys(properties)
+        .map(key => {
+          properties[key].key = key
+          if (properties[key].type === 'array') {
+            properties[key].fields = getFields(properties[key].item)
+          }
+          return properties[key]
+        })
+        .filter(field => field.front)
+        // TODO remove these warts after ultimate populate-db
+        .map(field => {
+          // temp for `nom`
+          if (field.tab === 'personnel') field.tab = 'administration'
+          return field
+        })
+
+    this.fields = getFields(properties)
+
+    console.log(this.fields)
+
+    // optionally provided by guest user
+    this.email = ''
   }
 
   $onInit() {
@@ -58,7 +68,10 @@ class controller {
       this.$location.path('/centers')
     }
     this.$http
-      .put(`/api/centers/${this.id}`, { center: this.center, email: this.email })
+      .put(`/api/centers/${this.id}`, {
+        center: this.center,
+        email: this.email,
+      })
       .then(redirect, console.error)
   }
 

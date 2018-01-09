@@ -60,6 +60,8 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
         case 'markdown':
         case 'url':
         case 'email':
+        case 'tel':
+        case 'person':
         default:
           fieldValue = tab[label]
       }
@@ -85,7 +87,7 @@ function findArrayFieldValue(rawCenter, fieldId) {
 function sanitize(rawCenter) {
   return Array.from(Object.entries(schema)).reduce(
     (c, [fieldId, fieldProps]) => {
-      if (Array.isArray(fieldProps)) {
+      if (fieldProps.type === 'array') {
         c[fieldId] = findArrayFieldValue(rawCenter, fieldId)
       } else {
         c[fieldId] = findFieldValue(rawCenter, fieldId, fieldProps)
