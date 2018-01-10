@@ -26,7 +26,7 @@ angular.module('bobib', [ngRoute, appComponent, filters, session]).config([
     $locationProvider.html5Mode(true)
     $routeProvider
       .when('/', {
-        template: '<h1 class="title">Home</h1>',
+        template: '<h1 class="title">Home</h1><p><a href="http://cartosciencepolitique.sciencespo.fr">Front Office</a></p>',
       })
       .when('/centers/:id', {
         template: '<center-form id="$resolve.id" />',
