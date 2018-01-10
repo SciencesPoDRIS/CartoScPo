@@ -233,14 +233,16 @@
       "type": "string",
       "tab": "research",
       "required": false,
-      "queryable": false
+      "queryable": false,
+      "bo": false
     },
     "topic_major": {
       "label": "Discipline principale",
       "type": "markdown",
       "tab": "research",
       "required": false,
-      "queryable": false
+      "queryable": false,
+      "bo": false
     },
     "topic_minor": {
       "label": "Disciplines secondaires",
@@ -248,9 +250,10 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "queryable": false
+      "queryable": false,
+      "bo": false
     },
-    "subject_terms:": {
+    "subject_terms": {
       "label": "Mots-clés sujet",
       "type": "markdown",
       "tab": "research",
