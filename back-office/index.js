@@ -32,6 +32,9 @@ angular
           template:
             '<h1 class="title">Home</h1><p><a href="http://cartosciencepolitique.sciencespo.fr">Front Office</a></p>',
         })
+        .when('/centers/add', {
+          template: '<center-form />',
+        })
         .when('/centers/:id', {
           template: '<center-form id="$resolve.id" />',
           resolve: {

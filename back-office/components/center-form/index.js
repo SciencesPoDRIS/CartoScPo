@@ -22,7 +22,10 @@ class controller {
       Object.keys(properties)
         .map(key => {
           properties[key].key = key
-          if (properties[key].type === 'array' || properties[key].type === 'boolean-item') {
+          if (
+            properties[key].type === 'array' ||
+            properties[key].type === 'boolean-item'
+          ) {
             properties[key].fields = getFields(properties[key].item)
           }
           return properties[key]
@@ -46,15 +49,21 @@ class controller {
   }
 
   $onInit() {
-    this.loading = true
-    this.$http
-      .get(`/api/centers/${this.id}`)
-      .then(({ data }) => {
-        this.center = data.center
-        this.sections = Object.keys(data.center).filter(s => s != 'id')
-      })
-      .catch(console.error)
-      .then(() => (this.loading = false))
+    if (this.id) {
+      // edit
+      this.loading = true
+      this.$http
+        .get(`/api/centers/${this.id}`)
+        .then(({ data }) => {
+          this.center = data.center
+          this.sections = Object.keys(data.center).filter(s => s != 'id')
+        })
+        .catch(console.error)
+        .then(() => (this.loading = false))
+    } else {
+      // new
+      this.center = {}
+    }
   }
 
   isActive(tab) {
@@ -70,12 +79,27 @@ class controller {
       this.$rootScope.flashes.push('Centre sauvegardé')
       this.$location.path('/centers')
     }
-    this.$http
-      .put(`/api/centers/${this.id}`, {
-        center: this.center,
-        email: this.email,
-      })
-      .then(redirect, console.error)
+    if (this.id) {
+      // edit
+      this.$http
+        .put(`/api/centers/${this.id}`, {
+          center: this.center,
+          email: this.email,
+        })
+        .then(redirect, console.error)
+    } else {
+      // TODO
+      if (!this.center.code) return
+      this.center.id = this.center.code.replace(' ', '').toLowerCase()
+
+      // new
+      this.$http
+        .post(`/api/centers`, {
+          center: this.center,
+          email: this.email,
+        })
+        .then(redirect, console.error)
+    }
   }
 
   // to fill textareas

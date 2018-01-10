@@ -1,4 +1,20 @@
-<h1 class="title">Centres</h1>
+<nav class="level">
+  <div class="level-left">
+    <div class="level-item">
+      <h1 class="title">Centres</h1>
+    </div>
+  </div>
+  <div class="level-right">
+    <div class="level-item">
+      <a class="button is-success" href="/centers/add">
+        <span class="icon is-small">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span>Ajouter un centre</span>
+      </a>
+    </div>
+  </div>
+</nav>
 <h2 class="subtitle">{{ filteredCenters.length }} / {{ $ctrl.centers.length }}</h2>
 
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>

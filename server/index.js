@@ -22,8 +22,23 @@ app.get('/api/centers/:id', async ({ params }, res) => {
 })
 
 app.get('/api/centers', async (req, res) =>
-  res.json({ centers: (await Center.find()) }),
+  res.json({ centers: await Center.find() }),
 )
+
+app.post('/api/centers', ({ body, user }, res) => {
+  const center = new Center(body.center)
+  center.save(err => {
+    if (err) return res.boom.badRequest()
+    const m = new Modification({
+      centerId: body.center.id,
+      email: user ? user.email : body.email,
+      // only guests should be notified
+      notify: Boolean(body.email),
+    })
+    m.save()
+    res.send('ok')
+  })
+})
 
 app.put('/api/centers/:id', ({ params, body, user }, res) => {
   Center.update(
@@ -36,7 +51,7 @@ app.put('/api/centers/:id', ({ params, body, user }, res) => {
         centerId: params.id,
         email: user ? user.email : body.email,
         // only guests should be notified
-        notify: Boolean(body.email)
+        notify: Boolean(body.email),
       })
       m.save()
       res.send('ok')
@@ -53,11 +68,11 @@ app.patch('/api/centers/:id/visibility', async ({ params }, res) => {
 })
 
 app.get('/api/modifications', checkAuth, async (req, res) =>
-  res.json({ modifications: (await Modification.find()) }),
+  res.json({ modifications: await Modification.find() }),
 )
 
 app.get('/api/users', checkAuth, async (req, res) =>
-  res.json({ users: (await User.find()) }),
+  res.json({ users: await User.find() }),
 )
 
 app.post('/api/users', checkAuth, async ({ body }, res) => {
