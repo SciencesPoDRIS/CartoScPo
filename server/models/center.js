@@ -2,6 +2,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const { toJSON } = require('./utils')
 
+// the mongoose schema is auto created from this file
 const SCHEMA = path.join(__dirname, '../../back-office/schema.json')
 const { properties: schema } = require(SCHEMA)
 
@@ -28,6 +29,7 @@ const getMongooseFields = schema =>
         ]
         break
 
+      // like 'Collections auprès d'éditeurs ?'
       case 'boolean-item':
         acc[fieldId] = new mongoose.Schema(
           {
@@ -36,6 +38,11 @@ const getMongooseFields = schema =>
           },
           { _id: false },
         )
+        break
+
+      // like 'Sections CNRS'
+      case 'check-list':
+        acc[fieldId] = [{ type: String }]
         break
 
       default: {

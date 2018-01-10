@@ -119,6 +119,19 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
   }
 }
 
+// like Section CNRS
+function findCheckListFieldValue(rawCenter, fieldId) {
+  switch (fieldId) {
+    case 'cnrs_sections':
+      return rawCenter.recherche['Sections CNRS']
+        .replace(/\r/g, '')
+        .split('\n')
+        // remove star
+        .map(s => s.slice(2))
+      break
+  }
+}
+
 function sanitize(rawCenter) {
   return Array.from(Object.entries(schema)).reduce(
     (c, [fieldId, fieldProps]) => {
@@ -129,6 +142,10 @@ function sanitize(rawCenter) {
 
         case 'boolean-item':
           c[fieldId] = findBooleanItemFieldValue(rawCenter, fieldId)
+          break
+
+        case 'check-list':
+          c[fieldId] = findCheckListFieldValue(rawCenter, fieldId)
           break
 
         default:

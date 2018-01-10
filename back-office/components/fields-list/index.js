@@ -16,6 +16,12 @@ class controller {
   deleteField(key, index) {
     this.item[key].splice(index, 1)
   }
+
+  toggleCheckList(key, option) {
+    this.item[key].find(o => o === option)
+      ? this.item[key] = this.item[key].filter(o => o !== option)
+      : this.item[key].push(option)
+  }
 }
 controller.$inject = ['$scope', 'dragulaService']
 

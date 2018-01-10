@@ -222,11 +222,24 @@
     },
     "cnrs_sections": {
       "label": "Sections CNRS",
-      "type": "markdown",
+      "type": "check-list",
       "tab": "research",
       "required": false,
       "queryable": true,
-      "repeatable": true
+      "repeatable": true,
+      "options": [
+        "19 Système Terre : enveloppes superficielles",
+        "31 Hommes et milieux : évolution, interactions",
+        "32 Mondes anciens et médiévaux",
+        "33 Mondes modernes et contemporains",
+        "34 Sciences du langage",
+        "35 Sciences philosophiques et philologiques, sciences de l'art",
+        "36 Sociologie et sciences du droit",
+        "37 Economie et gestion",
+        "38 Anthropologie et étude comparative des sociétés contemporaines",
+        "39 Espaces, territoires et sociétés",
+        "40 Politique, pouvoir, organisation"
+      ]
     },
     "political_science_topic_major_or_political_science_topic_minor": {
       "label": "Science Politique comme discipline principale / Science Politique comme discipline secondaire",
