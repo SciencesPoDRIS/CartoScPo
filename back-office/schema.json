@@ -292,19 +292,18 @@
       "repeatable": true
     },
     "collections": {
-      "label": "Collections auprès d'éditeurs",
-      "type": "boolean",
+      "label": "Collections auprès d'éditeurs ?",
+      "type": "boolean-item",
       "tab": "publications",
       "required": true,
-      "queryable": false
-    },
-    "collections_titles": {
-      "label": "Collections auprès d'éditeurs description",
-      "type": "markdown",
-      "tab": "publications",
-      "required": false,
-      "queryable": false,
-      "repeatable": true
+      "item": {
+        "titles": {
+          "label": "Collections auprès d'éditeurs description",
+          "type": "markdown",
+          "required": false,
+          "queryable": false
+        }
+      }
     },
     "journal": {
       "label": "Revues en propre",

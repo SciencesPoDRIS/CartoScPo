@@ -59,6 +59,21 @@
       </div>
     </div>
 
+    <div class="block" ng-switch-when="boolean-item">
+
+      <input type="checkbox"
+        id="field_{{ field.key }}" ng-model="$ctrl.item[field.key].enabled" />
+
+      <div class="block" ng-if="$ctrl.item[field.key].enabled">
+
+        <fields-list
+          fields="field.fields"
+          item="$ctrl.item[field.key]"></fields-list>
+
+      </div>
+
+    </div>
+
     <input ng-switch-default class="input"
       id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
     </span>

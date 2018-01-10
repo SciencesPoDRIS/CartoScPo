@@ -28,8 +28,6 @@ const fixes = {
   topic_major: "Discipline principale  selon l'annuaire du MENESR",
   topic_minor: "Disciplines secondaires  selon l'annuaire du MENESR",
   subject_terms: "Mots-clés sujet  selon l'annuaire du MENESR",
-  collections: "Collections auprès d'éditeurs (oui/non)",
-  collections_titles: "Collections auprès d'éditeurs : description",
   journal: 'Revues en propre (oui/non)',
   journal_titles: 'Revues en propre : description',
   hal: 'Publications versées dans HAL (oui/non)',
@@ -41,6 +39,8 @@ const fixes = {
   thesis_number: 'Nombre de thèses soutenues en 2015', // year is different
 }
 
+const castBoolean = v => v.toLowerCase() === 'oui'
+
 // iterate through 'tabs' (administration, ecole, recherche…)
 function findFieldValue(rawCenter, fieldId, { label, type }) {
   label = fixes[fieldId] || label
@@ -49,7 +49,7 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
     if (tab[label]) {
       switch (type) {
         case 'boolean':
-          fieldValue = tab[label].toLowerCase() === 'oui'
+          fieldValue = castBoolean(tab[label])
           break
 
         case 'number':
@@ -88,13 +88,36 @@ function findArrayFieldValue(rawCenter, fieldId) {
   }
 }
 
+// handle duo of a checkbox and a classic input, like "Collections auprès d'éditeurs"
+// this part is hardcoded considering the time budget of the project
+function findBooleanItemFieldValue(rawCenter, fieldId) {
+  switch (fieldId) {
+    case 'collections':
+      return {
+        enabled: castBoolean(
+          rawCenter.publication["Collections auprès d'éditeurs (oui/non)"],
+        ),
+        titles:
+          rawCenter.publication["Collections auprès d'éditeurs : description"],
+      }
+  }
+}
+
 function sanitize(rawCenter) {
   return Array.from(Object.entries(schema)).reduce(
     (c, [fieldId, fieldProps]) => {
-      if (fieldProps.type === 'array') {
-        c[fieldId] = findArrayFieldValue(rawCenter, fieldId)
-      } else {
-        c[fieldId] = findFieldValue(rawCenter, fieldId, fieldProps)
+      switch (fieldProps.type) {
+        case 'array':
+          c[fieldId] = findArrayFieldValue(rawCenter, fieldId)
+          break
+
+        case 'boolean-item':
+          c[fieldId] = findBooleanItemFieldValue(rawCenter, fieldId)
+          break
+
+        default:
+          c[fieldId] = findFieldValue(rawCenter, fieldId, fieldProps)
+          break
       }
       return c
     },

@@ -22,7 +22,7 @@ class controller {
       Object.keys(properties)
         .map(key => {
           properties[key].key = key
-          if (properties[key].type === 'array') {
+          if (properties[key].type === 'array' || properties[key].type === 'boolean-item') {
             properties[key].fields = getFields(properties[key].item)
           }
           return properties[key]
