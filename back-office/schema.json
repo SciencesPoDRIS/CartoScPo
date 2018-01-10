@@ -306,29 +306,28 @@
       }
     },
     "journal": {
-      "label": "Revues en propre",
-      "type": "boolean",
+      "label": "Revues en propre ?",
+      "type": "boolean-item",
       "tab": "publications",
       "required": true,
-      "queryable": false,
-      "repeatable": true
-    },
-    "journal_titles": {
-      "label": "Revues en propre description",
-      "type": "markdown",
-      "tab": "publications",
-      "required": false,
-      "queryable": false
+      "item": {
+        "titles": {
+          "label": "Revues en propre description",
+          "type": "markdown",
+          "required": false,
+          "queryable": false
+        }
+      }
     },
     "hal": {
-      "label": "Publications versées dans HAL",
+      "label": "Publications versées dans HAL ?",
       "type": "boolean",
       "tab": "publications",
       "required": true,
       "queryable": false
     },
     "repository": {
-      "label": "Publications versées dans un dépôt institutionnel",
+      "label": "Publications versées dans un dépôt institutionnel ?",
       "type": "boolean",
       "tab": "publications",
       "required": true,

@@ -31,8 +31,8 @@ const getMongooseFields = schema =>
       case 'boolean-item':
         acc[fieldId] = new mongoose.Schema(
           {
-            enabled: { type: Boolean },
             ...getMongooseFields(fieldProps.item),
+            enabled: { type: Boolean },
           },
           { _id: false },
         )

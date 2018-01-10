@@ -28,8 +28,6 @@ const fixes = {
   topic_major: "Discipline principale  selon l'annuaire du MENESR",
   topic_minor: "Disciplines secondaires  selon l'annuaire du MENESR",
   subject_terms: "Mots-clés sujet  selon l'annuaire du MENESR",
-  journal: 'Revues en propre (oui/non)',
-  journal_titles: 'Revues en propre : description',
   hal: 'Publications versées dans HAL (oui/non)',
   repository: 'Publications versées dans un dépôt institutionnel (oui/non)',
   oa_policy: 'Préconisations pour le dépôt en open access des publications',
@@ -99,6 +97,13 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
         ),
         titles:
           rawCenter.publication["Collections auprès d'éditeurs : description"],
+      }
+    case 'journal':
+      return {
+        enabled: castBoolean(
+          rawCenter.publication['Revues en propre (oui/non)'],
+        ),
+        titles: rawCenter.publication['Revues en propre : description'],
       }
   }
 }
