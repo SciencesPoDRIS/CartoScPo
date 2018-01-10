@@ -4,8 +4,6 @@
 
   <div class="control has-icons-left" ng-switch on="field.type">
 
-    <textarea ng-switch-when="markdown" class="textarea"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]"></textarea>
 
     <input ng-switch-when="boolean" type="checkbox"
       id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
@@ -36,6 +34,18 @@
     <span ng-switch-when="person" class="icon is-small is-left">
       <i class="fa fa-user"></i>
     </span>
+
+    <div class="columns" ng-switch-when="markdown" >
+        <div class="column">
+          <textarea class="textarea"
+            id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]"></textarea>
+        </div>
+
+        <div class="column">
+          <label class="label">Prévisualisation Markdown</label>
+          <div class="content" common-mark="$ctrl.item[field.key]"></div>
+        </div>
+    </div>
 
     <div class="block" ng-switch-when="array">
 

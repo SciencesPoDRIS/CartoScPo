@@ -55,6 +55,7 @@
     "angular-route": "^1.6.7",
     "angularjs-dragula": "^2.0.0",
     "babyparse": "^0.4.6",
+    "commonmark": "^0.28.1",
     "config": "^1.28.1",
     "connect-redis": "^3.3.3",
     "debug": "^3.1.0",
