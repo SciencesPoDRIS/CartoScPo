@@ -8,7 +8,6 @@
       "tab": "administration",
       "example": "CEVIPOF",
       "required": false,
-      "front": true,
       "queryable": true
     },
     "code": {
@@ -17,7 +16,6 @@
       "tab": "administration",
       "example": "UMR 7217",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "name": {
@@ -26,14 +24,12 @@
       "tab": "personnel",
       "example": "Centre d'étude et de recherche travail, organisations, pouvoirs",
       "required": true,
-      "front": true,
       "queryable": true
     },
     "logo": {
       "label": "Logo",
       "type": "image",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "city": {
@@ -43,7 +39,6 @@
       "example": "Paris",
       "required": true,
       "multievaluation": true,
-      "front": true,
       "queryable": true
     },
     "address": {
@@ -52,7 +47,6 @@
       "tab": "administration",
       "required": true,
       "multievaluation": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -61,7 +55,6 @@
       "type": "string",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "phone": {
@@ -69,7 +62,6 @@
       "type": "tel",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -78,20 +70,17 @@
       "type": "url",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "affiliations": {
       "label": "Etablissements de rattachement",
       "type": "array",
       "tab": "administration",
-      "front": true,
       "item": {
         "name": {
           "label": "Nom de l'établissement",
           "type": "string",
-          "required": true,
-          "front": true
+          "required": true
         }
       }
     },
@@ -100,7 +89,6 @@
       "type": "person",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "director_email": {
@@ -108,7 +96,6 @@
       "type": "email",
       "tab": "administration",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "cnrs": {
@@ -116,16 +103,16 @@
       "type": "boolean",
       "tab": "administration",
       "required": true,
-      "front": false,
-      "queryable": false
+      "queryable": false,
+      "bo": false
     },
     "menesr": {
       "label": "MENESR",
       "type": "boolean",
       "tab": "administration",
       "required": true,
-      "front": false,
-      "queryable": false
+      "queryable": false,
+      "bo": false
     },
     "creation_year": {
       "label": "Année de création",
@@ -133,7 +120,6 @@
       "tab": "administration",
       "example": "1980",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "history": {
@@ -141,7 +127,6 @@
       "type": "markdown",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "staff_number": {
@@ -149,7 +134,6 @@
       "type": "number",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "staff_permanent": {
@@ -157,7 +141,6 @@
       "type": "number",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "staff_non_permanent": {
@@ -165,7 +148,6 @@
       "type": "number",
       "tab": "administration",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "staff_url": {
@@ -173,7 +155,6 @@
       "type": "url",
       "tab": "administration",
       "required": false,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -182,20 +163,17 @@
       "type": "url",
       "tab": "administration",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "schools": {
       "label": "Ecoles doctorales",
       "type": "array",
       "tab": "schools",
-      "front": true,
       "item": {
         "number": {
           "label": "Numéro de l'Ecole doctorale",
           "type": "string",
           "required": false,
-          "front": true,
           "queryable": false,
           "repeatable": true
         },
@@ -203,7 +181,6 @@
           "label": "Intitulé de l'Ecole doctorale",
           "type": "string",
           "required": false,
-          "front": true,
           "queryable": false,
           "repeatable": true
         },
@@ -211,7 +188,6 @@
           "label": "Directeur·rice de l'Ecole doctorale",
           "type": "person",
           "required": false,
-          "front": true,
           "queryable": false,
           "repeatable": true
         },
@@ -219,7 +195,6 @@
           "label": "Courriel de l'Ecole doctorale",
           "type": "email",
           "required": false,
-          "front": true,
           "queryable": false
         }
       }
@@ -229,7 +204,6 @@
       "type": "number",
       "tab": "schools",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "phd_scpo_number": {
@@ -237,7 +211,6 @@
       "type": "number",
       "tab": "schools",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "thesis_number": {
@@ -245,7 +218,6 @@
       "type": "number",
       "tab": "schools",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "cnrs_sections": {
@@ -253,7 +225,6 @@
       "type": "markdown",
       "tab": "research",
       "required": false,
-      "front": true,
       "queryable": true,
       "repeatable": true
     },
@@ -262,7 +233,6 @@
       "type": "string",
       "tab": "research",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "topic_major": {
@@ -270,7 +240,6 @@
       "type": "markdown",
       "tab": "research",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "topic_minor": {
@@ -279,7 +248,6 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false
     },
     "subject_terms:": {
@@ -288,7 +256,6 @@
       "tab": "research",
       "required": true,
       "multievaluation": true,
-      "front": true,
       "queryable": true
     },
     "research_areas": {
@@ -297,7 +264,6 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": true
     },
     "contracts": {
@@ -306,7 +272,6 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false
     },
     "workshops": {
@@ -315,7 +280,6 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false
     },
     "partners": {
@@ -324,7 +288,6 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -333,7 +296,6 @@
       "type": "boolean",
       "tab": "publications",
       "required": true,
-      "front": false,
       "queryable": false
     },
     "collections_titles": {
@@ -341,7 +303,6 @@
       "type": "markdown",
       "tab": "publications",
       "required": false,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -350,7 +311,6 @@
       "type": "boolean",
       "tab": "publications",
       "required": true,
-      "front": false,
       "queryable": false,
       "repeatable": true
     },
@@ -359,7 +319,6 @@
       "type": "markdown",
       "tab": "publications",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "hal": {
@@ -367,7 +326,6 @@
       "type": "boolean",
       "tab": "publications",
       "required": true,
-      "front": false,
       "queryable": false
     },
     "repository": {
@@ -375,7 +333,6 @@
       "type": "boolean",
       "tab": "publications",
       "required": true,
-      "front": false,
       "queryable": false
     },
     "oa_policy": {
@@ -383,7 +340,6 @@
       "type": "markdown",
       "tab": "publications",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "data_repository": {
@@ -391,7 +347,6 @@
       "type": "boolean",
       "tab": "resources",
       "required": true,
-      "front": true,
       "queryable": false
     },
     "data_projects": {
@@ -399,7 +354,6 @@
       "type": "markdown",
       "tab": "resources",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "valorisation": {
@@ -408,7 +362,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false
     },
     "libraries_network": {
@@ -417,7 +370,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -427,7 +379,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -437,7 +388,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": false,
       "queryable": false,
       "repeatable": true
     },
@@ -446,7 +396,6 @@
       "type": "boolean",
       "tab": "resources",
       "required": true,
-      "front": false,
       "queryable": false
     },
     "library_name": {
@@ -454,7 +403,6 @@
       "type": "string",
       "tab": "resources",
       "required": false,
-      "front": true,
       "queryable": true
     },
     "library_web": {
@@ -463,7 +411,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false
     },
     "library_description": {
@@ -471,7 +418,6 @@
       "type": "markdown",
       "tab": "resources",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "library_policy": {
@@ -479,7 +425,6 @@
       "type": "markdown",
       "tab": "resources",
       "required": false,
-      "front": true,
       "queryable": false
     },
     "information_skills_training": {
@@ -488,7 +433,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     },
@@ -498,7 +442,6 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "front": true,
       "queryable": false,
       "repeatable": true
     }

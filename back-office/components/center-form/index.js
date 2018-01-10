@@ -27,7 +27,8 @@ class controller {
           }
           return properties[key]
         })
-        .filter(field => field.front)
+        // to hide a form field in the back office, set "bo": false in schema.json
+        .filter(field => field.bo !== false)
         // TODO remove these warts after ultimate populate-db
         .map(field => {
           // temp for `nom`
