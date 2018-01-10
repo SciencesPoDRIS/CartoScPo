@@ -18,7 +18,8 @@ Les librairies sont récupérées via `npm` et bundlées via `webpack`. Contrair
 Celui d'extraction pourra etre lancé régulièrement pour générer un nouveau `app/data/data.json` et ainsi rafraichir les données du FO.
 - `/conf`: les fichiers `toml` permettent aux sysadmins de renseigner les ports / urls… de l'application une fois déployée. Pour le moment
 seul le BO lit ces fichiers de conf.
-- `/server`: server d'API REST en `node.js`. C'est avec cette application `express` que le BO échange. Elle meme est en relation avec la base `mongodb`.
+- `/server`: serveur d'API REST en `node.js`. C'est avec cette application `express` que le BO échange. Elle meme est en relation avec la base `mongodb`.
+- `/db`: stocke les données de mongo (centres, modifications, utilisateurs…) et les session redis
 
 ## Tâches du projet
 
@@ -39,22 +40,45 @@ ignoré par git.
 
 `> npm run docker`
 
-2 - Lors du premier lancement, afin de peupler la base de données, lancer la commande
+2 - démarrer une base redis écoutant sur le port par défaut (6370)
+
+Un container docker est disponible (voir `docker-compose.yml` à la racine du projet).
+Le daemon `docker` doit être préablablement lancé. Redis sauvegarde alors les sessions dans `db/redis`, dossier
+ignoré par git.
+
+`> npm run docker`
+
+3 - Lors du premier lancement, afin de peupler la base de données, lancer la commande
 
 `> npm run bo:populate`
 
 Il s'agit d'un alias executant `node bin/populate-mongo-db.js`. Ce script peut être executé avec l'argument `clear` permettant d'effacer la collection
 `centers` avant de la repeupler. Attention, cette action est *irréversible*.
 
-3 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
+4 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
 rafraichir son navigateur manuellement (pour le moment). En parallèle, l'application node se lance. Grâce à `nodemon`, le serveur redemarre dès que le
 contenu de `/server` est modifié.
 
-4 - Ouvrir son navigateur à l'url <http://localhost:42000/>
+5 - Ouvrir son navigateur à l'url <http://localhost:42000/>
 
 ## Synchonisation des données
 
-Le fichier `back-office/schema.json` centralise en un seul endroit la définition des champs qui composent un centre. Il est responsable de formaliser à la fois
-la composition des documents de la collection `centers` de `mongodb` ainsi que l'affichage de saisie dynamique coté `angularjs`.
+Le fichier `back-office/schema.json` centralise en un seul endroit la définition des champs qui composent un centre.
+
+Il est responsable de formaliser à la fois la composition des documents de la collection `centers` de `mongodb` (via un schema mongoose) ainsi que l'affichage de saisie dynamique coté `angularjs`.
 Partager les régles de validation entre serveur et GUI permet de s'assurer que les deux cotés de la communication restent en phase.
 Le but est de le supplanter à `app/data/metadata.json`.
+
+L'ordre dans lequel sont listés les champs dans `back-office/schema.json` a un impact direct sur l'affichage du formulaire HTML.
+Pour placer un champ dans un onglet (tab), il faut renseigner la valeur de la clé `tab`, par exemple `"tab": "schools"`, pour que le champ de saisie s'affiche dans l'onglet `Ecoles doctoriales`.
+
+Voir le code du controller de `center-form` pour la liste complète des `tab`.
+
+`type` est l'autre clé importante de chaque field. `string`, `number`, `tel`, `email`, `person`, `url` se traduisent visuellement par les inputs HTML5 correspondant.
+Le `type` `boolean` créé une case à cocher.
+
+Des types plus complexes permettent d'obtenir des *champs composites*.
+
+Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctoriales. Cette dernière est réordonable en glissé-déposé à la souris.
+
+Le `type` `boolean-item` a pour objectif de lier une case à cocher avec un champ qu'elle affiche / masque suivant son état.
