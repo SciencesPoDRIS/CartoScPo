@@ -301,7 +301,7 @@
       "required": true,
       "item": {
         "titles": {
-          "label": "Collections auprès d'éditeurs description",
+          "label": "Collections auprès d'éditeurs - Description",
           "type": "markdown",
           "required": false,
           "queryable": false
@@ -315,7 +315,7 @@
       "required": true,
       "item": {
         "titles": {
-          "label": "Revues en propre description",
+          "label": "Revues en propre - Description",
           "type": "markdown",
           "required": false,
           "queryable": false
@@ -343,27 +343,27 @@
       "required": false,
       "queryable": false
     },
-    "data_repository": {
-      "label": "Archivage des données de la recherche",
-      "type": "boolean",
-      "tab": "resources",
-      "required": true,
-      "queryable": false
-    },
-    "data_projects": {
-      "label": "Archivage des données de la recherche",
-      "type": "markdown",
-      "tab": "resources",
-      "required": false,
-      "queryable": false
-    },
     "valorisation": {
       "label": "Valorisation des publications par le laboratoire",
       "type": "markdown",
-      "tab": "resources",
+      "tab": "publications",
       "required": false,
       "multievaluation": true,
       "queryable": false
+    },
+    "data_repository": {
+      "label": "Archivage des données de la recherche ?",
+      "type": "boolean-item",
+      "tab": "publications",
+      "required": true,
+      "item": {
+        "projects": {
+          "label": "Archivage des données de la recherche - Description",
+          "type": "markdown",
+          "required": false,
+          "queryable": false
+        }
+      }
     },
     "libraries_network": {
       "label": "Collaborations documentaires",
@@ -393,14 +393,14 @@
       "repeatable": true
     },
     "library": {
-      "label": "Centre de documentation ou bibliothèque en propre",
+      "label": "Centre de documentation ou bibliothèque en propre ?",
       "type": "boolean",
       "tab": "resources",
       "required": true,
       "queryable": false
     },
     "library_name": {
-      "label": "Centre de documentation ou bibliothèque en propre",
+      "label": "Centre de documentation ou bibliothèque en propre - Description",
       "type": "string",
       "tab": "resources",
       "required": false,

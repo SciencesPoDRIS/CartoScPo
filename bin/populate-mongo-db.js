@@ -31,10 +31,9 @@ const fixes = {
   hal: 'Publications versées dans HAL (oui/non)',
   repository: 'Publications versées dans un dépôt institutionnel (oui/non)',
   oa_policy: 'Préconisations pour le dépôt en open access des publications',
-  data_repository: 'Archivage des données de la recherche (oui/non)',
-  data_projects:
-    'Archivage des données de la recherche : description des projets',
   thesis_number: 'Nombre de thèses soutenues en 2015', // year is different
+  library: 'Centre de documentation ou bibliothèque en propre (oui/non)',
+  library_name: 'Centre de documentation ou bibliothèque en propre : Intitulé',
 }
 
 const castBoolean = v => v.toLowerCase() === 'oui'
@@ -104,6 +103,18 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
           rawCenter.publication['Revues en propre (oui/non)'],
         ),
         titles: rawCenter.publication['Revues en propre : description'],
+      }
+    case 'data_repository':
+      return {
+        enabled: castBoolean(
+          rawCenter.publication[
+            'Archivage des données de la recherche (oui/non)'
+          ],
+        ),
+        projects:
+          rawCenter.publication[
+            'Archivage des données de la recherche : description des projets'
+          ],
       }
   }
 }
