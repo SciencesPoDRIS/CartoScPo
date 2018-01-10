@@ -35,13 +35,18 @@ angular
         .when('/centers/add', {
           template: '<center-form />',
         })
-        .when('/centers/:id', {
-          template: '<center-form id="$resolve.id" />',
+        .when('/centers/:id/:tab?', {
+          template: '<center-form id="$resolve.id" tab="$resolve.tab" />',
           resolve: {
             id: [
               '$q',
               '$route',
               ($q, { current }) => $q.resolve(current.params.id),
+            ],
+            tab: [
+              '$q',
+              '$route',
+              ($q, { current }) => $q.resolve(current.params.tab),
             ],
           },
         })
@@ -64,5 +69,24 @@ angular
           template: '<login-form />',
         })
         .otherwise('/')
+    },
+  ])
+  .run([
+    '$route',
+    '$rootScope',
+    '$location',
+    ($route, $rootScope, $location) => {
+      const original = $location.path
+      $location.path = (path, reload) => {
+        // for tabs
+        if (reload === false) {
+          const lastRoute = $route.current
+          const un = $rootScope.$on('$locationChangeSuccess', () => {
+            $route.current = lastRoute
+            un()
+          })
+        }
+        return original.call($location, path)
+      }
     },
   ])

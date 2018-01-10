@@ -9,7 +9,6 @@ class controller {
     Object.assign(this, { $http, $location, $rootScope, session })
 
     this.center = {}
-    this.tab = 'administration'
     this.tabs = [
       { id: 'administration', label: 'Description' },
       { id: 'schools', label: 'Écoles doctorales' },
@@ -49,6 +48,9 @@ class controller {
   }
 
   $onInit() {
+    // default if not received via router
+    if (!this.tab) this.tab = 'administration'
+
     if (this.id) {
       // edit
       this.loading = true
@@ -72,6 +74,7 @@ class controller {
 
   setTab(tab) {
     this.tab = tab.id
+    this.$location.path(`/centers/${this.id}/${tab.id}`, false)
   }
 
   submit() {
@@ -119,6 +122,7 @@ const component = {
   controller,
   bindings: {
     id: '=',
+    tab: '=',
   },
 }
 
