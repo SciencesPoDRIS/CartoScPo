@@ -1,0 +1,15 @@
+/* dmp */
+
+.match {
+  color: gray;
+}
+
+ins, .ins {
+  color: black;
+  background: #bbffbb;
+}
+
+del, .del {
+  color: black;
+  background: #ffbbbb;
+}

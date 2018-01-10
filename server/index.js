@@ -31,6 +31,7 @@ app.post('/api/centers', ({ body, user }, res) => {
     if (err) return res.boom.badRequest()
     const m = new Modification({
       centerId: body.center.id,
+      center: center.toJSON(),
       email: user ? user.email : body.email,
       // only guests should be notified
       notify: Boolean(body.email),
@@ -41,22 +42,35 @@ app.post('/api/centers', ({ body, user }, res) => {
 })
 
 app.put('/api/centers/:id', ({ params, body, user }, res) => {
-  Center.update(
-    { id: params.id },
-    { $set: { ...body.center } },
-    { upsert: true },
-    err => {
-      if (err) return res.boom.badRequest()
-      const m = new Modification({
-        centerId: params.id,
-        email: user ? user.email : body.email,
-        // only guests should be notified
-        notify: Boolean(body.email),
-      })
-      m.save()
-      res.send('ok')
-    },
-  )
+  // aut-accept but create a modif has a log
+  if (user) {
+    Center.update(
+      { id: params.id },
+      { $set: { ...body.center } },
+      { upsert: true },
+      err => {
+        if (err) return res.boom.badRequest()
+        const m = new Modification({
+          centerId: params.id,
+          center: { ...body.center },
+          email: user.email,
+          notify: false,
+          status: 'accepted',
+        })
+        m.save()
+        res.send('ok')
+      },
+    )
+  } else {
+    const m = new Modification({
+      centerId: params.id,
+      center: { ...body.center },
+      email: body.email,
+      notify: Boolean(body.email),
+    })
+    m.save()
+    res.send('ok')
+  }
 })
 
 app.patch('/api/centers/:id/visibility', async ({ params }, res) => {
@@ -65,6 +79,11 @@ app.patch('/api/centers/:id/visibility', async ({ params }, res) => {
 
   await Center.update({ id: params.id }, { $set: { hidden: !center.hidden } })
   res.send({ hidden: !center.hidden })
+})
+
+app.get('/api/modifications/:id', checkAuth, async ({ params }, res) => {
+  const modification = await Modification.findOne({ _id: params.id })
+  modification ? res.json({ modification }) : res.boom.notFound()
 })
 
 app.get('/api/modifications', checkAuth, async (req, res) =>

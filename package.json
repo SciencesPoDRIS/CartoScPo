@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "angular": "^1.6.7",
+    "angular-diff-match-patch": "^0.6.10",
     "angular-route": "^1.6.7",
     "angularjs-dragula": "^2.0.0",
     "babyparse": "^0.4.6",

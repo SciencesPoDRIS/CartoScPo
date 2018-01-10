@@ -24,6 +24,7 @@
       <th>Notification</th>
       <th>Créée</th>
       <th>Modifiée</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -34,6 +35,14 @@
       <td>{{ modif.notify ? '✔' : '' }}</td>
       <td><span title="{{ modif.createdAt }}">{{ modif.createdAt | timeago }}</span></td>
       <td><span title="{{ modif.updatedAt }}">{{ modif.updatedAt | timeago }}</span></td>
+      <td>
+        <a class="button" href="/modifications/{{ modif.id }}">
+          <span>Modifier</span>
+          <span class="icon is-small">
+            <i class="fa fa-pencil"></i>
+          </span>
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -1,5 +1,6 @@
 import angular from 'angular'
 import ngRoute from 'angular-route'
+import dmp from 'angular-diff-match-patch'
 
 import appComponent from './components/app'
 import filters from './filters'
@@ -21,7 +22,7 @@ const checkAuth = {
 }
 
 angular
-  .module('bobib', [ngRoute, appComponent, filters, session, commonmark])
+  .module('bobib', [ngRoute, dmp, appComponent, filters, session, commonmark])
   .config([
     '$locationProvider',
     '$routeProvider',
@@ -52,6 +53,17 @@ angular
         })
         .when('/centers', {
           template: '<centers-list />',
+        })
+        .when('/modifications/:id', {
+          template: '<modification-details id="$resolve.id" />',
+          resolve: {
+            checkAuth: checkAuth.checkAuth,
+            id: [
+              '$q',
+              '$route',
+              ($q, { current }) => $q.resolve(current.params.id),
+            ],
+          },
         })
         .when('/modifications', {
           template: '<modifications-list />',

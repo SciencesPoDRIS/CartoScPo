@@ -10,6 +10,8 @@ const modificationSchema = new mongoose.Schema(
       required: true,
     },
     centerId: { type: String, required: true },
+    // TODO
+    center: mongoose.Schema.Types.Mixed,
     email: { type: String },
     notify: { type: Boolean },
   },
