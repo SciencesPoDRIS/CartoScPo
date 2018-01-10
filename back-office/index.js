@@ -33,8 +33,15 @@ angular
           template:
             '<h1 class="title">Home</h1><p><a href="http://cartosciencepolitique.sciencespo.fr">Front Office</a></p>',
         })
-        .when('/centers/add', {
-          template: '<center-form />',
+        .when('/centers/add/:tab?', {
+          template: '<center-form tab="$resolve.tab" />',
+          resolve: {
+            tab: [
+              '$q',
+              '$route',
+              ($q, { current }) => $q.resolve(current.params.tab),
+            ],
+          },
         })
         .when('/centers/:id/:tab?', {
           template: '<center-form id="$resolve.id" tab="$resolve.tab" />',

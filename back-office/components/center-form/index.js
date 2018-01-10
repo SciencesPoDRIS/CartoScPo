@@ -74,7 +74,8 @@ class controller {
 
   setTab(tab) {
     this.tab = tab.id
-    this.$location.path(`/centers/${this.id}/${tab.id}`, false)
+    if (this.id) this.$location.path(`/centers/${this.id}/${tab.id}`, false)
+    else this.$location.path(`/centers/add/${tab.id}`, false)
   }
 
   submit() {
