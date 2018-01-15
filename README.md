@@ -128,3 +128,7 @@ Il est possible d'éditer une configuration afin de paramétrer :
 * la taille des centres sur la carte
 * les champs de recherches disponibles dans la recherche fulltext
 * les mots à prendre en compte dans l'auto-complétion
+
+### Backoffice
+
+[Documentation](https://github.com/SciencesPoDRIS/CartoScPo/blob/dev/docs/back-office.md)
