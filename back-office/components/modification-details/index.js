@@ -33,6 +33,10 @@ class controller {
         }, console.error)
     }, console.error)
   }
+
+  changeStatus(status) {
+    this.$http.patch(`/api/modifications/${this.id}`, { status })
+  }
 }
 controller.$inject = ['$http']
 

@@ -1,7 +1,9 @@
 <h1 class="title">Modification</h1>
 <h2 class="subtitle">
-  Créée <span title="{{ $ctrl.modification.createdAt }}">{{ $ctrl.modification.createdAt | timeago }}</span>
+  <div>Créée <span title="{{ $ctrl.modification.createdAt }}">{{ $ctrl.modification.createdAt | timeago }}</span>
   <span ng-if="$ctrl.modification.email">par {{ $ctrl.modification.email }}</span>
+  </div>
+  <div>{{ $ctrl.modification.status }}</div>
 </h2>
 
 <hr/>
@@ -13,5 +15,37 @@
 <div ng-repeat="diff in $ctrl.diffs">
   <label class="label">{{ diff.label || diff.key }}</label>
   <pre diff left-obj="diff.left" right-obj="diff.right"></pre>
+</div>
+
+<hr />
+
+<div class="field is-grouped is-grouped-centered" ng-if="$ctrl.modification.status === 'pending'">
+  <div class="control">
+    <a class="button is-success" ng-click="$ctrl.changeStatus('accepted')">
+      <span class="icon is-small">
+        <i class="fa fa-thumbs-up"></i>
+      </span>
+      <span>Accepter</span>
+    </a>
+  </div>
+
+  <div class="control">
+    <a class="button is-outlined" href="/modifications">
+      <span>Annuler</span>
+    </a>
+  </div>
+
+  <div class="control">
+    <a class="button is-danger" ng-click="$ctrl.changeStatus('rejected')">
+      <span class="icon is-small">
+        <i class="fa fa-thumbs-down"></i>
+      </span>
+      <span>Refuser</span>
+    </a>
+  </div>
+</div>
+
+<div ng-if="$ctrl.modification.status !== 'pending'">
+  Cette modification a déjà été traitée.
 </div>
 

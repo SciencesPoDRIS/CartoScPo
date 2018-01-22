@@ -86,6 +86,16 @@ app.get('/api/modifications/:id', checkAuth, async ({ params }, res) => {
   modification ? res.json({ modification }) : res.boom.notFound()
 })
 
+app.patch('/api/modifications/:id', checkAuth, async ({ params, body }, res) => {
+  const modification = await Modification.findOne({ _id: params.id })
+  if (!modification) return res.boom.notFound()
+
+  // TODO
+  modification.status = body.status
+  modification.save()
+  res.send('ok')
+})
+
 app.get('/api/modifications', checkAuth, async (req, res) =>
   res.json({ modifications: await Modification.find() }),
 )
