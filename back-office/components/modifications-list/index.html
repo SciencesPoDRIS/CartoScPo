@@ -1,18 +1,20 @@
 <h1 class="title">Modifications</h1>
-<h2 class="subtitle">{{ filteredModifications.length }} / {{ $ctrl.modifications.length }}</h2>
+<h2 class="subtitle">{{ filteredModifications.length }} résultats / {{ $ctrl.modifications.length }} modifications</h2>
 
 <table class="table is-bordered is-striped">
   <thead>
     <tr>
       <th>
+        Code Unité
         <div class="control has-icons-left">
-          <input class="input is-small" placeholder="centerId" ng-model="$ctrl.search.centerId">
+          <input class="input is-small" placeholder="code unité" ng-model="$ctrl.search.center.code">
           <span class="icon is-small is-left">
             <i class="fa fa-search"></i>
           </span>
         </div>
       </th>
       <th>
+        Statut
         <div class="control has-icons-left">
           <input class="input is-small" placeholder="status" ng-model="$ctrl.search.status">
           <span class="icon is-small is-left">
@@ -21,7 +23,7 @@
         </div>
       </th>
       <th>Email</th>
-      <th>Notification</th>
+      <th>Notification demandée</th>
       <th>Créée</th>
       <th>Modifiée</th>
       <th>Action</th>
@@ -29,7 +31,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
-      <td>{{ modif.centerId }}</td>
+      <td>{{ modif.center.code }}</td>
       <td>{{ modif.status }}</td>
       <td>{{ modif.email }}</td>
       <td>{{ modif.notify ? '✔' : '' }}</td>
