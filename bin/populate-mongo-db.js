@@ -90,7 +90,8 @@ function findArrayFieldValue(rawCenter, fieldId) {
 
     case 'affiliations':
       return rawCenter.administration['Etablissements de rattachement']
-        .split('\r\n')
+        .replace(/\r\n/g, '\n')
+        .split('\n')
         .map(name => ({ name: name.replace('* ', '') }))
   }
 }
