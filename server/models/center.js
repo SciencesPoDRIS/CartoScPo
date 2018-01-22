@@ -49,7 +49,7 @@ const getMongooseFields = schema =>
         let { type, required } = fieldProps
         acc[fieldId] = {
           type: getType(type),
-          // required,
+          required: Boolean(required),
         }
         break
       }
@@ -60,6 +60,8 @@ const getMongooseFields = schema =>
 const mongooseFields = getMongooseFields(schema)
 
 delete mongooseFields.id
+
+console.log({ mongooseFields })
 
 const centerSchema = new mongoose.Schema(
   {

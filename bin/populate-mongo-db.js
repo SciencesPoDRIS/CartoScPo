@@ -112,10 +112,15 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
     case 'library':
       return {
         enabled: castBoolean(
-          rawCenter.ressources['Centre de documentation ou bibliothèque en propre (oui/non)'],
+          rawCenter.ressources[
+            'Centre de documentation ou bibliothèque en propre (oui/non)'
+          ],
         ),
-        titles: rawCenter.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'],
-        url: rawCenter.ressources['Site Web']
+        titles:
+          rawCenter.ressources[
+            'Centre de documentation ou bibliothèque en propre : Intitulé'
+          ],
+        url: rawCenter.ressources['Site Web'],
       }
 
     case 'journal':
@@ -172,9 +177,25 @@ function sanitize(rawCenter) {
           c[fieldId] = findCheckListFieldValue(rawCenter, fieldId)
           break
 
-        default:
-          c[fieldId] = findFieldValue(rawCenter, fieldId, fieldProps)
+        default: {
+          let value = findFieldValue(rawCenter, fieldId, fieldProps)
+          // attempt to fix with a dummy value to pass mongoose validation
+          if (fieldProps.required && value === null) {
+            console.error(
+              'wrong value',
+              rawCenter.administration.id,
+              fieldId,
+              fieldProps.type,
+              value,
+            )
+            if (fieldProps.type === 'string') value = 'str'
+            if (fieldProps.type === 'markdown') value = 'md'
+            if (fieldProps.type === 'url') value = 'http://'
+            if (fieldProps.type === 'number') value = 0
+          }
+          c[fieldId] = value
           break
+        }
       }
       return c
     },
@@ -183,6 +204,7 @@ function sanitize(rawCenter) {
 }
 
 function saveToMongo(cleanedCenter) {
+  console.log('saving…', cleanedCenter.id, cleanedCenter.code)
   return new Center(cleanedCenter).save()
 }
 
