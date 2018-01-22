@@ -32,7 +32,6 @@ const fixes = {
   repository: 'Publications versées dans un dépôt institutionnel (oui/non)',
   oa_policy: 'Préconisations pour le dépôt en open access des publications',
   thesis_number: 'Nombre de thèses soutenues en 2015', // year is different
-  library: 'Centre de documentation ou bibliothèque en propre (oui/non)',
   library_name: 'Centre de documentation ou bibliothèque en propre : Intitulé',
 }
 
@@ -108,6 +107,16 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
         titles:
           rawCenter.publication["Collections auprès d'éditeurs : description"],
       }
+
+    case 'library':
+      return {
+        enabled: castBoolean(
+          rawCenter.ressources['Centre de documentation ou bibliothèque en propre (oui/non)'],
+        ),
+        titles: rawCenter.ressources['Centre de documentation ou bibliothèque en propre : Intitulé'],
+        url: rawCenter.ressources['Site Web']
+      }
+
     case 'journal':
       return {
         enabled: castBoolean(
@@ -115,6 +124,7 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
         ),
         titles: rawCenter.publication['Revues en propre : description'],
       }
+
     case 'data_repository':
       return {
         enabled: castBoolean(

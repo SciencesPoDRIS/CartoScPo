@@ -413,25 +413,24 @@
     },
     "library": {
       "label": "Centre de documentation ou bibliothèque en propre ?",
-      "type": "boolean",
+      "type": "boolean-item",
       "tab": "resources",
       "required": true,
-      "queryable": false
-    },
-    "library_name": {
-      "label": "Centre de documentation ou bibliothèque en propre - Description",
-      "type": "string",
-      "tab": "resources",
-      "required": false,
-      "queryable": true
-    },
-    "library_web": {
-      "label": "Site Web",
-      "type": "url",
-      "tab": "resources",
-      "required": false,
-      "multievaluation": true,
-      "queryable": false
+      "item": {
+        "titles": {
+          "label": "Centre de documentation ou bibliothèque en propre - Description",
+          "type": "markdown",
+          "required": false,
+          "queryable": false
+        },
+        "url": {
+          "label": "Site web du centre de documentation",
+          "type": "url",
+          "tab": "resources",
+          "required": false,
+          "queryable": false
+        }
+      }
     },
     "library_description": {
       "label": "Description et fonds spécifiques",
