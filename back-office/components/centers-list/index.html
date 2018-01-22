@@ -15,7 +15,7 @@
     </div>
   </div>
 </nav>
-<h2 class="subtitle">{{ filteredCenters.length }} / {{ $ctrl.centers.length }}</h2>
+<h2 class="subtitle">{{ filteredCenters.length }} résultats / {{ $ctrl.centers.length }} centres</h2>
 
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
 
@@ -23,9 +23,10 @@
   <thead>
     <tr>
       <th>
-        <div ng-click="$ctrl.orderBy = 'acronym'">
+        <div ng-click="$ctrl.sort('acronym')" class="sortable">
           Acronyme
-          <span ng-if="$ctrl.orderBy === 'acronym'">▴</span>
+          <span ng-if="$ctrl.orderBy === 'acronym' && $ctrl.orderByAsc">▲</span>
+          <span ng-if="$ctrl.orderBy === 'acronym' && !$ctrl.orderByAsc">▼</span>
         </div>
         <div class="control has-icons-left">
           <input class="input is-small" ng-model="$ctrl.search.acronym">
@@ -33,9 +34,10 @@
         </div>
       </th>
       <th>
-        <div ng-click="$ctrl.orderBy = 'name'">
+        <div ng-click="$ctrl.sort('name')" class="sortable">
           Nom
-          <span ng-if="$ctrl.orderBy === 'name'">▴</span>
+          <span ng-if="$ctrl.orderBy === 'name' && $ctrl.orderByAsc">▲</span>
+          <span ng-if="$ctrl.orderBy === 'name' && !$ctrl.orderByAsc">▼</span>
         </div>
         <div class="control has-icons-left">
           <input class="input is-small" ng-model="$ctrl.search.name">
@@ -55,7 +57,7 @@
   </thead>
   <tbody>
     <tr ng-style="{opacity: center.hidden ? 0.5 : 1}"
-        ng-repeat="center in $ctrl.centers | filter:$ctrl.search | orderBy:$ctrl.orderBy as filteredCenters track by center.id">
+        ng-repeat="center in $ctrl.centers | filter:$ctrl.search | orderBy:$ctrl.orderBy:$ctrl.orderByAsc as filteredCenters track by center.id">
       <td>{{ center.acronym }}</td>
       <td>{{ center.name }}</td>
       <td>{{ center.code }}</td>

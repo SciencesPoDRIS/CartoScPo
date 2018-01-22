@@ -1,3 +1,7 @@
 .td-logo {
   text-align: center;
 }
+
+th .sortable {
+  cursor: pointer;
+}

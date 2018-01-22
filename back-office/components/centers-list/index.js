@@ -9,6 +9,7 @@ class controller {
 
     this.search = {}
     this.orderBy = 'acronym'
+    this.orderByAsc = true
   }
 
   $onInit() {
@@ -23,6 +24,11 @@ class controller {
     this.$http
       .patch(`/api/centers/${center.id}/visibility`)
       .then(({ data }) => (center.hidden = data.hidden), console.error)
+  }
+
+  sort(field) {
+    this.orderBy = field
+    this.orderByAsc = !this.orderByAsc
   }
 }
 controller.$inject = ['$http']
