@@ -123,6 +123,7 @@
     "creation_year": {
       "label": "Année de création",
       "type": "number",
+      "icon": "calendar",
       "tab": "administration",
       "example": "1980",
       "required": true,
@@ -138,6 +139,7 @@
     "staff_number": {
       "label": "Effectif total",
       "type": "number",
+      "icon": "users",
       "tab": "administration",
       "required": true,
       "queryable": false
@@ -145,6 +147,7 @@
     "staff_permanent": {
       "label": "Personnels permanents",
       "type": "number",
+      "icon": "users",
       "tab": "administration",
       "required": true,
       "queryable": false
@@ -152,6 +155,7 @@
     "staff_non_permanent": {
       "label": "Personnels non permanents",
       "type": "number",
+      "icon": "users",
       "tab": "administration",
       "required": true,
       "queryable": false
@@ -208,6 +212,7 @@
     "phd_number": {
       "label": "Nombre de doctorants",
       "type": "number",
+      "icon": "users",
       "tab": "schools",
       "required": false,
       "queryable": false
@@ -215,6 +220,7 @@
     "phd_scpo_number": {
       "label": "Nombre de doctorants en science politique",
       "type": "number",
+      "icon": "users",
       "tab": "schools",
       "required": false,
       "queryable": false

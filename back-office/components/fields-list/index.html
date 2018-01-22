@@ -4,12 +4,14 @@
 
   <div class="control has-icons-left" ng-switch on="field.type">
 
-
     <input ng-switch-when="boolean" type="checkbox"
       id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
 
     <input ng-switch-when="number" type="number" class="input"
       id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+    <span ng-if="field.icon" class="icon is-small is-left">
+      <i class="fa fa-{{ field.icon }}"></i>
+    </span>
 
     <input ng-switch-when="email" type="email" class="input"
       id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
