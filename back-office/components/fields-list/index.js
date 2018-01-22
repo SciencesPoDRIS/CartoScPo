@@ -17,9 +17,13 @@ class controller {
     this.item[key].splice(index, 1)
   }
 
+  getId({ key }) {
+    return this.key ? `field_${this.key}_${this.index}_${key}` : `field_${key}`
+  }
+
   toggleCheckList(key, option) {
     this.item[key].find(o => o === option)
-      ? this.item[key] = this.item[key].filter(o => o !== option)
+      ? (this.item[key] = this.item[key].filter(o => o !== option))
       : this.item[key].push(option)
   }
 }
@@ -31,8 +35,11 @@ const component = {
   bindings: {
     fields: '=',
     item: '=',
+    // to prefix recursive inputs name and id
+    index: '=?',
+    key: '=?',
     // ngForm for errors
-    form: '='
+    form: '=',
   },
 }
 

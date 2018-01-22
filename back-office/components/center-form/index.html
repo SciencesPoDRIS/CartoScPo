@@ -3,8 +3,9 @@
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
 
 <form ng-if="!$ctrl.loading" name="$ctrl.form">
+
   <div class="notification is-danger" ng-if="$ctrl.form.$invalid">
-    Ce formulaire contient des erreurs de validation
+    Ce formulaire contient {{ $ctrl.errorCount($ctrl.form) }} erreur(s) de validation
   </div>
 
   <div class="tabs is-boxed">
@@ -15,13 +16,12 @@
     </ul>
   </div>
 
-  <section ng-repeat="tab in $ctrl.tabs track by tab.id" ng-if="$ctrl.tab === tab.id">
+  <section ng-repeat="tab in $ctrl.tabs track by tab.id" ng-show="$ctrl.tab === tab.id">
 
     <fields-list
       fields="$ctrl.fieldsByTab[tab.id]"
       item="$ctrl.center"
-      form="$ctrl.form"
-      ></fields-list>
+      form="$ctrl.form"></fields-list>
 
   </section>
 

@@ -117,6 +117,12 @@ class controller {
       .filter(v => v)
       .join('\n')
   }
+
+  errorCount (form) {
+    return Object.keys(form.$error).reduce((acc, key) => {
+      return acc + form.$error[key].length
+    }, 0)
+  }
 }
 controller.$inject = ['$http', '$location', '$rootScope', 'session']
 

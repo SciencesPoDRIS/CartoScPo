@@ -108,7 +108,6 @@
       "label": "CNRS",
       "type": "boolean",
       "tab": "administration",
-      "required": true,
       "queryable": false,
       "bo": false
     },
@@ -116,7 +115,6 @@
       "label": "MENESR",
       "type": "boolean",
       "tab": "administration",
-      "required": true,
       "queryable": false,
       "bo": false
     },
@@ -351,14 +349,12 @@
       "label": "Publications versées dans HAL ?",
       "type": "boolean",
       "tab": "publications",
-      "required": true,
       "queryable": false
     },
     "repository": {
       "label": "Publications versées dans un dépôt institutionnel ?",
       "type": "boolean",
       "tab": "publications",
-      "required": true,
       "queryable": false
     },
     "oa_policy": {
