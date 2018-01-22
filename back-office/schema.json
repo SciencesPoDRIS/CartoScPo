@@ -32,30 +32,36 @@
       "required": true,
       "queryable": false
     },
-    "city": {
-      "label": "Ville",
-      "type": "string",
+    "addresses": {
+      "label": "Adresses",
+      "type": "array",
       "tab": "administration",
-      "example": "Paris",
-      "required": true,
-      "multievaluation": true,
-      "queryable": true
-    },
-    "address": {
-      "label": "Adresse(s)",
-      "type": "string",
-      "tab": "administration",
-      "required": true,
-      "multievaluation": true,
-      "queryable": false,
-      "repeatable": true
-    },
-    "location": {
-      "label": "Géolocalisation(s)",
-      "type": "string",
-      "tab": "administration",
-      "required": true,
-      "queryable": false
+      "item": {
+        "city": {
+          "label": "Ville",
+          "type": "address",
+          "tab": "administration",
+          "required": true
+        },
+        "address": {
+          "label": "Adresse",
+          "type": "address",
+          "tab": "administration",
+          "required": true
+        },
+        "latitude": {
+          "label": "Latitude",
+          "type": "coords",
+          "tab": "administration",
+          "required": false
+        },
+        "longitude": {
+          "label": "Longitude",
+          "type": "coords",
+          "tab": "administration",
+          "required": false
+        }
+      }
     },
     "phone": {
       "label": "Téléphone",

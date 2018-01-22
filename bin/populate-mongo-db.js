@@ -58,6 +58,8 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
         case 'url':
         case 'email':
         case 'tel':
+        case 'address':
+        case 'coords':
         case 'person':
         default:
           fieldValue = tab[label]
@@ -71,6 +73,14 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
 // this part is hardcoded considering the time budget of the project
 function findArrayFieldValue(rawCenter, fieldId) {
   switch (fieldId) {
+    case 'addresses':
+      return rawCenter.administration.addressesGeo.map(addr => ({
+        city: addr.city,
+        address: addr.address,
+        latitude: addr.lat,
+        longitude: addr.lon,
+      }))
+
     case 'schools':
       return rawCenter.ecole.ecoles.map(ecole => ({
         number: ecole.numero,
@@ -78,6 +88,7 @@ function findArrayFieldValue(rawCenter, fieldId) {
         director_name: ecole.directeur,
         email: ecole.courriel,
       }))
+
     case 'affiliations':
       return rawCenter.administration['Etablissements de rattachement']
         .split('\r\n')
@@ -123,11 +134,13 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
 function findCheckListFieldValue(rawCenter, fieldId) {
   switch (fieldId) {
     case 'cnrs_sections':
-      return rawCenter.recherche['Sections CNRS']
-        .replace(/\r/g, '')
-        .split('\n')
-        // remove star
-        .map(s => s.slice(2))
+      return (
+        rawCenter.recherche['Sections CNRS']
+          .replace(/\r/g, '')
+          .split('\n')
+          // remove star
+          .map(s => s.slice(2))
+      )
       break
   }
 }

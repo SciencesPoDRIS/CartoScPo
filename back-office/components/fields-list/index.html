@@ -29,6 +29,20 @@
       <i class="fa fa-phone"></i>
     </span>
 
+    <!-- just changing the leading icon -->
+
+    <input ng-switch-when="address" type="text" class="input"
+      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+    <span ng-switch-when="address" class="icon is-small is-left">
+      <i class="fa fa-map-signs"></i>
+    </span>
+
+    <input ng-switch-when="coords" type="text" class="input"
+      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+    <span ng-switch-when="coords" class="icon is-small is-left">
+      <i class="fa fa-globe"></i>
+    </span>
+
     <input ng-switch-when="person" type="text" class="input"
       id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
     <span ng-switch-when="person" class="icon is-small is-left">
