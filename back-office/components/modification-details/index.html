@@ -1,13 +1,17 @@
 <h1 class="title">Modification</h1>
 <h2 class="subtitle">
-  Créée le <span title="{{ $ctrl.modification.createdAt }}">{{ $ctrl.modification.createdAt | timeago }}</span>
+  Créée <span title="{{ $ctrl.modification.createdAt }}">{{ $ctrl.modification.createdAt | timeago }}</span>
   <span ng-if="$ctrl.modification.email">par {{ $ctrl.modification.email }}</span>
 </h2>
 
-<h3>Centre {{ $ctrl.center.id }}</h3>
+<hr/>
+
+<h2 class="subtitle">
+  {{ $ctrl.diffs.length }} champ(s) modifié(s) pour le centre {{ $ctrl.center.code }}
+</h2>
 
 <div ng-repeat="diff in $ctrl.diffs">
-  <h3>{{ diff.key }}</h3>
+  <label class="label">{{ diff.label || diff.key }}</label>
   <pre diff left-obj="diff.left" right-obj="diff.right"></pre>
 </div>
 

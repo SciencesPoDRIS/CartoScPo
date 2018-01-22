@@ -1,4 +1,5 @@
 import angular from 'angular'
+import { properties } from '../../schema.json'
 import './index.css'
 
 class controller {
@@ -12,7 +13,12 @@ class controller {
   $onInit() {
     const computeDiff = (left, right) => {
       this.diffs = Object.keys(left)
-        .map(key => ({ key, left: left[key], right: right[key] }))
+        .map(key => ({
+          key,
+          label: (properties[key] || {}).label,
+          left: left[key],
+          right: right[key],
+        }))
         .filter(pairs => pairs.left !== pairs.right)
         // TODO deep
         .filter(pairs => typeof pairs.left === 'string')
