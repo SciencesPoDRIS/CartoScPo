@@ -79,8 +79,8 @@ class controller {
   }
 
   submit(form) {
-    console.log(form)
-    return
+    if (form.$invalid) return
+
     const redirect = () => {
       this.$rootScope.flashes.push('Centre sauvegardé')
       this.$location.path('/centers')

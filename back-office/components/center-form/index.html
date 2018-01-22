@@ -27,7 +27,7 @@
 
   <section class="section">
     <div class="field is-grouped is-grouped-centered">
-      <div class="control">
+      <div class="control" ng-if="$ctrl.form.$valid">
         <a class="button is-success" ng-click="$ctrl.submit($ctrl.form)">
           <span class="icon is-small">
             <i class="fa fa-check"></i>
@@ -36,6 +36,16 @@
           <span ng-if="$ctrl.session.email">Enregistrer tous les onglets</span>
         </a>
       </div>
+
+      <div class="control" ng-if="$ctrl.form.$invalid">
+        <a class="button is-success" disabled>
+          <span class="icon is-small">
+            <i class="fa fa-check"></i>
+          </span>
+          <span>Enregistrement impossible tant qu'il reste des erreurs</span>
+        </a>
+      </div>
+
       <div class="control">
         <a class="button is-outlined" href="/centers">
           <span>Annuler</span>
