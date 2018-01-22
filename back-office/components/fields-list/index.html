@@ -1,32 +1,42 @@
 <div ng-repeat="field in $ctrl.fields track by field.key" class="field">
 
-  <label class="label" for="field_{{ field.key }}">{{ field.label }}</label>
+  <label class="label" for="field_{{ field.key }}" title="{{ field.key }}">
+    {{ field.label }}
+    <span ng-if="field.required">
+      <i class="fa fa-asterisk" title="champ requis"></i>
+    </span>
+  </label>
 
   <div class="control has-icons-left" ng-switch on="field.type">
 
     <input ng-switch-when="boolean" type="checkbox"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
 
     <input ng-switch-when="number" type="number" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-if="field.icon" class="icon is-small is-left">
       <i class="fa fa-{{ field.icon }}"></i>
     </span>
 
     <input ng-switch-when="email" type="email" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="email" class="icon is-small is-left">
       <i class="fa fa-envelope"></i>
     </span>
 
     <input ng-switch-when="url" type="url" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="url" class="icon is-small is-left">
       <i class="fa fa-link"></i>
     </span>
 
     <input ng-switch-when="tel" type="tel" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="tel" class="icon is-small is-left">
       <i class="fa fa-phone"></i>
     </span>
@@ -34,19 +44,22 @@
     <!-- just changing the leading icon -->
 
     <input ng-switch-when="address" type="text" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="address" class="icon is-small is-left">
       <i class="fa fa-map-signs"></i>
     </span>
 
     <input ng-switch-when="coords" type="text" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="coords" class="icon is-small is-left">
       <i class="fa fa-globe"></i>
     </span>
 
     <input ng-switch-when="person" type="text" class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="person" class="icon is-small is-left">
       <i class="fa fa-user"></i>
     </span>
@@ -54,7 +67,8 @@
     <div class="columns" ng-switch-when="markdown" >
         <div class="column">
           <textarea class="textarea"
-            id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]"></textarea>
+            id="field_{{ field.key }}" name="field_{{ field.key }}"
+            ng-model="$ctrl.item[field.key]" ng-required="$ctrl.required"></textarea>
         </div>
 
         <div class="column">
@@ -71,9 +85,11 @@
           <a class="handle">⇅</a>
           <a class="delete" ng-click="$ctrl.deleteField(field.key, $index)"></a>
 
+          <!-- recursion -->
           <fields-list
             fields="field.fields"
-            item="item"></fields-list>
+            item="item"
+            form="$ctrl.form"></fields-list>
 
         </div>
       </div>
@@ -92,9 +108,11 @@
 
       <div class="block" ng-if="$ctrl.item[field.key].enabled">
 
+        <!-- recursion -->
         <fields-list
           fields="field.fields"
-          item="$ctrl.item[field.key]"></fields-list>
+          item="$ctrl.item[field.key]"
+          form="$ctrl.form"></fields-list>
 
       </div>
 
@@ -116,8 +134,14 @@
     </ul>
 
     <input ng-switch-default class="input"
-      id="field_{{ field.key }}" ng-model="$ctrl.item[field.key]" />
+      id="field_{{ field.key }}" name="field_{{ field.key }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     </span>
 
+    <div ng-if="$ctrl.form['field_' + field.key].$error" class="help is-danger">
+      <div ng-if="$ctrl.form['field_' + field.key].$error.required">Ce champ est requis</div>
+      <div ng-if="$ctrl.form['field_' + field.key].$error.number">Ce champ est numérique</div>
+      <div ng-if="$ctrl.form['field_' + field.key].$error.email">Ce courriel n'est pas valide</div>
+    </div>
   </div>
 </div>

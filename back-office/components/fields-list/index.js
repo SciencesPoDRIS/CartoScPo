@@ -31,6 +31,8 @@ const component = {
   bindings: {
     fields: '=',
     item: '=',
+    // ngForm for errors
+    form: '='
   },
 }
 

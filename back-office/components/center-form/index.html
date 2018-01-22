@@ -2,7 +2,11 @@
 
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
 
-<form ng-if="!$ctrl.loading">
+<form ng-if="!$ctrl.loading" name="$ctrl.form">
+  <div class="notification is-danger" ng-if="$ctrl.form.$invalid">
+    Ce formulaire contient des erreurs de validation
+  </div>
+
   <div class="tabs is-boxed">
     <ul>
       <li ng-repeat="tab in $ctrl.tabs track by tab.id" ng-class="{'is-active': $ctrl.isActive(tab)}">
@@ -15,14 +19,16 @@
 
     <fields-list
       fields="$ctrl.fieldsByTab[tab.id]"
-      item="$ctrl.center"></fields-list>
+      item="$ctrl.center"
+      form="$ctrl.form"
+      ></fields-list>
 
   </section>
 
   <section class="section">
     <div class="field is-grouped is-grouped-centered">
       <div class="control">
-        <a class="button is-success" ng-click="$ctrl.submit()">
+        <a class="button is-success" ng-click="$ctrl.submit($ctrl.form)">
           <span class="icon is-small">
             <i class="fa fa-check"></i>
           </span>

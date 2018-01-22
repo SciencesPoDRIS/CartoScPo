@@ -78,7 +78,9 @@ class controller {
     else this.$location.path(`/centers/add/${tab.id}`, false)
   }
 
-  submit() {
+  submit(form) {
+    console.log(form)
+    return
     const redirect = () => {
       this.$rootScope.flashes.push('Centre sauvegardé')
       this.$location.path('/centers')
