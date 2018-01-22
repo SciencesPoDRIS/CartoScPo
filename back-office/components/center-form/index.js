@@ -82,7 +82,9 @@ class controller {
     if (form.$invalid) return
 
     const redirect = () => {
-      this.$rootScope.flashes.push('Centre sauvegardé')
+      this.$rootScope.flashes.push(
+        this.session.email ? 'Centre sauvegardé' : 'Proposition enregistrée',
+      )
       this.$location.path('/centers')
     }
     if (this.id) {
@@ -118,7 +120,7 @@ class controller {
       .join('\n')
   }
 
-  errorCount (form) {
+  errorCount(form) {
     return Object.keys(form.$error).reduce((acc, key) => {
       return acc + form.$error[key].length
     }, 0)
