@@ -20,7 +20,6 @@ app.get('/api/centers/:id', centerRoutes.get)
 app.get('/api/centers', centerRoutes.list)
 app.post('/api/centers', centerRoutes.create)
 app.put('/api/centers/:id', centerRoutes.update)
-app.patch('/api/centers/:id/visibility', centerRoutes.updateVisbility)
 
 app.get('/api/modifications/:id', checkAuth, modificationRoutes.get)
 app.get('/api/modifications', checkAuth, modificationRoutes.list)

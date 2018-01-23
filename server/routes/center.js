@@ -1,17 +1,20 @@
 const { createPatch } = require('rfc6902')
 const { Center, Modification, sanitizeCenter } = require('../models')
-const { sendModificationToAdmins, sendModificationConfirmationToGuest } = require('../mailer')
+const {
+  sendModificationToAdmins,
+  sendModificationConfirmationToGuest,
+} = require('../mailer')
 
 exports.get = async ({ params }, res) => {
   const center = await Center.findOne({ id: params.id })
   center ? res.json({ center }) : res.boom.notFound()
 }
 
-exports.list = async (req, res) =>
-  res.json({ centers: await Center.find() }),
+exports.list = async (req, res) => {
+  res.json({ centers: await Center.find() })
+}
 
-
-exports.create =  ({ body, user }, res) => {
+exports.create = ({ body, user }, res) => {
   const center = new Center(body.center)
   center.save(err => {
     if (err) return res.boom.badRequest()
@@ -71,12 +74,4 @@ exports.update = async ({ params, body, user }, res) => {
     if (body.email) sendModificationConfirmationToGuest(m, body.email)
     res.send('ok')
   }
-}
-
-exports.updateVisbility =  async ({ params }, res) => {
-  const center = await Center.findOne({ id: params.id })
-  if (!center) return res.boom.notFound()
-
-  await Center.update({ id: params.id }, { $set: { hidden: !center.hidden } })
-  res.send({ hidden: !center.hidden })
 }

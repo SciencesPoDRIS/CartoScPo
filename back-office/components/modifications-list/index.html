@@ -7,7 +7,7 @@
       <th>
         Code Unité
         <div class="control has-icons-left">
-          <input class="input is-small" placeholder="code unité" ng-model="$ctrl.search.center.code">
+          <input class="input is-small" placeholder="code unité" ng-model="$ctrl.search.oldCenter.code">
           <span class="icon is-small is-left">
             <i class="fa fa-search"></i>
           </span>
@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
-      <td>{{ modif.center.code }}</td>
+      <td>{{ modif.oldCenter.code }}</td>
       <td>
         <span class="tag" ng-class="{
           'is-danger': modif.status === 'rejected',

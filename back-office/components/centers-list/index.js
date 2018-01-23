@@ -20,12 +20,6 @@ class controller {
       .then(() => this.loading = false)
   }
 
-  toggleVisibility(center) {
-    this.$http
-      .patch(`/api/centers/${center.id}/visibility`)
-      .then(({ data }) => (center.hidden = data.hidden), console.error)
-  }
-
   sort(field) {
     this.orderBy = field
     this.orderByAsc = !this.orderByAsc

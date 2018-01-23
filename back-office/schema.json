@@ -2,6 +2,11 @@
   "id": "center",
   "type": "object",
   "properties": {
+    "hidden": {
+      "label": "Masqué sur le Front Office ?",
+      "type": "boolean",
+      "tab": "administration"
+    },
     "acronym": {
       "label": "Acronyme (nom court)",
       "type": "string",

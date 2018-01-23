@@ -65,8 +65,6 @@ delete mongooseFields.id
 const centerSchema = new mongoose.Schema(
   {
     id: { type: String, required: true },
-    // should this center be hidden on the front office?
-    hidden: { type: Boolean, required: true, default: false },
     ...mongooseFields,
   },
   { timestamps: true },
