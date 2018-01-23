@@ -12,7 +12,9 @@ class controller {
     }
   }
 
-  submit() {
+  submit(form) {
+    if (form.$invalid) return
+
     const redirect = () => {
       this.$rootScope.flashes.push('Utilisateur créé')
       this.$location.path('/users')
