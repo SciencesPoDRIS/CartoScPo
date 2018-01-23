@@ -1,4 +1,4 @@
-const omit = (obj, ...excludedKeys) =>
+const omit = exports.omit = (obj, ...excludedKeys) =>
   Object.entries(obj)
     .filter(([key]) => !excludedKeys.includes(key))
     .reduce((obj, [key, val]) => Object.assign(obj, { [key]: val }), {})

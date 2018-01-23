@@ -6,6 +6,7 @@ const { server: config } = require('config')
 
 const { plugSession, checkAuth } = require('./session')
 const { Center, Modification, User } = require('./models')
+const { omit } = require('./models/utils')
 const PUBLIC = path.join(__dirname, '../back-office')
 
 const app = express()
@@ -41,34 +42,39 @@ app.post('/api/centers', ({ body, user }, res) => {
   })
 })
 
-app.put('/api/centers/:id', ({ params, body, user }, res) => {
-  // aut-accept but create a modif has a log
+app.put('/api/centers/:id', async ({ params, body, user }, res) => {
+  const center = await Center.findOne({ id: params.id })
+  if (!center) return res.boom.notFound()
+
+  const cleanedBody = omit(body, '_id', '___v', 'id', 'createdAt', 'updatedAt')
+
   if (user) {
-    Center.update(
-      { id: params.id },
-      { $set: { ...body.center } },
-      { upsert: true },
-      err => {
-        if (err) return res.boom.badRequest()
-        const m = new Modification({
-          centerId: params.id,
-          center: { ...body.center },
-          email: user.email,
-          notify: false,
-          status: 'accepted',
-        })
-        m.save()
-        res.send('ok')
-      },
-    )
+    try {
+      // auto-accept but create a modif as a log
+      center.set(cleanedBody)
+      await center.save()
+      const m = new Modification({
+        centerId: params.id,
+        center: cleanedBody,
+        email: user.email,
+        notify: false,
+        status: 'accepted',
+      })
+      await m.save()
+      res.send('ok')
+    } catch (err) {
+      // mainly validation errors that should not happen in regular scenarii
+      // since the angular form should block the submission
+      return res.boom.badRequest()
+    }
   } else {
     const m = new Modification({
       centerId: params.id,
-      center: { ...body.center },
+      center: cleanedBody,
       email: body.email,
       notify: Boolean(body.email),
     })
-    m.save()
+    await m.save()
     res.send('ok')
   }
 })
@@ -86,15 +92,19 @@ app.get('/api/modifications/:id', checkAuth, async ({ params }, res) => {
   modification ? res.json({ modification }) : res.boom.notFound()
 })
 
-app.patch('/api/modifications/:id', checkAuth, async ({ params, body }, res) => {
-  const modification = await Modification.findOne({ _id: params.id })
-  if (!modification) return res.boom.notFound()
+app.patch(
+  '/api/modifications/:id',
+  checkAuth,
+  async ({ params, body }, res) => {
+    const modification = await Modification.findOne({ _id: params.id })
+    if (!modification) return res.boom.notFound()
 
-  // TODO
-  modification.status = body.status
-  modification.save()
-  res.send('ok')
-})
+    // TODO
+    modification.status = body.status
+    modification.save()
+    res.send('ok')
+  },
+)
 
 app.get('/api/modifications', checkAuth, async (req, res) =>
   res.json({ modifications: await Modification.find() }),

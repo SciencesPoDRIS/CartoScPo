@@ -61,8 +61,6 @@ const mongooseFields = getMongooseFields(schema)
 
 delete mongooseFields.id
 
-console.log({ mongooseFields })
-
 const centerSchema = new mongoose.Schema(
   {
     id: { type: String, required: true },
