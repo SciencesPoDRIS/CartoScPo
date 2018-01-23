@@ -18,7 +18,7 @@ const getAdminsEmails = async () => {
 }
 
 exports.sendModificationToAdmins = async modification => {
-  const centerCode = modification.oldCenter.code
+  const centerCode = modification.oldCenter.code || modification.submittedCenter.code
   const link = modification.getURL()
 
   const options = {
@@ -35,7 +35,7 @@ exports.sendModificationConfirmationToGuest = async (
   modification,
   guestEmail,
 ) => {
-  const centerCode = modification.oldCenter.code
+  const centerCode = modification.oldCenter.code || modification.submittedCenter.code
 
   const options = {
     from: config.from,
