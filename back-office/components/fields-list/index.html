@@ -127,7 +127,8 @@
       <li ng-repeat="option in field.options">
         <label>
           <input type="checkbox"
-            name="{{ option }}"
+            id="{{ $ctrl.getId(field) + '_' + $index }}"
+            name="{{ $ctrl.getId(field) + '_' + $index }}"
             ng-checked="$ctrl.item[field.key].includes(option)"
             ng-click="$ctrl.toggleCheckList(field.key, option)"
             value="{{ option }}" />

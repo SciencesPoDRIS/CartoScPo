@@ -22,6 +22,7 @@ class controller {
   }
 
   toggleCheckList(key, option) {
+    this.form.$setDirty()
     this.item[key].find(o => o === option)
       ? (this.item[key] = this.item[key].filter(o => o !== option))
       : this.item[key].push(option)
