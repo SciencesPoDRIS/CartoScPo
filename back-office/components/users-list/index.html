@@ -29,6 +29,7 @@
       <th>Créé</th>
       <th>Modifié</th>
       <th>Connecté</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,20 @@
       <td><span title="{{ user.createdAt }}">{{ user.createdAt | timeago }}</span></td>
       <td><span title="{{ user.updatedAt }}">{{ user.updatedAt | timeago }}</span></td>
       <td><span ng-if="user.connectedAt" title="{{ user.connectedAt }}">{{ user.connectedAt | timeago }}</span></td>
+      <td>
+        <a class="button" href="/users/{{ user.id }}">
+          <span>Modifier</span>
+          <span class="icon is-small">
+            <i class="fa fa-pencil"></i>
+          </span>
+        </a>
+        <button class="button is-danger" ng-click="$ctrl.delete(user)">
+          <span>Supprimer</span>
+          <span class="icon is-small">
+            <i class="fa fa-remove"></i>
+          </span>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

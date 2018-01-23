@@ -7,9 +7,19 @@ class controller {
   }
 
   $onInit() {
+    this.getUsers()
+  }
+
+  getUsers() {
     this.$http
       .get('/api/users')
       .then(({ data }) => (this.users = data.users), console.error)
+  }
+
+  delete(user) {
+    if (window.confirm(`Etes vous sur de supprimer ${user.email}`)) {
+      this.$http.delete(`/api/users/${user.email}`).then(() => this.getUsers())
+    }
   }
 }
 controller.$inject = ['$http']

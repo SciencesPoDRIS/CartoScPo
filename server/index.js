@@ -28,6 +28,7 @@ app.patch('/api/modifications/:id', checkAuth, modificationRoutes.update)
 
 app.get('/api/users', checkAuth, userRoutes.list)
 app.post('/api/users', checkAuth, userRoutes.create)
+app.delete('/api/users/:email', checkAuth, userRoutes.delete)
 
 // single page application
 app.get('/*', (req, res) => res.sendFile(`${PUBLIC}/index.html`))
