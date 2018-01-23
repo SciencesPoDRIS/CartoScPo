@@ -47,4 +47,19 @@ exports.sendModificationConfirmationToGuest = async (
   sendMail(options)
 }
 
-exports.sendModificationVerdict = () => {}
+exports.sendModificationVerdictToGuest = async (
+  modification,
+  guestEmail,
+  status
+) => {
+  const centerCode = modification.oldCenter.code || modification.submittedCenter.code
+
+  const options = {
+    from: config.from,
+    to: guestEmail,
+    subject: `[bobib] Votre demande de modification a été traitée`,
+    text: `Bonjour, votre demande de modification concernant le centre ${centerCode} a été ${status === 'accepted' ? 'acceptée' : 'refusée'}.`,
+    html: `Bonjour, votre demande de modification concernant le centre <strong>${centerCode}</strong> a été ${status === 'accepted' ? 'acceptée' : 'refusée'}.`,
+  }
+  sendMail(options)
+}
