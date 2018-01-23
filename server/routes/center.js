@@ -1,3 +1,4 @@
+const { createPatch } = require('rfc6902')
 const { Center, Modification, sanitizeCenter } = require('../models')
 const { sendModificationToAdmins, sendModificationConfirmationToGuest } = require('../mailer')
 
@@ -32,6 +33,10 @@ exports.update = async ({ params, body, user }, res) => {
 
   const oldCenter = sanitizeCenter(center.toJSON())
   const submittedCenter = sanitizeCenter(body.center)
+
+  // don't create an empty modif
+  const diffs = createPatch(oldCenter, submittedCenter)
+  if (!diffs.length) return res.boom.badRequest()
 
   if (user) {
     try {

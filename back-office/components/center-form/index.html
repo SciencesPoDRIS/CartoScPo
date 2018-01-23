@@ -28,7 +28,7 @@
   <section class="section">
     <div class="field is-grouped is-grouped-centered">
       <div class="control" ng-if="$ctrl.form.$valid">
-        <a class="button is-success" ng-click="$ctrl.submit($ctrl.form)">
+        <a class="button is-success" ng-click="$ctrl.submit($ctrl.form)" ng-disabled="$ctrl.form.$pristine">
           <span class="icon is-small">
             <i class="fa fa-check"></i>
           </span>

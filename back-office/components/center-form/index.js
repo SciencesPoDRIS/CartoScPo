@@ -79,7 +79,7 @@ class controller {
   }
 
   submit(form) {
-    if (form.$invalid) return
+    if (form.$invalid || form.$pristine) return
 
     const redirect = () => {
       this.$rootScope.flashes.push(
