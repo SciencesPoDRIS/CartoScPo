@@ -14,20 +14,38 @@ exports.list = async (req, res) => {
   res.json({ centers: await Center.find() })
 }
 
-exports.create = ({ body, user }, res) => {
-  const center = new Center(body.center)
-  center.save(err => {
-    if (err) return res.boom.badRequest()
+exports.create = async ({ body, user }, res) => {
+  const submittedCenter = sanitizeCenter(body.center)
+  if (user) {
+    try {
+      const center = new Center(body.center)
+      await center.save()
+      const m = new Modification({
+        centerId: body.center.id,
+        oldCenter: {},
+        submittedCenter,
+        email: user.email,
+        notify: false,
+        status: 'accepted',
+      })
+      m.save()
+      res.send('ok')
+    } catch (err) {
+      return res.boom.badRequest()
+    }
+  } else {
     const m = new Modification({
       centerId: body.center.id,
-      center: center.toJSON(),
-      email: user ? user.email : body.email,
-      // only guests should be notified
+      oldCenter: {},
+      submittedCenter,
+      email: body.email,
       notify: Boolean(body.email),
     })
-    m.save()
+    await m.save()
+    sendModificationToAdmins(m)
+    if (body.email) sendModificationConfirmationToGuest(m, body.email)
     res.send('ok')
-  })
+  }
 }
 
 exports.update = async ({ params, body, user }, res) => {

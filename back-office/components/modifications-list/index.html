@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
-      <td>{{ modif.oldCenter.code }}</td>
+      <td>{{ modif.oldCenter.code || modif.submittedCenter.code }}</td>
       <td>
         <span class="tag" ng-class="{
           'is-danger': modif.status === 'rejected',

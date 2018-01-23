@@ -18,7 +18,8 @@ const getValue = (obj, props) => {
 }
 
 const getLabel = key => {
-  if (properties[key]) return properties[key].label
+  if (!key) return ''
+  if (properties[key]) return (properties[key] || {}).label
 
   // nested: example addresses/2/city
   const [first, index, second] = key.split('/')
@@ -71,7 +72,8 @@ class controller {
           // for auto accepted modifs by admin
           if (this.modification.status === 'accepted') {
             this.diffs = computeDiffs(
-              this.modification.oldCenter,
+              // oldCenter can be undefined for creation
+              this.modification.oldCenter || {},
               this.modification.submittedCenter,
             )
           } else {
