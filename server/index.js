@@ -46,7 +46,7 @@ app.put('/api/centers/:id', async ({ params, body, user }, res) => {
   const center = await Center.findOne({ id: params.id })
   if (!center) return res.boom.notFound()
 
-  const cleanedBody = omit(body, '_id', '___v', 'id', 'createdAt', 'updatedAt')
+  const cleanedBody = omit(body.center, '_id', '___v', 'id', 'createdAt', 'updatedAt')
 
   if (user) {
     try {

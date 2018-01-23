@@ -1,4 +1,5 @@
 const path = require('path')
+const debug = require('debug')('mongoose')
 const mongoose = require('mongoose')
 const { toJSON } = require('./utils')
 
@@ -71,5 +72,13 @@ const centerSchema = new mongoose.Schema(
   { timestamps: true },
 )
 centerSchema.index({ id: 1 }, { unique: true }).plugin(toJSON)
+
+const logError = (err, res, next) => {
+  debug(err)
+  next(err)
+}
+
+centerSchema.post('save', logError)
+centerSchema.post('update', logError)
 
 module.exports = mongoose.model('Center', centerSchema)
