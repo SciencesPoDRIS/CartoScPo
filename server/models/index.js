@@ -1,3 +1,4 @@
+const { omit } = require('./utils')
 const { mongo } = require('config')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
@@ -19,3 +20,6 @@ exports.connection = mongoose.connection
 exports.Center = require('./center')
 exports.Modification = require('./modification')
 exports.User = require('./user')
+
+exports.sanitizeCenter = center =>
+  omit(center, '_id', '___v', 'id', 'createdAt', 'updatedAt')

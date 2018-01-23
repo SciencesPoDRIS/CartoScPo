@@ -11,7 +11,8 @@ const modificationSchema = new mongoose.Schema(
     },
     centerId: { type: String, required: true },
     // TODO
-    center: mongoose.Schema.Types.Mixed,
+    oldCenter: mongoose.Schema.Types.Mixed,
+    submittedCenter: mongoose.Schema.Types.Mixed,
     email: { type: String },
     notify: { type: Boolean },
   },

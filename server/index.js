@@ -5,8 +5,7 @@ const boom = require('express-boom')
 const { server: config } = require('config')
 
 const { plugSession, checkAuth } = require('./session')
-const { Center, Modification, User } = require('./models')
-const { omit } = require('./models/utils')
+const { Center, Modification, User, sanitizeCenter } = require('./models')
 const PUBLIC = path.join(__dirname, '../back-office')
 
 const app = express()
@@ -46,16 +45,18 @@ app.put('/api/centers/:id', async ({ params, body, user }, res) => {
   const center = await Center.findOne({ id: params.id })
   if (!center) return res.boom.notFound()
 
-  const cleanedBody = omit(body.center, '_id', '___v', 'id', 'createdAt', 'updatedAt')
+  const oldCenter = sanitizeCenter(center.toJSON())
+  const submittedCenter = sanitizeCenter(body.center)
 
   if (user) {
     try {
       // auto-accept but create a modif as a log
-      center.set(cleanedBody)
+      center.set(submittedCenter)
       await center.save()
       const m = new Modification({
         centerId: params.id,
-        center: cleanedBody,
+        oldCenter,
+        submittedCenter,
         email: user.email,
         notify: false,
         status: 'accepted',
@@ -70,7 +71,8 @@ app.put('/api/centers/:id', async ({ params, body, user }, res) => {
   } else {
     const m = new Modification({
       centerId: params.id,
-      center: cleanedBody,
+      oldCenter,
+      submittedCenter,
       email: body.email,
       notify: Boolean(body.email),
     })

@@ -3,7 +3,9 @@ import { createPatch } from 'rfc6902'
 import { properties } from '../../schema.json'
 import './index.css'
 
-function getValue(obj, props) {
+// diffs helper
+
+const getValue = (obj, props) => {
   props = props.split('/')
   let prop
   while ((prop = props.shift())) {
@@ -15,7 +17,7 @@ function getValue(obj, props) {
   return obj
 }
 
-function getLabel(key) {
+const getLabel = key => {
   if (properties[key]) return properties[key].label
 
   // nested: example addresses/2/city
@@ -33,6 +35,24 @@ function getLabel(key) {
   }`
 }
 
+const computeDiffs = (left, right) => {
+  return createPatch(left, right)
+    .filter(d => !['/id', '/createdAt', '/updatedAt'].includes(d.path))
+    .map(d => {
+      // leading slash
+      const key = d.path.slice(1)
+      return {
+        key,
+        op: d.op,
+        label: getLabel(key),
+        left: getValue(left, key),
+        right: getValue(right, key),
+        // use for add op or remove op
+        value: d.value || getValue(left, key),
+      }
+    })
+}
+
 class controller {
   constructor($http) {
     this.modifications = {}
@@ -42,31 +62,24 @@ class controller {
   }
 
   $onInit() {
-    const computeDiff = (left, right) => {
-      this.diffs = createPatch(left, right)
-        .filter(d => !['/id', '/createdAt', '/updatedAt'].includes(d.path))
-        .map(d => {
-          // leading slash
-          const key = d.path.slice(1)
-          return {
-            key,
-            op: d.op,
-            label: getLabel(key),
-            left: getValue(left, key),
-            right: getValue(right, key),
-            // use for add op or remove op
-            value: d.value || getValue(left, key),
-          }
-        })
-    }
-
     this.$http.get(`/api/modifications/${this.id}`).then(({ data }) => {
       this.modification = data.modification
       this.$http
         .get(`/api/centers/${this.modification.centerId}`)
         .then(({ data }) => {
           this.center = data.center
-          computeDiff(data.center, this.modification.center)
+          // for auto accepted modifs by admin
+          if (this.modification.status === 'accepted') {
+            this.diffs = computeDiffs(
+              this.modification.oldCenter,
+              this.modification.submittedCenter,
+            )
+          } else {
+            this.diffs = computeDiffs(
+              data.center,
+              this.modification.submittedCenter,
+            )
+          }
         }, console.error)
     }, console.error)
   }
