@@ -3,7 +3,13 @@
   <div>Créée <span title="{{ $ctrl.modification.createdAt }}">{{ $ctrl.modification.createdAt | timeago }}</span>
   <span ng-if="$ctrl.modification.email">par {{ $ctrl.modification.email }}</span>
   </div>
-  <div>{{ $ctrl.modification.status }}</div>
+  <div>
+    <span class="tag" ng-class="{
+      'is-danger': modif.status === 'rejected',
+       is-success': modif.status === 'accepted'}">
+       {{ $ctrl.modification.status }}
+    </span>
+  </div>
 </h2>
 
 <hr/>

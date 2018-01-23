@@ -32,7 +32,13 @@
   <tbody>
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
       <td>{{ modif.center.code }}</td>
-      <td>{{ modif.status }}</td>
+      <td>
+        <span class="tag" ng-class="{
+          'is-danger': modif.status === 'rejected',
+           is-success': modif.status === 'accepted'}">
+           {{ modif.status }}
+        </span>
+      </td>
       <td>{{ modif.email }}</td>
       <td>{{ modif.notify ? '✔' : '' }}</td>
       <td><span title="{{ modif.createdAt }}">{{ modif.createdAt | timeago }}</span></td>
