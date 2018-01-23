@@ -10,6 +10,12 @@ const modificationSchema = new mongoose.Schema(
       enum: ['pending', 'accepted', 'rejected'],
       required: true,
     },
+    verb: {
+      type: String,
+      default: 'update',
+      enum: ['create', 'update', 'delete'],
+      required: true,
+    },
     centerId: { type: String, required: true },
     // TODO
     oldCenter: mongoose.Schema.Types.Mixed,

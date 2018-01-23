@@ -65,6 +65,12 @@ class controller {
   $onInit() {
     this.$http.get(`/api/modifications/${this.id}`).then(({ data }) => {
       this.modification = data.modification
+      if (this.modification.verb === 'create') {
+        this.diffs = computeDiffs({}, this.modification.submittedCenter)
+        return
+      }
+
+      // verb update
       this.$http
         .get(`/api/centers/${this.modification.centerId}`)
         .then(({ data }) => {
@@ -72,8 +78,7 @@ class controller {
           // for auto accepted modifs by admin
           if (this.modification.status === 'accepted') {
             this.diffs = computeDiffs(
-              // oldCenter can be undefined for creation
-              this.modification.oldCenter || {},
+              this.modification.oldCenter,
               this.modification.submittedCenter,
             )
           } else {

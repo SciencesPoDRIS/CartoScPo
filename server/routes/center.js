@@ -27,6 +27,7 @@ exports.create = async ({ body, user }, res) => {
         email: user.email,
         notify: false,
         status: 'accepted',
+        verb: 'create'
       })
       m.save()
       res.send('ok')
@@ -40,6 +41,7 @@ exports.create = async ({ body, user }, res) => {
       submittedCenter,
       email: body.email,
       notify: Boolean(body.email),
+      verb: 'create'
     })
     await m.save()
     sendModificationToAdmins(m)
@@ -71,6 +73,7 @@ exports.update = async ({ params, body, user }, res) => {
         email: user.email,
         notify: false,
         status: 'accepted',
+        verb: 'update'
       })
       await m.save()
       res.send('ok')
@@ -86,6 +89,7 @@ exports.update = async ({ params, body, user }, res) => {
       submittedCenter,
       email: body.email,
       notify: Boolean(body.email),
+      verb: 'update'
     })
     await m.save()
     sendModificationToAdmins(m)
