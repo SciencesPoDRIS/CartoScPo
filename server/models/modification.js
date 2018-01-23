@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { toJSON } = require('./utils')
+const { server } = require('config')
 
 const modificationSchema = new mongoose.Schema(
   {
@@ -18,12 +19,17 @@ const modificationSchema = new mongoose.Schema(
   },
   { timestamps: true },
 )
-modificationSchema.index({ createdAt: -1, updatedAt: -1 }, { background: true }) // sorted by date
-.plugin(toJSON)
+modificationSchema
+  .index({ createdAt: -1, updatedAt: -1 }, { background: true }) // sorted by date
+  .plugin(toJSON)
 
 // Always sort by createdAt DESC, updatedAt DESC
 modificationSchema.pre('find', function() {
   this.sort({ createdAt: -1, updatedAt: -1 })
+})
+
+modificationSchema.method('getURL', function getURL() {
+  return `${server.host}:${server.port}/modifications/${this.id}`
 })
 
 module.exports = mongoose.model('Modification', modificationSchema)

@@ -6,6 +6,7 @@ const { server: config } = require('config')
 
 const { plugSession, checkAuth } = require('./session')
 const { Center, Modification, User, sanitizeCenter } = require('./models')
+const { sendModificationToAdmins, sendModificationConfirmationToGuest } = require('./mailer')
 const PUBLIC = path.join(__dirname, '../back-office')
 
 const app = express()
@@ -77,6 +78,8 @@ app.put('/api/centers/:id', async ({ params, body, user }, res) => {
       notify: Boolean(body.email),
     })
     await m.save()
+    sendModificationToAdmins(m)
+    if (body.email) sendModificationConfirmationToGuest(m, body.email)
     res.send('ok')
   }
 })

@@ -1,5 +1,7 @@
 [server]
 port = 42000
+# used to generate links in emails
+host = "http://localhost"
 
 # password hashing
 salt = "YOLO"
@@ -19,3 +21,12 @@ uri = "mongodb://localhost:27017/bobib"
 [redis]
 port = 6379
 host = "localhost"
+
+[mailer]
+logger = true
+from = "no-reply@bobib"
+#[mailer.transport]
+#service = "Gmail"
+#[mailer.transport.auth]
+#user = "username@gmail.com"
+#pass = "password"
