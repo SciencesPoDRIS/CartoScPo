@@ -45,8 +45,8 @@ const computeDiffs = (left, right) => {
         key,
         op: d.op,
         label: getLabel(key),
-        left: getValue(left, key),
-        right: getValue(right, key),
+        left: String(getValue(left, key)),
+        right: String(getValue(right, key)),
         // use for add op or remove op
         value: d.value || getValue(left, key),
       }

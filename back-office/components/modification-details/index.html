@@ -5,8 +5,8 @@
   </div>
   <div>
     <span class="tag" ng-class="{
-      'is-danger': modif.status === 'rejected',
-       is-success': modif.status === 'accepted'}">
+      'is-danger': $ctrl.modification.status === 'rejected',
+      'is-success': $ctrl.modification.status === 'accepted'}">
        {{ $ctrl.modification.status }}
     </span>
   </div>
