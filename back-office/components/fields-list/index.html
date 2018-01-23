@@ -68,7 +68,7 @@
         <div class="column">
           <textarea class="textarea"
             id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
-            ng-model="$ctrl.item[field.key]" ng-required="$ctrl.required"></textarea>
+            ng-model="$ctrl.item[field.key]" ng-required="field.required"></textarea>
         </div>
 
         <div class="column">
