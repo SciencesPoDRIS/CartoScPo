@@ -14,9 +14,11 @@ const checkAuth = {
     '$q',
     'session',
     ($location, $q, session) => {
-      if (session.email) return $q.resolve()
-      $location.path('/')
-      return $q.reject()
+      return session.refresh().then(() => {
+        if (session.email) return $q.resolve()
+        $location.path('/')
+        return $q.reject()
+      })
     },
   ],
 }
