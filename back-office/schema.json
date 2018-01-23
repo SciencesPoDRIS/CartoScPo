@@ -34,7 +34,6 @@
     "logo": {
       "label": "Logo",
       "type": "image",
-      "required": true,
       "queryable": false
     },
     "addresses": {
@@ -285,7 +284,6 @@
       "label": "Mots-clés sujet",
       "type": "markdown",
       "tab": "research",
-      "required": true,
       "multievaluation": true,
       "queryable": true
     },
@@ -326,7 +324,6 @@
       "label": "Collections auprès d'éditeurs ?",
       "type": "boolean-item",
       "tab": "publications",
-      "required": true,
       "item": {
         "titles": {
           "label": "Collections auprès d'éditeurs - Description",
@@ -340,7 +337,6 @@
       "label": "Revues en propre ?",
       "type": "boolean-item",
       "tab": "publications",
-      "required": true,
       "item": {
         "titles": {
           "label": "Revues en propre - Description",
@@ -381,7 +377,6 @@
       "label": "Archivage des données de la recherche ?",
       "type": "boolean-item",
       "tab": "publications",
-      "required": true,
       "item": {
         "projects": {
           "label": "Archivage des données de la recherche - Description",
@@ -422,7 +417,6 @@
       "label": "Centre de documentation ou bibliothèque en propre ?",
       "type": "boolean-item",
       "tab": "resources",
-      "required": true,
       "item": {
         "titles": {
           "label": "Centre de documentation ou bibliothèque en propre - Description",
