@@ -132,7 +132,7 @@ const component = {
   template: require('./index.html'),
   controller,
   bindings: {
-    id: '=',
+    id: '=?',
     tab: '=',
   },
 }

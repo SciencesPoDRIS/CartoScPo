@@ -1,13 +1,17 @@
-<h1 class="title">Utilisateur</h1>
+<h1 class="title" ng-if="!$ctrl.id">Ajouter un utilisateur</h1>
+<h1 class="title" ng-if="$ctrl.id">Modifier un utilisateur</h1>
 
 <form class="form" name="$ctrl.form">
   <div class="field">
     <label class="label">Email
       <i class="fa fa-asterisk" title="champ requis"></i>
     </label>
-    <div class="control">
+    <div class="control has-icons-left">
       <input class="input" type="email" autocomplete="username" autofocus
         ng-model="$ctrl.user.email" name="email" required />
+      <span class="icon is-small is-left">
+        <i class="fa fa-envelope"></i>
+      </span>
     </div>
     <div ng-if="$ctrl.form.email.$error" class="help is-danger">
       <div ng-if="$ctrl.form.email.$error.required">Ce champ est requis</div>
@@ -19,9 +23,12 @@
     <label class="label">Password
       <i class="fa fa-asterisk" title="champ requis"></i>
     </label>
-    <div class="control">
+    <div class="control has-icons-left">
       <input class="input" type="password" autocomplete="new-password"
         ng-model="$ctrl.user.password" name="password" required/>
+      <span class="icon is-small is-left">
+        <i class="fa fa-key"></i>
+      </span>
     </div>
     <div ng-if="$ctrl.form.password.$error" class="help is-danger">
       <div ng-if="$ctrl.form.password.$error.required">Ce champ est requis</div>

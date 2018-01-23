@@ -12,15 +12,32 @@ class controller {
     }
   }
 
+  $onInit() {
+    if (this.id) {
+      this.$http
+        .get(`/api/users/${this.id}`)
+        .then(({ data }) => (this.user = data.user))
+    }
+  }
+
   submit(form) {
     if (form.$invalid) return
 
     const redirect = () => {
-      this.$rootScope.flashes.push('Utilisateur créé')
+      this.$rootScope.flashes.push('Utilisateur sauvegardé')
       this.$location.path('/users')
     }
-    this.$http.post('/api/users', { user: this.user })
-    .then(redirect, console.error)
+    if (this.id) {
+      // edit
+      this.$http
+        .put(`/api/users/${this.id}`, { user: this.user })
+        .then(redirect, console.error)
+    } else {
+      // new
+      this.$http
+        .post('/api/users', { user: this.user })
+        .then(redirect, console.error)
+    }
   }
 }
 controller.$inject = ['$http', '$location', '$rootScope']
@@ -28,6 +45,9 @@ controller.$inject = ['$http', '$location', '$rootScope']
 const component = {
   template: require('./index.html'),
   controller,
+  bindings: {
+    id: '=?',
+  },
 }
 
 export default angular

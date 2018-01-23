@@ -26,9 +26,11 @@ app.get('/api/modifications/:id', checkAuth, modificationRoutes.get)
 app.get('/api/modifications', checkAuth, modificationRoutes.list)
 app.patch('/api/modifications/:id', checkAuth, modificationRoutes.update)
 
+app.get('/api/users/:id', checkAuth, userRoutes.get)
 app.get('/api/users', checkAuth, userRoutes.list)
 app.post('/api/users', checkAuth, userRoutes.create)
-app.delete('/api/users/:email', checkAuth, userRoutes.delete)
+app.put('/api/users/:id', checkAuth, userRoutes.update)
+app.delete('/api/users/:id', checkAuth, userRoutes.delete)
 
 // single page application
 app.get('/*', (req, res) => res.sendFile(`${PUBLIC}/index.html`))

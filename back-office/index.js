@@ -35,6 +35,7 @@ angular
           template:
             '<h1 class="title">Home</h1><p><a href="http://cartosciencepolitique.sciencespo.fr">Front Office</a></p>',
         })
+
         .when('/centers/add/:tab?', {
           template: '<center-form tab="$resolve.tab" />',
           resolve: {
@@ -63,6 +64,7 @@ angular
         .when('/centers', {
           template: '<centers-list />',
         })
+
         .when('/modifications/:id', {
           template: '<modification-details id="$resolve.id" />',
           resolve: {
@@ -78,9 +80,21 @@ angular
           template: '<modifications-list />',
           resolve: checkAuth,
         })
+
         .when('/users/add', {
           template: '<user-form />',
           resolve: checkAuth,
+        })
+        .when('/users/:id', {
+          template: '<user-form id="$resolve.id" />',
+          resolve: {
+            checkAuth: checkAuth.checkAuth,
+            id: [
+              '$q',
+              '$route',
+              ($q, { current }) => $q.resolve(current.params.id),
+            ],
+          },
         })
         .when('/users', {
           template: '<users-list />',
