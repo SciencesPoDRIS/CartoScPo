@@ -9,12 +9,26 @@
 <hr/>
 
 <h2 class="subtitle">
-  {{ $ctrl.diffs.length }} champ(s) modifié(s) pour le centre {{ $ctrl.center.code }}
+  {{ $ctrl.diffs.length }} champ(s) modifié(s) pour le centre
+  <a href="/centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
 </h2>
 
 <div ng-repeat="diff in $ctrl.diffs">
-  <label class="label">{{ diff.label || diff.key }}</label>
-  <pre diff left-obj="diff.left" right-obj="diff.right"></pre>
+  <div ng-if="diff.op === 'replace'">
+    <label class="label">{{ diff.label || diff.key }} - modification</label>
+    <pre diff left-obj="diff.left" right-obj="diff.right"></pre>
+  </div>
+
+  <div ng-if="diff.op === 'add'">
+    <label class="label">{{ diff.label || diff.key }} - ajout</label>
+    <pre><ins>{{ diff.value | json }}</ins></pre>
+  </div>
+
+  <div ng-if="diff.op === 'remove'">
+    <label class="label">{{ diff.label || diff.key }} - suppression</label>
+    <pre><del>{{ diff.value | json }}</del></pre>
+  </div>
+
 </div>
 
 <hr />
