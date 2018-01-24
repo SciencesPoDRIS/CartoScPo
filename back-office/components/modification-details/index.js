@@ -69,6 +69,10 @@ class controller {
         this.diffs = computeDiffs({}, this.modification.submittedCenter)
         return
       }
+      if (this.modification.verb === 'delete') {
+        this.diffs = computeDiffs(this.modification.oldCenter, {})
+        return
+      }
 
       // verb update
       this.$http

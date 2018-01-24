@@ -14,8 +14,17 @@
 
 <hr/>
 
-<h2 class="subtitle">
+<h2 class="subtitle" ng-if="$ctrl.modification.verb === 'update'">
   {{ $ctrl.diffs.length }} champ(s) modifié(s) pour le centre
+  <a href="/centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
+</h2>
+
+<h2 class="subtitle" ng-if="$ctrl.modification.verb === 'create'">
+  Demande d'ajout d'un centre
+</h2>
+
+<h2 class="subtitle" ng-if="$ctrl.modification.verb === 'delete'">
+  Demande de suppression du centre
   <a href="/centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
 </h2>
 
