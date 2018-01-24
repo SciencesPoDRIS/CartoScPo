@@ -19,6 +19,11 @@ Celui d'extraction pourra etre lancé régulièrement pour générer un nouveau 
 - `/conf`: les fichiers `toml` permettent aux sysadmins de renseigner les ports / urls… de l'application une fois déployée. Pour le moment
 seul le BO lit ces fichiers de conf.
 - `/server`: serveur d'API REST en `node.js`. C'est avec cette application `express` que le BO échange. Elle meme est en relation avec la base `mongodb`.
+- `/server/routes`: les routes (l'API REST) interrogeables pour les `centres`, les `modifications` et les `users`. Il s'agit des fonctions
+  appelées par les GET, POST, PUT…
+- `/server/models`: description des schema mongodb. Celui concernant `center` est un peu particulier car il est en partie généré automatiquement par
+  le contenu de `schema.json`
+- `/server/mailer.js`: text et html envoyé dans les mails.
 - `/db`: stocke les données de mongo (centres, modifications, utilisateurs…) et les session redis
 
 ## Tâches du projet
@@ -61,6 +66,15 @@ contenu de `/server` est modifié.
 
 5 - Ouvrir son navigateur à l'url <http://localhost:42000/>
 
+6 - Lancer maildev (optionnel)
+
+`maildev` est un outil de developpement qui simule un serveur SMTP local et une mailbox locale. Il est pratique pour tester si un envoi de mail se déroule bien.
+
+`> npm run maildev`
+
+En ouvrant son navigateur sur l'url <http://localhost:3025> on tombe sur une mailbox. Dès qu'un email est émis pas l'application (par exemple quand une personne
+non connectée propose une modification), il apparait dans cette mailbox.
+
 ## Synchonisation des données
 
 Le fichier `back-office/schema.json` centralise en un seul endroit la définition des champs qui composent un centre.
@@ -75,6 +89,7 @@ Pour placer un champ dans un onglet (tab), il faut renseigner la valeur de la cl
 Voir le code du controller de `center-form` pour la liste complète des `tab`.
 
 `type` est l'autre clé importante de chaque field. `string`, `number`, `tel`, `email`, `person`, `url` se traduisent visuellement par les inputs HTML5 correspondant.
+
 Le `type` `boolean` créé une case à cocher.
 
 Des types plus complexes permettent d'obtenir des *champs composites*.
@@ -82,3 +97,5 @@ Des types plus complexes permettent d'obtenir des *champs composites*.
 Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctoriales. Cette dernière est réordonable en glissé-déposé à la souris.
 
 Le `type` `boolean-item` a pour objectif de lier une case à cocher avec un champ qu'elle affiche / masque suivant son état.
+
+`searchable` determine si ce champ sera questionné par le moteur de recherche du FO (lunr.js)
