@@ -10,6 +10,7 @@ class controller {
   }
 
   addField(key) {
+    if (!this.item[key]) this.item[key] = []
     this.item[key].push({})
   }
 
