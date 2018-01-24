@@ -45,17 +45,17 @@
       <td><span title="{{ modif.updatedAt }}">{{ modif.updatedAt | timeago }}</span></td>
       <td>
         <a ng-if="modif.status === 'pending'" class="button" href="/modifications/{{ modif.id }}">
-          <span>Modifier</span>
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
+          <span>Modifier</span>
         </a>
 
         <a ng-if="modif.status !== 'pending'" class="button" href="/modifications/{{ modif.id }}">
-          <span>Voir</span>
           <span class="icon is-small">
             <i class="fa fa-eye"></i>
           </span>
+          <span>Voir</span>
         </a>
       </td>
     </tr>

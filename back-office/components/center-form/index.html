@@ -51,6 +51,15 @@
           <span>Annuler</span>
         </a>
       </div>
+
+      <div class="control" ng-if="$ctrl.id">
+        <a class="button is-danger" ng-click="$ctrl.delete($ctrl.form)">
+          <span class="icon is-small">
+            <i class="fa fa-remove"></i>
+          </span>
+          <span>Supprimer le centre</span>
+        </a>
+      </div>
     </div>
 
     <div class="field" ng-if="!$ctrl.session.email">

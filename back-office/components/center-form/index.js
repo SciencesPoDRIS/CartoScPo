@@ -125,6 +125,25 @@ class controller {
       return acc + form.$error[key].length
     }, 0)
   }
+
+  delete() {
+    const redirect = () => {
+      this.$rootScope.flashes.push(
+        this.session.email ? 'Centre supprimé' : 'Proposition enregistrée',
+      )
+      this.$location.path('/centers')
+    }
+    if (window.confirm(`Etes vous sur de supprimer ${this.center.code} ?`)) {
+      this.$http({
+        method: 'DELETE',
+        url: `/api/centers/${this.center.id}`,
+        data: { email: this.email },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(redirect, console.error)
+    }
+  }
 }
 controller.$inject = ['$http', '$location', '$rootScope', 'session']
 

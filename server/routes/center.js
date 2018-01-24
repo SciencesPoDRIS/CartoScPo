@@ -14,6 +14,26 @@ exports.list = async (req, res) => {
   res.json({ centers: await Center.find() })
 }
 
+const createModificationAndSendEmails = async (
+  centerId,
+  oldCenter,
+  submittedCenter,
+  email,
+  verb,
+) => {
+  const m = new Modification({
+    centerId,
+    oldCenter,
+    submittedCenter,
+    email,
+    notify: Boolean(email),
+    verb,
+  })
+  await m.save()
+  sendModificationToAdmins(m)
+  if (email) sendModificationConfirmationToGuest(m, email)
+}
+
 exports.create = async ({ body, user }, res) => {
   const submittedCenter = sanitizeCenter(body.center)
   if (user) {
@@ -27,7 +47,7 @@ exports.create = async ({ body, user }, res) => {
         email: user.email,
         notify: false,
         status: 'accepted',
-        verb: 'create'
+        verb: 'create',
       })
       m.save()
       res.send('ok')
@@ -35,17 +55,13 @@ exports.create = async ({ body, user }, res) => {
       return res.boom.badRequest()
     }
   } else {
-    const m = new Modification({
-      centerId: body.center.id,
-      oldCenter: {},
+    await createModificationAndSendEmails(
+      body.center.id,
+      {},
       submittedCenter,
-      email: body.email,
-      notify: Boolean(body.email),
-      verb: 'create'
-    })
-    await m.save()
-    sendModificationToAdmins(m)
-    if (body.email) sendModificationConfirmationToGuest(m, body.email)
+      body.email,
+      'create',
+    )
     res.send('ok')
   }
 }
@@ -73,7 +89,7 @@ exports.update = async ({ params, body, user }, res) => {
         email: user.email,
         notify: false,
         status: 'accepted',
-        verb: 'update'
+        verb: 'update',
       })
       await m.save()
       res.send('ok')
@@ -83,17 +99,34 @@ exports.update = async ({ params, body, user }, res) => {
       return res.boom.badRequest()
     }
   } else {
-    const m = new Modification({
-      centerId: params.id,
+    await createModificationAndSendEmails(
+      params.id,
       oldCenter,
       submittedCenter,
-      email: body.email,
-      notify: Boolean(body.email),
-      verb: 'update'
-    })
-    await m.save()
-    sendModificationToAdmins(m)
-    if (body.email) sendModificationConfirmationToGuest(m, body.email)
+      body.email,
+      'update',
+    )
     res.send('ok')
   }
+}
+
+exports.delete = async ({ params, body, user }, res) => {
+  const center = await Center.findOne({ id: params.id })
+  if (!center) return res.boom.notFound()
+
+  if (user) {
+    await Center.remove({ id: params.id })
+  } else {
+    const oldCenter = sanitizeCenter(center.toJSON())
+    const submittedCenter = {}
+
+    await createModificationAndSendEmails(
+      params.id,
+      oldCenter,
+      submittedCenter,
+      body.email,
+      'delete',
+    )
+  }
+  res.send('ok')
 }

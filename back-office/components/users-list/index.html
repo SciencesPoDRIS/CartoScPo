@@ -40,16 +40,16 @@
       <td><span ng-if="user.connectedAt" title="{{ user.connectedAt }}">{{ user.connectedAt | timeago }}</span></td>
       <td>
         <a class="button" href="/users/{{ user.id }}">
-          <span>Modifier</span>
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
+          <span>Modifier</span>
         </a>
         <button class="button is-danger" ng-click="$ctrl.delete(user)">
-          <span>Supprimer</span>
           <span class="icon is-small">
             <i class="fa fa-remove"></i>
           </span>
+          <span>Supprimer</span>
         </button>
       </td>
     </tr>
