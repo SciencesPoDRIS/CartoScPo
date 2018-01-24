@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const { createPatch } = require('rfc6902')
 const { Center, Modification, sanitizeCenter } = require('../models')
 const {
@@ -145,7 +146,59 @@ exports.delete = async ({ params, body, user }, res) => {
 // this should roughly respect the same output than app/data/script_data_csv_to_json.js
 exports.export = async (req, res) => {
   const centers = (await Center.find()).filter(c => !c.hidden)
-  const allWords = {}
+  const words = getWords(centers)
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  )
+  res.send({ centers, words })
+}
 
-  res.send({ centers, allWords})
+// TODO: this should be elasticlunr stemmer's role to do it, on the client side
+const keysList = ['acronym', 'name', 'addresses', 'affiliations', 'research_areas']
+function getWords(centers) {
+  var words = []
+  centers.forEach(c => {
+    Object.keys(c.toJSON()).forEach(k => {
+      let content = c[k]
+      if (!keysList.includes(k)) return
+
+      if (Array.isArray(content)) {
+        if (k === 'addresses') {
+          content = content.map(c => c.address).join(' ')
+        }
+        if (k === 'affiliations') {
+          content = content.map(c => c.name).join(' ')
+        }
+      }
+      content = cleanWord(content).split(' ')
+      words = words.concat(content)
+    })
+  })
+
+  words = _.uniq(words)
+    .filter(w => w.length > 2)
+    .sort()
+  return words
+}
+
+function cleanWord(content) {
+  if (typeof content !== 'string') return ''
+  return content
+    .replace(/ /g, ' ')
+    .replace(/\,|\:|\;/g, ' ')
+    .replace(', ', ' ')
+    .replace(/,/g, ' ')
+    .replace(': ', ' ')
+    .replace('; ', ' ')
+    .replace('-', ' ')
+    .replace('(', ' ')
+    .replace(/\)/g, ' ')
+    .replace(/\n|\r/g, ' ')
+    .replace('/', ' ')
+    .replace(/#/g, ' ')
+    .replace(/\./g, ' ')
+    .replace(/[cdl]['’]/g, '')
+    .toLowerCase()
 }
