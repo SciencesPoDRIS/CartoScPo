@@ -41,7 +41,6 @@ angular.module('bib.controllers')
 
   this.triggerSearch = function (query) {
     return searchService.getCenters(query).then(function (centers) {
-      console.log('triggerSearch', query, centers)
       var facetedCenters = facetService.getCenters(centers);
       this.centers = facetedCenters;
 

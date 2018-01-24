@@ -2,6 +2,7 @@ const path = require('path')
 const debug = require('debug')('express')
 const express = require('express')
 const boom = require('express-boom')
+const cors = require('cors')
 const { server: config } = require('config')
 
 const { plugSession, checkAuth } = require('./session')
@@ -10,6 +11,7 @@ const PUBLIC = path.join(__dirname, '../back-office')
 
 const app = express()
 
+app.use(cors()) // for schema.json requested by FO
 app.use(express.static(PUBLIC))
 app.use(express.json())
 app.use(boom())

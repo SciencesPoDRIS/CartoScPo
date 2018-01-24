@@ -8,6 +8,7 @@ angular.module('bib.services')
   return {
 
     get: function () {
+      // TODO: not hardcoded URL
       return cache ? $q.resolve(cache) : $http.get('http://localhost:42000/api/export')
       .then(function(res) { return res.data })
       .then(function (data) {

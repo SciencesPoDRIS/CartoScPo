@@ -64,6 +64,7 @@
     "commonmark": "^0.28.1",
     "config": "^1.29.4",
     "connect-redis": "^3.3.3",
+    "cors": "^2.8.4",
     "debug": "^3.1.0",
     "express": "^4.16.2",
     "express-boom": "^2.0.0",

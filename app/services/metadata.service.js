@@ -1,17 +1,22 @@
 'use strict';
 
 angular.module('bib.services')
-.factory('metadataService', function ($q, fileService, facetService) {
+.factory('metadataService', function ($q, $http, fileService, facetService) {
   var url = './data/metadata.json?ver=' + Math.floor(Date.now() / 1000);
   var cache;
-  var searchableTypes = ['string', 'markdown'];
 
   return {
     // raw collection
     getAll: function () {
-      return cache ? $q.resolve(cache) : fileService.get(url).then(function (data) {
-        cache = data;
-        return data;
+      return cache ? $q.resolve(cache) : $http.get('http://localhost:42000/schema.json')
+      .then(function(res) { return res.data })
+      .then(function (data) {
+        var fields = Object.keys(data.properties).map(function (k) {
+          data.properties[k].id = k
+          return data.properties[k]
+        })
+        cache = fields
+        return fields;
       });
     },
 
@@ -19,7 +24,7 @@ angular.module('bib.services')
     getSearchableFields: function () {
       return this.getAll().then(function (fields) {
         return fields.filter(function (field) {
-          return searchableTypes.indexOf(field['Saisie : string, number, liste ou markdown']) !== -1;
+          return field.searchable
         });
       });
     },
@@ -33,13 +38,7 @@ angular.module('bib.services')
 
     // searchable + facets
     getIndexableFields: function () {
-      return $q.all([
-        this.getSearchableFields(),
-        this.getFacetFields()
-      ]).then(function (args) {
-        var searchables = args[0].map(function (f) { return f['Libellé FR']; });
-        return _.uniq(searchables.concat(args[1]));
-      });
+      return this.getSearchableFields()
     }
   };
 });

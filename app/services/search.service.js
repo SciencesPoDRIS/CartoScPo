@@ -24,7 +24,7 @@ angular.module('bib.services')
   function buildSearchIndex (fields) {
     return lunr(function() {
       // add fields needed for fulltext
-      fields.forEach(function (f) { this.field(f); }.bind(this));
+      fields.forEach(function (f) { this.field(f.id); }.bind(this));
       this.ref('id');
     });
   }
@@ -33,10 +33,10 @@ angular.module('bib.services')
   // so we transform them in more practical docs to be indexed by lunr
   function buildDocs (centers, fields) {
     return centers.map(function (center) {
-      return Object.keys(center).reduce(function (doc, topic) {
+      return Object.keys(center).reduce(function (doc) {
         fields.forEach(function (field) {
-          if (center[topic][field]) {
-            doc[field] = center[topic][field];
+          if (center[field.id]) {
+            doc[field.id] = center[field.id];
           }
         });
         return doc;

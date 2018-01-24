@@ -13,7 +13,7 @@
       "tab": "administration",
       "example": "CEVIPOF",
       "required": false,
-      "queryable": true
+      "searchable": true
     },
     "code": {
       "label": "Code Unité",
@@ -21,7 +21,7 @@
       "tab": "administration",
       "example": "UMR 7217",
       "required": true,
-      "queryable": false
+      "searchable": true
     },
     "name": {
       "label": "Nom",
@@ -29,12 +29,11 @@
       "tab": "personnel",
       "example": "Centre d'étude et de recherche travail, organisations, pouvoirs",
       "required": true,
-      "queryable": true
+      "searchable": true
     },
     "logo": {
       "label": "Logo",
-      "type": "image",
-      "queryable": false
+      "type": "image"
     },
     "addresses": {
       "label": "Adresses",
@@ -72,7 +71,7 @@
       "type": "tel",
       "tab": "administration",
       "required": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "url": {
@@ -80,7 +79,7 @@
       "type": "url",
       "tab": "administration",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "affiliations": {
       "label": "Etablissements de rattachement",
@@ -99,27 +98,27 @@
       "type": "person",
       "tab": "administration",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "director_email": {
       "label": "Courriel Direction",
       "type": "email",
       "tab": "administration",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "cnrs": {
       "label": "CNRS",
       "type": "boolean",
       "tab": "administration",
-      "queryable": false,
+      "searchable": false,
       "bo": false
     },
     "menesr": {
       "label": "MENESR",
       "type": "boolean",
       "tab": "administration",
-      "queryable": false,
+      "searchable": false,
       "bo": false
     },
     "creation_year": {
@@ -129,14 +128,14 @@
       "tab": "administration",
       "example": "1980",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "history": {
       "label": "Historique",
       "type": "markdown",
       "tab": "administration",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "staff_number": {
       "label": "Effectif total",
@@ -144,7 +143,7 @@
       "icon": "users",
       "tab": "administration",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "staff_permanent": {
       "label": "Personnels permanents",
@@ -152,7 +151,7 @@
       "icon": "users",
       "tab": "administration",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "staff_non_permanent": {
       "label": "Personnels non permanents",
@@ -160,14 +159,14 @@
       "icon": "users",
       "tab": "administration",
       "required": true,
-      "queryable": false
+      "searchable": false
     },
     "staff_url": {
       "label": "Lien vers la page `personnel` sur le site Web du centre",
       "type": "url",
       "tab": "administration",
       "required": false,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "staff_url_cnrs": {
@@ -175,7 +174,7 @@
       "type": "url",
       "tab": "administration",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "schools": {
       "label": "Ecoles doctorales",
@@ -186,28 +185,28 @@
           "label": "Numéro de l'Ecole doctorale",
           "type": "string",
           "required": false,
-          "queryable": false,
+          "searchable": false,
           "repeatable": true
         },
         "name": {
           "label": "Intitulé de l'Ecole doctorale",
           "type": "string",
           "required": false,
-          "queryable": false,
+          "searchable": false,
           "repeatable": true
         },
         "director_name": {
           "label": "Directeur·rice de l'Ecole doctorale",
           "type": "person",
           "required": false,
-          "queryable": false,
+          "searchable": false,
           "repeatable": true
         },
         "email": {
           "label": "Courriel de l'Ecole doctorale",
           "type": "email",
           "required": false,
-          "queryable": false
+          "searchable": false
         }
       }
     },
@@ -217,7 +216,7 @@
       "icon": "users",
       "tab": "schools",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "phd_scpo_number": {
       "label": "Nombre de doctorants en science politique",
@@ -225,21 +224,20 @@
       "icon": "users",
       "tab": "schools",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "thesis_number": {
       "label": "Nombre de thèses soutenues en 2016",
       "type": "number",
       "tab": "schools",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "cnrs_sections": {
       "label": "Sections CNRS",
       "type": "check-list",
       "tab": "research",
       "required": false,
-      "queryable": true,
       "repeatable": true,
       "options": [
         "19 Système Terre : enveloppes superficielles",
@@ -260,7 +258,7 @@
       "type": "string",
       "tab": "research",
       "required": false,
-      "queryable": false,
+      "searchable": false,
       "bo": false
     },
     "topic_major": {
@@ -268,7 +266,7 @@
       "type": "markdown",
       "tab": "research",
       "required": false,
-      "queryable": false,
+      "searchable": false,
       "bo": false
     },
     "topic_minor": {
@@ -277,7 +275,7 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "bo": false
     },
     "subject_terms": {
@@ -285,7 +283,7 @@
       "type": "markdown",
       "tab": "research",
       "multievaluation": true,
-      "queryable": true
+      "searchable": true
     },
     "research_areas": {
       "label": "Axes de recherche",
@@ -293,7 +291,7 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "queryable": true
+      "searchable": true
     },
     "contracts": {
       "label": "Contrats de recherche",
@@ -301,7 +299,7 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "queryable": false
+      "searchable": false
     },
     "workshops": {
       "label": "Séminaires de recherche",
@@ -309,7 +307,7 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "queryable": false
+      "searchable": false
     },
     "partners": {
       "label": "Collaborations / réseaux",
@@ -317,7 +315,7 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "collections": {
@@ -329,7 +327,7 @@
           "label": "Collections auprès d'éditeurs - Description",
           "type": "markdown",
           "required": false,
-          "queryable": false
+          "searchable": false
         }
       }
     },
@@ -342,7 +340,7 @@
           "label": "Revues en propre - Description",
           "type": "markdown",
           "required": false,
-          "queryable": false
+          "searchable": false
         }
       }
     },
@@ -350,20 +348,20 @@
       "label": "Publications versées dans HAL ?",
       "type": "boolean",
       "tab": "publications",
-      "queryable": false
+      "searchable": false
     },
     "repository": {
       "label": "Publications versées dans un dépôt institutionnel ?",
       "type": "boolean",
       "tab": "publications",
-      "queryable": false
+      "searchable": false
     },
     "oa_policy": {
       "label": "Préconisations pour le dépôt en open access des publications",
       "type": "markdown",
       "tab": "publications",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "valorisation": {
       "label": "Valorisation des publications par le laboratoire",
@@ -371,7 +369,7 @@
       "tab": "publications",
       "required": false,
       "multievaluation": true,
-      "queryable": false
+      "searchable": false
     },
     "data_repository": {
       "label": "Archivage des données de la recherche ?",
@@ -382,7 +380,7 @@
           "label": "Archivage des données de la recherche - Description",
           "type": "markdown",
           "required": false,
-          "queryable": false
+          "searchable": false
         }
       }
     },
@@ -392,7 +390,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "resources": {
@@ -401,7 +399,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "library_staff": {
@@ -410,7 +408,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "library": {
@@ -422,14 +420,14 @@
           "label": "Centre de documentation ou bibliothèque en propre - Description",
           "type": "markdown",
           "required": false,
-          "queryable": false
+          "searchable": false
         },
         "url": {
           "label": "Site web du centre de documentation",
           "type": "url",
           "tab": "resources",
           "required": false,
-          "queryable": false
+          "searchable": false
         }
       }
     },
@@ -438,14 +436,14 @@
       "type": "markdown",
       "tab": "resources",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "library_policy": {
       "label": "Politique documentaire",
       "type": "markdown",
       "tab": "resources",
       "required": false,
-      "queryable": false
+      "searchable": false
     },
     "information_skills_training": {
       "label": "Offre de formations documentaires ",
@@ -453,7 +451,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     },
     "libraries_network_list": {
@@ -462,7 +460,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "queryable": false,
+      "searchable": false,
       "repeatable": true
     }
   }
