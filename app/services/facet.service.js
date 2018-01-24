@@ -1,3 +1,4 @@
+/* global angular, _ */
 'use strict';
 
 angular.module('bib.services')
@@ -12,47 +13,48 @@ angular.module('bib.services')
   var parsers = {
     // example Toulouse;\nToulouse
     ';': function (items) {
+      if (typeof items !== 'string') return []
       return items.split(';').map($filter('trimNL'));
     },
     // example * CNRS\n* Sciences Po
     '*': function (items) {
+      if (typeof items !== 'string') return []
       return items.split('*').map($filter('trimNL'));
     }
   };
 
+  // TODO: label could be deduced from schema.json
   var facets = [
     {
-      id: 'city',
-      path: 'administration',
-      key: 'Ville',
+      id: 'addresses',
+      label: 'Ville',
       type: 'multi',
-      parser: parsers[';']
+      parser: function (addresses) {
+        return addresses.map(function (a) { return a.city })
+      }
     },
     {
-      id: 'affiliation',
-      path: 'administration',
-      key: 'Etablissements de rattachement',
+      id: 'affiliations',
+      label: 'Etablissements de rattachement',
       type: 'multi',
-      parser: parsers['*']
+      parser: function (affiliations) {
+        return affiliations.map(function (a) { return a.name })
+      }
     },
     {
       id: 'subject_terms',
-      path: 'recherche',
-      key: 'Mots-clés sujet  selon l\'annuaire du MENESR',
+      label: 'Mots-clés sujet selon l\'annuaire du MENESR',
       type: 'multi',
       parser: parsers['*']
     },
     {
       id: 'cnrs_sections',
-      path: 'recherche',
-      key: 'Sections CNRS',
+      label: 'Sections CNRS',
       type: 'multi',
-      parser: parsers['*']
     },
     {
       id: 'hal',
-      path: 'publication',
-      key: 'Publications versées dans HAL (oui/non)',
+      label: 'Publications versées dans HAL ?',
       type: 'boolean'
     }
   ];
@@ -76,7 +78,7 @@ angular.module('bib.services')
       var items = _(centers)
         .flatMap(function (center) {
           var parser = facet.parser || _.identity;
-          var value = parser(center[facet.path][facet.key]);
+          var value = parser(center[facet.id]);
           return facet.type === 'multi'
             // in case of [Toulouse, Toulouse]
             ? _.uniq(value)
@@ -126,7 +128,7 @@ angular.module('bib.services')
         return this.enabledItems.every(function (item) {
           var facet = _.find(facets, {id: item.facetId});
           var parser = facet.parser || _.identity;
-          var value = parser(center[facet.path][facet.key]);
+          var value = parser(center[facet.id]);
           return value.indexOf(item.label) !== -1;
         }, this);
       }, this);

@@ -16,7 +16,7 @@ angular.module('bib.controllers')
     this.currentTab = 'list';
   };
 
-  this.displayTable = function () {
+  this.displayTableTab = function () {
     this.currentTab = 'table';
   };
 
@@ -41,8 +41,10 @@ angular.module('bib.controllers')
 
   this.triggerSearch = function (query) {
     return searchService.getCenters(query).then(function (centers) {
+      console.log('triggerSearch', query, centers)
       var facetedCenters = facetService.getCenters(centers);
       this.centers = facetedCenters;
+
       this.facets = facetService.getAll(facetedCenters);
       // map
       this.markers = mapService.createMarkers(facetedCenters);
@@ -70,9 +72,9 @@ angular.module('bib.controllers')
       this.gridApi = gridApi;
     }.bind(this),
     columnDefs: [
-    { field: 'Intitulé', enableFiltering: true },
-    { field: 'Ville', enableFiltering: true },
-    { field: 'Code Unité', enableFiltering: true }
+    { field: 'name', enableFiltering: true },
+    // { field: 'Ville', enableFiltering: true },
+    { field: 'code', enableFiltering: true }
     ]
   };
 

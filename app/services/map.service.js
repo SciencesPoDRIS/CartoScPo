@@ -1,4 +1,4 @@
-/* globals L */
+/* globals angular, _, L */
 
 angular.module('bib.services')
 .factory('mapService', function($sce, leafletData) {
@@ -6,7 +6,7 @@ angular.module('bib.services')
   var iconSize = 10;
 
   function fixIconSize(center) {
-    var size = center.personnel['Personnels permanents'];
+    var size = center.staff_permanent;
     if (!center) return '';
     if (size <= 20) return 'small';
     if (size > 20 && size <= 40) return 'medium';
@@ -17,19 +17,19 @@ angular.module('bib.services')
   return {
     createMarkers: function (centers) {
       var markers = {};
-      _.forIn(centers, function (center) {
-        _.get(center, 'administration.addressesGeo', []).forEach(function(a, i) {
+      centers.map(function (center) {
+        center.addresses.forEach(function(a, i) {
           var colorMarker = fixIconSize(center);
           var id = center.id + '_' + i;
-          var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.administration['Acronyme (nom court)'] + '.jpeg"' + '">'
-            + '<p>' + center.administration['Intitulé'] + ' - ' + center.administration['Acronyme (nom court)'] + '</p>'
+          var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.acronym + '.jpeg"' + '">'
+            + '<p>' + center.name + ' - ' + center.acronym + '</p>'
             + '<p>'  + a.address + '</p>';
 
           // create one marker by address and one cluster by city
           markers[id] = {
             group: 'France', //city or France for clustering
-            lat: a.lat,
-            lng: a.lon,
+            lat: Number(a.latitude),
+            lng: Number(a.longitude),
             message: message,
             icon: {
               type: 'div',
@@ -78,7 +78,7 @@ angular.module('bib.services')
 
     setAllAddressActive: function(allCenters) {
       _.map(allCenters, function(c) {
-        return _.map(c.center.administration.addressesGeo, function () {
+        return _.map(c.center.addresses, function () {
           c.active = true;
         });
       });

@@ -7,13 +7,13 @@
             <div class="col-md-8">
                 <h3 id="center-{{ center.id }}">
                     <span class="center-title" ng-click="$ctrl.toogleCenter(center.id)">
-                        <span ng-if="center.administration['Acronyme (nom court)']">{{ center.administration['Acronyme (nom court)'] }}<br /></span>
-                        <span>{{ center.administration['Intitulé'] }}</span>
+                        <span ng-if="center.acronym">{{ center.acronym }}<br /></span>
+                        <span>{{ center.name }}</span>
                     </span>
                 </h3>
-                <p>{{ center.administration['Code Unité'] | trimStar}}</p>
-                <p ng-if="center.commentaires['Date de mise à jour']">
-                    <small>Données récoltées en {{center.commentaires['Date de mise à jour'] }}</small>
+                <p>{{ center.code | trimStar}}</p>
+                <p ng-if="center.updatedAt">
+                    <small>Données récoltées en {{center.updatedAt }}</small>
                 </p>
             </div>
         </div>

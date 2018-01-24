@@ -1,4 +1,4 @@
-/* globals Papa */
+/* globals angular, _, Papa */
 'use strict';
 
 angular.module('bib.controllers')
@@ -15,10 +15,10 @@ angular.module('bib.controllers')
                     $scope.gridApi = gridApi;
                 },
                 columnDefs: [
-                    { field: 'Intitulé', enableFiltering: true },
-                    { field: 'Sigle ou acronyme', enableFiltering: true },
-                    { field: 'Ville', enableFiltering: true },
-                    { field: 'Code Unité', enableFiltering: true }
+                    { field: 'name', enableFiltering: true },
+                    { field: 'acronym', enableFiltering: true },
+                    // { field: 'Ville', enableFiltering: true },
+                    { field: 'code', enableFiltering: true }
                 ]
             };
 

@@ -4,12 +4,12 @@ angular.module('bib.services')
 .factory('metadataService', function ($q, fileService, facetService) {
   var url = './data/metadata.json?ver=' + Math.floor(Date.now() / 1000);
   var cache;
-  var searchableTypes = ['String', 'Markdown'];
+  var searchableTypes = ['string', 'markdown'];
 
   return {
     // raw collection
     getAll: function () {
-      return cache ? $q.when(cache) : fileService.get(url).then(function (data) {
+      return cache ? $q.resolve(cache) : fileService.get(url).then(function (data) {
         cache = data;
         return data;
       });
@@ -26,8 +26,8 @@ angular.module('bib.services')
 
     // used in the sidebar
     getFacetFields: function () {
-      return $q.when(facetService.facets.map(function (f) {
-        return f.key;
+      return $q.resolve(facetService.facets.map(function (f) {
+        return f.id;
       }));
     },
 
