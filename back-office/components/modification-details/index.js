@@ -55,11 +55,12 @@ const computeDiffs = (left, right) => {
 }
 
 class controller {
-  constructor($http) {
+  constructor($http, $location, $rootScope) {
+    Object.assign(this, { $http, $location, $rootScope })
+
     this.modifications = {}
     this.center = {}
     this.diffs = []
-    this.$http = $http
   }
 
   $onInit() {
@@ -96,10 +97,16 @@ class controller {
   }
 
   changeStatus(status) {
-    this.$http.patch(`/api/modifications/${this.id}`, { status })
+    const redirect = () => {
+      this.$rootScope.flashes.push('Modificaton traitée')
+      this.$location.path('/modifications')
+    }
+    this.$http
+      .patch(`/api/modifications/${this.id}`, { status })
+      .then(redirect, console.error)
   }
 }
-controller.$inject = ['$http']
+controller.$inject = ['$http', '$location', '$rootScope']
 
 const component = {
   template: require('./index.html'),

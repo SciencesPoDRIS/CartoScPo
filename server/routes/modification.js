@@ -6,9 +6,11 @@ exports.get = async ({ params }, res) => {
   modification ? res.json({ modification }) : res.boom.notFound()
 }
 
+// TODO pagination
 exports.list = async (req, res) =>
   res.json({ modifications: await Modification.find() })
 
+// accept or reject
 exports.update = async ({ params, body }, res) => {
   const modification = await Modification.findOne({ _id: params.id })
   if (!modification) return res.boom.notFound()
@@ -16,30 +18,36 @@ exports.update = async ({ params, body }, res) => {
   // already processed
   if (modification.status !== 'pending') return res.boom.badRequest()
 
-  const center = await Center.findOne({ id: modification.centerId })
-  if (!center) return res.boom.notFound()
-
   switch (modification.verb) {
-    // TODO
     case 'create':
+      if (body.status === 'accepted') {
+        const center = new Center({
+          id: modification.centerId,
+          ...modification.submittedCenter,
+        })
+        await center.save()
+      }
       break
 
-    case 'update':
+    case 'update': {
+      const center = await Center.findOne({ id: modification.centerId })
+      if (!center) return res.boom.notFound()
+
       if (body.status === 'accepted') {
         center.set(modification.submittedCenter)
         await center.save()
       }
-      if (modification.notify && modification.email)
-        sendModificationVerdictToGuest(
-          modification,
-          modification.email,
-          body.status,
-        )
       break
+    }
 
-    // TODO
-    case 'delete':
+    case 'delete': {
+      const center = await Center.findOne({ id: modification.centerId })
+      if (!center) return res.boom.notFound()
+      if (body.status === 'accepted') {
+        await center.remove()
+      }
       break
+    }
 
     default:
       return res.boom.badRequest()
@@ -47,5 +55,13 @@ exports.update = async ({ params, body }, res) => {
 
   modification.status = body.status
   await modification.save()
+
+  if (modification.notify && modification.email)
+    sendModificationVerdictToGuest(
+      modification,
+      modification.email,
+      modification.status,
+    )
+
   res.send('ok')
 }

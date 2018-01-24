@@ -36,6 +36,7 @@ const createModificationAndSendEmails = async (
 
 exports.create = async ({ body, user }, res) => {
   const submittedCenter = sanitizeCenter(body.center)
+
   if (user) {
     try {
       const center = new Center(body.center)
@@ -114,12 +115,22 @@ exports.delete = async ({ params, body, user }, res) => {
   const center = await Center.findOne({ id: params.id })
   if (!center) return res.boom.notFound()
 
+  const oldCenter = sanitizeCenter(center.toJSON())
+  const submittedCenter = {}
+
   if (user) {
     await Center.remove({ id: params.id })
+    const m = new Modification({
+      centerId: params.id,
+      oldCenter,
+      submittedCenter,
+      email: user.email,
+      notify: false,
+      status: 'accepted',
+      verb: 'delete',
+    })
+    await m.save()
   } else {
-    const oldCenter = sanitizeCenter(center.toJSON())
-    const submittedCenter = {}
-
     await createModificationAndSendEmails(
       params.id,
       oldCenter,
