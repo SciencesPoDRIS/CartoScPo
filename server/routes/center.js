@@ -141,3 +141,11 @@ exports.delete = async ({ params, body, user }, res) => {
   }
   res.send('ok')
 }
+
+// this should roughly respect the same output than app/data/script_data_csv_to_json.js
+exports.export = async (req, res) => {
+  const centers = (await Center.find()).filter(c => !c.hidden)
+  const allWords = {}
+
+  res.send({ centers, allWords})
+}

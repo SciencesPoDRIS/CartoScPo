@@ -24,6 +24,9 @@ app.post('/api/centers', centerRoutes.create)
 app.put('/api/centers/:id', centerRoutes.update)
 app.delete('/api/centers/:id', centerRoutes.delete)
 
+// res to be consumed by front office
+app.get('/api/export', centerRoutes.export)
+
 // checkAuth
 
 app.get('/api/modifications/:id', checkAuth, modificationRoutes.get)
