@@ -192,6 +192,7 @@ function sanitize(rawCenter) {
             if (fieldProps.type === 'markdown') value = 'md'
             if (fieldProps.type === 'url') value = 'http://'
             if (fieldProps.type === 'number') value = 0
+            if (fieldProps.type === 'tel') value = 0
           }
           c[fieldId] = value
           break
