@@ -18,7 +18,7 @@ class controller {
 
   delete(user) {
     if (window.confirm(`Etes vous sur de supprimer ${user.email} ?`)) {
-      this.$http.delete(`/api/users/${user.email}`).then(() => this.getUsers())
+      this.$http.delete(`/api/users/${user.id}`).then(() => this.getUsers())
     }
   }
 }
