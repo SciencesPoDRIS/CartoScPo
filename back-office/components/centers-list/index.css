@@ -5,3 +5,6 @@
 th .sortable {
   cursor: pointer;
 }
+th .sortable:hover {
+  background: #eee;
+}
