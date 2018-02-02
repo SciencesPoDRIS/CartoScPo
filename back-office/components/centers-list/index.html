@@ -57,7 +57,7 @@
   </thead>
   <tbody>
     <tr ng-style="{opacity: center.hidden ? 0.5 : 1}"
-        ng-repeat="center in $ctrl.centers | filter:$ctrl.search | orderBy:$ctrl.orderBy:$ctrl.orderByAsc as filteredCenters track by center.id">
+        ng-repeat="center in $ctrl.centers | filter:$ctrl.search | orderBy:$ctrl.orderBy:!$ctrl.orderByAsc as filteredCenters track by center.id">
       <td>{{ center.acronym }}</td>
       <td>{{ center.name }}</td>
       <td>{{ center.code }}</td>
