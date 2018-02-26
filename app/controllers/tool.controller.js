@@ -12,17 +12,9 @@ angular.module('bib.controllers')
 
   this.currentTab = 'list';
 
-  this.displayListTab = function () {
-    this.currentTab = 'list';
-  };
-
-  this.displayTableTab = function () {
-    this.currentTab = 'table';
-  };
-
-  this.displayMapTab = function () {
-    this.currentTab = 'map';
-    this.refreshMap();
+  this.displayTab = function (tab) {
+    this.currentTab = tab;
+    if (tab === 'map') this.refreshMap()
   };
 
   // search & facets
