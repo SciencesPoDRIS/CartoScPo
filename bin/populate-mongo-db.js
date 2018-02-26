@@ -200,6 +200,11 @@ function sanitize(rawCenter) {
             if (fieldProps.type === 'number') value = 0
             if (fieldProps.type === 'tel') value = 0
           }
+          if (
+            value === 'X' &&
+            (fieldId === 'url' || fieldId === 'staff_url_cnrs')
+          )
+            value = ''
           c[fieldId] = value
           break
         }
