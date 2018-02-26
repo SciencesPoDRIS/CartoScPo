@@ -33,7 +33,7 @@
                     <i class="fa fa-globe"></i> 
                     <a target="_blank" href="{{ $ctrl.org.url }}">{{ $ctrl.org.url }}</a>
                 </p>
-                <p ng-repeat="phone in $ctrl.phones">
+                <p ng-repeat="phone in $ctrl.phones track by phone.number">
                     <i class="fa fa-phone"></i> {{ phone.number }}
                 </p>
                 <p>Année de création : {{ $ctrl.org.creation_year }}</p>
@@ -50,11 +50,11 @@
             </div>
             <h2>Adresse(s)</h2>
             <ul>
-                <li ng-repeat="address in $ctrl.org.addresses">{{ address.address}}</li>
+                <li ng-repeat="address in $ctrl.org.addresses track by address.address">{{ address.address }}</li>
             </ul>
             <h2>Etablissements de rattachement</h2>
             <div class="col-md-12">
-                <p ng-repeat="aff in $ctrl.org.affiliations">
+                <p ng-repeat="aff in $ctrl.org.affiliations track by aff.name">
                     {{ aff.name }}
                 </p>
             </div>
@@ -81,7 +81,7 @@
         <div class="tab-pane" id="ecole-{{ $ctrl.org.id }}">
             <h2>Liste des écoles doctorales</h2>
             <div class="col-md-12">
-                <div ng-repeat="school in $ctrl.org.schools" class="col-md-4 ecole-details">
+                <div ng-repeat="school in $ctrl.org.schools track by school.name" class="col-md-4 ecole-details">
                     <p>Intitulé Ecole Doctorale : {{ school.name }}</p>
                     <p>Numéro d'Ecole Doctorale : {{ school.number }}</p>
                     <p>Directeur·rice école doctorale : {{ school.director_name}}</p>

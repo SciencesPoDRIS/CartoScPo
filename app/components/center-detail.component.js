@@ -51,15 +51,19 @@ angular.module('bib.components')
       this.data_repository_projects = convert(this.org.data_repository.projects);
       this.valorisation = convert(this.org.valorisation);
       // Ressources
-      this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
       this.eresources = convert(this.org.resources);
       this.library_staff = convert(this.org.library_staff);
+      this.information_skills_training = convert(this.org.information_skills_training);
+
+
+// TODO
+/*
+      this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
       this.resources_title = convert(this.ressources['Centre de documentation ou bibliothèque en propre : Intitulé']);
       this.ressources_description = convert(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
       this.documentary_politics = convert(this.ressources['Politique documentaire']);
-      this.information_skills_training = convert(this.org.information_skills_training);
       this.library_network = convert(this.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']);
-      // Commentaires
+*/
     }.bind(this);
   }
 });

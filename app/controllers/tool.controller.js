@@ -64,18 +64,19 @@ angular.module('bib.controllers')
     }.bind(this),
     columnDefs: [
     { field: 'name', enableFiltering: true },
-    // { field: 'Ville', enableFiltering: true },
     { field: 'code', enableFiltering: true }
     ]
   };
 
   this.exportGrid = function() {
     var selected = this.gridApi.grid.renderContainers.body.visibleRowCache.map(function(d) {
-      delete d.entity['$$hashKey'];
-      delete d.entity['addressesGeo'];
-      delete d.entity['Commentaires'];
-      delete d.entity['Logo'];
-      return d.entity;
+      const cleaned = {}
+      Object.keys(d.entity).forEach(function (key) {
+        // arrays don't play well with csv cells
+        if (Array.isArray(d.entity[key]) || typeof d.entity[key] === 'object' || key == '$$hashKey') return;
+        cleaned[key] = d.entity[key];
+      })
+      return cleaned;
     });
 
     var csv = Papa.unparse(selected);
