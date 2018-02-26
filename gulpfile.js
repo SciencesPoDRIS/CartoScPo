@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css');
 
 // Concat and minify all JS libraries
-gulp.task('js', function() {
+gulp.task('js:lib', function() {
     return gulp.src([
         'bower_components/lodash/dist/lodash.min.js',
         'bower_components/jquery/dist/jquery.min.js',
@@ -33,7 +33,15 @@ gulp.task('js', function() {
         'bower_components/showdown/dist/showdown.min.js',
         'bower_components/ng-showdown/dist/ng-showdown.min.js',
         'bower_components/lunr.js/lunr.min.js',
-        'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js',
+        'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js'
+    ])
+    .pipe(concat('lib.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./app/assets/js/'));
+});
+
+gulp.task('js:app', function() {
+    return gulp.src([
         'app/app.js',
         'app/components/center-detail.component.js',
         'app/components/center-list.component.js',
@@ -53,7 +61,7 @@ gulp.task('js', function() {
         'app/services/search.service.js',
         'app/conf/conf.js'
     ])
-    .pipe(concat('all.min.js'))
+    .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('./app/assets/js/'));
@@ -93,10 +101,11 @@ gulp.task('serve', function() {
     browserSync.init({ server: './app' });
     gulp.watch('app/style/style.less', ['css']);
     gulp.watch('app/style/style.css').on('change', browserSync.reload);
-    gulp.watch(['app/*.js', 'app/**/*.js', '!app/assets/**/*.js'], ['js']);
-    gulp.watch('app/assets/js/all.min.js').on('change', browserSync.reload);
+    gulp.watch(['app/*.js', 'app/**/*.js', '!app/assets/**/*.js'], ['js:app']);
+    gulp.watch('app/assets/js/lib.min.js').on('change', browserSync.reload);
+    gulp.watch('app/assets/js/app.min.js').on('change', browserSync.reload);
     gulp.watch('app/views/*.html').on('change', browserSync.reload);
 });
 
 // Default task that launch concat js and css, then copy some assets and launch server
-gulp.task('default', ['js', 'css', 'assets', 'serve']);
+gulp.task('default', ['js:lib', 'js:app', 'css', 'assets', 'serve']);
