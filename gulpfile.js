@@ -3,7 +3,8 @@
 var gulp = require('gulp'),
     less = require('gulp-less'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
+    uglifyes = require('uglify-es'),
+    uglify = require('gulp-uglify/composer')(uglifyes),
     ngAnnotate = require('gulp-ng-annotate'),
     browserSync = require('browser-sync').create(),
     cleanCSS = require('gulp-clean-css');
@@ -82,7 +83,7 @@ gulp.task('css', ['less'], function() {
 // Copy one image and the fonts into the assets folder
 gulp.task('assets', function() {
     gulp.src('app/img/layers.png')
-      .pipe(gulp.dest('./app/assets/css/images/'));
+        .pipe(gulp.dest('./app/assets/css/images/'));
     gulp.src('bower_components/font-awesome/fonts/*.*')
         .pipe(gulp.dest('./app/assets/fonts'));
 });
