@@ -66,19 +66,23 @@
         }
       }
     },
-    "phone": {
-      "label": "Téléphone",
-      "type": "tel",
+    "phones": {
+      "label": "Téléphones",
+      "type": "array",
       "tab": "administration",
-      "required": true,
-      "searchable": false,
-      "repeatable": true
+      "item": {
+        "number": {
+          "label": "Numéro Téléphone",
+          "type": "tel",
+          "required": false,
+          "searchable": false
+        }
+      }
     },
     "url": {
       "label": "Site Web",
       "type": "url",
       "tab": "administration",
-      "required": true,
       "searchable": false
     },
     "affiliations": {
@@ -166,8 +170,7 @@
       "type": "url",
       "tab": "administration",
       "required": false,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     },
     "staff_url_cnrs": {
       "label": "Lien vers la page `personnel` du site Web du CNRS",
@@ -185,22 +188,19 @@
           "label": "Numéro de l'Ecole doctorale",
           "type": "string",
           "required": false,
-          "searchable": false,
-          "repeatable": true
+          "searchable": false
         },
         "name": {
           "label": "Intitulé de l'Ecole doctorale",
           "type": "string",
           "required": false,
-          "searchable": false,
-          "repeatable": true
+          "searchable": false
         },
         "director_name": {
           "label": "Directeur·rice de l'Ecole doctorale",
           "type": "person",
           "required": false,
-          "searchable": false,
-          "repeatable": true
+          "searchable": false
         },
         "email": {
           "label": "Courriel de l'Ecole doctorale",
@@ -238,7 +238,6 @@
       "type": "check-list",
       "tab": "research",
       "required": false,
-      "repeatable": true,
       "options": [
         "19 Système Terre : enveloppes superficielles",
         "31 Hommes et milieux : évolution, interactions",
@@ -315,8 +314,7 @@
       "tab": "research",
       "required": false,
       "multievaluation": true,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     },
     "collections": {
       "label": "Collections auprès d'éditeurs ?",
@@ -390,8 +388,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     },
     "resources": {
       "label": "Ressources numériques à disposition des chercheurs",
@@ -399,8 +396,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     },
     "library_staff": {
       "label": "Personne ressource - documentaliste",
@@ -408,8 +404,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     },
     "library": {
       "label": "Centre de documentation ou bibliothèque en propre ?",
@@ -451,8 +446,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     },
     "libraries_network_list": {
       "label": "Collaborations documentaires",
@@ -460,8 +454,7 @@
       "tab": "resources",
       "required": false,
       "multievaluation": true,
-      "searchable": false,
-      "repeatable": true
+      "searchable": false
     }
   }
 }

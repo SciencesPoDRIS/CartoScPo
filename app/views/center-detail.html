@@ -33,8 +33,8 @@
                     <i class="fa fa-globe"></i> 
                     <a target="_blank" href="{{ $ctrl.org.url }}">{{ $ctrl.org.url }}</a>
                 </p>
-                <p ng-repeat="phone in $ctrl.administration_phones">
-                    <i class="fa fa-phone"></i> {{ phone }}
+                <p ng-repeat="phone in $ctrl.phones">
+                    <i class="fa fa-phone"></i> {{ phone.number }}
                 </p>
                 <p>Année de création : {{ $ctrl.org.creation_year }}</p>
                 <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>

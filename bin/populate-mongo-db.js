@@ -93,6 +93,12 @@ function findArrayFieldValue(rawCenter, fieldId) {
         .replace(/\r\n/g, '\n')
         .split('\n')
         .map(name => ({ name: name.replace('* ', '') }))
+
+    case 'phones':
+      return rawCenter.administration['Téléphone']
+        .replace(/\r\n/g, '\n')
+        .split('\n')
+        .map(number => ({ number }))
   }
 }
 

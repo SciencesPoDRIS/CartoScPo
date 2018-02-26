@@ -37,9 +37,7 @@ angular.module('bib.components')
         }
       }
 
-
       // Administration
-      this.administration_phones = this.org.phone.split(';').map(function(x){ return x.trim(); });
       this.history = convert(this.org.history);
       // Recherche
       this.research_areas = convert(this.org.research_areas);
