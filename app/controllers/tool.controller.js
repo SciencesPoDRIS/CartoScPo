@@ -40,7 +40,7 @@ angular.module('bib.controllers')
       // map
       this.markers = mapService.createMarkers(facetedCenters);
       // grid
-      this.gridOptions.data = centerService.gridify(facetedCenters);
+      this.gridOptions.data = facetedCenters;
     }.bind(this));
   };
 
