@@ -63,8 +63,8 @@ angular.module('bib.controllers')
       this.gridApi = gridApi;
     }.bind(this),
     columnDefs: [
-    { field: 'name', enableFiltering: true },
-    { field: 'code', enableFiltering: true }
+    { field: 'name', enableFiltering: true, width: 400 },
+    { field: 'code', enableFiltering: true, width: 100 }
     ]
   };
 
