@@ -70,6 +70,7 @@
     "express": "^4.16.2",
     "express-boom": "^2.0.0",
     "express-session": "^1.15.6",
+    "gulp-replace": "^0.6.1",
     "lodash": "^4.17.5",
     "mongoose": "^4.13.11",
     "nodemailer": "^4.6.0",

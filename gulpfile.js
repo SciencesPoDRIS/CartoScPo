@@ -1,8 +1,11 @@
 'use strict';
 
+var config = require('config')
+
 var gulp = require('gulp'),
     less = require('gulp-less'),
     concat = require('gulp-concat'),
+    replace = require('gulp-replace'),
     uglifyes = require('uglify-es'),
     uglify = require('gulp-uglify/composer')(uglifyes),
     ngAnnotate = require('gulp-ng-annotate'),
@@ -61,6 +64,8 @@ gulp.task('js:app', function() {
         'app/services/search.service.js',
         'app/conf/conf.js'
     ])
+    .pipe(replace('BACK_OFFICE_HOST', config.server.host))
+    .pipe(replace('BACK_OFFICE_PORT', config.server.port))
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
