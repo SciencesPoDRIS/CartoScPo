@@ -382,13 +382,13 @@
         }
       }
     },
-    "libraries_network": {
-      "label": "Collaborations documentaires",
+    "used_librairies": {
+      "label": "Bibliothèques utilisées",
       "type": "markdown",
       "tab": "resources",
-      "required": false,
+      "required": true,
       "multievaluation": true,
-      "searchable": false
+      "searchable": true
     },
     "resources": {
       "label": "Ressources numériques à disposition des chercheurs",
