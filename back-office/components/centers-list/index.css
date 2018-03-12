@@ -2,9 +2,24 @@
   text-align: center;
 }
 
+th {
+  font-size: 20px;
+}
+
 th .sortable {
   cursor: pointer;
 }
-th .sortable:hover {
-  background: #eee;
+
+th .sorting {
+  color: #d0cdcd;
+  display: inline-block;
+  float: right;
+  font-size: 10px;
+}
+th .sorting .black {
+  color: black;
+}
+
+th > .control {
+  margin-top: 5px;
 }
