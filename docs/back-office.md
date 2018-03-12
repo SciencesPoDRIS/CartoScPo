@@ -84,18 +84,25 @@ Partager les régles de validation entre serveur et GUI permet de s'assurer que 
 Le but est de le supplanter à `app/data/metadata.json`.
 
 L'ordre dans lequel sont listés les champs dans `back-office/schema.json` a un impact direct sur l'affichage du formulaire HTML.
-Pour placer un champ dans un onglet (tab), il faut renseigner la valeur de la clé `tab`, par exemple `"tab": "schools"`, pour que le champ de saisie s'affiche dans l'onglet `Ecoles doctoriales`.
+Pour placer un champ dans un onglet (tab), il faut renseigner la valeur de la clé `tab`, par exemple `"tab": "schools"`, pour que le champ de saisie s'affiche dans l'onglet `Ecoles doctorales`.
 
-Voir le code du controller de `center-form` pour la liste complète des `tab`.
+Voir le code du controller `back-office/components/center-form/index.js` pour la liste complète des `tab` :
+- Description
+- Écoles doctorales
+- Thématiques
+- Publications
+- Documentation
 
 `type` est l'autre clé importante de chaque field. `string`, `number`, `tel`, `email`, `person`, `url` se traduisent visuellement par les inputs HTML5 correspondant.
 
-Le `type` `boolean` créé une case à cocher.
+Le `type` `boolean` crée une case à cocher.
 
 Des types plus complexes permettent d'obtenir des *champs composites*.
 
-Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctoriales. Cette dernière est réordonable en glissé-déposé à la souris.
+Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctorales. Cette dernière est réordonable en glissé-déposé à la souris.
 
 Le `type` `boolean-item` a pour objectif de lier une case à cocher avec un champ qu'elle affiche / masque suivant son état.
 
-`searchable` determine si ce champ sera questionné par le moteur de recherche du FO (lunr.js)
+`searchable` détermine si ce champ sera questionné par le moteur de recherche du FO (lunr.js).
+
+`required` détermine si ce champ est obligatoire ou pas.
