@@ -17,7 +17,7 @@
     "bo:dump": "node bin/dump-mongo-db.js",
     "bo:build": "NODE_ENV=production webpack -p",
     "bo:analyze-bundle": "ANALYZE_BUNDLE=1 npm run bo:build",
-    "docker": "UID=$(id -u) GID=$(id -g) docker-compose up",
+    "docker": "UID=$(id -u) GID=$(id -g) docker-compose -f docker-compose.dev.yml up",
     "maildev": "maildev -w 3025 -s 25000 --verbose"
   },
   "keywords": [
@@ -78,6 +78,7 @@
     "passport-local": "^1.0.0",
     "rfc6902": "^2.2.2",
     "timeago.js": "^3.0.2",
-    "toml": "^2.3.3"
+    "toml": "^2.3.3",
+    "yargs": "^11.0.0"
   }
 }

@@ -3,13 +3,14 @@
 // This script parse and adjust the content of data.json
 // to populate the 'centers' collection in the mongodb
 
-const argv = process.argv.slice(2)
-// danger!
-const clearCenters = argv[0] === 'clear'
 
 const path = require('path')
+const argv = require('yargs').argv
 
-const DATA = path.join(__dirname, '../app/data/data.json')
+const clearCenters = argv.clear || argv.c
+const dataPath = argv.path || argv.p || path.join(__dirname, './app/data');
+
+const DATA = dataPath + '/data.json'
 const { allCenters: centers } = require(DATA)
 
 const SCHEMA = path.join(__dirname, '../back-office/schema.json')
