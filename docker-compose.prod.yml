@@ -1,0 +1,61 @@
+version: "3"
+
+networks:
+  bo:
+  mongo:
+  redis:
+
+volumes:
+  mongodata:
+    driver: local
+  redisdata:
+    driver: local
+
+
+services:
+  fo:
+    build: 
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: sciencespo/cartoscpo-fo:latest
+    env_file:
+      - docker-config.env
+    ports:
+      - 80:80
+    networks:
+      - bo
+    links:
+      - bo:bo
+  bo:
+    build: .
+    image: sciencespo/cartoscpo-bo:latest
+    env_file:
+      - docker-config.env
+    ports:
+      - 42000:42000
+    environment:
+      - SERVER_PORT=42000
+      - SERVER_HOST=localhost
+      - MONGO_URI=mongodb://mongo:27017/bobib
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - bo
+      - mongo
+    links:
+      - mongo:mongo
+
+  mongo:
+    image: "mongo:3"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - mongo
+
+  redis:
+    image: "redis:4"
+    volumes:
+      - redisdata:/data
+    networks:
+      - redis
+

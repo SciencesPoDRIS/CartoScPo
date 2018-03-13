@@ -1,0 +1,35 @@
+[server]
+port = "SERVER_PORT"
+# used to generate links in emails
+host = "SERVER_HOST"
+
+backOfficeBaseUrl = "BACK_OFFICE_BASEURL"
+
+# password hashing
+salt = "PASSWORD_SALT"
+
+# express session
+secret = "SESSION_SECRET"
+
+# default account the first time the app is launched
+adminEmail = "ADMIN_EMAIL"
+adminPassword = "ADMIN_PASSWORD"
+
+# Google Analytics identifier
+googleAnalyticsId="GOOGLE_ANALYTICS_ID"
+
+# store centers, modifications and users
+[mongo]
+uri = "MONGO_URI" 
+
+# store sessions
+[redis]
+port = "REDIS_PORT"
+host = "REDIS_HOST"
+
+[mailer]
+from = "MAIL_FROM"
+[mailer.transport]
+service = "MAILER_SERVICE"
+host = "MAILER_HOST"
+port = "MAILER_PORT"

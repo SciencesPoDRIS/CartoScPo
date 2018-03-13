@@ -30,3 +30,7 @@ webpack.report.html
 # Databases
 db/mongo
 db/redis
+
+#Docker
+docker-config.env
+docker-compose.yml
