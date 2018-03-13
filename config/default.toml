@@ -13,6 +13,9 @@ secret = "YOLO"
 adminEmail = "admin@admin"
 adminPassword = "admin"
 
+# Google Analytics identifier
+googleAnalyticsId="UA-XXXXXXX-XX"
+
 # store centers, modifications and users
 [mongo]
 uri = "mongodb://localhost:27017/bobib"

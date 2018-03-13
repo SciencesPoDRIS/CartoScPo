@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('bib.services')
-.factory('metadataService', function ($q, $http, fileService, facetService, backOfficeHost, backOfficePort) {
+.factory('metadataService', function ($q, $http, fileService, facetService, backOfficeBaseUrl) {
   var url = './data/metadata.json?ver=' + Math.floor(Date.now() / 1000);
   var cache;
 
   return {
     // raw collection
     getAll: function () {
-      return cache ? $q.resolve(cache) : $http.get(`${backOfficeHost}:${backOfficePort}/schema.json`)
+      return cache ? $q.resolve(cache) : $http.get(`${backOfficeBaseUrl}/schema.json`)
       .then(function(res) { return res.data })
       .then(function (data) {
         var fields = Object.keys(data.properties).map(function (k) {
