@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bib.services')
-.factory('dataService', function ($q, $http, fileService, backOfficeHost, backOfficePort) {
+.factory('dataService', function ($q, $http, fileService, backOfficeBaseUrl) {
   var url = './data/data.json?ver=' + Math.floor(Date.now() / 1000);
   var cache;
 
@@ -9,7 +9,7 @@ angular.module('bib.services')
 
     get: function () {
       // TODO: not hardcoded URL
-      return cache ? $q.resolve(cache) : $http.get(`${backOfficeHost}:${backOfficePort}/api/export`)
+      return cache ? $q.resolve(cache) : $http.get(`${backOfficeBaseUrl}/api/export`)
       .then(function(res) { return res.data })
       .then(function (data) {
         cache = data;

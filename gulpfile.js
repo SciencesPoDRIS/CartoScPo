@@ -44,6 +44,9 @@ gulp.task('js:lib', function() {
 });
 
 gulp.task('js:app', function() {
+    if (typeof config.server.backOfficeBaseUrl === 'undefined') {
+        config.server.backOfficeBaseUrl = config.server.host + ":" + config.server.port;
+    }
     return gulp.src([
         'app/app.js',
         'app/components/center-detail.component.js',
@@ -64,8 +67,8 @@ gulp.task('js:app', function() {
         'app/services/search.service.js',
         'app/conf/conf.js'
     ])
-    .pipe(replace('BACK_OFFICE_HOST', config.server.host))
-    .pipe(replace('BACK_OFFICE_PORT', config.server.port))
+    .pipe(replace('GOOGLE_ANALYTICS_ID', config.server.googleAnalyticsId))
+    .pipe(replace('BACK_OFFICE_BASEURL', config.server.backOfficeBaseUrl)) 
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
