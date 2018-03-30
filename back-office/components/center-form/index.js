@@ -78,8 +78,31 @@ class controller {
     else this.$location.path(`/centers/add/${tab.id}`, false)
   }
 
+  // to fill textareas
+  splitBy(char, value) {
+    if (!value) return ''
+    return value
+      .split(char)
+      .map(v => v.trim())
+      .filter(v => v)
+      .join('\n')
+  }
+
+  errorCount(form) {
+    return Object.keys(form.$error).reduce(
+      (acc, key) => acc + form.$error[key].length,
+      0,
+    )
+  }
+
+  // admin or guest who has provided its email
+  isUserKnown() {
+    return this.session.email || this.email
+  }
+
   submit(form) {
     if (form.$invalid || form.$pristine) return
+    if (!this.isUserKnown()) return
 
     const redirect = () => {
       this.$rootScope.flashes.push(
@@ -110,23 +133,9 @@ class controller {
     }
   }
 
-  // to fill textareas
-  splitBy(char, value) {
-    if (!value) return ''
-    return value
-      .split(char)
-      .map(v => v.trim())
-      .filter(v => v)
-      .join('\n')
-  }
-
-  errorCount(form) {
-    return Object.keys(form.$error).reduce((acc, key) => {
-      return acc + form.$error[key].length
-    }, 0)
-  }
-
   delete() {
+    if (!this.isUserKnown()) return
+
     const redirect = () => {
       this.$rootScope.flashes.push(
         this.session.email ? 'Centre supprimé' : 'Proposition enregistrée',

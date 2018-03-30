@@ -77,7 +77,7 @@ exports.update = async ({ params, body, user }, res) => {
 
   // don't create an empty modif
   const diffs = createPatch(oldCenter, submittedCenter)
-  if (!diffs.length) return res.boom.badRequest()
+  if (!diffs.length) return res.boom.badRequest('no-diffs')
 
   if (user) {
     try {
