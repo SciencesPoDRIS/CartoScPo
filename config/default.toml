@@ -2,6 +2,7 @@
 port = 42000
 # used to generate links in emails
 host = "http://localhost"
+baseHref = "/"
 
 # password hashing
 salt = "YOLO"

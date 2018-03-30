@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const debug = require('debug')('express')
 const express = require('express')
@@ -11,10 +12,23 @@ const PUBLIC = path.join(__dirname, '../back-office')
 
 const app = express()
 
+const spa = (req, res) => {
+  fs.readFile(`${PUBLIC}/index.html`, 'utf8', (err, index) => {
+    // https://docs.angularjs.org/error/$location/nobase
+    index = index.replace(
+      '<base href="/" />',
+      `<base href="${config.baseHref}">`,
+    )
+    res.send(index)
+  })
+}
+
 app.use(cors()) // for schema.json requested by FO
-app.use(express.static(PUBLIC))
 app.use(express.json())
 app.use(boom())
+app.get('/', spa)
+app.get('/index.html', spa)
+app.use(express.static(PUBLIC))
 
 plugSession(app)
 
@@ -41,7 +55,6 @@ app.post('/api/users', checkAuth, userRoutes.create)
 app.put('/api/users/:id', checkAuth, userRoutes.update)
 app.delete('/api/users/:id', checkAuth, userRoutes.delete)
 
-// single page application
-app.get('/*', (req, res) => res.sendFile(`${PUBLIC}/index.html`))
+app.get('/*', spa)
 
 app.listen(config.port, () => debug(`Server listening on ${config.port}`))
