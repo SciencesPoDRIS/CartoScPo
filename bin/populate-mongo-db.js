@@ -5,10 +5,10 @@
 
 
 const path = require('path')
-const argv = require('yargs').argv
+const { argv } = require('yargs')
 
 const clearCenters = argv.clear || argv.c
-const dataPath = argv.path || argv.p || path.join(__dirname, './app/data');
+const dataPath = argv.path || argv.p || path.join(__dirname, '../app/data')
 
 const DATA = dataPath + '/data.json'
 const { allCenters: centers } = require(DATA)
