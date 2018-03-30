@@ -17,16 +17,18 @@ const getAdminsEmails = async () => {
   return users.map(u => u.email).join(', ')
 }
 
-exports.sendModificationToAdmins = async modification => {
-  const centerCode = modification.oldCenter.code || modification.submittedCenter.code
-  const link = modification.getURL()
+const getCenterName = ({ oldCenter, submittedCenter }) =>
+  oldCenter.name || submittedCenter.name || oldCenter.code || submittedCenter.code
 
+exports.sendModificationToAdmins = async modification => {
+  const centerName = getCenterName(modification)
+  const link = modification.getURL()
   const options = {
     from: config.from,
     to: await getAdminsEmails(),
     subject: `[bobib] Une demande de modification vient d'être soumise`,
-    text: `Bonjour, une demande de modification concernant le centre ${centerCode} vient d'être soumise. Pour la consulter: ${link}`,
-    html: `<p>Bonjour, une demande de modification concernant le centre <strong>${centerCode}</strong> vient d'être soumise.</p><p>Pour la consulter <a href="${link}">${link}</a></p>`,
+    text: `Bonjour, une demande de modification concernant le centre ${centerName} vient d'être soumise. Pour la consulter: ${link}`,
+    html: `<p>Bonjour, une demande de modification concernant le centre <strong>${centerName}</strong> vient d'être soumise.</p><p>Pour la consulter <a href="${link}">${link}</a></p>`,
   }
   sendMail(options)
 }
@@ -35,14 +37,13 @@ exports.sendModificationConfirmationToGuest = async (
   modification,
   guestEmail,
 ) => {
-  const centerCode = modification.oldCenter.code || modification.submittedCenter.code
-
+  const centerName = getCenterName(modification)
   const options = {
     from: config.from,
     to: guestEmail,
     subject: `[bobib] Votre demande de modification a bien été enregistrée`,
-    text: `Bonjour, votre demande de modification concernant le centre ${centerCode} a bien été enregistrée.`,
-    html: `Bonjour, votre demande de modification concernant le centre <strong>${centerCode}</strong> a bien été enregistrée.`,
+    text: `Bonjour, votre demande de modification concernant le centre ${centerName} a bien été enregistrée.`,
+    html: `Bonjour, votre demande de modification concernant le centre <strong>${centerName}</strong> a bien été enregistrée.`,
   }
   sendMail(options)
 }
@@ -50,16 +51,19 @@ exports.sendModificationConfirmationToGuest = async (
 exports.sendModificationVerdictToGuest = async (
   modification,
   guestEmail,
-  status
+  status,
 ) => {
-  const centerCode = modification.oldCenter.code || modification.submittedCenter.code
-
+  const centerName = getCenterName(modification)
   const options = {
     from: config.from,
     to: guestEmail,
     subject: `[bobib] Votre demande de modification a été traitée`,
-    text: `Bonjour, votre demande de modification concernant le centre ${centerCode} a été ${status === 'accepted' ? 'acceptée' : 'refusée'}.`,
-    html: `Bonjour, votre demande de modification concernant le centre <strong>${centerCode}</strong> a été ${status === 'accepted' ? 'acceptée' : 'refusée'}.`,
+    text: `Bonjour, votre demande de modification concernant le centre ${centerName} a été ${
+      status === 'accepted' ? 'acceptée' : 'refusée'
+    }.`,
+    html: `Bonjour, votre demande de modification concernant le centre <strong>${centerName}</strong> a été ${
+      status === 'accepted' ? 'acceptée' : 'refusée'
+    }.`,
   }
   sendMail(options)
 }
