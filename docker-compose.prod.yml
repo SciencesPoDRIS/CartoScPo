@@ -46,7 +46,7 @@ services:
       - mongo:mongo
 
   mongo:
-    image: "mongo:3"
+    image: "mongo:3.6.3"
     volumes:
       - mongodata:/data/db
     networks:
