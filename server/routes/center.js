@@ -1,3 +1,4 @@
+const path = require('path')
 const _ = require('lodash')
 const { createPatch } = require('rfc6902')
 const { Center, Modification, sanitizeCenter } = require('../models')
@@ -155,8 +156,31 @@ exports.export = async (req, res) => {
   res.send({ centers, words })
 }
 
+exports.uploadLogo = async ({ params, files }, res) => {
+  if (!files) return res.boom.badRequest()
+
+  const center = await Center.findOne({ id: params.id })
+  if (!center) return res.boom.notFound()
+
+  const { file } = files
+  if (!file) return res.boom.badRequest()
+
+  try {
+    await file.mv(path.resolve(`${__dirname}/../../app/img/logos_centres_de_recherche_jpeg/${center.acronym}.jpeg`))
+    res.send('ok')
+  } catch (ex) {
+    return res.boom.badRequest()
+  }
+}
+
 // TODO: this should be elasticlunr stemmer's role to do it, on the client side
-const keysList = ['acronym', 'name', 'addresses', 'affiliations', 'research_areas']
+const keysList = [
+  'acronym',
+  'name',
+  'addresses',
+  'affiliations',
+  'research_areas',
+]
 function getWords(centers) {
   var words = []
   centers.forEach(c => {

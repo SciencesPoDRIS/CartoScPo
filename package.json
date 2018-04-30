@@ -3,8 +3,8 @@
   "version": "0.0.2",
   "description": "Cartographie des centres de recherche en Sciences Politiques, réalisé par la bibliothèque et le médialab de Sciences Po Paris ainsi que ByteClub",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/SciencesPoDRIS/CartoScPo.git"
+    "type": "git",
+    "url": "https://github.com/SciencesPoDRIS/CartoScPo.git"
   },
   "main": "index.html",
   "scripts": {
@@ -73,10 +73,12 @@
     "debug": "^3.1.0",
     "express": "^4.16.2",
     "express-boom": "^2.0.0",
+    "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
     "gulp-replace": "^0.6.1",
     "lodash": "^4.17.5",
     "mongoose": "^4.13.11",
+    "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.6.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

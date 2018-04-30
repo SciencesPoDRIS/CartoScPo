@@ -4,9 +4,9 @@ import './index.css'
 class controller {
   $onInit() {
     const { acronym: src } = this.center
-    // TODO
+    // available on the front-office
     if (src)
-      this.src = `http://cartosciencepolitique.sciencespo.fr/img/logos_centres_de_recherche_jpeg/${src}.jpeg`
+      this.src = `/img/logos_centres_de_recherche_jpeg/${src}.jpeg`
   }
 }
 

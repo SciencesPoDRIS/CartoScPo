@@ -1,0 +1,29 @@
+<h1 class="title">Logo {{ $ctrl.center.acronym || $ctrl.center.name }}</h1>
+
+<button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
+
+<form ng-if="!$ctrl.loading" name="logoForm">
+
+  <section class="section">
+
+    <div class="field">
+      <label class="label" for="">
+        Fichier
+      </label>
+
+      <input type="file" ngf-select ng-model="$ctrl.logo" name="logo"
+        accept="image/*" ngf-max-size="2MB" required
+        ngf-model-invalid="$ctrl.errorFile">
+
+      <img ng-show="logoForm.logo.$valid" ngf-thumbnail="$ctrl.logo" class="thumb">
+      <button class="button" ng-click="$ctrl.logo = null" ng-show="$ctrl.logo">Remove</button>
+    </div>
+
+    <div class="field">
+       <button class="button is-success" ng-disabled="!logoForm.$valid"
+               ng-click="$ctrl.uploadLogo($ctrl.logo)">Transmettre le logo</button>
+    </div>
+
+  </section>
+
+</form>

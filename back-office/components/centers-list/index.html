@@ -15,6 +15,7 @@
     </div>
   </div>
 </nav>
+
 <h2 class="subtitle">{{ filteredCenters.length }} résultats / {{ $ctrl.centers.length }} centres</h2>
 
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
@@ -56,7 +57,7 @@
         </div>
       </th>
       <th>Logo</th>
-      <th>Action</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -65,13 +66,21 @@
       <td>{{ center.acronym }}</td>
       <td>{{ center.name }}</td>
       <td>{{ center.code }}</td>
-      <td class="td-logo"><logo center="center"></logo></td>
+      <td class="td-logo">
+        <logo center="center"></logo>
+      </td>
       <td>
         <a class="button" href="centers/{{ center.id }}">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
-          <span>Modifier</span>
+          <span>Modifier centre</span>
+        </a>
+        <a class="button is-small" href="logos/{{ center.id }}" ng-if="$ctrl.session.email">
+          <span class="icon is-small">
+            <i class="fa fa-pencil"></i>
+          </span>
+          <span>Modifier logo</span>
         </a>
       </td>
     </tr>

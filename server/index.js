@@ -3,6 +3,7 @@ const path = require('path')
 const debug = require('debug')('express')
 const express = require('express')
 const boom = require('express-boom')
+const fileUpload = require('express-fileupload')
 const cors = require('cors')
 const { server: config } = require('config')
 
@@ -26,6 +27,8 @@ const spa = (req, res) => {
 app.use(cors()) // for schema.json requested by FO
 app.use(express.json())
 app.use(boom())
+app.use(fileUpload())
+
 app.get('/', spa)
 app.get('/index.html', spa)
 app.use(express.static(PUBLIC))
@@ -39,6 +42,8 @@ app.get('/api/centers', centerRoutes.list)
 app.post('/api/centers', centerRoutes.create)
 app.put('/api/centers/:id', centerRoutes.update)
 app.delete('/api/centers/:id', centerRoutes.delete)
+
+app.post('/api/upload-logo/:id', checkAuth, centerRoutes.uploadLogo)
 
 // res to be consumed by front office
 app.get('/api/export', centerRoutes.export)

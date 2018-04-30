@@ -65,6 +65,17 @@ angular
         .when('/centers', {
           template: '<centers-list />',
         })
+        .when('/logos/:id', {
+          template: '<logo-form id="$resolve.id" />',
+          resolve: {
+            checkAuth: checkAuth.checkAuth,
+            id: [
+              '$q',
+              '$route',
+              ($q, { current }) => $q.resolve(current.params.id),
+            ],
+          },
+        })
 
         .when('/modifications/:id', {
           template: '<modification-details id="$resolve.id" />',

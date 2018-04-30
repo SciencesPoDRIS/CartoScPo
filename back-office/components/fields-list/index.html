@@ -64,7 +64,7 @@
       <i class="fa fa-user"></i>
     </span>
 
-    <div class="columns" ng-switch-when="markdown" >
+    <div ng-switch-when="markdown" class="columns">
         <div class="column">
           <textarea class="textarea"
             id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <div class="block" ng-switch-when="array">
+    <div ng-switch-when="array" class="block">
 
       <div class="block" dragula="'bag'" dragula-model="$ctrl.item[field.key]">
         <div ng-repeat="item in $ctrl.item[field.key]" class="notification">
@@ -103,7 +103,7 @@
       </div>
     </div>
 
-    <div class="block" ng-switch-when="boolean-item">
+    <div ng-switch-when="boolean-item" class="block">
 
       <input type="checkbox"
         id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
@@ -122,7 +122,7 @@
 
     </div>
 
-    <ul class="block" ng-switch-when="check-list">
+    <ul ng-switch-when="check-list" class="block">
 
       <li ng-repeat="option in field.options">
         <label>
@@ -142,6 +142,7 @@
       id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
       ng-model="$ctrl.item[field.key]" ng-required="field.required" />
 
+    <!-- error messages -->
     <div ng-if="$ctrl.form[$ctrl.getId(field)].$error" class="help is-danger">
       <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.required">Ce champ est requis</div>
       <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.number">Ce champ est numérique</div>

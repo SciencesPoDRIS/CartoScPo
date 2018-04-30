@@ -3,6 +3,7 @@ import angular from 'angular'
 import centerFormMod from '../center-form'
 import centersListMod from '../centers-list'
 import loginFormMod from '../login-form'
+import logoFormMod from '../logo-form'
 import flashMod from '../flash'
 import modificationDetailsMod from '../modification-details'
 import modificationsListMod from '../modifications-list'
@@ -22,6 +23,7 @@ export default angular
     centerFormMod,
     centersListMod,
     loginFormMod,
+    logoFormMod,
     modificationDetailsMod,
     modificationsListMod,
     flashMod,
