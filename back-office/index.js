@@ -4,6 +4,7 @@ import dmp from 'angular-diff-match-patch'
 
 import appComponent from './components/app'
 import filters from './filters'
+import api from './services/api'
 import session from './services/session'
 import commonmark from './services/commonmark'
 
@@ -24,7 +25,7 @@ const checkAuth = {
 }
 
 angular
-  .module('bobib', [ngRoute, dmp, appComponent, filters, session, commonmark])
+  .module('bobib', [ngRoute, dmp, appComponent, filters, api, session, commonmark])
   .config([
     '$locationProvider',
     '$routeProvider',

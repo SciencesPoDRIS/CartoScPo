@@ -57,4 +57,7 @@ app.delete('/api/users/:id', checkAuth, userRoutes.delete)
 
 app.get('/*', spa)
 
-app.listen(config.port, () => debug(`Server listening on ${config.port}`))
+app.listen(config.port, () => {
+  debug(`Server listening on ${config.port}`)
+  debug(`backOfficeBaseUrl,baseHref: ${config.backOfficeBaseUrl}${config.baseHref}`)
+})

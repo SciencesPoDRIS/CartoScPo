@@ -13,7 +13,7 @@ class Service {
 
   refresh() {
     return this.$http
-      .get('/session')
+      .get(`session`)
       .then(({ data }) => (this.email = data), () => (this.email = ''))
   }
 
@@ -23,11 +23,11 @@ class Service {
       this.$rootScope.flashes.push('Connexion réussie')
       this.$location.path('/centers')
     }
-    return this.$http.post(`/login`, credentials).then(redirect)
+    return this.$http.post(`login`, credentials).then(redirect)
   }
 
   logout() {
-    return this.$http.post('/logout').then(() => {
+    return this.$http.post(`logout`).then(() => {
       this.email = ''
       this.$location.path('/')
     })

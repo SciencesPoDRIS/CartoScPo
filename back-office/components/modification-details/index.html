@@ -16,7 +16,7 @@
 
 <h2 class="subtitle" ng-if="$ctrl.modification.verb === 'update'">
   {{ $ctrl.diffs.length }} champ(s) modifié(s) pour le centre
-  <a href="/centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
+  <a href="centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
 </h2>
 
 <h2 class="subtitle" ng-if="$ctrl.modification.verb === 'create'">
@@ -25,7 +25,7 @@
 
 <h2 class="subtitle" ng-if="$ctrl.modification.verb === 'delete'">
   Demande de suppression du centre
-  <a href="/centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
+  <a href="centers/{{$ctrl.center.id}}">{{ $ctrl.center.code }}</a>
 </h2>
 
 <div ng-repeat="diff in $ctrl.diffs">
@@ -59,7 +59,7 @@
   </div>
 
   <div class="control">
-    <a class="button is-outlined" href="/modifications">
+    <a class="button is-outlined" href="modifications">
       <span>Annuler</span>
     </a>
   </div>

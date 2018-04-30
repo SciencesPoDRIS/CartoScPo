@@ -1,18 +1,18 @@
 import angular from 'angular'
 
 class controller {
-  constructor($http) {
+  constructor(api) {
+    this.api = api
     this.modifications = []
-    this.$http = $http
   }
 
   $onInit() {
-    this.$http
-      .get('/api/modifications')
-      .then(({ data }) => (this.modifications = data.modifications), console.error)
+    this.api
+      .get('modifications')
+      .then(({ modifications }) => (this.modifications = modifications), console.error)
   }
 }
-controller.$inject = ['$http']
+controller.$inject = ['api']
 
 const component = {
   template: require('./index.html'),

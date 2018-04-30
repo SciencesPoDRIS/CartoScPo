@@ -55,8 +55,8 @@ const computeDiffs = (left, right) => {
 }
 
 class controller {
-  constructor($http, $location, $rootScope) {
-    Object.assign(this, { $http, $location, $rootScope })
+  constructor(api, $location, $rootScope) {
+    Object.assign(this, { api, $location, $rootScope })
 
     this.modifications = {}
     this.center = {}
@@ -64,8 +64,8 @@ class controller {
   }
 
   $onInit() {
-    this.$http.get(`/api/modifications/${this.id}`).then(({ data }) => {
-      this.modification = data.modification
+    this.api.get(`modifications/${this.id}`).then(({ modification }) => {
+      this.modification = modification
       if (this.modification.verb === 'create') {
         this.diffs = computeDiffs({}, this.modification.submittedCenter)
         return
@@ -76,10 +76,10 @@ class controller {
       }
 
       // verb update
-      this.$http
-        .get(`/api/centers/${this.modification.centerId}`)
-        .then(({ data }) => {
-          this.center = data.center
+      this.api
+        .get(`centers/${this.modification.centerId}`)
+        .then(({ center }) => {
+          this.center = center
           // for auto accepted modifs by admin
           if (this.modification.status === 'accepted') {
             this.diffs = computeDiffs(
@@ -88,7 +88,7 @@ class controller {
             )
           } else {
             this.diffs = computeDiffs(
-              data.center,
+              center,
               this.modification.submittedCenter,
             )
           }
@@ -101,12 +101,12 @@ class controller {
       this.$rootScope.flashes.push('Modificaton traitée')
       this.$location.path('/modifications')
     }
-    this.$http
-      .patch(`/api/modifications/${this.id}`, { status })
+    this.api
+      .patch(`modifications/${this.id}`, { status })
       .then(redirect, console.error)
   }
 }
-controller.$inject = ['$http', '$location', '$rootScope']
+controller.$inject = ['api', '$location', '$rootScope']
 
 const component = {
   template: require('./index.html'),

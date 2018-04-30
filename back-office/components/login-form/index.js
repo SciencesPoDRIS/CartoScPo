@@ -1,9 +1,7 @@
 import angular from 'angular'
 
 class controller {
-  constructor($http, $location, session) {
-    this.$http = $http
-    this.$location = $location
+  constructor(session) {
     this.session = session
 
     this.credentials = {
@@ -17,7 +15,7 @@ class controller {
     this.session.login(this.credentials).catch(() => (this.error = true))
   }
 }
-controller.$inject = ['$http', '$location', 'session']
+controller.$inject = ['session']
 
 const component = {
   template: require('./index.html'),

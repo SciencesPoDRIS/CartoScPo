@@ -3,9 +3,9 @@ import logoMod from '../logo'
 import './index.css'
 
 class controller {
-  constructor($http) {
+  constructor(api) {
     this.centers = []
-    this.$http = $http
+    this.api = api
 
     this.search = {}
     this.orderBy = 'acronym'
@@ -14,9 +14,9 @@ class controller {
 
   $onInit() {
     this.loading = true
-    this.$http
-      .get('/api/centers')
-      .then(({ data }) => (this.centers = data.centers), console.error)
+    this.api
+      .get('centers')
+      .then(({ centers }) => (this.centers = centers), console.error)
       .then(() => this.loading = false)
   }
 
@@ -25,7 +25,7 @@ class controller {
     this.orderByAsc = !this.orderByAsc
   }
 }
-controller.$inject = ['$http']
+controller.$inject = ['api']
 
 const component = {
   template: require('./index.html'),

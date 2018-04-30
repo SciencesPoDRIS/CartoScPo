@@ -1,8 +1,8 @@
 import angular from 'angular'
 
 class controller {
-  constructor($http, $location, $rootScope) {
-    this.$http = $http
+  constructor(api, $location, $rootScope) {
+    this.api = api
     this.$location = $location
     this.$rootScope = $rootScope
 
@@ -14,9 +14,9 @@ class controller {
 
   $onInit() {
     if (this.id) {
-      this.$http
-        .get(`/api/users/${this.id}`)
-        .then(({ data }) => (this.user = data.user))
+      this.api
+        .get(`users/${this.id}`)
+        .then(({ user }) => (this.user = user))
     }
   }
 
@@ -29,18 +29,18 @@ class controller {
     }
     if (this.id) {
       // edit
-      this.$http
-        .put(`/api/users/${this.id}`, { user: this.user })
+      this.api
+        .put(`users/${this.id}`, { user: this.user })
         .then(redirect, console.error)
     } else {
       // new
-      this.$http
-        .post('/api/users', { user: this.user })
+      this.api
+        .post('users', { user: this.user })
         .then(redirect, console.error)
     }
   }
 }
-controller.$inject = ['$http', '$location', '$rootScope']
+controller.$inject = ['api', '$location', '$rootScope']
 
 const component = {
   template: require('./index.html'),

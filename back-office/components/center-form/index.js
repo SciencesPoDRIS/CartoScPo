@@ -5,8 +5,8 @@ import { properties } from '../../schema.json'
 import './index.css'
 
 class controller {
-  constructor($http, $location, $rootScope, session) {
-    Object.assign(this, { $http, $location, $rootScope, session })
+  constructor(api, $location, $rootScope, session) {
+    Object.assign(this, { api, $location, $rootScope, session })
 
     this.center = {}
     this.tabs = [
@@ -54,11 +54,11 @@ class controller {
     if (this.id) {
       // edit
       this.loading = true
-      this.$http
-        .get(`/api/centers/${this.id}`)
-        .then(({ data }) => {
-          this.center = data.center
-          this.sections = Object.keys(data.center).filter(s => s != 'id')
+      this.api
+        .get(`centers/${this.id}`)
+        .then(({ center }) => {
+          this.center = center
+          this.sections = Object.keys(center).filter(s => s != 'id')
         })
         .catch(console.error)
         .then(() => (this.loading = false))
@@ -112,8 +112,8 @@ class controller {
     }
     if (this.id) {
       // edit
-      this.$http
-        .put(`/api/centers/${this.id}`, {
+      this.api
+        .put(`centers/${this.id}`, {
           center: this.center,
           email: this.email,
         })
@@ -124,8 +124,8 @@ class controller {
       this.center.id = this.center.code.replace(' ', '').toLowerCase()
 
       // new
-      this.$http
-        .post(`/api/centers`, {
+      this.api
+        .post(`centers`, {
           center: this.center,
           email: this.email,
         })
@@ -143,18 +143,14 @@ class controller {
       this.$location.path('/centers')
     }
     if (window.confirm(`Etes vous sur de supprimer ${this.center.code} ?`)) {
-      this.$http({
-        method: 'DELETE',
-        url: `/api/centers/${this.center.id}`,
-        data: { email: this.email },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then(redirect, console.error)
+      this.api
+        .deleteWithData(`centers/${this.center.id}`, { email: this.email })
+        .then(redirect, console.error)
     }
   }
 }
-controller.$inject = ['$http', '$location', '$rootScope', 'session']
+
+controller.$inject = ['api', '$location', '$rootScope', 'session']
 
 const component = {
   template: require('./index.html'),

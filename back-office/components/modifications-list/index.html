@@ -34,7 +34,7 @@
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
       <td>
         <span ng-if="modif.verb !== 'update'">{{ modif.oldCenter.code || modif.submittedCenter.code }}</span>
-        <a ng-if="modif.verb === 'update'" href="/centers/{{modif.centerId}}">
+        <a ng-if="modif.verb === 'update'" href="centers/{{modif.centerId}}">
           {{ modif.oldCenter.code || modif.submittedCenter.code }}</a>
       </td>
       <td>
@@ -54,14 +54,14 @@
       <td><span title="{{ modif.createdAt }}">{{ modif.createdAt | timeago }}</span></td>
       <td><span title="{{ modif.updatedAt }}">{{ modif.updatedAt | timeago }}</span></td>
       <td>
-        <a ng-if="modif.status === 'pending'" class="button" href="/modifications/{{ modif.id }}">
+        <a ng-if="modif.status === 'pending'" class="button" href="modifications/{{ modif.id }}">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
           <span>Modifier</span>
         </a>
 
-        <a ng-if="modif.status !== 'pending'" class="button" href="/modifications/{{ modif.id }}">
+        <a ng-if="modif.status !== 'pending'" class="button" href="modifications/{{ modif.id }}">
           <span class="icon is-small">
             <i class="fa fa-eye"></i>
           </span>

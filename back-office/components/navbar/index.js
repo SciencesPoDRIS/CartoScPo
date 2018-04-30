@@ -2,18 +2,17 @@ import angular from 'angular'
 import './index.css'
 
 class controller {
-  constructor($http, $location, session) {
-    this.$http = $http
+  constructor($location, session) {
     this.$location = $location
     this.session = session
   }
 
   $onInit() {
     this.menus = [
-      { url: '/home', label: 'Home' },
-      { url: '/centers', label: 'Centres' },
-      { url: '/modifications', label: 'Modifications', checkAuth: true },
-      { url: '/users', label: 'Utilisateurs', checkAuth: true },
+      { url: 'home', label: 'Home' },
+      { url: 'centers', label: 'Centres' },
+      { url: 'modifications', label: 'Modifications', checkAuth: true },
+      { url: 'users', label: 'Utilisateurs', checkAuth: true },
     ]
   }
 
@@ -29,7 +28,7 @@ class controller {
     this.session.logout()
   }
 }
-controller.$inject = ['$http', '$location', 'session']
+controller.$inject = ['$location', 'session']
 
 const component = {
   template: require('./index.html'),

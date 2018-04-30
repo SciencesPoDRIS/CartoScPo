@@ -6,7 +6,7 @@
   </div>
   <div class="level-right">
     <div class="level-item">
-      <a class="button is-success" href="/users/add">
+      <a class="button is-success" href="users/add">
         <span class="icon is-small">
           <i class="fa fa-plus"></i>
         </span>
@@ -39,7 +39,7 @@
       <td><span title="{{ user.updatedAt }}">{{ user.updatedAt | timeago }}</span></td>
       <td><span ng-if="user.connectedAt" title="{{ user.connectedAt }}">{{ user.connectedAt | timeago }}</span></td>
       <td>
-        <a class="button" href="/users/{{ user.id }}">
+        <a class="button" href="users/{{ user.id }}">
           <span class="icon is-small">
             <i class="fa fa-pencil"></i>
           </span>
