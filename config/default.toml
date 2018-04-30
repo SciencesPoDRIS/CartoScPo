@@ -31,6 +31,8 @@ host = "localhost"
 [mailer]
 logger = true
 from = "no-reply@bobib"
+subject = "[Carto Science Po]"
+signature = "Merci."
 #[mailer.transport]
 #service = "Gmail"
 #[mailer.transport.auth]
