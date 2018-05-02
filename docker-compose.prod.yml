@@ -31,8 +31,6 @@ services:
     image: sciencespo/cartoscpo-bo:latest
     env_file:
       - docker-config.env
-    ports:
-      - 42000:42000
     environment:
       - SERVER_PORT=42000
       - SERVER_HOST=localhost

@@ -4,6 +4,7 @@ port = "SERVER_PORT"
 host = "SERVER_HOST"
 
 backOfficeBaseUrl = "BACK_OFFICE_BASEURL"
+baseHref = "BACK_OFFICE_BASEHREF"
 
 # password hashing
 salt = "PASSWORD_SALT"
