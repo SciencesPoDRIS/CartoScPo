@@ -17,7 +17,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.frontend
-    image: sciencespo/cartoscpo-fo:latest
+    image: sciencespo/cartoscpo-fo:prod
     env_file:
       - docker-config.env
     ports:
@@ -28,7 +28,7 @@ services:
       - bo:bo
   bo:
     build: .
-    image: sciencespo/cartoscpo-bo:latest
+    image: sciencespo/cartoscpo-bo:prod
     env_file:
       - docker-config.env
     environment:
