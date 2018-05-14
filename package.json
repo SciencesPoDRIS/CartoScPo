@@ -15,7 +15,7 @@
     "parse:metadata": "node app/data/script_metadata_csv_to_json",
     "bo:watch": "npm-run-all -p bo:watch:*",
     "bo:watch:client": "webpack -d",
-    "bo:watch:server": "DEBUG=express,mongoose,mailer nodemon --watch server server/index.js",
+    "bo:watch:server": "DEBUG=express,mongoose,mailer,redis nodemon --watch server server/index.js",
     "bo:serve": "DEBUG=express node server/index.js",
     "bo:populate": "node bin/populate-mongo-db.js",
     "bo:dump": "node bin/dump-mongo-db.js",

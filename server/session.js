@@ -1,5 +1,6 @@
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
+const debug = require('debug')('redis')
 
 const passport = require('passport')
 const { Strategy } = require('passport-local')
@@ -21,16 +22,19 @@ const checkAuth = (exports.checkAuth = (req, res, next) => {
   }
 })
 
+let redisConnected = false
+
 exports.plugSession = app => {
+  const store = new RedisStore({ ...redis, logErrors: debug })
+  store.on('connect', () => redisConnected = true)
   app.use(
     session({
-      store: new RedisStore(redis),
+      store,
       secret: config.secret,
       resave: false,
       saveUninitialized: false,
     }),
   )
-
   plugPassport(app)
   defineRoutes(app)
 }
@@ -64,6 +68,7 @@ function defineRoutes(app) {
   })
 
   app.post('/login', (req, res, next) => {
+    if (!redisConnected) res.boom.serverUnavailable('redis not connected')
     passport.authenticate('local', (err, user) => {
       if (err) return next(err)
       if (!user) return res.boom.unauthorized()

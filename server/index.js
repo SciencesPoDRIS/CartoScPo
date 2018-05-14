@@ -14,6 +14,7 @@ const PUBLIC = path.join(__dirname, '../back-office')
 const app = express()
 
 const spa = (req, res) => {
+  debug('spa route', req.url)
   fs.readFile(`${PUBLIC}/index.html`, 'utf8', (err, index) => {
     // https://docs.angularjs.org/error/$location/nobase
     index = index.replace(
