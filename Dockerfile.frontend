@@ -19,7 +19,7 @@ RUN apk --update --quiet add git nodejs \
     && rm -fr bower_components \
     && bower --allow-root cache clean \
     && npm uninstall -g bower \
-    && npm cache clean \
+    && npm --force cache clean \
     && apk --quiet del git \
     && rm /var/cache/apk/*
 
