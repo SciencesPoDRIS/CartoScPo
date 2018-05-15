@@ -40,8 +40,10 @@ services:
     networks:
       - bo
       - mongo
+      - redis
     links:
       - mongo:mongo
+      - redis:redis
 
   mongo:
     image: "mongo:3.6.3"
