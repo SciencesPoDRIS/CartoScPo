@@ -31,8 +31,8 @@ host = "localhost"
 [mailer]
 logger = true
 from = "no-reply@bobib"
-subject = "[Carto Science Po]"
-signature = "Merci."
+subject = "[Carto ScPo]"
+signature = "L'équipe Cartographie de la science politique
 #[mailer.transport]
 #service = "Gmail"
 #[mailer.transport.auth]
