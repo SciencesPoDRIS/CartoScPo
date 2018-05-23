@@ -1,5 +1,6 @@
 import angular from 'angular'
 import angularDragula from 'angularjs-dragula'
+import simplemdeMod from '../markdown-editor'
 import './index.css'
 
 class controller {
@@ -46,5 +47,5 @@ const component = {
 }
 
 export default angular
-  .module('bobib.fieldsList', [angularDragula(angular)])
+  .module('bobib.fieldsList', [angularDragula(angular), simplemdeMod])
   .component('fieldsList', component).name

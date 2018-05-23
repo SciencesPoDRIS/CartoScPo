@@ -64,9 +64,9 @@
       <i class="fa fa-user"></i>
     </span>
 
-    <div ng-switch-when="markdown" class="columns">
+    <div ng-switch-when="markdown" class="columns" style="padding-bottom: 100px">
         <div class="column">
-          <textarea class="textarea"
+          <textarea class="textarea" simplemde
             id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
             ng-model="$ctrl.item[field.key]" ng-required="field.required"></textarea>
         </div>
