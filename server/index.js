@@ -25,6 +25,7 @@ const spa = (req, res) => {
   })
 }
 
+app.set('trust proxy', true)
 app.use(cors()) // for schema.json requested by FO
 app.use(express.json())
 app.use(boom())
