@@ -11,12 +11,14 @@ import commonmark from './services/commonmark'
 // redirect to home if not authorized
 const checkAuth = {
   checkAuth: [
+    '$rootScope',
     '$location',
     '$q',
     'session',
-    ($location, $q, session) => {
+    ($rootScope, $location, $q, session) => {
       return session.refresh().then(() => {
         if (session.email) return $q.resolve()
+        $rootScope.flashes.push('Session expirée')
         $location.path('/')
         return $q.reject()
       })
