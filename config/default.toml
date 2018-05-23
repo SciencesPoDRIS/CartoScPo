@@ -32,7 +32,7 @@ host = "localhost"
 logger = true
 from = "no-reply@bobib"
 subject = "[Carto ScPo]"
-signature = "L'équipe Cartographie de la science politique
+signature = "L'équipe Cartographie de la science politique"
 #[mailer.transport]
 #service = "Gmail"
 #[mailer.transport.auth]
