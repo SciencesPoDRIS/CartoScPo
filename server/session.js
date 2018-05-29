@@ -15,16 +15,10 @@ User.count({}, (err, count) => {
 
 // use this middleware to protect routes
 const checkAuth = (exports.checkAuth = (req, res, next) => {
-  const rescue = {
-    isAuthenticated: req.isAuthenticated(),
-    headers: req.headers,
-    session: req.session,
-  }
-  console.log('checkAuth', rescue)
   if (req.isAuthenticated()) {
     next()
   } else {
-    res.boom.forbidden(JSON.stringify(rescue))
+    res.boom.forbidden()
   }
 })
 
