@@ -34,8 +34,9 @@ modificationSchema.pre('find', function() {
   this.sort({ createdAt: -1, updatedAt: -1 })
 })
 
+// used in emails, so it should be the public host
 modificationSchema.method('getURL', function getURL() {
-  return `${server.host}:${server.port}/modifications/${this.id}`
+  return `${server.backOfficeBaseUrl}/modifications/${this.id}`
 })
 
 module.exports = mongoose.model('Modification', modificationSchema)
