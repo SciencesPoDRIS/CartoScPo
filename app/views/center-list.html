@@ -1,5 +1,5 @@
 <div id="center-list">
-    <div class="center-list-item" ng-repeat="center in $ctrl.centers track by center.id">
+    <div class="center-list-item" ng-repeat="center in $ctrl.centers | orderBy: 'acronym' track by center.id">
         <div class="row">
             <div class="col-md-3 text-left">
                 <logo org="center"></logo>
