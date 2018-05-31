@@ -199,7 +199,12 @@ function sanitize(rawCenter) {
           break
 
         default: {
-          let value = findFieldValue(rawCenter, fieldId, fieldProps)
+          // here, hidden is the special field indicating if the center
+          // should be visible on the FO. So false by default
+          let value =
+            fieldId === 'hidden'
+              ? false
+              : findFieldValue(rawCenter, fieldId, fieldProps)
           // attempt to fix with a dummy value to pass mongoose validation
           if (fieldProps.required && value === null) {
             console.error(
