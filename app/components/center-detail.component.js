@@ -9,7 +9,7 @@ angular.module('bib.components')
     org: '<',
     expanded: '<'
   },
-  controller: function () {
+  controller: function (backOfficeBaseUrl) {
     this.collapsed = true;
 
     this.$onInit = function () {
@@ -36,6 +36,8 @@ angular.module('bib.components')
           return converter.makeHtml(fields);
         }
       }
+
+      this.boHref = `${backOfficeBaseUrl}/centers/${this.org.id}`
 
       // Administration
       this.history = convert(this.org.history);
