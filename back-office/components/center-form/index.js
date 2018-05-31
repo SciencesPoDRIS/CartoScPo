@@ -5,8 +5,8 @@ import { properties } from '../../schema.json'
 import './index.css'
 
 class controller {
-  constructor(api, $location, $rootScope, session) {
-    Object.assign(this, { api, $location, $rootScope, session })
+  constructor($log, $location, $rootScope, api, session) {
+    Object.assign(this, { $log, $location, $rootScope, api, session })
 
     this.center = {}
     this.tabs = [
@@ -60,7 +60,7 @@ class controller {
           this.center = center
           this.sections = Object.keys(center).filter(s => s != 'id')
         })
-        .catch(console.error)
+        .catch(this.$log.error)
         .then(() => (this.loading = false))
     } else {
       // new
@@ -123,7 +123,7 @@ class controller {
           email: this.email,
         })
     }
-    op.then(() => this.redirect('sauvegardé'), console.error)
+    op.then(() => this.redirect('sauvegardé'), this.$log.error)
   }
 
   delete() {
@@ -132,7 +132,7 @@ class controller {
     if (window.confirm(`Êtes vous sur de supprimer ${this.center.code} ?`)) {
       this.api
         .deleteWithData(`centers/${this.center.id}`, { email: this.email })
-        .then(() => this.redirect('supprimé'), console.error)
+        .then(() => this.redirect('supprimé'), this.$log.error)
     }
   }
 
@@ -144,7 +144,7 @@ class controller {
   }
 }
 
-controller.$inject = ['api', '$location', '$rootScope', 'session']
+controller.$inject = ['$log', '$location', '$rootScope', 'api', 'session']
 
 const component = {
   template: require('./index.html'),
