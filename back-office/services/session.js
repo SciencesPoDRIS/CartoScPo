@@ -1,10 +1,10 @@
 import angular from 'angular'
 
 class Service {
+  static $inject = ['$http', '$location', '$rootScope']
+
   constructor($http, $location, $rootScope) {
-    this.$http = $http
-    this.$location = $location
-    this.$rootScope = $rootScope
+    Object.assign(this, { $http, $location, $rootScope })
 
     // check this var for connected / disconnected in ctrls and templates
     this.email = ''
@@ -33,7 +33,6 @@ class Service {
     })
   }
 }
-Service.$inject = ['$http', '$location', '$rootScope']
 
 export default angular.module('bobib.session', []).service('session', Service)
   .name

@@ -1,6 +1,8 @@
 import angular from 'angular'
 
 class controller {
+  static $inject = ['$log', '$location', '$rootScope', 'api']
+
   constructor($log, $location, $rootScope, api) {
     Object.assign(this, { $log, $location, $rootScope, api })
 
@@ -12,9 +14,7 @@ class controller {
 
   $onInit() {
     if (this.id) {
-      this.api
-        .get(`users/${this.id}`)
-        .then(({ user }) => (this.user = user))
+      this.api.get(`users/${this.id}`).then(({ user }) => (this.user = user))
     }
   }
 
@@ -38,7 +38,6 @@ class controller {
     }
   }
 }
-controller.$inject = ['$log', '$location', '$rootScope', 'api']
 
 const component = {
   template: require('./index.html'),

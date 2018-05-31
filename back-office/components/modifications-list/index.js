@@ -1,6 +1,8 @@
 import angular from 'angular'
 
 class controller {
+  static $inject = ['$log', 'api']
+
   constructor($log, api) {
     Object.assign(this, { $log, api })
 
@@ -16,7 +18,6 @@ class controller {
       )
   }
 }
-controller.$inject = ['$log', 'api']
 
 const component = {
   template: require('./index.html'),

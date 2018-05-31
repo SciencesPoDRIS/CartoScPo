@@ -5,6 +5,8 @@ import { properties } from '../../schema.json'
 import './index.css'
 
 class controller {
+  static $inject = ['$log', '$location', '$rootScope', 'api', 'session']
+
   constructor($log, $location, $rootScope, api, session) {
     Object.assign(this, { $log, $location, $rootScope, api, session })
 
@@ -106,22 +108,20 @@ class controller {
     let op
     if (this.id) {
       // edit
-      op = this.api
-        .put(`centers/${this.id}`, {
-          center: this.center,
-          email: this.email,
-        })
+      op = this.api.put(`centers/${this.id}`, {
+        center: this.center,
+        email: this.email,
+      })
     } else {
       // TODO
       if (!this.center.code) return
       this.center.id = this.center.code.replace(' ', '').toLowerCase()
 
       // new
-      op = this.api
-        .post(`centers`, {
-          center: this.center,
-          email: this.email,
-        })
+      op = this.api.post(`centers`, {
+        center: this.center,
+        email: this.email,
+      })
     }
     op.then(() => this.redirect('sauvegardé'), this.$log.error)
   }
@@ -143,8 +143,6 @@ class controller {
     this.$location.path('/centers')
   }
 }
-
-controller.$inject = ['$log', '$location', '$rootScope', 'api', 'session']
 
 const component = {
   template: require('./index.html'),

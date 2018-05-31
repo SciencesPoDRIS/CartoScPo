@@ -3,6 +3,8 @@ import logoMod from '../logo'
 import './index.css'
 
 class controller {
+  static $inject = ['$log', 'api', 'session']
+
   constructor($log, api, session) {
     Object.assign(this, { $log, api, session })
 
@@ -26,7 +28,6 @@ class controller {
     this.orderByAsc = !this.orderByAsc
   }
 }
-controller.$inject = ['$log', 'api', 'session']
 
 const component = {
   template: require('./index.html'),

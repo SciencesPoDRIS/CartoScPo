@@ -4,6 +4,15 @@ import logoMod from '../logo'
 import './index.css'
 
 class controller {
+  static $inject = [
+    '$log',
+    '$location',
+    '$rootScope',
+    'api',
+    'session',
+    'Upload',
+  ]
+
   constructor($log, $location, $rootScope, api, session, Upload) {
     Object.assign(this, { $log, $location, $rootScope, api, session, Upload })
   }
@@ -37,13 +46,11 @@ class controller {
       evt =>
         (file.progress = Math.min(
           100,
-          parseInt(100.0 * evt.loaded / evt.total),
+          parseInt((100.0 * evt.loaded) / evt.total),
         )),
     )
   }
 }
-
-controller.$inject = ['$log', '$location', '$rootScope', 'api', 'session', 'Upload']
 
 const component = {
   template: require('./index.html'),

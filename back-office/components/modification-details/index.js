@@ -55,6 +55,8 @@ const computeDiffs = (left, right) => {
 }
 
 class controller {
+  static $inject = ['$log', '$location', '$rootScope', 'api']
+
   constructor($log, $location, $rootScope, api) {
     Object.assign(this, { $log, $location, $rootScope, api })
 
@@ -87,10 +89,7 @@ class controller {
               this.modification.submittedCenter,
             )
           } else {
-            this.diffs = computeDiffs(
-              center,
-              this.modification.submittedCenter,
-            )
+            this.diffs = computeDiffs(center, this.modification.submittedCenter)
           }
         }, this.$log.error)
     }, this.$log.error)
@@ -106,7 +105,6 @@ class controller {
       .then(redirect, this.$log.error)
   }
 }
-controller.$inject = ['$log', '$location', '$rootScope', 'api']
 
 const component = {
   template: require('./index.html'),

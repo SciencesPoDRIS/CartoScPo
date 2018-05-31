@@ -4,6 +4,8 @@ import simplemdeMod from '../markdown-editor'
 import './index.css'
 
 class controller {
+  static $inject = ['$scope', 'dragulaService']
+
   constructor($scope, dragulaService) {
     dragulaService.options($scope, 'bag', {
       moves: (el, container, handle) => handle.className === 'handle',
@@ -30,7 +32,6 @@ class controller {
       : this.item[key].push(option)
   }
 }
-controller.$inject = ['$scope', 'dragulaService']
 
 const component = {
   template: require('./index.html'),
