@@ -13,7 +13,7 @@
                 </h3>
                 <p>{{ center.code | trimStar}}</p>
                 <p ng-if="center.updatedAt">
-                    <small>Données récoltées en {{center.updatedAt }}</small>
+                    <small>Données récoltées en {{center.updatedAt | date:'yyyy' }}</small>
                 </p>
             </div>
         </div>
