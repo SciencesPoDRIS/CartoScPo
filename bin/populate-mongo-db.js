@@ -3,11 +3,12 @@
 // This script parse and adjust the content of data.json
 // to populate the 'centers' collection in the mongodb
 
-
 const path = require('path')
 const { argv } = require('yargs')
 
 const clearCenters = argv.clear || argv.c
+const dryRun = argv.dry || argv.d
+
 const dataPath = argv.path || argv.p || path.join(__dirname, '../app/data')
 
 const DATA = dataPath + '/data.json'
@@ -38,6 +39,13 @@ const fixes = {
 
 const castBoolean = v => v.toLowerCase() === 'oui'
 
+// to avoid false positive during json diff when a modification
+// is submitted and a field was not explicitely "touched by the user" ref: #53
+function crlfToLf(value) {
+  // also trim lines (useful in list)
+  return typeof value === 'string' ? value.replace(/ *\r\n/g, '\n') : value
+}
+
 // iterate through 'tabs' (administration, ecole, recherche…)
 function findFieldValue(rawCenter, fieldId, { label, type }) {
   label = fixes[fieldId] || label
@@ -66,7 +74,7 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
       }
     }
   })
-  return fieldValue
+  return crlfToLf(fieldValue)
 }
 
 // handle sub schema, like 'schools' or 'addresses'
@@ -90,14 +98,14 @@ function findArrayFieldValue(rawCenter, fieldId) {
       }))
 
     case 'affiliations':
-      return rawCenter.administration['Etablissements de rattachement']
-        .replace(/\r\n/g, '\n')
+      return crlfToLf(
+        rawCenter.administration['Etablissements de rattachement'],
+      )
         .split('\n')
         .map(name => ({ name: name.replace('* ', '') }))
 
     case 'phones':
-      return rawCenter.administration['Téléphone']
-        .replace(/\r\n/g, '\n')
+      return crlfToLf(rawCenter.administration['Téléphone'])
         .split('\n')
         .map(number => ({ number }))
   }
@@ -112,8 +120,9 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
         enabled: castBoolean(
           rawCenter.publication["Collections auprès d'éditeurs (oui/non)"],
         ),
-        titles:
+        titles: crlfToLf(
           rawCenter.publication["Collections auprès d'éditeurs : description"],
+        ),
       }
 
     case 'library':
@@ -123,10 +132,11 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
             'Centre de documentation ou bibliothèque en propre (oui/non)'
           ],
         ),
-        titles:
+        titles: crlfToLf(
           rawCenter.ressources[
             'Centre de documentation ou bibliothèque en propre : Intitulé'
           ],
+        ),
         url: rawCenter.ressources['Site Web'],
       }
 
@@ -135,7 +145,9 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
         enabled: castBoolean(
           rawCenter.publication['Revues en propre (oui/non)'],
         ),
-        titles: rawCenter.publication['Revues en propre : description'],
+        titles: crlfToLf(
+          rawCenter.publication['Revues en propre : description'],
+        ),
       }
 
     case 'data_repository':
@@ -145,10 +157,11 @@ function findBooleanItemFieldValue(rawCenter, fieldId) {
             'Archivage des données de la recherche (oui/non)'
           ],
         ),
-        projects:
+        projects: crlfToLf(
           rawCenter.publication[
             'Archivage des données de la recherche : description des projets'
           ],
+        ),
       }
   }
 }
@@ -158,30 +171,31 @@ function findCheckListFieldValue(rawCenter, fieldId) {
   switch (fieldId) {
     case 'cnrs_sections':
       return (
-        rawCenter.recherche['Sections CNRS']
-          .replace(/\r/g, '')
+        crlfToLf(rawCenter.recherche['Sections CNRS'])
           .split('\n')
           // remove star
           .map(s => s.slice(2))
       )
-      break
   }
 }
 
 function sanitize(rawCenter) {
   return Array.from(Object.entries(schema)).reduce(
-    (c, [fieldId, fieldProps]) => {
+    (sanitizedCenter, [fieldId, fieldProps]) => {
       switch (fieldProps.type) {
         case 'array':
-          c[fieldId] = findArrayFieldValue(rawCenter, fieldId)
+          sanitizedCenter[fieldId] = findArrayFieldValue(rawCenter, fieldId)
           break
 
         case 'boolean-item':
-          c[fieldId] = findBooleanItemFieldValue(rawCenter, fieldId)
+          sanitizedCenter[fieldId] = findBooleanItemFieldValue(
+            rawCenter,
+            fieldId,
+          )
           break
 
         case 'check-list':
-          c[fieldId] = findCheckListFieldValue(rawCenter, fieldId)
+          sanitizedCenter[fieldId] = findCheckListFieldValue(rawCenter, fieldId)
           break
 
         default: {
@@ -206,17 +220,22 @@ function sanitize(rawCenter) {
             (fieldId === 'url' || fieldId === 'staff_url_cnrs')
           )
             value = ''
-          c[fieldId] = value
+          sanitizedCenter[fieldId] = value
           break
         }
       }
-      return c
+      return sanitizedCenter
     },
     { id: rawCenter.administration.id },
   )
 }
 
 function saveToMongo(cleanedCenter) {
+  if (dryRun) {
+    console.log('dry run: nothing is saved in mongo')
+    return cleanedCenter
+  }
+
   console.log('saving…', cleanedCenter.id, cleanedCenter.code)
   return new Center(cleanedCenter).save()
 }
