@@ -103,50 +103,44 @@ class controller {
   submit(form) {
     if (form.$invalid || form.$pristine) return
     if (!this.isUserKnown()) return
-
-    const redirect = () => {
-      this.$rootScope.flashes.push(
-        this.session.email ? 'Centre sauvegardé' : 'Proposition enregistrée',
-      )
-      this.$location.path('/centers')
-    }
+    let op
     if (this.id) {
       // edit
-      this.api
+      op = this.api
         .put(`centers/${this.id}`, {
           center: this.center,
           email: this.email,
         })
-        .then(redirect, console.error)
     } else {
       // TODO
       if (!this.center.code) return
       this.center.id = this.center.code.replace(' ', '').toLowerCase()
 
       // new
-      this.api
+      op = this.api
         .post(`centers`, {
           center: this.center,
           email: this.email,
         })
-        .then(redirect, console.error)
     }
+    op.then(() => this.redirect('sauvegardé'), console.error)
   }
 
   delete() {
     if (!this.isUserKnown()) return
 
-    const redirect = () => {
-      this.$rootScope.flashes.push(
-        this.session.email ? 'Centre supprimé' : 'Proposition enregistrée',
-      )
-      this.$location.path('/centers')
-    }
-    if (window.confirm(`Etes vous sur de supprimer ${this.center.code} ?`)) {
+    if (window.confirm(`Êtes vous sur de supprimer ${this.center.code} ?`)) {
       this.api
         .deleteWithData(`centers/${this.center.id}`, { email: this.email })
-        .then(redirect, console.error)
+        .then(() => this.redirect('supprimé'), console.error)
     }
+  }
+
+  redirect(action) {
+    this.$rootScope.flashes.push(
+      this.session.email ? `Centre ${action}` : 'Proposition enregistrée',
+    )
+    this.$location.path('/centers')
   }
 }
 
