@@ -19,7 +19,7 @@ COPY bin  /cartoscpo/bin
 
 WORKDIR /cartoscpo/
 
-RUN npm install --only=dev webpack babel-core babel-loader babel-preset-env style-loader raw-loader html-minify-loader css-loader \
+RUN npm install --only=dev webpack babel-core babel-loader babel-preset-env babel-plugin-transform-class-properties style-loader raw-loader html-minify-loader css-loader \
     && /cartoscpo/node_modules/webpack/bin/webpack.js \
     && npm uninstall webpack babel-core babel-loader babel-preset-env style-loader raw-loader html-minify-loader css-loader \ 
     && npm --force cache clean 
