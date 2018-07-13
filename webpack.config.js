@@ -2,7 +2,7 @@
 // front office is build with gulp
 
 const config = {
-	watch: process.env.NODE_ENV === 'development',
+  watch: process.env.NODE_ENV === 'development',
   entry: './back-office/index.js',
   output: {
     filename: './back-office/bundle.js',
@@ -17,6 +17,7 @@ const config = {
             loader: 'babel-loader',
             options: {
               presets: ['env'],
+              plugins: ['transform-class-properties'],
             },
           },
         ],

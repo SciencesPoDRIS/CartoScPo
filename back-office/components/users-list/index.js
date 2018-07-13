@@ -1,9 +1,12 @@
 import angular from 'angular'
 
 class controller {
-  constructor(api) {
+  static $inject = ['$log', 'api']
+
+  constructor($log, api) {
+    Object.assign(this, { $log, api })
+
     this.users = []
-    this.api = api
   }
 
   $onInit() {
@@ -13,16 +16,15 @@ class controller {
   getUsers() {
     this.api
       .get('users')
-      .then(({ users }) => (this.users = users), console.error)
+      .then(({ users }) => (this.users = users), this.$log.error)
   }
 
   delete(user) {
-    if (window.confirm(`Etes vous sur de supprimer ${user.email} ?`)) {
+    if (window.confirm(`Êtes vous sur de supprimer ${user.email} ?`)) {
       this.api.delete(`users/${user.id}`).then(() => this.getUsers())
     }
   }
 }
-controller.$inject = ['api']
 
 const component = {
   template: require('./index.html'),

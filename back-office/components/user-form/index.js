@@ -1,10 +1,10 @@
 import angular from 'angular'
 
 class controller {
-  constructor(api, $location, $rootScope) {
-    this.api = api
-    this.$location = $location
-    this.$rootScope = $rootScope
+  static $inject = ['$log', '$location', '$rootScope', 'api']
+
+  constructor($log, $location, $rootScope, api) {
+    Object.assign(this, { $log, $location, $rootScope, api })
 
     this.user = {
       email: '',
@@ -14,9 +14,7 @@ class controller {
 
   $onInit() {
     if (this.id) {
-      this.api
-        .get(`users/${this.id}`)
-        .then(({ user }) => (this.user = user))
+      this.api.get(`users/${this.id}`).then(({ user }) => (this.user = user))
     }
   }
 
@@ -31,16 +29,15 @@ class controller {
       // edit
       this.api
         .put(`users/${this.id}`, { user: this.user })
-        .then(redirect, console.error)
+        .then(redirect, this.$log.error)
     } else {
       // new
       this.api
         .post('users', { user: this.user })
-        .then(redirect, console.error)
+        .then(redirect, this.$log.error)
     }
   }
 }
-controller.$inject = ['api', '$location', '$rootScope']
 
 const component = {
   template: require('./index.html'),

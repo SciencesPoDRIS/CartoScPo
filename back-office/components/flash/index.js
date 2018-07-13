@@ -1,9 +1,10 @@
 import angular from 'angular'
 
 class controller {
+  static $inject = ['$rootScope', '$timeout']
+
   constructor($rootScope, $timeout) {
-    this.$rootScope = $rootScope
-    this.$timeout = $timeout
+    Object.assign(this, { $rootScope, $timeout })
 
     this.$rootScope.flashes = []
   }
@@ -20,7 +21,6 @@ class controller {
     this.$rootScope.flashes = []
   }
 }
-controller.$inject = ['$rootScope', '$timeout']
 
 const component = {
   template: `<div ng-if="$ctrl.$rootScope.flashes.length" class="container notification is-success">

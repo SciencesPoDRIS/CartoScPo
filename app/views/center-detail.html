@@ -2,6 +2,7 @@
   data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
     <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
 </button>
+
 <div class="collapse" ng-class="{in: $ctrl.expanded }" id="{{ 'see-more-' + $ctrl.org.id }}">
     <div class="row">
         <div class="col-md-12">
@@ -47,6 +48,12 @@
                 <p>
                     <a target="_blank" href="{{ $ctrl.administration['Lien_ScanR'] }}">Fiche du centre dans ScanR</a>
                 </p>
+            </div>
+            <div class="col-md-12">
+                <a class="btn btn-default" target="_blank" href="{{ $ctrl.boHref }}">
+                  <i class="fa fa-pencil"></i> 
+                  Apporter des modifications à ce centre
+                </a>
             </div>
             <h2>Adresse(s)</h2>
             <ul>

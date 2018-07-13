@@ -2,9 +2,10 @@ import angular from 'angular'
 import './index.css'
 
 class controller {
+  static $inject = ['$location', 'session']
+
   constructor($location, session) {
-    this.$location = $location
-    this.session = session
+    Object.assign(this, { $location, session })
   }
 
   $onInit() {
@@ -28,7 +29,6 @@ class controller {
     this.session.logout()
   }
 }
-controller.$inject = ['$location', 'session']
 
 const component = {
   template: require('./index.html'),

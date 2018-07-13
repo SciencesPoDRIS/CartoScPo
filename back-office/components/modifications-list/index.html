@@ -5,9 +5,9 @@
   <thead>
     <tr>
       <th>
-        Code Unité
+        Nom
         <div class="control has-icons-left">
-          <input class="input is-small" placeholder="code unité" ng-model="$ctrl.search.oldCenter.code">
+          <input class="input is-small" placeholder="nom" ng-model="$ctrl.search.oldCenter.name">
           <span class="icon is-small is-left">
             <i class="fa fa-search"></i>
           </span>
@@ -33,9 +33,9 @@
   <tbody>
     <tr ng-repeat="modif in $ctrl.modifications| filter:$ctrl.search as filteredModifications">
       <td>
-        <span ng-if="modif.verb !== 'update'">{{ modif.oldCenter.code || modif.submittedCenter.code }}</span>
+        <span ng-if="modif.verb !== 'update'">{{ modif.oldCenter.name || modif.submittedCenter.name }}</span>
         <a ng-if="modif.verb === 'update'" href="centers/{{modif.centerId}}">
-          {{ modif.oldCenter.code || modif.submittedCenter.code }}</a>
+          {{ modif.oldCenter.name || modif.submittedCenter.name }}</a>
       </td>
       <td>
         <span class="tag" ng-class="{

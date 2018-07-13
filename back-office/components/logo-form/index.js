@@ -4,8 +4,17 @@ import logoMod from '../logo'
 import './index.css'
 
 class controller {
-  constructor(api, $location, $rootScope, session, Upload) {
-    Object.assign(this, { api, $location, $rootScope, session, Upload })
+  static $inject = [
+    '$log',
+    '$location',
+    '$rootScope',
+    'api',
+    'session',
+    'Upload',
+  ]
+
+  constructor($log, $location, $rootScope, api, session, Upload) {
+    Object.assign(this, { $log, $location, $rootScope, api, session, Upload })
   }
 
   $onInit() {
@@ -17,7 +26,7 @@ class controller {
         .then(({ center }) => {
           this.center = center
         })
-        .catch(console.error)
+        .catch(this.$log.error)
         .then(() => (this.loading = false))
     }
   }
@@ -33,17 +42,15 @@ class controller {
         this.$rootScope.flashes.push('Logo transmis')
         this.$location.path('/centers')
       },
-      console.error,
+      this.$log.error,
       evt =>
         (file.progress = Math.min(
           100,
-          parseInt(100.0 * evt.loaded / evt.total),
+          parseInt((100.0 * evt.loaded) / evt.total),
         )),
     )
   }
 }
-
-controller.$inject = ['api', '$location', '$rootScope', 'session', 'Upload']
 
 const component = {
   template: require('./index.html'),

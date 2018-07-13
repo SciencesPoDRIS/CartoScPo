@@ -5,8 +5,10 @@ import { properties } from '../../schema.json'
 import './index.css'
 
 class controller {
-  constructor(api, $location, $rootScope, session) {
-    Object.assign(this, { api, $location, $rootScope, session })
+  static $inject = ['$log', '$location', '$rootScope', 'api', 'session']
+
+  constructor($log, $location, $rootScope, api, session) {
+    Object.assign(this, { $log, $location, $rootScope, api, session })
 
     this.center = {}
     this.tabs = [
@@ -60,7 +62,7 @@ class controller {
           this.center = center
           this.sections = Object.keys(center).filter(s => s != 'id')
         })
-        .catch(console.error)
+        .catch(this.$log.error)
         .then(() => (this.loading = false))
     } else {
       // new
@@ -103,54 +105,44 @@ class controller {
   submit(form) {
     if (form.$invalid || form.$pristine) return
     if (!this.isUserKnown()) return
-
-    const redirect = () => {
-      this.$rootScope.flashes.push(
-        this.session.email ? 'Centre sauvegardé' : 'Proposition enregistrée',
-      )
-      this.$location.path('/centers')
-    }
+    let op
     if (this.id) {
       // edit
-      this.api
-        .put(`centers/${this.id}`, {
-          center: this.center,
-          email: this.email,
-        })
-        .then(redirect, console.error)
+      op = this.api.put(`centers/${this.id}`, {
+        center: this.center,
+        email: this.email,
+      })
     } else {
       // TODO
       if (!this.center.code) return
       this.center.id = this.center.code.replace(' ', '').toLowerCase()
 
       // new
-      this.api
-        .post(`centers`, {
-          center: this.center,
-          email: this.email,
-        })
-        .then(redirect, console.error)
+      op = this.api.post(`centers`, {
+        center: this.center,
+        email: this.email,
+      })
     }
+    op.then(() => this.redirect('sauvegardé'), this.$log.error)
   }
 
   delete() {
     if (!this.isUserKnown()) return
 
-    const redirect = () => {
-      this.$rootScope.flashes.push(
-        this.session.email ? 'Centre supprimé' : 'Proposition enregistrée',
-      )
-      this.$location.path('/centers')
-    }
-    if (window.confirm(`Etes vous sur de supprimer ${this.center.code} ?`)) {
+    if (window.confirm(`Êtes vous sur de supprimer ${this.center.code} ?`)) {
       this.api
         .deleteWithData(`centers/${this.center.id}`, { email: this.email })
-        .then(redirect, console.error)
+        .then(() => this.redirect('supprimé'), this.$log.error)
     }
   }
-}
 
-controller.$inject = ['api', '$location', '$rootScope', 'session']
+  redirect(action) {
+    this.$rootScope.flashes.push(
+      this.session.email ? `Centre ${action}` : 'Proposition enregistrée',
+    )
+    this.$location.path('/centers')
+  }
+}
 
 const component = {
   template: require('./index.html'),

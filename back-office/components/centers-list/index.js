@@ -3,8 +3,11 @@ import logoMod from '../logo'
 import './index.css'
 
 class controller {
-  constructor(api, session) {
-    Object.assign(this, { api, session })
+  static $inject = ['$log', 'api', 'session']
+
+  constructor($log, api, session) {
+    Object.assign(this, { $log, api, session })
+
     this.centers = []
 
     this.search = {}
@@ -16,7 +19,7 @@ class controller {
     this.loading = true
     this.api
       .get('centers')
-      .then(({ centers }) => (this.centers = centers), console.error)
+      .then(({ centers }) => (this.centers = centers), this.$log.error)
       .then(() => (this.loading = false))
   }
 
@@ -25,7 +28,6 @@ class controller {
     this.orderByAsc = !this.orderByAsc
   }
 }
-controller.$inject = ['api', 'session']
 
 const component = {
   template: require('./index.html'),

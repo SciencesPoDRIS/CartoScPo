@@ -1,6 +1,8 @@
 import angular from 'angular'
 
 class controller {
+  static $inject = ['session']
+
   constructor(session) {
     this.session = session
 
@@ -15,7 +17,6 @@ class controller {
     this.session.login(this.credentials).catch(() => (this.error = true))
   }
 }
-controller.$inject = ['session']
 
 const component = {
   template: require('./index.html'),

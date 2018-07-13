@@ -40,6 +40,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "css-loader": "^0.28.10",
@@ -55,14 +56,14 @@
     "nodemon": "^1.15.1",
     "npm-run-all": "^4.1.2",
     "raw-loader": "^0.5.1",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.21.0",
     "uglify-es": "^3.3.9",
     "webpack": "^3.11.0",
-    "webpack-bundle-analyzer": "^2.11.0"
+    "webpack-bundle-analyzer": "^2.13.1"
   },
   "dependencies": {
     "angular": "^1.6.9",
-    "angular-diff-match-patch": "^0.6.10",
+    "angular-diff-match-patch": "^0.6.15",
     "angular-route": "^1.6.9",
     "angularjs-dragula": "^2.0.0",
     "babyparse": "^0.4.6",

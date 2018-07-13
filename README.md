@@ -2,6 +2,8 @@
 
 Réalisée par la Bibliothèque de Sciences Po Paris en collaboration avec le Medialab
 
+Site public: https://cartosciencepolitique.sciencespo.fr
+
 ## Installation
 A la racine du projet :
 
