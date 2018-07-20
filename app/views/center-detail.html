@@ -30,7 +30,7 @@
 
         <div class="tab-pane active" id="description-{{ $ctrl.org.id }}">
             <div class="col-md-6">
-                <p>
+                <p ng-if="$ctrl.org.url">
                     <i class="fa fa-globe"></i> 
                     <a target="_blank" href="{{ $ctrl.org.url }}">{{ $ctrl.org.url }}</a>
                 </p>
