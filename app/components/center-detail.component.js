@@ -46,26 +46,21 @@ angular.module('bib.components')
       this.contracts = convert(this.org.contracts);
       this.workshops = convert(this.org.workshops);
       this.partners = convert(this.org.partners);
-      // Publication
+      // Publications
       this.collections_titles = convert(this.org.collections.titles);
       this.journal_titles = convert(this.org.journal.titles);
       this.oa_policy = convert(this.org.oa_policy);
       this.data_repository_projects = convert(this.org.data_repository.projects);
       this.valorisation = convert(this.org.valorisation);
-      // Ressources
+      // Documentation
       this.eresources = convert(this.org.resources);
       this.library_staff = convert(this.org.library_staff);
       this.information_skills_training = convert(this.org.information_skills_training);
-
-
-// TODO
-/*
-      this.libraries_network = convert(this.ressources['Bibliothèques utilisées']);
-      this.resources_title = convert(this.ressources['Centre de documentation ou bibliothèque en propre : Intitulé']);
-      this.ressources_description = convert(this.org.ressources['Centre de documentation ou bibliothèque en propre : description et fonds spécifiques']);
-      this.documentary_politics = convert(this.ressources['Politique documentaire']);
-      this.library_network = convert(this.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)']);
-*/
+      this.used_librairies = convert(this.org.used_librairies);
+      this.library_titles = convert(this.org.library.titles);
+      this.library_description = convert(this.org.library_description);
+      this.library_policy = convert(this.org.library_policy);
+      this.libraries_network_list = convert(this.org.libraries_network_list)
     }.bind(this);
   }
 });

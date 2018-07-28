@@ -35,6 +35,9 @@ const fixes = {
   oa_policy: 'Préconisations pour le dépôt en open access des publications',
   thesis_number: 'Nombre de thèses soutenues en 2015', // year is different
   library_name: 'Centre de documentation ou bibliothèque en propre : Intitulé',
+  library_description: 'Centre de documentation ou bibliothèque en propre : description et fonds spécifiques',
+  information_skills_training: 'Offre de formations documentaires',
+  libraries_network_list: 'Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)'
 }
 
 const castBoolean = v => v.toLowerCase() === 'oui'
