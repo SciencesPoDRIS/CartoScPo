@@ -5,6 +5,9 @@
 <form ng-if="!$ctrl.loading" name="logoForm">
 
   <section class="section">
+    <div class="notification is-danger" ng-if="$ctrl.error">
+      Erreur à l'envoi: {{ $ctrl.error }}
+    </div>
 
     <div class="field">
       <label class="label" for="">

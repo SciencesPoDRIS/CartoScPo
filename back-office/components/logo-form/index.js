@@ -42,7 +42,9 @@ class controller {
         this.$rootScope.flashes.push('Logo transmis')
         this.$location.path('/centers')
       },
-      this.$log.error,
+      (err) => {
+        if (err) this.error = err
+      },
       evt =>
         (file.progress = Math.min(
           100,
