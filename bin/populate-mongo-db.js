@@ -259,4 +259,5 @@ Promise.all(
     .map(saveToMongo),
 )
   .then(console.log, console.error)
+  .then(() => `${Object.keys(centers)} saved`)
   .then(() => process.exit())
