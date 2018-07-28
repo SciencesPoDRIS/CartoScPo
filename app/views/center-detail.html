@@ -38,7 +38,7 @@
                     <i class="fa fa-phone"></i> {{ phone.number }}
                 </p>
                 <p>Année de création : {{ $ctrl.org.creation_year }}</p>
-                <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
+                <p>CNRS : {{ $ctrl.org.cnrs ? 'oui' : 'non' }}</p>
             </div>
             <div class="col-md-6">
                 <p>Directeur·rice : {{ $ctrl.org.director_name }}</p>
@@ -142,12 +142,12 @@
 
             <h2>Publications versées dans HAL</h2>
             <div class="col-md-12">
-                {{ $ctrl.org.hal }}
+                {{ $ctrl.org.hal ? 'oui' : 'non' }}
             </div>
 
             <h2>Publications versées dans un dépôt institutionnel</h2>
             <div class="col-md-12">
-                {{ $ctrl.publication['Publications versées dans un dépôt institutionnel (oui/non)'] }}
+                {{ $ctrl.org.repository ? 'oui' : 'non' }}
             </div>
 
             <h2 ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''">Préconisations pour le dépôt en open access des publications</h2>
