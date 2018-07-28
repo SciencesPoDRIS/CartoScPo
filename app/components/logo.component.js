@@ -10,8 +10,8 @@ angular.module('bib.components')
   controller: function () {
     this.$onInit = function () {
       // example Centre Max Weber
-      var src = this.org.acronym || this.org.name;
-      if (src) this.src = 'img/logos_centres_de_recherche_jpeg/' + src + '.jpeg';
+      var src = this.org.id || this.org.acronym || this.org.name;
+      if (src) this.src = 'img/logos/' + src + '.jpeg';
     }.bind(this);
   }
 });

@@ -21,7 +21,7 @@ angular.module('bib.services')
         center.addresses.forEach(function(a, i) {
           var colorMarker = fixIconSize(center);
           var id = center.id + '_' + i;
-          var message = '<img style="width:20%; height:"20%;" src="img/logos_centres_de_recherche_jpeg/' + center.acronym + '.jpeg"' + '">'
+          var message = '<img style="width:20%; height:"20%;" src="img/logos/' + center.id + '.jpeg"' + '">'
             + '<p>' + center.name + ' - ' + center.acronym + '</p>'
             + '<p>'  + a.address + '</p>';
 
