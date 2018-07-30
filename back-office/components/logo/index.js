@@ -3,10 +3,10 @@ import './index.css'
 
 class controller {
   $onInit() {
-    const { acronym: src } = this.center
+    const { id: src } = this.center
     // available on the front-office
     if (src)
-      this.src = `/img/logos_centres_de_recherche_jpeg/${src}.jpeg`
+      this.src = `/img/logos/${src}.jpeg`
   }
 }
 

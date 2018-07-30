@@ -80,7 +80,7 @@
       }
     },
     "url": {
-      "label": "Site Web",
+      "label": "Site web",
       "type": "url",
       "tab": "administration",
       "searchable": false

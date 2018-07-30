@@ -166,7 +166,7 @@ exports.uploadLogo = async ({ params, files }, res) => {
   if (!file) return res.boom.badRequest()
 
   try {
-    await file.mv(path.resolve(`${__dirname}/../../app/img/logos_centres_de_recherche_jpeg/${center.acronym}.jpeg`))
+    await file.mv(path.resolve(`${__dirname}/../../app/img/logos/${center.id}.jpeg`))
     res.send('ok')
   } catch (ex) {
     return res.boom.badRequest()

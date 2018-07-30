@@ -30,7 +30,7 @@
 
         <div class="tab-pane active" id="description-{{ $ctrl.org.id }}">
             <div class="col-md-6">
-                <p>
+                <p ng-if="$ctrl.org.url">
                     <i class="fa fa-globe"></i> 
                     <a target="_blank" href="{{ $ctrl.org.url }}">{{ $ctrl.org.url }}</a>
                 </p>
@@ -38,7 +38,7 @@
                     <i class="fa fa-phone"></i> {{ phone.number }}
                 </p>
                 <p>Année de création : {{ $ctrl.org.creation_year }}</p>
-                <p>CNRS : {{ $ctrl.administration['CNRS (Oui/Non)'] }}</p>
+                <p>CNRS : {{ $ctrl.org.cnrs ? 'oui' : 'non' }}</p>
             </div>
             <div class="col-md-6">
                 <p>Directeur·rice : {{ $ctrl.org.director_name }}</p>
@@ -142,12 +142,12 @@
 
             <h2>Publications versées dans HAL</h2>
             <div class="col-md-12">
-                {{ $ctrl.org.hal }}
+                {{ $ctrl.org.hal ? 'oui' : 'non' }}
             </div>
 
             <h2>Publications versées dans un dépôt institutionnel</h2>
             <div class="col-md-12">
-                {{ $ctrl.publication['Publications versées dans un dépôt institutionnel (oui/non)'] }}
+                {{ $ctrl.org.repository ? 'oui' : 'non' }}
             </div>
 
             <h2 ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''">Préconisations pour le dépôt en open access des publications</h2>
@@ -162,31 +162,34 @@
 
         <div class="tab-pane ressources" id="ressources-{{ $ctrl.org.id }}">
             <h2>Bibliothèques utilisées</h2>
-            <div class="col-md-12" ng-bind-html="$ctrl.libraries_network"></div>
+
+            <div class="col-md-12" ng-bind-html="$ctrl.used_librairies"></div>
+
             <h2>Ressources numériques à disposition des chercheur·se·s</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.eresources"></div>
+
             <h2>Personne ressource - documentaliste</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.library_staff"></div>
+
             <h2>Centre de documentation ou bibliothèque en propre</h2>
-            <div class="col-md-12" ng-bind-html="$ctrl.resources_title"></div>
+            <div class="col-md-12" ng-if="$ctrl.library_titles" ng-bind-html="$ctrl.library_titles"></div>
+
             <h2>Site web</h2>
             <div class="col-md-12">
-                <div ng-repeat="website in $ctrl.ressources['Site Web'].split('*')">
-                    <a href="{{ website }}" target="_blank" ng-if="website != 'X' && website != '?'">{{ website }}</a>
-                    <span ng-if="website == 'X' || website == '?'">{{ website }}</span>
-                </div>
+                <p><a target="_blank" href="{{ $ctrl.org.library.url }}">{{ $ctrl.org.library.url }}</a></pa>
             </div>
+
             <h2>Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h2>
-            <div class="col-md-12">
-                <div ng-bind-html="$ctrl.ressources_description" class="recherche"></div>
-            </div>
-            <h2 ng-if="$ctrl.ressources['Politique documentaire'] != ''">Politique documentaire</h2>
-            <div class="col-md-12" ng-if="$ctrl.ressources['Politique documentaire'] != ''" ng-bind-html="$ctrl.documentary_politics">
-            </div>
-            <h2 ng-if="$ctrl.org.oa_policy != ''">Offre de formations documentaires</h2>
-            <div class="col-md-12" ng-bind-html="$ctrl.oa_policy" ng-if="$ctrl.oa_policy != ''"></div>
-            <h2 ng-if="$ctrl.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)'] != ''">Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h2>
-            <div class="col-md-12" ng-bind-html="$ctrl.library_network" ng-if="$ctrl.ressources['Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)'] != ''"></div>
+            <div class="col-md-12" ng-if="$ctrl.library_description" ng-bind-html="$ctrl.library_description"></div>
+
+            <h2 ng-if="$ctrl.library_policy">Politique documentaire</h2>
+            <div class="col-md-12" ng-if="$ctrl.library_policy" ng-bind-html="$ctrl.library_policy"></div>
+
+            <h2 ng-if="$ctrl.information_skills_training">Offre de formations documentaires</h2>
+            <div class="col-md-12" ng-if="$ctrl.information_skills_training" ng-bind-html="$ctrl.information_skills_training"></div>
+
+            <h2 ng-if="$ctrl.libraries_network_list">Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)</h2>
+            <div class="col-md-12" ng-bind-html="$ctrl.libraries_network_list" ng-if="$ctrl.libraries_network_list"></div>
         </div>
 
         <div class="row">
