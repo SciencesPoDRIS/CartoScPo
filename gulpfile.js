@@ -33,10 +33,9 @@ gulp.task('js:lib', function() {
         'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
         'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
         'bower_components/papaparse/papaparse.min.js',
-        'bower_components/showdown/dist/showdown.min.js',
-        'bower_components/ng-showdown/dist/ng-showdown.min.js',
         'bower_components/lunr.js/lunr.min.js',
-        'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js'
+        'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js',
+        "app/assets/js/commonmark.min.js"
     ])
     .pipe(concat('lib.min.js'))
     .pipe(uglify())
