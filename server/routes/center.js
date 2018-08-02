@@ -157,10 +157,10 @@ exports.export = async (req, res) => {
 }
 
 exports.uploadLogo = async ({ params, files }, res) => {
-  if (!files) return res.boom.badRequest()
+  if (!files) return res.boom.badRequest('No files to handle')
 
   const center = await Center.findOne({ id: params.id })
-  if (!center) return res.boom.notFound()
+  if (!center) return res.boom.notFound('No center found with this Id')
 
   const { file } = files
   if (!file) return res.boom.badRequest()
@@ -169,7 +169,7 @@ exports.uploadLogo = async ({ params, files }, res) => {
     await file.mv(path.resolve(`${__dirname}/../../app/img/logos/${center.id}.jpeg`))
     res.send('ok')
   } catch (ex) {
-    return res.boom.badRequest()
+    return res.boom.badRequest('Can\'t move file')
   }
 }
 

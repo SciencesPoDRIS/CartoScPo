@@ -43,7 +43,7 @@ class controller {
         this.$location.path('/centers')
       },
       (err) => {
-        if (err) this.error = err
+        if (err) this.error = err.data.message
       },
       evt =>
         (file.progress = Math.min(
