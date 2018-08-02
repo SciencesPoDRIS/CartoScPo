@@ -109,17 +109,8 @@
                 <div ng-repeat="section in $ctrl.org.cnrs_sections">
                     {{ section }}
                 </div>
-                <h2>Annuaire du MENESR</h2>
-                <p ng-repeat="discipline in $ctrl.recherche['Discipline principale  selon l\'annuaire du MENESR'].split('*')" ng-if="discipline != 'X'">
-                    {{ discipline }}
-                </p>
-                <p ng-repeat="discipline in $ctrl.recherche['Disciplines secondaires  selon l\'annuaire du MENESR'].split('*')" ng-if="discipline != 'X'">
-                    {{ discipline }}
-                </p>
                 <h2>Mots-clefs</h2>
-                <p ng-repeat="word in $ctrl.recherche['Mots-clés sujet  selon l\'annuaire du MENESR'].split('*') track by $index" ng-if="word">
-                    {{ word }}
-                </p>
+                <div ng-bind-html="$ctrl.subject_terms" class="recherche"></div>
                 <h2>Axes de recherche</h2>
                 <div ng-bind-html="$ctrl.research_areas" class="recherche"></div>
             </div>
@@ -138,7 +129,7 @@
             <div class="col-md-12" ng-bind-html="$ctrl.collections_titles" ng-if="$ctrl.org.collections.enabled"></div>
 
             <h2 ng-if="$ctrl.org.journal.enabled">Revues en propre</h2>
-            <div class="col-md-12" ng-bind-html="$ctrl.collection_titles" ng-if="$ctrl.org.journal.enabled"></div>
+            <div class="col-md-12" ng-bind-html="$ctrl.journal_titles" ng-if="$ctrl.org.journal.enabled"></div>
 
             <h2>Publications versées dans HAL</h2>
             <div class="col-md-12">

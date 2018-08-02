@@ -46,6 +46,7 @@ angular.module('bib.components')
       this.contracts = convert(this.org.contracts);
       this.workshops = convert(this.org.workshops);
       this.partners = convert(this.org.partners);
+      this.subject_terms = convert(this.org.subject_terms);
       // Publications
       this.collections_titles = convert(this.org.collections.titles);
       this.journal_titles = convert(this.org.journal.titles);
