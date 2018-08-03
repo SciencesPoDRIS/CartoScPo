@@ -15,7 +15,6 @@
     angular.module('bib', [
             'ngRoute',
             'ngSanitize',
-            'ng-showdown',
             'ui.bootstrap',
             'ui.grid',
             'ui.grid.selection',

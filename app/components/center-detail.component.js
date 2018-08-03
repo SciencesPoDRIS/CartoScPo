@@ -1,4 +1,4 @@
-/* globals angular, _, showdown */
+/* globals angular, _, commonmark */
 'use strict';
 
 angular.module('bib.components')
@@ -19,9 +19,8 @@ angular.module('bib.components')
       }, this);
 
       // Convert markdown to html
-      var converter = new showdown.Converter();
-      // Transform url into link even if no markdown
-      converter.setOption('simplifiedAutoLink', true);
+      var reader = new commonmark.Parser();
+      var writer = new commonmark.HtmlRenderer();
 
       function convert(fields) {
         if (!fields) return ''
@@ -31,9 +30,9 @@ angular.module('bib.components')
           _.forEach(fields, function (d) {
             acc = acc.concat(d) + ' \n';
           });
-          return converter.makeHtml(acc);
+          return writer.render(reader.parse(acc));
         } else {
-          return converter.makeHtml(fields);
+          return writer.render(reader.parse(fields));
         }
       }
 
@@ -46,6 +45,7 @@ angular.module('bib.components')
       this.contracts = convert(this.org.contracts);
       this.workshops = convert(this.org.workshops);
       this.partners = convert(this.org.partners);
+      this.subject_terms = convert(this.org.subject_terms);
       // Publications
       this.collections_titles = convert(this.org.collections.titles);
       this.journal_titles = convert(this.org.journal.titles);
