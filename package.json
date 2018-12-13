@@ -22,7 +22,8 @@
     "bo:build": "NODE_ENV=production webpack -p",
     "bo:analyze-bundle": "ANALYZE_BUNDLE=1 npm run bo:build",
     "docker": "UID=$(id -u) GID=$(id -g) docker-compose -f docker-compose.dev.yml up",
-    "maildev": "maildev -w 3025 -s 25000 --verbose"
+    "maildev": "maildev -w 3025 -s 25000 --verbose",
+    "install": "bower install"
   },
   "keywords": [
     "Science",
@@ -42,6 +43,7 @@
     "babel-loader": "^7.1.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
+    "bower": "^1.8.4",
     "browser-sync": "^2.23.6",
     "css-loader": "^0.28.10",
     "eslint": "^4.18.1",
@@ -79,6 +81,7 @@
     "gulp-replace": "^0.6.1",
     "lodash": "^4.17.5",
     "mongoose": "^4.13.11",
+    "natives": "^1.1.6",
     "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.6.0",
     "passport": "^0.4.0",
