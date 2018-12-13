@@ -31,7 +31,7 @@
         <div class="tab-pane active" id="description-{{ $ctrl.org.id }}">
             <div class="col-md-6">
                 <p ng-if="$ctrl.org.url">
-                    <i class="fa fa-globe"></i> 
+                    <i class="fa fa-globe"></i>
                     <a target="_blank" href="{{ $ctrl.org.url }}">{{ $ctrl.org.url }}</a>
                 </p>
                 <p ng-repeat="phone in $ctrl.phones track by phone.number">
@@ -46,12 +46,12 @@
                     <i class="fa fa-envelope-o"></i> {{ $ctrl.org.director_email }}
                 </p>
                 <p>
-                    <a target="_blank" href="{{ $ctrl.administration['Lien_ScanR'] }}">Fiche du centre dans ScanR</a>
+                    <a target="_blank" href="{{ $ctrl.scanr_url }}">Fiche du centre dans ScanR</a>
                 </p>
             </div>
             <div class="col-md-12">
                 <a class="btn btn-default" target="_blank" href="{{ $ctrl.boHref }}">
-                  <i class="fa fa-pencil"></i> 
+                  <i class="fa fa-pencil"></i>
                   Apporter des modifications à ce centre
                 </a>
             </div>

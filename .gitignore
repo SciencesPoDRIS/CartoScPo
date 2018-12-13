@@ -34,3 +34,4 @@ db/redis
 #Docker
 docker-config.env
 docker-compose.yml
+config/local.toml

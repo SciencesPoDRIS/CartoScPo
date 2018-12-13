@@ -1,39 +1,39 @@
-import angular from 'angular'
-import logoMod from '../logo'
-import './index.css'
+import angular from 'angular';
+import logoMod from '../logo';
+import './index.css';
 
 class controller {
-  static $inject = ['$log', 'api', 'session']
+  static $inject = ['$log', 'api', 'session'];
 
   constructor($log, api, session) {
-    Object.assign(this, { $log, api, session })
+    Object.assign(this, { $log, api, session });
 
-    this.centers = []
+    this.centers = [];
 
-    this.search = {}
-    this.orderBy = 'acronym'
-    this.orderByAsc = true
+    this.search = {};
+    this.orderBy = 'acronym';
+    this.orderByAsc = true;
   }
 
   $onInit() {
-    this.loading = true
+    this.loading = true;
     this.api
       .get('centers')
       .then(({ centers }) => (this.centers = centers), this.$log.error)
-      .then(() => (this.loading = false))
+      .then(() => (this.loading = false));
   }
 
   sort(field) {
-    this.orderBy = field
-    this.orderByAsc = !this.orderByAsc
+    this.orderBy = field;
+    this.orderByAsc = !this.orderByAsc;
   }
 }
 
 const component = {
   template: require('./index.html'),
-  controller,
-}
+  controller
+};
 
 export default angular
   .module('bobib.centers-list', [logoMod])
-  .component('centersList', component).name
+  .component('centersList', component).name;

@@ -179,6 +179,15 @@
       "required": false,
       "searchable": false
     },
+    "scanr_url": {
+      "label": "Lien vers la fiche ScanR",
+      "type": "url",
+      "tab": "administration",
+      "required": false,
+      "searchable": false,
+      "bo": true,
+      "fo": true
+    },
     "schools": {
       "label": "Ecoles doctorales",
       "type": "array",

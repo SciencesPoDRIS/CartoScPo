@@ -1,12 +1,12 @@
-import angular from 'angular'
+import angular from 'angular';
 
 class controller {
-  static $inject = ['$log', 'api']
+  static $inject = ['$log', 'api'];
 
   constructor($log, api) {
-    Object.assign(this, { $log, api })
+    Object.assign(this, { $log, api });
 
-    this.modifications = []
+    this.modifications = [];
   }
 
   $onInit() {
@@ -14,16 +14,16 @@ class controller {
       .get('modifications')
       .then(
         ({ modifications }) => (this.modifications = modifications),
-        this.$log.error,
-      )
+        this.$log.error
+      );
   }
 }
 
 const component = {
   template: require('./index.html'),
-  controller,
-}
+  controller
+};
 
 export default angular
   .module('bobib.modifications-list', [])
-  .component('modificationsList', component).name
+  .component('modificationsList', component).name;

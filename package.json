@@ -12,7 +12,7 @@
     "lint": "eslint app",
     "parse": "npm-run-all -p parse:*",
     "parse:data": "node app/data/script_data_csv_to_json",
-    "parse:metadata": "node app/data/script_metadata_csv_to_json",
+    "~obsolete~parse:metadata": "node app/data/script_metadata_csv_to_json",
     "bo:watch": "npm-run-all -p bo:watch:*",
     "bo:watch:client": "webpack -d",
     "bo:watch:server": "DEBUG=express,mongo,mongoose,mailer,redis nodemon --watch server server/index.js",
@@ -22,7 +22,9 @@
     "bo:build": "NODE_ENV=production webpack -p",
     "bo:analyze-bundle": "ANALYZE_BUNDLE=1 npm run bo:build",
     "docker": "UID=$(id -u) GID=$(id -g) docker-compose -f docker-compose.dev.yml up",
-    "maildev": "maildev -w 3025 -s 25000 --verbose"
+    "maildev": "maildev -w 3025 -s 25000 --verbose",
+    "install": "bower install",
+    "prettier": "prettier-eslint --write \"app/**/*.js\" \"back-office/**/*.js\" \"server/**/*.js\" \"bin/*.js\""
   },
   "keywords": [
     "Science",
@@ -42,6 +44,7 @@
     "babel-loader": "^7.1.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
+    "bower": "^1.8.4",
     "browser-sync": "^2.23.6",
     "css-loader": "^0.28.10",
     "eslint": "^4.18.1",
@@ -55,6 +58,7 @@
     "maildev": "^1.0.0-rc3",
     "nodemon": "^1.15.1",
     "npm-run-all": "^4.1.2",
+    "prettier-eslint-cli": "^4.7.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.21.0",
     "uglify-es": "^3.3.9",
@@ -79,6 +83,7 @@
     "gulp-replace": "^0.6.1",
     "lodash": "^4.17.5",
     "mongoose": "^4.13.11",
+    "natives": "^1.1.6",
     "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.6.0",
     "passport": "^0.4.0",

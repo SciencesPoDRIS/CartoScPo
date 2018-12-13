@@ -1,15 +1,14 @@
 /* globals L */
 'use strict';
 
-angular.module('bib.components')
-.component('centerMap', {
+angular.module('bib.components').component('centerMap', {
   templateUrl: 'views/center-map.html',
   bindings: {
     // can't use "markers", it's already taken by Leaflet
     centerMarkers: '<'
   },
   controller: function($scope, leafletData, leafletMarkerEvents) {
-    this.$onInit = function () {
+    this.$onInit = function() {
       // add custom legend
       leafletData.getMap().then(function(map) {
         var MyControl = L.Control.extend({
@@ -19,7 +18,8 @@ angular.module('bib.components')
           onAdd: function() {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'my-custom-control');
-            container.innerHTML = '<svg width="250" height="150"> ' +
+            container.innerHTML =
+              '<svg width="250" height="150"> ' +
               '<text x="15" y="100" fill="black" font-size="14">Nombre de chercheurs permanents</text>' +
               '<rect width="30" height="30" x="105" y="110" fill="#e74c3c" />' +
               '<text x="130" y="150" fill="black">+ 80</text>' +
@@ -28,7 +28,8 @@ angular.module('bib.components')
               '<rect width="30" height="30" x="45" y="110" fill="#e67e22" />' +
               '<text x="70" y="150" fill="black">40</text>' +
               '<rect width="30" height="30" x="15" y="110" fill="#f1c40f" />' +
-              '<text x="40" y="150" fill="black">20</text>' + '</svg>';
+              '<text x="40" y="150" fill="black">20</text>' +
+              '</svg>';
             return container;
           }
         });
@@ -47,7 +48,8 @@ angular.module('bib.components')
             lng: 0,
             zoom: 4
           },
-          events: { // or just {} //all events
+          events: {
+            // or just {} //all events
             markers: {
               enable: ['click', 'mouseover', 'mouseout'],
               logic: 'broadcast'
@@ -77,12 +79,12 @@ angular.module('bib.components')
       // catch map events
       this.events = {
         markers: {
-          enable: leafletMarkerEvents.getAvailableEvents(),
+          enable: leafletMarkerEvents.getAvailableEvents()
         }
       };
 
       // detect event on markers and display or close popup
-      leafletMarkerEvents.getAvailableEvents().forEach(function (eventType) {
+      leafletMarkerEvents.getAvailableEvents().forEach(function(eventType) {
         $scope.$on('leafletMarker.' + eventType, function(event, args) {
           var target = args.leafletEvent.target;
           if (event.name === 'leafletMarker.click') {
@@ -99,4 +101,3 @@ angular.module('bib.components')
     }.bind(this);
   }
 });
-
