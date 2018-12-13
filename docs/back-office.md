@@ -11,13 +11,13 @@ BO: Back-Office
 FO: Front-Office
 
 - `/app`: FO en `angularjs`. Historiquement la première partie créée : elle utilise `npm`, `bower` et `gulp` pour se construire.
-Le FO tire ses infos des fichiers `app/data/data.json` et `app/data/metadata.json` et est servi statiquement.
+  Le FO tire ses infos des fichiers `app/data/data.json` et `app/data/metadata.json` et est servi statiquement.
 - `/back-office`: BO en `angularjs`. Autonome du FO. Cette fois ci une approche de build plus moderne est privilégiée.
-Les librairies sont récupérées via `npm` et bundlées via `webpack`. Contrairement au FO, le BO discute avec le serveur d'API REST.
-- `/bin`: contient 2 *scripts* permettant de peupler ou extraire des infos de la base `mongodb`. A terme le script de peuplement sera inutile.
-Celui d'extraction pourra etre lancé régulièrement pour générer un nouveau `app/data/data.json` et ainsi rafraichir les données du FO.
+  Les librairies sont récupérées via `npm` et bundlées via `webpack`. Contrairement au FO, le BO discute avec le serveur d'API REST.
+- `/bin`: contient 2 _scripts_ permettant de peupler ou extraire des infos de la base `mongodb`. A terme le script de peuplement sera inutile.
+  Celui d'extraction pourra etre lancé régulièrement pour générer un nouveau `app/data/data.json` et ainsi rafraichir les données du FO.
 - `/conf`: les fichiers `toml` permettent aux sysadmins de renseigner les ports / urls… de l'application une fois déployée. Pour le moment
-seul le BO lit ces fichiers de conf.
+  seul le BO lit ces fichiers de conf.
 - `/server`: serveur d'API REST en `node.js`. C'est avec cette application `express` que le BO échange. Elle meme est en relation avec la base `mongodb`.
 - `/server/routes`: les routes (l'API REST) interrogeables pour les `centres`, les `modifications` et les `users`. Il s'agit des fonctions
   appelées par les GET, POST, PUT…
@@ -57,8 +57,8 @@ ignoré par git.
 
 `> npm run bo:populate`
 
-Il s'agit d'un alias executant `node bin/populate-mongo-db.js`. Ce script peut être executé avec l'argument `clear` permettant d'effacer la collection
-`centers` avant de la repeupler. Attention, cette action est *irréversible*.
+Il s'agit d'un alias executant `node bin/populate-mongo-db.js`. Ce script peut être executé avec l'argument `--clear` permettant d'effacer la collection
+`centers` avant de la repeupler. Attention, cette action est _irréversible_.
 
 4 - lancer `> npm run bo:watch`. Cette commande lance `webpack` qui va venir rebâtir le BO (côté client) dès qu'un fichier change. Il faut par contre
 rafraichir son navigateur manuellement (pour le moment). En parallèle, l'application node se lance. Grâce à `nodemon`, le serveur redemarre dès que le
@@ -87,6 +87,7 @@ L'ordre dans lequel sont listés les champs dans `back-office/schema.json` a un 
 Pour placer un champ dans un onglet (tab), il faut renseigner la valeur de la clé `tab`, par exemple `"tab": "schools"`, pour que le champ de saisie s'affiche dans l'onglet `Ecoles doctorales`.
 
 Voir le code du controller `back-office/components/center-form/index.js` pour la liste complète des `tab` :
+
 - Description
 - Écoles doctorales
 - Thématiques
@@ -97,7 +98,7 @@ Voir le code du controller `back-office/components/center-form/index.js` pour la
 
 Le `type` `boolean` crée une case à cocher.
 
-Des types plus complexes permettent d'obtenir des *champs composites*.
+Des types plus complexes permettent d'obtenir des _champs composites_.
 
 Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctorales. Cette dernière est réordonable en glissé-déposé à la souris.
 
