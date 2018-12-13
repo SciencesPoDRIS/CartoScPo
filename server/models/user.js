@@ -1,12 +1,12 @@
-const { createHash } = require('crypto')
-const mongoose = require('mongoose')
-const { server: config } = require('config')
-const { toJSON } = require('./utils')
+const { createHash } = require('crypto');
+const mongoose = require('mongoose');
+const { server: config } = require('config');
+const { toJSON } = require('./utils');
 
 function hashPassword(password) {
   return createHash('sha1')
     .update(config.salt + String(password))
-    .digest('hex')
+    .digest('hex');
 }
 
 const userSchema = new mongoose.Schema(
@@ -16,18 +16,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       match: /.{3}/,
       required: true,
-      set: hashPassword,
+      set: hashPassword
     },
-    connectedAt: { type: Date },
+    connectedAt: { type: Date }
   },
-  { timestamps: true },
-)
+  { timestamps: true }
+);
 userSchema
   .index({ email: 1 }, { unique: true })
-  .plugin(toJSON, { hide: ['password'] })
+  .plugin(toJSON, { hide: ['password'] });
 
 userSchema.method('validPassword', function validPassword(password) {
-  return this.password === hashPassword(password)
-})
+  return this.password === hashPassword(password);
+});
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema);

@@ -1,12 +1,11 @@
-import angular from 'angular'
-import './index.css'
+import angular from 'angular';
+import './index.css';
 
 class controller {
   $onInit() {
-    const { id: src } = this.center
+    const { id: src } = this.center;
     // available on the front-office
-    if (src)
-      this.src = `/img/logos/${src}.jpeg`
+    if (src) this.src = `/img/logos/${src}.jpeg`;
   }
 }
 
@@ -15,9 +14,9 @@ const component = {
     '<img ng-if="$ctrl.src" alt="center logo" class="center-logo" ng-src="{{ $ctrl.src }}">',
   controller,
   bindings: {
-    center: '=',
-  },
-}
+    center: '='
+  }
+};
 
 export default angular.module('bobib.logo', []).component('logo', component)
-  .name
+  .name;

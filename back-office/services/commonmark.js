@@ -1,78 +1,78 @@
-import angular from 'angular'
-import commonmark from 'commonmark'
+import angular from 'angular';
+import commonmark from 'commonmark';
 
 export default angular
   .module('commonmark', [])
   .provider('commonMark', function() {
     var defaultOptions = {
       sanitize: false,
-      highlight: false,
-    }
+      highlight: false
+    };
 
     this.setOptions = function(opt) {
-      defaultOptions = angular.extend(defaultOptions, opt || {})
-    }
+      defaultOptions = angular.extend(defaultOptions, opt || {});
+    };
 
     this.$get = [
       '$injector',
       '$log',
       function($injector, $log) {
         var commonMark = function commonMark(md, opt) {
-          opt = angular.extend({}, defaultOptions, opt || {})
+          opt = angular.extend({}, defaultOptions, opt || {});
 
-          var parsed = commonMark.parser.parse(md)
-          var htmlRenderer = commonMark.renderer
+          var parsed = commonMark.parser.parse(md);
+          var htmlRenderer = commonMark.renderer;
 
           if (opt.highlight && typeof opt.highlight === 'function') {
             var walker = parsed.walker(),
               event,
-              block
+              block;
 
             while ((event = walker.next())) {
-              block = event.node
+              block = event.node;
               if (block.type === 'CodeBlock') {
-                var info_words = block.info.split(/ +/)
+                var info_words = block.info.split(/ +/);
                 var attr =
                   info_words.length === 0 || info_words[0].length === 0
                     ? ''
                     : 'class=language-' +
-                      htmlRenderer.escape(info_words[0], true)
+                      htmlRenderer.escape(info_words[0], true);
 
                 block.literal =
                   '<pre><code ' +
                   attr +
                   '>' +
                   opt.highlight(block.literal) +
-                  '</pre></code>'
-                block._type = 'HtmlBlock'
+                  '</pre></code>';
+                block._type = 'HtmlBlock';
               }
             }
           }
 
-          var html = htmlRenderer.render(parsed)
+          var html = htmlRenderer.render(parsed);
 
           if (opt.sanitize !== false) {
             if ($injector.has('$sanitize')) {
-              var $sanitize = $injector.get('$sanitize')
-              html = $sanitize(html)
+              var $sanitize = $injector.get('$sanitize');
+              html = $sanitize(html);
             } else {
               $log.error(
                 'angular-commonmark:',
-                "Add 'ngSanitize' to your module dependencies",
-              )
-              html = ''
+                'Add \'ngSanitize\' to your module dependencies'
+              );
+              html = '';
             }
           }
 
-          return html
-        }
+          return html;
+        };
 
-        commonMark.renderer = new commonmark.HtmlRenderer()
-        commonMark.parser = new commonmark.Parser()
+        commonMark.renderer = new commonmark.HtmlRenderer();
+        commonMark.parser = new commonmark.Parser();
 
-        return commonMark
-      },
-    ]
+        return commonMark;
+      }
+    ];
   })
 
   .directive('commonMark', [
@@ -82,18 +82,18 @@ export default angular
       replace: true,
       scope: {
         opts: '=',
-        commonMark: '=',
+        commonMark: '='
       },
       link: (scope, element, attrs) => {
-        set(scope.commonMark || element.text() || '')
+        set(scope.commonMark || element.text() || '');
 
         function set(val) {
-          element.html(commonMark(val || '', scope.opts || null))
+          element.html(commonMark(val || '', scope.opts || null));
         }
 
         if (attrs.commonMark) {
-          scope.$watch('commonMark', set)
+          scope.$watch('commonMark', set);
         }
-      },
-    }),
-  ]).name
+      }
+    })
+  ]).name;

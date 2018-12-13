@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const { toJSON } = require('./utils')
-const { server } = require('config')
+const mongoose = require('mongoose');
+const { toJSON } = require('./utils');
+const { server } = require('config');
 
 const modificationSchema = new mongoose.Schema(
   {
@@ -8,35 +8,35 @@ const modificationSchema = new mongoose.Schema(
       type: String,
       default: 'pending',
       enum: ['pending', 'accepted', 'rejected'],
-      required: true,
+      required: true
     },
     verb: {
       type: String,
       default: 'update',
       enum: ['create', 'update', 'delete'],
-      required: true,
+      required: true
     },
     centerId: { type: String, required: true },
     // TODO
     oldCenter: mongoose.Schema.Types.Mixed,
     submittedCenter: mongoose.Schema.Types.Mixed,
     email: { type: String },
-    notify: { type: Boolean },
+    notify: { type: Boolean }
   },
-  { timestamps: true },
-)
+  { timestamps: true }
+);
 modificationSchema
   .index({ createdAt: -1, updatedAt: -1 }, { background: true }) // sorted by date
-  .plugin(toJSON)
+  .plugin(toJSON);
 
 // Always sort by createdAt DESC, updatedAt DESC
 modificationSchema.pre('find', function() {
-  this.sort({ createdAt: -1, updatedAt: -1 })
-})
+  this.sort({ createdAt: -1, updatedAt: -1 });
+});
 
 // used in emails, so it should be the public host
 modificationSchema.method('getURL', function getURL() {
-  return `${server.backOfficeBaseUrl}/modifications/${this.id}`
-})
+  return `${server.backOfficeBaseUrl}/modifications/${this.id}`;
+});
 
-module.exports = mongoose.model('Modification', modificationSchema)
+module.exports = mongoose.model('Modification', modificationSchema);

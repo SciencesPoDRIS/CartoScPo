@@ -1,28 +1,28 @@
-import angular from 'angular'
+import angular from 'angular';
 
 class controller {
-  static $inject = ['session']
+  static $inject = ['session'];
 
   constructor(session) {
-    this.session = session
+    this.session = session;
 
     this.credentials = {
       email: '',
-      password: '',
-    }
-    this.error = false
+      password: ''
+    };
+    this.error = false;
   }
 
   submit() {
-    this.session.login(this.credentials).catch(() => (this.error = true))
+    this.session.login(this.credentials).catch(() => (this.error = true));
   }
 }
 
 const component = {
   template: require('./index.html'),
-  controller,
-}
+  controller
+};
 
 export default angular
   .module('bobib.login-form', [])
-  .component('loginForm', component).name
+  .component('loginForm', component).name;

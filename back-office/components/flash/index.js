@@ -1,24 +1,24 @@
-import angular from 'angular'
+import angular from 'angular';
 
 class controller {
-  static $inject = ['$rootScope', '$timeout']
+  static $inject = ['$rootScope', '$timeout'];
 
   constructor($rootScope, $timeout) {
-    Object.assign(this, { $rootScope, $timeout })
+    Object.assign(this, { $rootScope, $timeout });
 
-    this.$rootScope.flashes = []
+    this.$rootScope.flashes = [];
   }
 
   $onInit() {
     this.$rootScope.$watch(
       'flashes',
       () => this.$timeout(() => this.close(), 2000),
-      true,
-    )
+      true
+    );
   }
 
   close() {
-    this.$rootScope.flashes = []
+    this.$rootScope.flashes = [];
   }
 }
 
@@ -27,8 +27,8 @@ const component = {
   <button class="delete" ng-click="$ctrl.close()"></button>
   {{ $ctrl.$rootScope.flashes[0] }}
   </div>`,
-  controller,
-}
+  controller
+};
 
 export default angular.module('bobib.flash', []).component('flash', component)
-  .name
+  .name;

@@ -1,36 +1,36 @@
-import angular from 'angular'
+import angular from 'angular';
 
 class controller {
-  static $inject = ['$log', 'api']
+  static $inject = ['$log', 'api'];
 
   constructor($log, api) {
-    Object.assign(this, { $log, api })
+    Object.assign(this, { $log, api });
 
-    this.users = []
+    this.users = [];
   }
 
   $onInit() {
-    this.getUsers()
+    this.getUsers();
   }
 
   getUsers() {
     this.api
       .get('users')
-      .then(({ users }) => (this.users = users), this.$log.error)
+      .then(({ users }) => (this.users = users), this.$log.error);
   }
 
   delete(user) {
     if (window.confirm(`Êtes vous sur de supprimer ${user.email} ?`)) {
-      this.api.delete(`users/${user.id}`).then(() => this.getUsers())
+      this.api.delete(`users/${user.id}`).then(() => this.getUsers());
     }
   }
 }
 
 const component = {
   template: require('./index.html'),
-  controller,
-}
+  controller
+};
 
 export default angular
   .module('bobib.users-list', [])
-  .component('usersList', component).name
+  .component('usersList', component).name;

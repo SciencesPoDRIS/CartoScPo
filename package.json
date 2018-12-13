@@ -23,7 +23,8 @@
     "bo:analyze-bundle": "ANALYZE_BUNDLE=1 npm run bo:build",
     "docker": "UID=$(id -u) GID=$(id -g) docker-compose -f docker-compose.dev.yml up",
     "maildev": "maildev -w 3025 -s 25000 --verbose",
-    "install": "bower install"
+    "install": "bower install",
+    "prettier": "prettier-eslint --write \"app/**/*.js\" \"back-office/**/*.js\" \"server/**/*.js\" \"bin/*.js\""
   },
   "keywords": [
     "Science",
@@ -57,6 +58,7 @@
     "maildev": "^1.0.0-rc3",
     "nodemon": "^1.15.1",
     "npm-run-all": "^4.1.2",
+    "prettier-eslint-cli": "^4.7.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.21.0",
     "uglify-es": "^3.3.9",

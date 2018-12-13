@@ -1,14 +1,12 @@
 'use strict';
 
-angular.module('bib.services')
-.factory('centerService', function (dataService) {
+angular.module('bib.services').factory('centerService', function(dataService) {
   return {
     // retrieve info from data.json
-    getAll: function () {
-      return dataService.get().then(function (data) {
-        return data.centers
+    getAll: function() {
+      return dataService.get().then(function(data) {
+        return data.centers;
       });
     }
   };
 });
-

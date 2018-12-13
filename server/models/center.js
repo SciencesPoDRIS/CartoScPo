@@ -1,22 +1,22 @@
-const path = require('path')
-const debug = require('debug')('mongoose')
-const mongoose = require('mongoose')
-const { toJSON } = require('./utils')
+const path = require('path');
+const debug = require('debug')('mongoose');
+const mongoose = require('mongoose');
+const { toJSON } = require('./utils');
 
 // the mongoose schema is auto created from this file
-const SCHEMA = path.join(__dirname, '../../back-office/schema.json')
-const { properties: schema } = require(SCHEMA)
+const SCHEMA = path.join(__dirname, '../../back-office/schema.json');
+const { properties: schema } = require(SCHEMA);
 
 const getType = str => {
   switch (str) {
     case 'number':
-      return Number
+      return Number;
     case 'boolean':
-      return Boolean
+      return Boolean;
     default:
-      return String
+      return String;
   }
-}
+};
 
 const getMongooseFields = schema =>
   Array.from(Object.entries(schema)).reduce((acc, [fieldId, fieldProps]) => {
@@ -25,58 +25,58 @@ const getMongooseFields = schema =>
       case 'array':
         acc[fieldId] = [
           new mongoose.Schema(getMongooseFields(fieldProps.item), {
-            _id: false,
-          }),
-        ]
-        break
+            _id: false
+          })
+        ];
+        break;
 
       // like 'Collections auprès d'éditeurs ?'
       case 'boolean-item':
         acc[fieldId] = new mongoose.Schema(
           {
             ...getMongooseFields(fieldProps.item),
-            enabled: { type: Boolean },
+            enabled: { type: Boolean }
           },
-          { _id: false },
-        )
-        break
+          { _id: false }
+        );
+        break;
 
       // like 'Sections CNRS'
       case 'check-list':
-        acc[fieldId] = [{ type: String }]
-        break
+        acc[fieldId] = [{ type: String }];
+        break;
 
       default: {
-        let { type, required } = fieldProps
+        let { type, required } = fieldProps;
         acc[fieldId] = {
           type: getType(type),
-          required: Boolean(required),
-        }
-        break
+          required: Boolean(required)
+        };
+        break;
       }
     }
-    return acc
-  }, {})
+    return acc;
+  }, {});
 
-const mongooseFields = getMongooseFields(schema)
+const mongooseFields = getMongooseFields(schema);
 
-delete mongooseFields.id
+delete mongooseFields.id;
 
 const centerSchema = new mongoose.Schema(
   {
     id: { type: String, required: true },
-    ...mongooseFields,
+    ...mongooseFields
   },
-  { timestamps: true },
-)
-centerSchema.index({ id: 1 }, { unique: true }).plugin(toJSON)
+  { timestamps: true }
+);
+centerSchema.index({ id: 1 }, { unique: true }).plugin(toJSON);
 
 const logError = (err, res, next) => {
-  debug(err)
-  next(err)
-}
+  debug(err);
+  next(err);
+};
 
-centerSchema.post('save', logError)
-centerSchema.post('update', logError)
+centerSchema.post('save', logError);
+centerSchema.post('update', logError);
 
-module.exports = mongoose.model('Center', centerSchema)
+module.exports = mongoose.model('Center', centerSchema);

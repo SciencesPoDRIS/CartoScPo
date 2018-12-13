@@ -1,27 +1,27 @@
-const path = require('path')
-const _ = require('lodash')
-const { createPatch } = require('rfc6902')
-const { Center, Modification, sanitizeCenter } = require('../models')
+const path = require('path');
+const _ = require('lodash');
+const { createPatch } = require('rfc6902');
+const { Center, Modification, sanitizeCenter } = require('../models');
 const {
   sendModificationToAdmins,
-  sendModificationConfirmationToGuest,
-} = require('../mailer')
+  sendModificationConfirmationToGuest
+} = require('../mailer');
 
 exports.get = async ({ params }, res) => {
-  const center = await Center.findOne({ id: params.id })
-  center ? res.json({ center }) : res.boom.notFound()
-}
+  const center = await Center.findOne({ id: params.id });
+  center ? res.json({ center }) : res.boom.notFound();
+};
 
 exports.list = async (req, res) => {
-  res.json({ centers: await Center.find() })
-}
+  res.json({ centers: await Center.find() });
+};
 
 const createModificationAndSendEmails = async (
   centerId,
   oldCenter,
   submittedCenter,
   email,
-  verb,
+  verb
 ) => {
   const m = new Modification({
     centerId,
@@ -29,20 +29,20 @@ const createModificationAndSendEmails = async (
     submittedCenter,
     email,
     notify: Boolean(email),
-    verb,
-  })
-  await m.save()
-  sendModificationToAdmins(m)
-  if (email) sendModificationConfirmationToGuest(m, email)
-}
+    verb
+  });
+  await m.save();
+  sendModificationToAdmins(m);
+  if (email) sendModificationConfirmationToGuest(m, email);
+};
 
 exports.create = async ({ body, user }, res) => {
-  const submittedCenter = sanitizeCenter(body.center)
+  const submittedCenter = sanitizeCenter(body.center);
 
   if (user) {
     try {
-      const center = new Center(body.center)
-      await center.save()
+      const center = new Center(body.center);
+      await center.save();
       const m = new Modification({
         centerId: body.center.id,
         oldCenter: {},
@@ -50,12 +50,12 @@ exports.create = async ({ body, user }, res) => {
         email: user.email,
         notify: false,
         status: 'accepted',
-        verb: 'create',
-      })
-      m.save()
-      res.send('ok')
+        verb: 'create'
+      });
+      m.save();
+      res.send('ok');
     } catch (err) {
-      return res.boom.badRequest()
+      return res.boom.badRequest();
     }
   } else {
     await createModificationAndSendEmails(
@@ -63,28 +63,28 @@ exports.create = async ({ body, user }, res) => {
       {},
       submittedCenter,
       body.email,
-      'create',
-    )
-    res.send('ok')
+      'create'
+    );
+    res.send('ok');
   }
-}
+};
 
 exports.update = async ({ params, body, user }, res) => {
-  const center = await Center.findOne({ id: params.id })
-  if (!center) return res.boom.notFound()
+  const center = await Center.findOne({ id: params.id });
+  if (!center) return res.boom.notFound();
 
-  const oldCenter = sanitizeCenter(center.toJSON())
-  const submittedCenter = sanitizeCenter(body.center)
+  const oldCenter = sanitizeCenter(center.toJSON());
+  const submittedCenter = sanitizeCenter(body.center);
 
   // don't create an empty modif
-  const diffs = createPatch(oldCenter, submittedCenter)
-  if (!diffs.length) return res.boom.badRequest('no-diffs')
+  const diffs = createPatch(oldCenter, submittedCenter);
+  if (!diffs.length) return res.boom.badRequest('no-diffs');
 
   if (user) {
     try {
       // auto-accept but create a modif as a log
-      center.set(submittedCenter)
-      await center.save()
+      center.set(submittedCenter);
+      await center.save();
       const m = new Modification({
         centerId: params.id,
         oldCenter,
@@ -92,14 +92,14 @@ exports.update = async ({ params, body, user }, res) => {
         email: user.email,
         notify: false,
         status: 'accepted',
-        verb: 'update',
-      })
-      await m.save()
-      res.send('ok')
+        verb: 'update'
+      });
+      await m.save();
+      res.send('ok');
     } catch (err) {
       // mainly validation errors that should not happen in regular scenarii
       // since the angular form should block the submission
-      return res.boom.badRequest()
+      return res.boom.badRequest();
     }
   } else {
     await createModificationAndSendEmails(
@@ -107,21 +107,21 @@ exports.update = async ({ params, body, user }, res) => {
       oldCenter,
       submittedCenter,
       body.email,
-      'update',
-    )
-    res.send('ok')
+      'update'
+    );
+    res.send('ok');
   }
-}
+};
 
 exports.delete = async ({ params, body, user }, res) => {
-  const center = await Center.findOne({ id: params.id })
-  if (!center) return res.boom.notFound()
+  const center = await Center.findOne({ id: params.id });
+  if (!center) return res.boom.notFound();
 
-  const oldCenter = sanitizeCenter(center.toJSON())
-  const submittedCenter = {}
+  const oldCenter = sanitizeCenter(center.toJSON());
+  const submittedCenter = {};
 
   if (user) {
-    await Center.remove({ id: params.id })
+    await Center.remove({ id: params.id });
     const m = new Modification({
       centerId: params.id,
       oldCenter,
@@ -129,49 +129,51 @@ exports.delete = async ({ params, body, user }, res) => {
       email: user.email,
       notify: false,
       status: 'accepted',
-      verb: 'delete',
-    })
-    await m.save()
+      verb: 'delete'
+    });
+    await m.save();
   } else {
     await createModificationAndSendEmails(
       params.id,
       oldCenter,
       submittedCenter,
       body.email,
-      'delete',
-    )
+      'delete'
+    );
   }
-  res.send('ok')
-}
+  res.send('ok');
+};
 
 // this should roughly respect the same output than app/data/script_data_csv_to_json.js
 exports.export = async (req, res) => {
-  const centers = (await Center.find()).filter(c => !c.hidden)
-  const words = getWords(centers)
-  res.header('Access-Control-Allow-Origin', '*')
+  const centers = (await Center.find()).filter(c => !c.hidden);
+  const words = getWords(centers);
+  res.header('Access-Control-Allow-Origin', '*');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
-  )
-  res.send({ centers, words })
-}
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  res.send({ centers, words });
+};
 
 exports.uploadLogo = async ({ params, files }, res) => {
-  if (!files) return res.boom.badRequest('No files to handle')
+  if (!files) return res.boom.badRequest('No files to handle');
 
-  const center = await Center.findOne({ id: params.id })
-  if (!center) return res.boom.notFound('No center found with this Id')
+  const center = await Center.findOne({ id: params.id });
+  if (!center) return res.boom.notFound('No center found with this Id');
 
-  const { file } = files
-  if (!file) return res.boom.badRequest()
+  const { file } = files;
+  if (!file) return res.boom.badRequest();
 
   try {
-    await file.mv(path.resolve(`${__dirname}/../../app/img/logos/${center.id}.jpeg`))
-    res.send('ok')
+    await file.mv(
+      path.resolve(`${__dirname}/../../app/img/logos/${center.id}.jpeg`)
+    );
+    res.send('ok');
   } catch (ex) {
-    return res.boom.badRequest('Can\'t move file')
+    return res.boom.badRequest("Can't move file");
   }
-}
+};
 
 // TODO: this should be elasticlunr stemmer's role to do it, on the client side
 const keysList = [
@@ -179,36 +181,36 @@ const keysList = [
   'name',
   'addresses',
   'affiliations',
-  'research_areas',
-]
+  'research_areas'
+];
 function getWords(centers) {
-  var words = []
+  var words = [];
   centers.forEach(c => {
     Object.keys(c.toJSON()).forEach(k => {
-      let content = c[k]
-      if (!keysList.includes(k)) return
+      let content = c[k];
+      if (!keysList.includes(k)) return;
 
       if (Array.isArray(content)) {
         if (k === 'addresses') {
-          content = content.map(c => c.address).join(' ')
+          content = content.map(c => c.address).join(' ');
         }
         if (k === 'affiliations') {
-          content = content.map(c => c.name).join(' ')
+          content = content.map(c => c.name).join(' ');
         }
       }
-      content = cleanWord(content).split(' ')
-      words = words.concat(content)
-    })
-  })
+      content = cleanWord(content).split(' ');
+      words = words.concat(content);
+    });
+  });
 
   words = _.uniq(words)
     .filter(w => w.length > 2)
-    .sort()
-  return words
+    .sort();
+  return words;
 }
 
 function cleanWord(content) {
-  if (typeof content !== 'string') return ''
+  if (typeof content !== 'string') return '';
   return content
     .replace(/ /g, ' ')
     .replace(/\,|\:|\;/g, ' ')
@@ -224,5 +226,5 @@ function cleanWord(content) {
     .replace(/#/g, ' ')
     .replace(/\./g, ' ')
     .replace(/[cdl]['’]/g, '')
-    .toLowerCase()
+    .toLowerCase();
 }

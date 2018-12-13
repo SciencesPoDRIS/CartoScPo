@@ -1,20 +1,19 @@
 /* globals angular, _, commonmark */
 'use strict';
 
-angular.module('bib.components')
-.component('centerDetail', {
+angular.module('bib.components').component('centerDetail', {
   templateUrl: 'views/center-detail.html',
   bindings: {
     // can't use "center", it's already taken by Leaflet
     org: '<',
     expanded: '<'
   },
-  controller: function (backOfficeBaseUrl) {
+  controller: function(backOfficeBaseUrl) {
     this.collapsed = true;
 
-    this.$onInit = function () {
+    this.$onInit = function() {
       // TODO more predictable destructuring
-      Object.keys(this.org).forEach(function (key) {
+      Object.keys(this.org).forEach(function(key) {
         this[key] = this.org[key];
       }, this);
 
@@ -23,11 +22,11 @@ angular.module('bib.components')
       var writer = new commonmark.HtmlRenderer();
 
       function convert(fields) {
-        if (!fields) return ''
+        if (!fields) return '';
         var acc = '';
         fields = fields.replace(/\n/g, '\n\n');
         if (Array.isArray(fields)) {
-          _.forEach(fields, function (d) {
+          _.forEach(fields, function(d) {
             acc = acc.concat(d) + ' \n';
           });
           return writer.render(reader.parse(acc));
@@ -36,7 +35,7 @@ angular.module('bib.components')
         }
       }
 
-      this.boHref = `${backOfficeBaseUrl}/centers/${this.org.id}`
+      this.boHref = `${backOfficeBaseUrl}/centers/${this.org.id}`;
 
       // Administration
       this.history = convert(this.org.history);
@@ -50,17 +49,21 @@ angular.module('bib.components')
       this.collections_titles = convert(this.org.collections.titles);
       this.journal_titles = convert(this.org.journal.titles);
       this.oa_policy = convert(this.org.oa_policy);
-      this.data_repository_projects = convert(this.org.data_repository.projects);
+      this.data_repository_projects = convert(
+        this.org.data_repository.projects
+      );
       this.valorisation = convert(this.org.valorisation);
       // Documentation
       this.eresources = convert(this.org.resources);
       this.library_staff = convert(this.org.library_staff);
-      this.information_skills_training = convert(this.org.information_skills_training);
+      this.information_skills_training = convert(
+        this.org.information_skills_training
+      );
       this.used_librairies = convert(this.org.used_librairies);
       this.library_titles = convert(this.org.library.titles);
       this.library_description = convert(this.org.library_description);
       this.library_policy = convert(this.org.library_policy);
-      this.libraries_network_list = convert(this.org.libraries_network_list)
+      this.libraries_network_list = convert(this.org.libraries_network_list);
     }.bind(this);
   }
 });
