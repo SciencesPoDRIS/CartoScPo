@@ -9,7 +9,6 @@ angular
     facetService,
     backOfficeBaseUrl
   ) {
-    var url = './data/metadata.json?ver=' + Math.floor(Date.now() / 1000);
     var cache;
 
     return {
