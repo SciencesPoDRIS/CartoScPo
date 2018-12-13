@@ -12,7 +12,7 @@
     "lint": "eslint app",
     "parse": "npm-run-all -p parse:*",
     "parse:data": "node app/data/script_data_csv_to_json",
-    "parse:metadata": "node app/data/script_metadata_csv_to_json",
+    "~obsolete~parse:metadata": "node app/data/script_metadata_csv_to_json",
     "bo:watch": "npm-run-all -p bo:watch:*",
     "bo:watch:client": "webpack -d",
     "bo:watch:server": "DEBUG=express,mongo,mongoose,mailer,redis nodemon --watch server server/index.js",
