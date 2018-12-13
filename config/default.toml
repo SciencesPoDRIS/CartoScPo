@@ -3,6 +3,7 @@ port = 42000
 # used to generate links in emails
 host = "http://localhost"
 
+frontOfficeBaseUrl = "http://localhost:3000"
 backOfficeBaseUrl = "http://localhost:42000"
 baseHref = "/admin/"
 

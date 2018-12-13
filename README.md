@@ -20,7 +20,10 @@ npx bower install
 
 Copier le fichier app/conf/conf.default.js vers app/conf/conf.js.
 
-Editer app/conf/conf.js et remplacer GOOGLE_ANALYTICS_ID par votre Id Google Analytics de la forme UA-XXXXXXX-XX et BACK_OFFICE_BASEURL par l'url sur laquelle sera servie le backoffice, exemple http://localhost:42000.
+Editer app/conf/conf.js et remplacer :
+
+- `GOOGLE_ANALYTICS_ID` par votre Id Google Analytics de la forme UA-XXXXXXX-XX
+- `BACK_OFFICE_BASEURL` par l'url sur laquelle sera servie le backoffice, exemple `http://localhost:42000`
 
 ## Lancement de l'app (front)
 

@@ -5,7 +5,7 @@ class controller {
   $onInit() {
     const { id: src } = this.center;
     // available on the front-office
-    if (src) this.src = `/img/logos/${src}.jpeg`;
+    if (src) this.src = `${FRONT_OFFICE_BASEURL}/img/logos/${src}.jpeg`;
   }
 }
 

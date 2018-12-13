@@ -3,6 +3,7 @@ port = "SERVER_PORT"
 # used to generate links in emails
 host = "SERVER_HOST"
 
+frontOfficeBaseUrl = "FRONT_OFFICE_BASEURL"
 backOfficeBaseUrl = "BACK_OFFICE_BASEURL"
 baseHref = "BACK_OFFICE_BASEHREF"
 
@@ -21,7 +22,7 @@ googleAnalyticsId="GOOGLE_ANALYTICS_ID"
 
 # store centers, modifications and users
 [mongo]
-uri = "MONGO_URI" 
+uri = "MONGO_URI"
 
 # store sessions
 [redis]

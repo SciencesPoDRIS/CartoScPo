@@ -1,11 +1,13 @@
 // webpack is only used to build the back office
 // front office is build with gulp
+const conf = require('config');
+const webpack = require('webpack');
 
 const config = {
   watch: process.env.NODE_ENV === 'development',
   entry: './back-office/index.js',
   output: {
-    filename: './back-office/bundle.js',
+    filename: './back-office/bundle.js'
   },
   module: {
     rules: [
@@ -17,10 +19,10 @@ const config = {
             loader: 'babel-loader',
             options: {
               presets: ['env'],
-              plugins: ['transform-class-properties'],
-            },
-          },
-        ],
+              plugins: ['transform-class-properties']
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -31,10 +33,10 @@ const config = {
             loader: 'html-minify-loader',
             options: {
               // set to true to keep comments
-              comments: false,
-            },
-          },
-        ],
+              comments: false
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -43,24 +45,28 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: false,
-            },
-          },
-        ],
-      },
-    ],
+              modules: false
+            }
+          }
+        ]
+      }
+    ]
   },
-  plugins: [],
-}
+  plugins: [
+    new webpack.DefinePlugin({
+      FRONT_OFFICE_BASEURL: JSON.stringify(conf.server.frontOfficeBaseUrl)
+    })
+  ]
+};
 
 if (process.env.ANALYZE_BUNDLE) {
-  const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+  const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
   config.plugins.push(
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      reportFilename: 'webpack.report.html',
-    }),
-  )
+      reportFilename: 'webpack.report.html'
+    })
+  );
 }
 
-module.exports = config
+module.exports = config;
