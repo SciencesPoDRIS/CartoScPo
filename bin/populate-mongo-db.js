@@ -39,7 +39,8 @@ const fixes = {
     'Centre de documentation ou bibliothèque en propre : description et fonds spécifiques',
   information_skills_training: 'Offre de formations documentaires',
   libraries_network_list:
-    'Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)'
+    'Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)',
+  scanr_url: 'Lien_ScanR'
 };
 
 const castBoolean = v => v.toLowerCase() === 'oui';
