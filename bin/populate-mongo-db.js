@@ -41,10 +41,18 @@ const fixes = {
   information_skills_training: 'Offre de formations documentaires',
   libraries_network_list:
     'Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)',
-  scanr_url: 'Lien_ScanR'
+  national_structure_number: 'Numero_National_de_Structure',
+  rnsr_url: 'Lien_RNSR',
+  scanr_url: 'Lien_ScanR',
+  wikidata: 'wikidata',
+  wikipedia_url: 'Lien_wikipedia',
+  update_date: 'Date de mise à jour'
 };
 
-const castBoolean = v => v.toLowerCase() === 'oui';
+const castBoolean = v => v.toLowerCase() === 'oui' || v.toLowerCase() === 'ok';
+
+const castString = v =>
+  v.trim().toLowerCase() === 'x' ? null : v.trim() === '' ? null : v;
 
 // to avoid false positive during json diff when a modification
 // is submitted and a field was not explicitely "touched by the user" ref: #53
@@ -77,7 +85,7 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
       case 'coords':
       case 'person':
       default:
-        fieldValue = tab[label];
+        fieldValue = castString(tab[label]);
       }
     }
   });

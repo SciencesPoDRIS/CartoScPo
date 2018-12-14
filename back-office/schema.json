@@ -179,12 +179,57 @@
       "required": false,
       "searchable": false
     },
+    "national_structure_number": {
+      "label": "Numéro national de structure",
+      "type": "string",
+      "tab": "administration",
+      "required": false,
+      "searchable": true,
+      "bo": true,
+      "fo": true
+    },
+    "rnsr_url": {
+      "label": "Lien RNSR",
+      "type": "url",
+      "tab": "administration",
+      "required": false,
+      "searchable": false,
+      "bo": true,
+      "fo": true
+    },
     "scanr_url": {
       "label": "Lien vers la fiche ScanR",
       "type": "url",
       "tab": "administration",
       "required": false,
       "searchable": false,
+      "bo": true,
+      "fo": true
+    },
+    "wikidata_id": {
+      "label": "Identifiant Wikidata",
+      "type": "string",
+      "tab": "administration",
+      "required": false,
+      "searchable": true,
+      "bo": true,
+      "fo": true
+    },
+    "wikipedia_url": {
+      "label": "Lien vers la fiche Wikipedia",
+      "type": "url",
+      "tab": "administration",
+      "required": false,
+      "searchable": false,
+      "bo": true,
+      "fo": true
+    },
+    "update_date": {
+      "label": "Date de mise à jour",
+      "type": "number",
+      "tab": "administration",
+      "required": false,
+      "searchable": true,
       "bo": true,
       "fo": true
     },
