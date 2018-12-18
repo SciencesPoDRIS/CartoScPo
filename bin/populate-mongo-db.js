@@ -7,6 +7,7 @@ const path = require('path');
 const { argv } = require('yargs');
 
 const clearCenters = argv.clear || argv.c;
+const updateCenters = argv.update || argv.u;
 const dryRun = argv.dry || argv.d;
 
 const dataPath = argv.path || argv.p || path.join(__dirname, '../app/data');
@@ -40,10 +41,18 @@ const fixes = {
   information_skills_training: 'Offre de formations documentaires',
   libraries_network_list:
     'Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)',
-  scanr_url: 'Lien_ScanR'
+  national_structure_number: 'Numero_National_de_Structure',
+  rnsr_url: 'Lien_RNSR',
+  scanr_url: 'Lien_ScanR',
+  wikidata: 'wikidata',
+  wikipedia_url: 'Lien_wikipedia',
+  update_date: 'Date de mise à jour'
 };
 
-const castBoolean = v => v.toLowerCase() === 'oui';
+const castBoolean = v => v.toLowerCase() === 'oui' || v.toLowerCase() === 'ok';
+
+const castString = v =>
+  v.trim().toLowerCase() === 'x' ? null : v.trim() === '' ? null : v;
 
 // to avoid false positive during json diff when a modification
 // is submitted and a field was not explicitely "touched by the user" ref: #53
@@ -76,7 +85,7 @@ function findFieldValue(rawCenter, fieldId, { label, type }) {
       case 'coords':
       case 'person':
       default:
-        fieldValue = tab[label];
+        fieldValue = castString(tab[label]);
       }
     }
   });
@@ -216,6 +225,7 @@ function sanitize(rawCenter) {
               : findFieldValue(rawCenter, fieldId, fieldProps);
           // attempt to fix with a dummy value to pass mongoose validation
         if (fieldProps.required && value === null) {
+          // eslint-disable-next-line no-console
           console.error(
             'wrong value',
             rawCenter.administration.id,
@@ -246,19 +256,38 @@ function sanitize(rawCenter) {
 
 function saveToMongo(cleanedCenter) {
   if (dryRun) {
-    console.log('dry run: nothing is saved in mongo');
+    console.log('dry run: nothing is saved in mongo'); // eslint-disable-line no-console
     return cleanedCenter;
   }
 
-  console.log('saving…', cleanedCenter.id, cleanedCenter.code);
-  return new Center(cleanedCenter).save();
+  const create = () => {
+    console.log('creating…', cleanedCenter.id, cleanedCenter.code); // eslint-disable-line no-console
+    return new Center(cleanedCenter).save();
+  };
+
+  const update = found => {
+    console.log('updating…', cleanedCenter.id, cleanedCenter.code); // eslint-disable-line no-console
+    for (let key in cleanedCenter) {
+      found[key] = cleanedCenter[key];
+    }
+    return found.save();
+  };
+
+  if (updateCenters) {
+    return Center.findOne({ id: cleanedCenter.id }).then(found =>
+      found ? update(found) : create()
+    );
+  }
+
+  return create();
 }
 
 // let's go
 
 if (clearCenters) {
-  Center.remove({}, (err, { result }) =>
-    console.log(`${result.n} centers deleted`)
+  Center.remove(
+    {},
+    (err, { result }) => console.log(`${result.n} centers deleted`) // eslint-disable-line no-console
   );
 }
 
@@ -267,6 +296,14 @@ Promise.all(
     .map(sanitize)
     .map(saveToMongo)
 )
-  .then(console.log, console.error)
-  .then(() => `${Object.keys(centers)} saved`)
-  .then(() => process.exit());
+  .then(() => {
+    // eslint-disable-next-line no-console
+    console.log(
+      `Saved ${Object.keys(centers).length} centers: ${Object.keys(centers)}.`
+    );
+    process.exit();
+  })
+  .catch(err => {
+    console.error(err); // eslint-disable-line no-console
+    process.exit(1);
+  });

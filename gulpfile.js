@@ -10,12 +10,23 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify/composer')(uglifyes),
   ngAnnotate = require('gulp-ng-annotate'),
   browserSync = require('browser-sync').create(),
-  cleanCSS = require('gulp-clean-css');
+  cleanCSS = require('gulp-clean-css'),
+  fs = require('fs');
+
+gulp.srcStrict = function(files) {
+  files.forEach(function(file) {
+    if (file.indexOf('*') === -1) {
+      // Exclude globs
+      fs.accessSync(file);
+    }
+  });
+  return gulp.src(files);
+};
 
 // Concat and minify all JS libraries
 gulp.task('js:lib', function() {
   return gulp
-    .src([
+    .srcStrict([
       'bower_components/lodash/dist/lodash.min.js',
       'bower_components/jquery/dist/jquery.min.js',
       'bower_components/jquery-highlight/jquery.highlight.js',
@@ -36,7 +47,7 @@ gulp.task('js:lib', function() {
       'bower_components/papaparse/papaparse.min.js',
       'bower_components/lunr.js/lunr.min.js',
       'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js',
-      'node_modules/commonmark/dist/commonmark.min.js'
+      'bower_components/commonmark/dist/commonmark.min.js'
     ])
     .pipe(concat('lib.min.js'))
     .pipe(uglify())
@@ -49,7 +60,7 @@ gulp.task('js:app', function() {
       config.server.host + ':' + config.server.port;
   }
   return gulp
-    .src([
+    .srcStrict([
       'app/app.js',
       'app/components/center-detail.component.js',
       'app/components/center-list.component.js',
@@ -88,7 +99,7 @@ gulp.task('less', function() {
 // Concat and minify all CSS files
 gulp.task('css', ['less'], function() {
   return gulp
-    .src([
+    .srcStrict([
       'bower_components/angular-ui-select/dist/select.css',
       'bower_components/leaflet/dist/leaflet.css',
       'bower_components/angular-ui-grid/ui-grid.css',
