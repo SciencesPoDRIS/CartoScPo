@@ -36,7 +36,7 @@ gulp.task('js:lib', function() {
       'bower_components/papaparse/papaparse.min.js',
       'bower_components/lunr.js/lunr.min.js',
       'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js',
-      'node_modules/commonmark/dist/commonmark.min.js'
+      'bower_components/commonmark/dist/commonmark.min.js'
     ])
     .pipe(concat('lib.min.js'))
     .pipe(uglify())
