@@ -54,11 +54,6 @@ angular.module('bib.services').factory('facetService', function($filter) {
       id: 'cnrs_sections',
       label: 'Sections CNRS',
       type: 'multi'
-    },
-    {
-      id: 'hal',
-      label: 'Publications versées dans HAL ?',
-      type: 'boolean'
     }
   ];
 
