@@ -4,13 +4,46 @@
 // to populate the 'centers' collection in the mongodb
 
 const path = require('path');
-const { argv } = require('yargs');
+const { pick, without } = require('lodash');
+const { argv } = require('yargs')
+  .options({
+    update: {
+      type: 'array',
+      alias: 'u',
+      describe:
+        'Update instead of overwriting whole data, you can provide whitelist of fields to update'
+    },
+    clear: {
+      type: 'boolean',
+      alias: 'c',
+      describe: 'Reset the whole centers collection before populating'
+    },
+    dry: {
+      type: 'boolean',
+      alias: 'd',
+      describe: 'Simulates execution, no real query is run'
+    },
+    path: {
+      type: 'string',
+      alias: 'p',
+      default: path.resolve(__dirname, '../app/data'),
+      describe: 'Path to data directory, where "data.json" can be found'
+    },
+    verbose: {
+      type: 'boolean',
+      describe: 'Show more information about data'
+    }
+  })
+  .alias('h', 'help')
+  .help();
 
-const clearCenters = argv.clear || argv.c;
-const updateCenters = argv.update || argv.u;
-const dryRun = argv.dry || argv.d;
-
-const dataPath = argv.path || argv.p || path.join(__dirname, '../app/data');
+const {
+  clear: clearCenters,
+  update: updateCenters,
+  dry: dryRun,
+  verbose,
+  path: dataPath
+} = argv;
 
 const DATA = dataPath + '/data.json';
 const { allCenters: centers } = require(DATA);
@@ -251,41 +284,101 @@ function sanitize(rawCenter) {
   );
 }
 
-function saveToMongo(cleanedCenter) {
-  if (dryRun) {
-    console.log('dry run: nothing is saved in mongo'); // eslint-disable-line no-console
-    return cleanedCenter;
+// Equality comparison used for fields, handling subdocuments
+function isSloppyEqual(a, b) {
+  if (a === null && b === null) {
+    return true;
+  } else if ((a === null && b !== null) || (a !== null && b === null)) {
+    return false;
+  } else if (Array.isArray(a) && Array.isArray(b)) {
+    // Compare list of objects
+    return (
+      a.length === b.length && a.every((o, index) => isSloppyEqual(o, b[index]))
+    );
+  } else if (typeof a === 'object' && typeof b === 'object') {
+    const ka = without(Object.keys(a), 'id').sort();
+    const kb = without(Object.keys(b), 'id').sort();
+    return isSloppyEqual(ka, kb) && ka.every(k => isSloppyEqual(a[k], b[k]));
+  } else if (
+    (typeof a === 'number' && typeof b === 'string') ||
+    (typeof a === 'string' && typeof b === 'number')
+  ) {
+    return a == b;
+  } else {
+    return a === b;
   }
+}
+
+function saveToMongo(cleanedCenter) {
+  const save = obj => {
+    if (dryRun) {
+      return Promise.resolve(obj);
+    }
+    return obj.save();
+  };
 
   const create = () => {
-    console.log('creating…', cleanedCenter.id, cleanedCenter.code); // eslint-disable-line no-console
-    return new Center(cleanedCenter).save();
+    console.log('creating… %s', cleanedCenter.id); // eslint-disable-line no-console
+    return save(new Center(cleanedCenter));
   };
 
   const update = found => {
-    console.log('updating…', cleanedCenter.id, cleanedCenter.code); // eslint-disable-line no-console
-    for (let key in cleanedCenter) {
-      found[key] = cleanedCenter[key];
+    // Remove 'id' from subdocuments when comparing
+    const json = found.toJSON();
+    const picked =
+      argv.update.length > 0 ? pick(cleanedCenter, argv.update) : cleanedCenter;
+    let updates = {};
+    for (let key in picked) {
+      if (!isSloppyEqual(cleanedCenter[key], json[key])) {
+        updates[key] = cleanedCenter[key];
+      }
     }
-    return found.save();
+    if (Object.keys(updates).length === 0) {
+      if (verbose) {
+        console.log('VERBOSE: not updating %s', cleanedCenter.id); // eslint-disable-line no-console
+      }
+      return null;
+    }
+    // eslint-disable-next-line no-console
+    console.log(
+      'updating… %s (%d fields: %s)',
+      cleanedCenter.id,
+      Object.keys(updates).length,
+      Object.keys(updates).join(', ')
+    );
+    for (let key in updates) {
+      if (verbose) {
+        // eslint-disable-next-line no-console
+        console.log(
+          'VERBOSE: %s: %s => %s',
+          key,
+          JSON.stringify(json[key]),
+          JSON.stringify(updates[key])
+        );
+      }
+      found[key] = updates[key];
+    }
+    return save(found);
   };
 
-  if (updateCenters) {
-    return Center.findOne({ id: cleanedCenter.id }).then(found =>
+  return updateCenters
+    ? Center.findOne({ id: cleanedCenter.id }).then(found =>
       found ? update(found) : create()
-    );
-  }
-
-  return create();
+    )
+    : create();
 }
 
 // let's go
 
 if (clearCenters) {
-  Center.remove(
-    {},
-    (err, { result }) => console.log(`${result.n} centers deleted`) // eslint-disable-line no-console
-  );
+  if (!dryRun) {
+    Center.remove(
+      {},
+      (err, { result }) => console.log(`${result.n} centers deleted`) // eslint-disable-line no-console
+    );
+  } else {
+    console.log('DRY RUN: 0 centers deleted'); // eslint-disable-line no-console
+  }
 }
 
 Promise.all(
@@ -293,11 +386,24 @@ Promise.all(
     .map(sanitize)
     .map(saveToMongo)
 )
-  .then(() => {
-    // eslint-disable-next-line no-console
-    console.log(
-      `Saved ${Object.keys(centers).length} centers: ${Object.keys(centers)}.`
-    );
+  .then(updated => {
+    const centers = updated.filter(c => !!c);
+    const ids = centers.map(c => c.id).join(', ');
+    if (dryRun) {
+      // eslint-disable-next-line no-console
+      console.log(
+        `DRY RUN: nothing saved (should have saved ${centers.length} centers${
+          centers.length > 0 ? `: ${ids}` : ''
+        })`
+      );
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(
+        `Saved ${Object.keys(centers).length} centers${
+          centers.length > 0 ? `: ${ids}` : ''
+        }.`
+      );
+    }
     process.exit();
   })
   .catch(err => {
