@@ -260,7 +260,7 @@ function sanitize(rawCenter) {
         if (fieldProps.required && value === null) {
           // eslint-disable-next-line no-console
           console.error(
-            'wrong value',
+            'WARNING: wrong value (in %s) %s: expected %s, got %s',
             rawCenter.administration.id,
             fieldId,
             fieldProps.type,
@@ -407,6 +407,6 @@ Promise.all(
     process.exit();
   })
   .catch(err => {
-    console.error(err); // eslint-disable-line no-console
+    console.error(`ERROR: ${err.message}`); // eslint-disable-line no-console
     process.exit(1);
   });
