@@ -18,6 +18,10 @@ const { argv } = require('yargs')
       alias: 'c',
       describe: 'Reset the whole centers collection before populating'
     },
+    'fix-empty-values': {
+      type: 'boolean',
+      describe: 'Fix dummy values (empty/"X") in existing centers'
+    },
     dry: {
       type: 'boolean',
       alias: 'd',
@@ -40,6 +44,7 @@ const { argv } = require('yargs')
 const {
   clear: clearCenters,
   update: updateCenters,
+  fixEmptyValues,
   dry: dryRun,
   verbose,
   path: dataPath
@@ -368,6 +373,80 @@ function saveToMongo(cleanedCenter) {
     : create();
 }
 
+function doFixCenterEmptyValues(
+  center,
+  schema,
+  centerId = center.id,
+  pathPrefix = ''
+) {
+  Array.from(Object.entries(schema)).forEach(([fieldId, fieldProps]) => {
+    switch (fieldProps.type) {
+    case 'string':
+    case 'image':
+    case 'address':
+    case 'url':
+    case 'person':
+    case 'email':
+    case 'markdown':
+    case 'tel':
+      if (String(center[fieldId]).toLowerCase() === 'x') {
+        if (verbose) {
+          // eslint-disable-next-line no-console
+          console.log(
+            'VERBOSE: Fixed empty field (in %s) %s: %s => %s',
+            centerId,
+            pathPrefix + fieldId,
+            JSON.stringify(center[fieldId]),
+            'null'
+          );
+        }
+        center[fieldId] = null;
+      }
+      break;
+      // case 'boolean':
+      // case 'coords':
+      // case 'check-list':
+    case 'array':
+    case 'boolean-item':
+      doFixCenterEmptyValues(
+        center[fieldId],
+        fieldProps.item,
+        centerId,
+        pathPrefix + fieldId + '.'
+      );
+      break;
+    }
+  });
+  return center;
+}
+
+function doFixAllEmptyValues() {
+  return Center.find()
+    .then(centers =>
+      centers.map(center => doFixCenterEmptyValues(center, schema))
+    )
+    .then(centers =>
+      Promise.all(
+        centers.map(center => {
+          if (center.isModified()) {
+            if (dryRun) {
+              // eslint-disable-next-line no-console
+              console.log(
+                'DRY RUN: Fixed empty values but NOT saving %s',
+                center.id
+              );
+            } else {
+              // eslint-disable-next-line no-console
+              console.log('Fixed empty values, saving… %s', center.id);
+              return center.save();
+            }
+          }
+          return center;
+        })
+      )
+    );
+}
+
 // let's go
 
 if (clearCenters) {
@@ -386,6 +465,9 @@ Promise.all(
     .map(sanitize)
     .map(saveToMongo)
 )
+  .then(updated =>
+    fixEmptyValues ? doFixAllEmptyValues().then(() => updated) : updated
+  )
   .then(updated => {
     const centers = updated.filter(c => !!c);
     const ids = centers.map(c => c.id).join(', ');
