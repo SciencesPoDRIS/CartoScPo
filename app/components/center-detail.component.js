@@ -6,10 +6,13 @@ angular.module('bib.components').component('centerDetail', {
   bindings: {
     // can't use "center", it's already taken by Leaflet
     org: '<',
-    expanded: '<'
+    expanded: '<',
+    onToggle: '<'
   },
   controller: function(backOfficeBaseUrl) {
-    this.collapsed = true;
+    this.toggle = function() {
+      this.onToggle(this.org.id);
+    };
 
     this.$onInit = function() {
       // TODO more predictable destructuring

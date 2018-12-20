@@ -1,5 +1,5 @@
 <button class="btn btn-sm btn-secondary" type="button" style="float:right;"
-  data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+  data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.toggle()">
     <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
 </button>
 
@@ -179,7 +179,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-secondary" style="float: right;" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+                <button class="btn btn-sm btn-secondary" style="float: right;" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.toggle()">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
