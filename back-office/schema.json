@@ -138,7 +138,7 @@
       "label": "Historique",
       "type": "markdown",
       "tab": "administration",
-      "required": true,
+      "required": false,
       "searchable": false
     },
     "staff_number": {
@@ -440,7 +440,7 @@
       "label": "Bibliothèques utilisées",
       "type": "markdown",
       "tab": "resources",
-      "required": true,
+      "required": false,
       "multievaluation": true,
       "searchable": true
     },

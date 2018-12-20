@@ -131,11 +131,6 @@
             <h2 ng-if="$ctrl.org.journal.enabled">Revues en propre</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.journal_titles" ng-if="$ctrl.org.journal.enabled"></div>
 
-            <h2>Publications versées dans HAL</h2>
-            <div class="col-md-12">
-                {{ $ctrl.org.hal ? 'oui' : 'non' }}
-            </div>
-
             <h2>Publications versées dans un dépôt institutionnel</h2>
             <div class="col-md-12">
                 {{ $ctrl.org.repository ? 'oui' : 'non' }}
@@ -153,7 +148,6 @@
 
         <div class="tab-pane ressources" id="ressources-{{ $ctrl.org.id }}">
             <h2>Bibliothèques utilisées</h2>
-
             <div class="col-md-12" ng-bind-html="$ctrl.used_librairies"></div>
 
             <h2>Ressources numériques à disposition des chercheur·se·s</h2>
