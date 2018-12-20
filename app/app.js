@@ -40,7 +40,11 @@
     .config(function($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'views/home.html'
+          templateUrl: 'views/home.html',
+          controller: function(backOfficeBaseUrl) {
+            this.boHref = `${backOfficeBaseUrl}/centers`;
+          },
+          controllerAs: '$ctrl'
         })
         .when('/centers/:centerId', {
           templateUrl: 'views/tool.html'
