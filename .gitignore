@@ -31,7 +31,10 @@ webpack.report.html
 db/mongo
 db/redis
 
-#Docker
+# Docker
 docker-config.env
 docker-compose.yml
 config/local.toml
+
+# Logos
+app/img/logos
