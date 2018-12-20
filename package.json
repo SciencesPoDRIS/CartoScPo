@@ -71,6 +71,7 @@
     "angular-route": "^1.6.9",
     "angularjs-dragula": "^2.0.0",
     "babyparse": "^0.4.6",
+    "chalk": "^2.4.1",
     "commonmark": "^0.28.1",
     "config": "^1.29.4",
     "connect-redis": "^3.3.3",

@@ -5,6 +5,7 @@
 
 const path = require('path');
 const { pick, without } = require('lodash');
+const chalk = require('chalk');
 const { argv } = require('yargs')
   .options({
     update: {
@@ -265,7 +266,9 @@ function sanitize(rawCenter) {
         if (fieldProps.required && value === null) {
           // eslint-disable-next-line no-console
           console.error(
-            'WARNING: wrong value (in %s) %s: expected %s, got %s',
+            chalk.yellow(
+              'WARNING: wrong value (in %s) %s: expected %s, got %s'
+            ),
             rawCenter.administration.id,
             fieldId,
             fieldProps.type,
@@ -323,7 +326,7 @@ function saveToMongo(cleanedCenter) {
   };
 
   const create = () => {
-    console.log('creating… %s', cleanedCenter.id); // eslint-disable-line no-console
+    console.log('Creating… %s', cleanedCenter.id); // eslint-disable-line no-console
     return save(new Center(cleanedCenter));
   };
 
@@ -340,13 +343,13 @@ function saveToMongo(cleanedCenter) {
     }
     if (Object.keys(updates).length === 0) {
       if (verbose) {
-        console.log('VERBOSE: not updating %s', cleanedCenter.id); // eslint-disable-line no-console
+        console.log(chalk.dim('VERBOSE: not updating %s'), cleanedCenter.id); // eslint-disable-line no-console
       }
       return null;
     }
     // eslint-disable-next-line no-console
     console.log(
-      'updating… %s (%d fields: %s)',
+      'Updating… %s (%d fields: %s)',
       cleanedCenter.id,
       Object.keys(updates).length,
       Object.keys(updates).join(', ')
@@ -355,7 +358,7 @@ function saveToMongo(cleanedCenter) {
       if (verbose) {
         // eslint-disable-next-line no-console
         console.log(
-          'VERBOSE: %s: %s => %s',
+          chalk.dim('VERBOSE: %s: %s => %s'),
           key,
           JSON.stringify(json[key]),
           JSON.stringify(updates[key])
@@ -379,44 +382,64 @@ function doFixCenterEmptyValues(
   centerId = center.id,
   pathPrefix = ''
 ) {
-  Array.from(Object.entries(schema)).forEach(([fieldId, fieldProps]) => {
-    switch (fieldProps.type) {
-    case 'string':
-    case 'image':
-    case 'address':
-    case 'url':
-    case 'person':
-    case 'email':
-    case 'markdown':
-    case 'tel':
-      if (String(center[fieldId]).toLowerCase() === 'x') {
-        if (verbose) {
-          // eslint-disable-next-line no-console
-          console.log(
-            'VERBOSE: Fixed empty field (in %s) %s: %s => %s',
-            centerId,
-            pathPrefix + fieldId,
-            JSON.stringify(center[fieldId]),
-            'null'
-          );
+  if (center) {
+    Array.from(Object.entries(schema)).forEach(([fieldId, fieldProps]) => {
+      const emptyValues = [
+        'x',
+        // Legacy dummy values put when field was required and still empty
+        ...({ markdown: ['md'], url: ['http://'], string: ['str'] }[
+          fieldProps.type
+        ] || [])
+      ];
+      switch (fieldProps.type) {
+      case 'markdown':
+      case 'string':
+      case 'image':
+      case 'address':
+      case 'url':
+      case 'person':
+      case 'email':
+      case 'tel':
+        if (emptyValues.includes(String(center[fieldId]).toLowerCase())) {
+          if (verbose) {
+            // eslint-disable-next-line no-console
+            console.log(
+              chalk.dim('VERBOSE: Fixing empty field (in %s) %s: %s => %s'),
+              centerId,
+              pathPrefix + fieldId,
+              JSON.stringify(center[fieldId]),
+              'null'
+            );
+          }
+          if (fieldProps.required) {
+            // eslint-disable-next-line no-console
+            console.error(
+              chalk.yellow(
+                'ERROR: Cannot fix empty value for required field (in %s): %s'
+              ),
+              centerId,
+              pathPrefix + fieldId
+            );
+          } else {
+            center[fieldId] = null;
+          }
         }
-        center[fieldId] = null;
+        break;
+        // case 'boolean':
+        // case 'coords':
+        // case 'check-list':
+      case 'array':
+      case 'boolean-item':
+        doFixCenterEmptyValues(
+          center[fieldId],
+          fieldProps.item,
+          centerId,
+          pathPrefix + fieldId + '.'
+        );
+        break;
       }
-      break;
-      // case 'boolean':
-      // case 'coords':
-      // case 'check-list':
-    case 'array':
-    case 'boolean-item':
-      doFixCenterEmptyValues(
-        center[fieldId],
-        fieldProps.item,
-        centerId,
-        pathPrefix + fieldId + '.'
-      );
-      break;
-    }
-  });
+    });
+  }
   return center;
 }
 
@@ -432,12 +455,15 @@ function doFixAllEmptyValues() {
             if (dryRun) {
               // eslint-disable-next-line no-console
               console.log(
-                'DRY RUN: Fixed empty values but NOT saving %s',
+                chalk.cyan('DRY RUN: Fixed empty values but NOT saving %s'),
                 center.id
               );
             } else {
               // eslint-disable-next-line no-console
-              console.log('Fixed empty values, saving… %s', center.id);
+              console.log(
+                chalk.green('Fixed empty values, saving… %s'),
+                center.id
+              );
               return center.save();
             }
           }
@@ -456,7 +482,7 @@ if (clearCenters) {
       (err, { result }) => console.log(`${result.n} centers deleted`) // eslint-disable-line no-console
     );
   } else {
-    console.log('DRY RUN: 0 centers deleted'); // eslint-disable-line no-console
+    console.log(chalk.cyan('DRY RUN: 0 centers deleted')); // eslint-disable-line no-console
   }
 }
 
@@ -474,21 +500,28 @@ Promise.all(
     if (dryRun) {
       // eslint-disable-next-line no-console
       console.log(
-        `DRY RUN: nothing saved (should have saved ${centers.length} centers${
-          centers.length > 0 ? `: ${ids}` : ''
-        })`
+        chalk.cyan(
+          `DRY RUN: nothing saved (should have saved ${centers.length} centers${
+            centers.length > 0 ? `: ${ids}` : ''
+          })`
+        )
       );
     } else {
       // eslint-disable-next-line no-console
       console.log(
-        `Saved ${Object.keys(centers).length} centers${
-          centers.length > 0 ? `: ${ids}` : ''
-        }.`
+        chalk.green(
+          `Saved ${Object.keys(centers).length} centers${
+            centers.length > 0 ? `: ${ids}` : ''
+          }.`
+        )
       );
     }
     process.exit();
   })
   .catch(err => {
-    console.error(`ERROR: ${err.message}`); // eslint-disable-line no-console
+    console.error(chalk.red(`ERROR: ${err.message}`)); // eslint-disable-line no-console
+    if (verbose) {
+      console.error(chalk.dim(`VERBOSE: ${err.stack}`)); // eslint-disable-line no-console
+    }
     process.exit(1);
   });
