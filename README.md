@@ -25,6 +25,12 @@ Editer app/conf/conf.js et remplacer :
 - `GOOGLE_ANALYTICS_ID` par votre Id Google Analytics de la forme UA-XXXXXXX-XX
 - `BACK_OFFICE_BASEURL` par l'url sur laquelle sera servie le backoffice, exemple `http://localhost:42000`
 
+Selon l'environnement, initialiser le dossier des logos :
+
+- Copier `app/img/logos-default` vers `app/img/logos`
+- Vérifier que ce dossier sera bien accessible en écriture par le processus du backoffice
+- Note pour Docker : initialiser le volume correspondant avec les images par défaut
+
 ## Lancement de l'app (front)
 
 ```sh

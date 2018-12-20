@@ -7,13 +7,22 @@ angular.module('bib.components').component('centerList', {
     // expanded details
     expandedCenters: '='
   },
-  controller: function($scope) {
-    this.toogleCenter = function(centerId) {
-      if ($scope.$ctrl.expandedCenters.indexOf(centerId) !== -1) {
-        $scope.$ctrl.expandedCenters = [];
+  controller: function($scope, location) {
+    this.toggleCenter = function(centerId) {
+      var ids = $scope.$ctrl.expandedCenters;
+      var index = ids.indexOf(centerId);
+      if (index !== -1) {
+        $scope.$ctrl.expandedCenters = ids.filter(function(c) {
+          return c !== centerId;
+        });
       } else {
-        $scope.$ctrl.expandedCenters = [centerId];
+        $scope.$ctrl.expandedCenters = ids.concat([centerId]);
       }
+      // Update URL (without reloading for UI perf)
+      var ids2 = $scope.$ctrl.expandedCenters;
+      var url =
+        ids2.length === 0 ? '/centers' : `/centers/${ids2[ids2.length - 1]}`;
+      location.skipReload().path(url);
     };
   }
 });

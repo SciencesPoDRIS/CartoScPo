@@ -71,6 +71,7 @@ gulp.task('js:app', function() {
       'app/controllers/tool.controller.js',
       'app/controllers/project.controller.js',
       'app/filters/filters.js',
+      'app/services/location.service.js',
       'app/services/center.service.js',
       'app/services/data.services.js',
       'app/services/facet.service.js',
