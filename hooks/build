@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ "$DOCKER_TAG" = "prod" ]; then
+	FRONT_OFFICE_BASEURL="https://cartosciencepolitique.sciencespo.fr"
+elif [ "$DOCKER_TAG" = "preprod" ]; then
+	FRONT_OFFICE_BASEURL="http://cartosciencepolitique-pprd.sciences-po.fr"
+else
+	FRONT_OFFICE_BASEURL="http://localhost"
+fi
+
+docker build -t ${IMAGE_NAME} \
+    -f ${DOCKERFILE_PATH} \
+	--build-arg=FRONT_OFFICE_BASEURL=$FRONT_OFFICE_BASEURL \
+	.
