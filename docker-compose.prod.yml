@@ -10,6 +10,8 @@ volumes:
     driver: local
   redisdata:
     driver: local
+  logos:
+    driver: local
 
 services:
   fo:
@@ -25,6 +27,8 @@ services:
       - bo
     links:
       - bo:bo
+    volumes:
+      - logos:/cartoscpo/app/img/logos
   bo:
     build:
        context: .
@@ -47,6 +51,8 @@ services:
     links:
       - mongo:mongo
       - redis:redis
+    volumes:
+      - logos:/cartoscpo/app/img/logos
 
   mongo:
     image: "mongo:3.6.3"

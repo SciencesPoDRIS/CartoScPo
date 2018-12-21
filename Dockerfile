@@ -27,5 +27,10 @@ RUN npm install --only=dev webpack babel-core babel-loader babel-preset-env babe
     && npm uninstall webpack babel-core babel-loader babel-preset-env style-loader raw-loader html-minify-loader css-loader \ 
     && npm --force cache clean 
  
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["su-exec", "node:node", "/usr/local/bin/node", "server/index.js"] 

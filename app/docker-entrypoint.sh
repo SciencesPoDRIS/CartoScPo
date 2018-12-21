@@ -2,6 +2,7 @@
 
 /cartoscpo/node_modules/gulp/bin/gulp.js js:app
 
-chmod -R 550 /cartoscpo/app && chown -R nginx:nginx /cartoscpo/app
+chgrp -R nginx /cartoscpo/app
+chmod -R 750 /cartoscpo/app
 
 exec "$@"
