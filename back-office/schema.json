@@ -39,6 +39,7 @@
       "label": "Adresses",
       "type": "array",
       "tab": "administration",
+      "facet": "city",
       "searchable": ["city"],
       "item": {
         "city": {
@@ -90,6 +91,7 @@
       "label": "Etablissements de rattachement",
       "type": "array",
       "tab": "administration",
+      "facet": "name",
       "searchable": ["name"],
       "item": {
         "name": {
@@ -293,6 +295,8 @@
       "label": "Sections CNRS",
       "type": "check-list",
       "tab": "research",
+      "facet": true,
+      "searchable": true,
       "required": false,
       "options": [
         "19 Système Terre : enveloppes superficielles",
@@ -338,6 +342,7 @@
       "type": "markdown",
       "tab": "research",
       "multievaluation": true,
+      "facet": true,
       "searchable": true
     },
     "research_areas": {

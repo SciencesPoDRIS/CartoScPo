@@ -6,7 +6,6 @@ angular
     $q,
     $http,
     fileService,
-    facetService,
     backOfficeBaseUrl
   ) {
     var cache;
@@ -67,15 +66,6 @@ angular
       // used by the master search input
       getSearchableFields: function() {
         return this.getAll().then(buildSearchableFields);
-      },
-
-      // used in the sidebar
-      getFacetFields: function() {
-        return $q.resolve(
-          facetService.facets.map(function(f) {
-            return f.id;
-          })
-        );
       },
 
       // searchable + facets
