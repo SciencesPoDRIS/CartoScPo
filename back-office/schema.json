@@ -39,6 +39,7 @@
       "label": "Adresses",
       "type": "array",
       "tab": "administration",
+      "searchable": ["city"],
       "item": {
         "city": {
           "label": "Ville",
@@ -89,6 +90,7 @@
       "label": "Etablissements de rattachement",
       "type": "array",
       "tab": "administration",
+      "searchable": ["name"],
       "item": {
         "name": {
           "label": "Nom de l'établissement",
