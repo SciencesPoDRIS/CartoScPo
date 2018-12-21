@@ -26,7 +26,11 @@ services:
     links:
       - bo:bo
   bo:
-    build: .
+    build:
+       context: .
+       dockerfile: ./Dockerfile
+       args:
+         - FRONT_OFFICE_BASEURL=http://localhost
     image: sciencespo/cartoscpo-bo:prod
     env_file:
       - docker-config.env

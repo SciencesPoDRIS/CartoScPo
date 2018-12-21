@@ -1,5 +1,8 @@
 FROM node:carbon-alpine
 
+
+ARG FRONT_OFFICE_BASEURL="http://localhost"
+ENV FRONT_OFFICE_BASEURL=${FRONT_OFFICE_BASEURL}
 ENV NODE_ENV production
 
 RUN apk add --no-cache su-exec
