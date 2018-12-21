@@ -96,14 +96,15 @@ Voir le code du controller `back-office/components/center-form/index.js` pour la
 
 `type` est l'autre clé importante de chaque field. `string`, `number`, `tel`, `email`, `person`, `url` se traduisent visuellement par les inputs HTML5 correspondant.
 
-Le `type` `boolean` crée une case à cocher.
-
-Des types plus complexes permettent d'obtenir des _champs composites_.
-
-Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctorales. Cette dernière est réordonable en glissé-déposé à la souris.
-
-Le `type` `boolean-item` a pour objectif de lier une case à cocher avec un champ qu'elle affiche / masque suivant son état.
-
-`searchable` détermine si ce champ sera questionné par le moteur de recherche du FO (lunr.js).
-
-`required` détermine si ce champ est obligatoire ou pas.
+- Le `type` `boolean` crée une case à cocher.
+- Des types plus complexes permettent d'obtenir des _champs composites_.
+  - Par exemple le `type` `array` est utilisé pour générer la liste des écoles doctorales. Cette dernière est réordonable en glissé-déposé à la souris.
+  - Le `type` `boolean-item` a pour objectif de lier une case à cocher avec un champ qu'elle affiche / masque suivant son état.
+  - `searchable` détermine si ce champ sera questionné par le moteur de recherche du FO (lunr.js).
+    - Cette option est limité aux champs de premier niveau
+    - La valeur `true` active la recherche pour ce champ
+    - Dans le cas d'un champ composite (`array` ou `boolean-item`), la valeur doit être un tableau contenant la liste des champs de son item qui seront recherchés
+  - `facet` détermine si ce champ doit apparaître dans la recherche par facette
+    - Dans le cas d'un champ simple, cette option peut simplement être positionnée à `true`
+    - Dans le cas d'un champ composite, elle doit avoir pour valeur le champ à utiliser pour afficher la valeur (devrait être le plus possible concordant avec la valeur de `searchable`)
+  - `required` détermine si ce champ est obligatoire ou pas.

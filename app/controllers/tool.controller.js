@@ -4,6 +4,7 @@
 angular
   .module('bib.controllers')
   .controller('ToolCtrl', function(
+    $q,
     $timeout,
     $routeParams,
     leafletData,
@@ -45,17 +46,24 @@ angular
     };
 
     this.triggerSearch = function(query) {
-      return searchService.getCenters(query).then(
-        function(centers) {
-          var facetedCenters = facetService.getCenters(centers);
-          this.centers = facetedCenters;
-
-          this.facets = facetService.getAll(facetedCenters);
-          // map
-          this.markers = mapService.createMarkers(facetedCenters);
-          // grid
-          this.gridOptions.data = facetedCenters;
-        }.bind(this)
+      var centersP = searchService.getCenters(query);
+      var facetedCentersP = centersP.then(function(centers) {
+        return facetService.getCenters(centers);
+      });
+      var facetsP = facetedCentersP.then(function(facetedCenters) {
+        return facetService.getAll(facetedCenters);
+      });
+      return $q.all([facetedCentersP, facetsP]).then(
+        _.spread(
+          function(facetedCenters, facets) {
+            this.centers = facetedCenters;
+            this.facets = facets;
+            // map
+            this.markers = mapService.createMarkers(facetedCenters);
+            // grid
+            this.gridOptions.data = facetedCenters;
+          }.bind(this)
+        )
       );
     };
 

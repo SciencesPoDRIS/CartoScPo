@@ -38,8 +38,11 @@ angular
         return Object.keys(center).reduce(
           function(doc) {
             fields.forEach(function(field) {
-              if (center[field.id]) {
-                doc[field.id] = center[field.id];
+              var value = field.getSearchableContent
+                ? field.getSearchableContent(center)
+                : center[field.id];
+              if (value) {
+                doc[field.id] = value;
               }
             });
             return doc;

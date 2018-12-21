@@ -4,13 +4,19 @@
 
     <div class="facet-item-list">
       <ul>
-        <li ng-class="{'facet-item': true, 'facet-item-enabled': item.enabled}"
+        <li
+          ng-class="{'facet-item': true, 'facet-item-enabled': item.enabled}"
           ng-repeat="item in facet.items track by item.label"
-          ng-click="$ctrl.onToggleItem({ $event: { facet: facet, item: item } })">
+          ng-click="$ctrl.onToggleItem({ $event: { facet: facet, item: item } })"
+        >
           {{ item.label }} - <i>{{ item.count }}</i>
 
-          <span class="facet-item-remove" ng-show="item.enabled"
-            title="Remove facet item">×</span>
+          <span
+            class="facet-item-remove"
+            ng-show="item.enabled"
+            title="Remove facet item"
+            >×</span
+          >
         </li>
       </ul>
     </div>

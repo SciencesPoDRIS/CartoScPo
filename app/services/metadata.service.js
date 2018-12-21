@@ -6,10 +6,42 @@ angular
     $q,
     $http,
     fileService,
-    facetService,
     backOfficeBaseUrl
   ) {
     var cache;
+
+    // To be bound to field
+    function bindableGetFieldSearchableContent(center) {
+      var data = center[this.id];
+      if (!_.isArray(data)) {
+        return null;
+      }
+      return this.searchable
+        .map(function(subId) {
+          return data
+            .map(function(content) {
+              return content[subId];
+            })
+            .join(' ');
+        })
+        .join(' ');
+    }
+
+    function buildSearchableFields(fields) {
+      return fields.reduce(function(result, field) {
+        if (field.searchable) {
+          if (
+            (field.type === 'array' || field.type === 'boolean-item') &&
+            _.isArray(field.searchable)
+          ) {
+            // Composite
+            field.getSearchableContent = bindableGetFieldSearchableContent;
+          }
+          result.push(field);
+        }
+        return result;
+      }, []);
+    }
 
     return {
       // raw collection
@@ -33,20 +65,7 @@ angular
 
       // used by the master search input
       getSearchableFields: function() {
-        return this.getAll().then(function(fields) {
-          return fields.filter(function(field) {
-            return field.searchable;
-          });
-        });
-      },
-
-      // used in the sidebar
-      getFacetFields: function() {
-        return $q.resolve(
-          facetService.facets.map(function(f) {
-            return f.id;
-          })
-        );
+        return this.getAll().then(buildSearchableFields);
       },
 
       // searchable + facets
