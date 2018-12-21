@@ -72,10 +72,10 @@
                 <p>Personnels permanents : {{ $ctrl.org.staff_permanent }}</p>
             </div>
             <div class="col-md-6">
-                <p>
+                <p ng-if="$ctrl.org.staff_url_cnrs">
                     <a target="_blank" href="{{ $ctrl.org.staff_url_cnrs }}">
                     Lien vers la page "personnel" du site Web du CNRS</a></p>
-                <p>
+                <p ng-if="$ctrl.org.staff_url">
                     <a target="_blank" href="{{ $ctrl.org.staff_url }}">
                     Lien vers la page "personnel" sur le site Web du centre</a></p>
             </div>
