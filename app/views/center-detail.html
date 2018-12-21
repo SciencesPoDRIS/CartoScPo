@@ -37,8 +37,9 @@
                 <p ng-repeat="phone in $ctrl.phones track by phone.number">
                     <i class="fa fa-phone"></i> {{ phone.number }}
                 </p>
-                <p>Année de création : {{ $ctrl.org.creation_year }}</p>
-                <p>CNRS : {{ $ctrl.org.cnrs ? 'oui' : 'non' }}</p>
+                <p>Année de création : {{ $ctrl.org.creation_year }}</p>
+                <p>Numéro National de Structure : {{ $ctrl.org.national_structure_number }}</p>
+                <p>CNRS : {{ $ctrl.org.cnrs ? 'oui' : 'non' }}</p>
             </div>
             <div class="col-md-6">
                 <p>Directeur·rice : {{ $ctrl.org.director_name }}</p>
@@ -47,6 +48,15 @@
                 </p>
                 <p>
                     <a target="_blank" href="{{ $ctrl.scanr_url }}">Fiche du centre dans ScanR</a>
+                </p>
+                <p ng-if="$ctrl.org.rnsr_url">
+                    <a target="_blank" href="{{ $ctrl.org.rnsr_url }}">Lien RNSR</a>
+                </p>
+                <p ng-if="$ctrl.org.wikidata">
+                    <a target="_blank" href="https://www.wikidata.org/wiki/{{ $ctrl.org.wikidata }}">Wikidata : {{ $ctrl.org.wikidata }}</a>
+                </p>
+                <p ng-if="$ctrl.org.wikipedia_url">
+                    <a target="_blank" href="{{ $ctrl.org.wikipedia_url }}">Lien Wikipedia</a>
                 </p>
             </div>
             <div class="col-md-12">
