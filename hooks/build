@@ -8,7 +8,7 @@ else
 	FRONT_OFFICE_BASEURL="http://localhost"
 fi
 
-docker build -t ${IMAGE_NAME} \
-    -f ${DOCKERFILE_PATH} \
-	--build-arg=FRONT_OFFICE_BASEURL=$FRONT_OFFICE_BASEURL \
+docker build --no-cache --tag ${IMAGE_NAME} \
+    --file ${BUILD_PATH} \
+	--build-arg FRONT_OFFICE_BASEURL=$FRONT_OFFICE_BASEURL \
 	.
