@@ -24,9 +24,9 @@ RUN apk --update --quiet add git nodejs \
     && rm /var/cache/apk/*
 
 
-COPY ./docker-nginx-vhost.conf /etc/nginx/conf.d/docker.template
+COPY ./app/docker-nginx-vhost.conf /etc/nginx/conf.d/docker.template
 
-COPY docker-entrypoint.frontend.sh /docker-entrypoint.sh
+COPY ./app/docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x /docker-entrypoint.sh
 

@@ -11,12 +11,11 @@ volumes:
   redisdata:
     driver: local
 
-
 services:
   fo:
     build: 
       context: .
-      dockerfile: Dockerfile.frontend
+      dockerfile: ./app/Dockerfile
     image: sciencespo/cartoscpo-fo:prod
     env_file:
       - docker-config.env
