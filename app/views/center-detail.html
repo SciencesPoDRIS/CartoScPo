@@ -3,7 +3,7 @@
     <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
 </button>
 
-<div class="collapse" ng-class="{in: $ctrl.expanded }" id="{{ 'see-more-' + $ctrl.org.id }}">
+<div ng-class="{ collapse: true, in: $ctrl.toggled ? !$ctrl.expanded : $ctrl.expanded }" id="{{ 'see-more-' + $ctrl.org.id }}">
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTab">

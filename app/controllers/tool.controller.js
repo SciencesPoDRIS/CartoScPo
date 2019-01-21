@@ -124,22 +124,28 @@ angular
     // init
 
     // centers with the details expanded
-    this.expandedCenters = [];
+    this.expandedCenters = $routeParams.centerId ? [$routeParams.centerId] : [];
 
-    this.triggerSearch().then(
-      function() {
-        // jQuery + setTimeout === 'mega ouuhh'
-        $timeout(
-          function() {
-            if ($routeParams.centerId && $routeParams.centerId != '') {
-              $('#center-list').scrollTo($('#center-' + $routeParams.centerId));
-              this.expandedCenters = [$routeParams.centerId];
-            }
-          }.bind(this),
-          2000
-        );
-      }.bind(this)
-    );
+    this.triggerSearch().then(() => {
+      // Scroll to active center ASAP
+      // Try every 100 ms
+      // Do not try more than 3 seconds (= no more than 30 times)
+      const delay = 100;
+      const maxNbTries = 30;
+      if ($routeParams.centerId && $routeParams.centerId != '') {
+        let nbTries = 0;
+        const scrollToActiveCenterASAP = () => {
+          nbTries++;
+          const $el = $('#center-' + $routeParams.centerId);
+          if ($el.length) {
+            $('#center-list').scrollTo($el);
+          } else if (nbTries < maxNbTries) {
+            setTimeout(scrollToActiveCenterASAP, delay);
+          }
+        };
+        scrollToActiveCenterASAP();
+      }
+    });
 
     // https://github.com/tombatossals/angular-leaflet-directive/issues/49
     this.refreshMap = function() {
