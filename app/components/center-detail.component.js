@@ -11,6 +11,19 @@ angular.module('bib.components').component('centerDetail', {
   },
   controller: function(backOfficeBaseUrl) {
     this.toggle = function() {
+      /**
+       * This weirdly fixes #69, I don't really have a clear idea of the WHY
+       * But here is the HOW:
+       * - at load-time, 'ng-class={ in: $ctrl.expanded }' works properly
+       * - at runtime, when calling 'onToggle', all the values are *properly* updated
+       *   every console.log shows what it's supposed to, expanding values in the templates
+       *   show correct value BUT for some dark magic reason, the class is not properly computed.
+       *   It works if we replace '$ctrl.expanded' by 'expanded' (BUT WHY???) but then it breaks init.
+       *   It also works if we just *invert* the boolean when the handler has been called, which is
+       *   what 'toggled' is for.
+       * Dark magic not mastered, but bug fixed.
+       */
+      this.toggled = true;
       this.onToggle(this.org.id);
     };
 

@@ -35,7 +35,7 @@ angular
         if (field.facet) {
           var facet = {
             id: field.id,
-            label: field.label
+            label: field.facetLabel || field.label
           };
           if (field.type === 'array' || field.type === 'boolean-item') {
             facet.type = 'multi';
@@ -46,7 +46,7 @@ angular
             };
           } else if (field.multievaluation || field.type === 'check-list') {
             facet.type = 'multi';
-            facet.parser = parsers['*'];
+            facet.parser = field.multievaluation ? parsers['*'] : null;
           }
           list.push(facet);
         }
