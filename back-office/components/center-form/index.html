@@ -3,31 +3,51 @@
 <button ng-if="$ctrl.loading" class="button is-loading is-rounded"></button>
 
 <form ng-if="!$ctrl.loading" name="$ctrl.form">
-
-  <div class="notification is-danger" ng-if="$ctrl.form.$invalid && $ctrl.form.$dirty">
-    Ce formulaire contient {{ $ctrl.errorCount($ctrl.form) }} erreur(s) de validation
+  <div
+    class="notification is-danger"
+    ng-if="$ctrl.form.$invalid && $ctrl.form.$dirty"
+    ng-click="$ctrl.showErrorDetails = true"
+  >
+    Ce formulaire contient {{ $ctrl.errorCount($ctrl.form) }} erreur(s) de
+    validation
+    <div ng-if="$ctrl.showErrorDetails">
+      <ul
+        ng-repeat="(key, errors) in $ctrl.form.$error track by $index"
+        style="list-style-type:disc;padding-left:1em"
+      >
+        <li ng-repeat="e in errors">
+          {{ e.$name }}: <strong>{{ key }}</strong>
+        </li>
+      </ul>
+      Center Object (debug):
+      <pre>{{ $ctrl.center }}</pre>
+    </div>
   </div>
 
   <div class="tabs is-boxed">
     <ul>
-      <li ng-repeat="tab in $ctrl.tabs track by tab.id" ng-class="{'is-active': $ctrl.isActive(tab)}">
+      <li
+        ng-repeat="tab in $ctrl.tabs track by tab.id"
+        ng-class="{'is-active': $ctrl.isActive(tab)}"
+      >
         <a ng-click="$ctrl.setTab(tab)">{{ tab.label }}</a>
       </li>
     </ul>
   </div>
 
-  <section ng-repeat="tab in $ctrl.tabs track by tab.id" ng-show="$ctrl.tab === tab.id">
-
+  <section
+    ng-repeat="tab in $ctrl.tabs track by tab.id"
+    ng-show="$ctrl.tab === tab.id"
+  >
     <fields-list
       fields="$ctrl.fieldsByTab[tab.id]"
       item="$ctrl.center"
-      form="$ctrl.form"></fields-list>
-
+      form="$ctrl.form"
+    ></fields-list>
   </section>
 
   <section class="section">
     <div class="field is-grouped is-grouped-centered">
-
       <!-- pristine -->
       <div class="control" ng-if="$ctrl.form.$pristine">
         <a class="button is-success" disabled>
@@ -39,12 +59,18 @@
       <div class="control" ng-if="$ctrl.form.$invalid">
         <a class="button is-success" disabled>
           <span class="icon is-small"><i class="fa fa-warning"></i></span>
-          <span>{{ $ctrl.errorCount($ctrl.form) }} erreur(s) restante(s): enregistrement impossible</span>
+          <span
+            >{{ $ctrl.errorCount($ctrl.form) }} erreur(s) restante(s):
+            enregistrement impossible</span
+          >
         </a>
       </div>
 
       <!-- admin -->
-      <div class="control" ng-if="$ctrl.form.$valid && $ctrl.form.$dirty && $ctrl.session.email">
+      <div
+        class="control"
+        ng-if="$ctrl.form.$valid && $ctrl.form.$dirty && $ctrl.session.email"
+      >
         <a class="button is-success" ng-click="$ctrl.submit($ctrl.form)">
           <span class="icon is-small"><i class="fa fa-check"></i></span>
           <span>Enregistrer tous les onglets</span>
@@ -52,43 +78,55 @@
       </div>
 
       <!-- guest -->
-      <div class="control" ng-if="$ctrl.form.$valid && $ctrl.form.$dirty && !$ctrl.session.email">
-        <a class="button is-success" ng-click="$ctrl.submit($ctrl.form)" ng-disabled="!$ctrl.email">
-          <span ng-if="!$ctrl.email" class="icon is-small"><i class="fa fa-warning"></i></span>
-          <span ng-if="$ctrl.email" class="icon is-small"><i class="fa fa-check"></i></span>
+      <div
+        class="control"
+        ng-if="$ctrl.form.$valid && $ctrl.form.$dirty && !$ctrl.session.email"
+      >
+        <a
+          class="button is-success"
+          ng-click="$ctrl.submit($ctrl.form)"
+          ng-disabled="!$ctrl.email"
+        >
+          <span ng-if="!$ctrl.email" class="icon is-small"
+            ><i class="fa fa-warning"></i
+          ></span>
+          <span ng-if="$ctrl.email" class="icon is-small"
+            ><i class="fa fa-check"></i
+          ></span>
           <span ng-if="!$ctrl.email">Renseignez votre email ci-dessous</span>
-          <span ng-if="$ctrl.email">Proposer une modification de tous les onglets</span>
+          <span ng-if="$ctrl.email"
+            >Proposer une modification de tous les onglets</span
+          >
         </a>
       </div>
 
       <div class="control">
-        <a class="button is-outlined" href="centers">
-          <span>Annuler</span>
-        </a>
+        <a class="button is-outlined" href="centers"> <span>Annuler</span> </a>
       </div>
 
       <div class="control" ng-if="$ctrl.id">
         <a class="button is-danger" ng-click="$ctrl.delete($ctrl.form)">
-          <span class="icon is-small">
-            <i class="fa fa-remove"></i>
-          </span>
+          <span class="icon is-small"> <i class="fa fa-remove"></i> </span>
           <span>Supprimer le centre</span>
         </a>
       </div>
     </div>
-
   </section>
 </form>
 
 <div class="field" ng-if="!$ctrl.session.email">
   <label class="label">
-    Renseignez votre email pour enregistrer votre modification et être informé de sa validation
-    <i class="fa fa-asterisk" title="champ requis"></i>
+    Renseignez votre email pour enregistrer votre modification et être informé
+    de sa validation <i class="fa fa-asterisk" title="champ requis"></i>
   </label>
   <div class="control has-icons-left">
-    <input class="input" type="email" placeholder="email" ng-model="$ctrl.email" required />
-    <span class="icon is-small is-left">
-      <i class="fa fa-envelope"></i>
-    </span>
+    <input
+      class="input"
+      type="email"
+      placeholder="email"
+      ng-model="$ctrl.email"
+      required
+    />
+    <span class="icon is-small is-left"> <i class="fa fa-envelope"></i> </span>
   </div>
 </div>
