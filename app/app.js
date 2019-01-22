@@ -52,32 +52,50 @@
           'fr-*': 'fr',
           '*': 'fr' // final fallback
         });
-        $translateProvider.determinePreferredLanguage();
       }
     ])
     .config(function($routeProvider) {
       $routeProvider
-        .when('/', {
+        .when('/', { redirectTo: '/fr' })
+        .when('/centers', { redirectTo: '/fr/centers' })
+        .when('/centers/:centerId', {
+          redirectTo: function(params) {
+            return '/fr/centers/' + params.centerId;
+          }
+        })
+        .when('/project', { redirectTo: '/fr/project' })
+        .when('/about', { redirectTo: '/fr/about' })
+        .when('/:lang', {
           templateUrl: 'views/home.html',
           controller: function(backOfficeBaseUrl) {
             this.boHref = `${backOfficeBaseUrl}/centers`;
           },
           controllerAs: '$ctrl'
         })
-        .when('/centers/:centerId', {
+        .when('/:lang/centers/:centerId', {
           templateUrl: 'views/tool.html'
         })
-        .when('/centers', {
+        .when('/:lang/centers', {
           templateUrl: 'views/tool.html'
         })
-        .when('/project', {
+        .when('/:lang/project', {
           templateUrl: 'views/project.html'
         })
-        .when('/about', {
+        .when('/:lang/about', {
           templateUrl: 'views/about.html'
         })
-        .otherwise({
-          redirectTo: '/'
-        });
+        .otherwise({ redirectTo: '/' });
+    })
+    .run(function($rootScope, $route, $translate, $location) {
+      $rootScope.urlToLang = function(lang) {
+        return $location.path().replace(/^\/([a-z]{2})/, '/' + lang);
+      };
+      $rootScope.$on('$locationChangeSuccess', function() {
+        const lang = (($route.current || {}).params || {}).lang;
+        if ($rootScope.lang !== lang) {
+          $rootScope.lang = lang;
+          $translate.use(lang);
+        }
+      });
     });
 })();

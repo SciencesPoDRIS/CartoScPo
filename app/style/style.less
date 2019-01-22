@@ -2,8 +2,7 @@
 
 @font-face {
   font-family: 'ui-grid';
-  src: url('ui-grid.ttf') format('ttf'),
-  url('ui-grid.woff') format('woff');
+  src: url('ui-grid.ttf') format('ttf'), url('ui-grid.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -29,7 +28,9 @@ body {
   font-family: 'Trebuchet MS', 'montserrat', 'Arial', sans-serif;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: bold;
 }
 
@@ -46,7 +47,7 @@ a {
  */
 
 #cover {
-  background: white url("../../img/header.jpg") no-repeat right top;
+  background: white url('../../img/header.jpg') no-repeat right top;
   background-size: contain;
   height: 345px;
 }
@@ -65,7 +66,7 @@ a {
   }
 
   h2 {
-    font-size:25px;
+    font-size: 25px;
     margin-top: 0;
   }
 }
@@ -95,17 +96,16 @@ a {
   margin-top: 8px;
 }
 
-
 /*
  * Modal
  */
 
-.modal-content{
+.modal-content {
   border-radius: 0px;
   text-align: center;
 }
 
-.modal-footer{
+.modal-footer {
   text-align: center;
 }
 
@@ -138,17 +138,15 @@ body > .container {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
-#centerDetailsTabs{
-  border: None
+#centerDetailsTabs {
+  border: None;
 }
-
 
 /*
  * Navbar
  */
 
 navbar {
-
   .navbar {
     background: white;
     border-bottom-color: red;
@@ -191,6 +189,7 @@ navbar {
     }
 
     .navbar-nav {
+      width: 100%;
       margin-top: 5px;
 
       > li {
@@ -203,6 +202,20 @@ navbar {
         > a {
           .nav-text();
         }
+
+        > a.lang {
+          font-weight: bold;
+          color: black;
+          &.active {
+            font-weight: normal;
+            opacity: 0.8;
+          }
+        }
+      }
+
+      > li.navbar-right {
+        text-align: right;
+        padding-right: 5px;
       }
     }
 
@@ -213,13 +226,11 @@ navbar {
   }
 }
 
-
 /*
  * Search
  */
 
 .search {
-
   #search {
     border-width: 0px;
     border-bottom-width: 1px;
@@ -249,7 +260,7 @@ navbar {
     padding-left: 15px;
   }
 
-  .facet-item-list li{
+  .facet-item-list li {
     list-style-type: None;
   }
 
@@ -261,7 +272,6 @@ navbar {
     font-weight: bold;
   }
 }
-
 
 /*
  * Center navigation
@@ -275,7 +285,6 @@ navbar {
   float: right;
 }
 
-
 /*
  * Map
  */
@@ -288,30 +297,32 @@ navbar {
   background: green;
   width: 10px;
   height: 10px;
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
 }
 
 .secondaire {
   background: green;
   width: 10px;
   height: 10px;
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
   opacity: 0.5;
 }
 
-.principal:hover, .secondaire:hover {
+.principal:hover,
+.secondaire:hover {
   background-color: yellow;
   font-size: 20px;
 }
 
-.legend, .info {
+.legend,
+.info {
   font: 14px/16px Arial, Helvetica, sans-serif;
-  background: rgba(255,255,255, 0.9);
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 6px 8px;
   width: 180px;
@@ -327,8 +338,7 @@ navbar {
   opacity: 0.7;
 }
 
-
- /*
+/*
   * Liste
   */
 #center-list {
@@ -337,8 +347,8 @@ navbar {
   overflow-y: scroll;
 }
 
-.center-list-item{
-  padding:10px;
+.center-list-item {
+  padding: 10px;
 }
 
 .center-list-item:hover {
@@ -355,14 +365,13 @@ navbar {
 }
 
 .center-list-item h3 {
-  margin-top:15px;
+  margin-top: 15px;
 }
 
 .center-logo {
   padding: 15px;
   max-width: 150px;
 }
-
 
 /*
  * listAndMap
@@ -371,7 +380,6 @@ navbar {
 #listAndMap {
   height: 60%;
 }
-
 
 /*
  * centerDetails
@@ -398,7 +406,6 @@ center-detail {
   text-align: center;
   min-width: 160px;
 }
-
 
 /*
  * Search
@@ -438,7 +445,6 @@ center-detail {
   font-weight: bold;
 }
 
-
 /*
  * Center details
  */
@@ -447,10 +453,9 @@ center-detail {
   background: yellow;
 }
 
-span.highlight{
+span.highlight {
   background: #f1c40f;
 }
-
 
 .recherche > h1 {
   font-size: 18px;
@@ -486,7 +491,6 @@ span.highlight{
   min-height: 170px;
 }
 
-
 /*
  * keyWord on center details
  */
@@ -494,23 +498,22 @@ span.highlight{
 .keyWord {
   display: inline-block;
   border: 1px solid #000;
-  padding:2px;
+  padding: 2px;
   text-align: center;
-  margin-left:3px;
+  margin-left: 3px;
   cursor: pointer;
 }
 
 .keyWord:hover {
   display: inline-block;
   border: 1px solid #000;
-  padding:2px;
+  padding: 2px;
   text-align: center;
-  margin-left:3px;
+  margin-left: 3px;
   background-color: red;
-  color:white;
+  color: white;
   cursor: pointer;
 }
-
 
 /*
  * Grid
@@ -520,17 +523,18 @@ span.highlight{
   width: 100%;
   height: 1000px;
 
-  .ui-grid-header-cell.ui-grid-coluiGrid-0004 .ui-grid-selection-row-header-buttons {
-      height: 50px;
+  .ui-grid-header-cell.ui-grid-coluiGrid-0004
+    .ui-grid-selection-row-header-buttons {
+    height: 50px;
   }
 }
-
 
 /*
  * Cluster on Map
  */
 
-.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+.leaflet-cluster-anim .leaflet-marker-icon,
+.leaflet-cluster-anim .leaflet-marker-shadow {
   -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
   -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
   -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
@@ -539,12 +543,14 @@ span.highlight{
 
 .leaflet-cluster-spider-leg {
   /* stroke-dashoffset (duration and function) should match with leaflet-marker-icon transform in order to track it exactly */
-  -webkit-transition: -webkit-stroke-dashoffset 0.3s ease-out, -webkit-stroke-opacity 0.3s ease-in;
-  -moz-transition: -moz-stroke-dashoffset 0.3s ease-out, -moz-stroke-opacity 0.3s ease-in;
-  -o-transition: -o-stroke-dashoffset 0.3s ease-out, -o-stroke-opacity 0.3s ease-in;
+  -webkit-transition: -webkit-stroke-dashoffset 0.3s ease-out,
+    -webkit-stroke-opacity 0.3s ease-in;
+  -moz-transition: -moz-stroke-dashoffset 0.3s ease-out,
+    -moz-stroke-opacity 0.3s ease-in;
+  -o-transition: -o-stroke-dashoffset 0.3s ease-out,
+    -o-stroke-opacity 0.3s ease-in;
   transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
 }
-
 
 /*
  * Cluster color on map
@@ -571,7 +577,7 @@ span.highlight{
   background-color: rgba(241, 128, 23, 0.6);
 }
 
-  /* IE 6-8 fallback colors */
+/* IE 6-8 fallback colors */
 /*.leaflet-oldie .marker-cluster-small {
   background-color: rgb(181, 226, 140);
   }
@@ -606,13 +612,12 @@ span.highlight{
 
   text-align: center;
   border-radius: 15px;
-  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 .marker-cluster span {
   line-height: 30px;
 }
-
 
 /*
  * color center on map
@@ -622,55 +627,52 @@ span.highlight{
   background: #f1c40f;
   width: 10px;
   height: 10px;
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
 }
 
 .medium {
   background: #e67e22;
   width: 10px;
   height: 10px;
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
 }
 
 .large {
   background: #d35400;
   width: 10px;
   height: 10px;
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
 }
 
 .extraLarge {
   background: #e74c3c;
   width: 10px;
   height: 10px;
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
 }
-
 
 /*
  * Separation line
  */
 
 .separation {
-  background:#e6142d;
-  height:1px;
+  background: #e6142d;
+  height: 1px;
 }
-
 
 /*
  * Projct page
  */
 
 .project {
-
   .map {
     clear: both;
     float: right;

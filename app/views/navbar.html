@@ -30,8 +30,22 @@
       ng-repeat="view in $ctrl.views"
       ng-class="{ active: $ctrl.isActive(view)}"
     >
-      <a href="#/{{ view.slug }}">{{ view.label }}</a>
+      <a href="#/{{ $root.lang }}/{{ view.slug }}">{{ view.label }}</a>
     </li>
-    <li><span translate>test</span></li>
+    <li class="navbar-right"><span translate>test</span></li>
+    <li class="navbar-right">
+      <a
+        ng-class="['lang', {active: $root.lang === 'fr'}]"
+        href="#{{ $root.urlToLang('fr') }}"
+        >FR</a
+      >
+    </li>
+    <li class="navbar-right">
+      <a
+        ng-class="['lang', {active: $root.lang === 'en'}]"
+        href="#{{ $root.urlToLang('en') }}"
+        >EN</a
+      >
+    </li>
   </ul>
 </div>
