@@ -50,6 +50,8 @@ class controller {
   }
 
   $onInit() {
+    this.showErrorDetails = false;
+
     // default if not received via router
     if (!this.tab) this.tab = 'administration';
 
