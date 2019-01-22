@@ -33,6 +33,8 @@ gulp.task('js:lib', function() {
       'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
       'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
       'bower_components/angular/angular.min.js',
+      'bower_components/angular-translate/angular-translate.min.js',
+      'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
       'bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
       'bower_components/angular-route/angular-route.min.js',
       'bower_components/angular-sanitize/angular-sanitize.min.js',

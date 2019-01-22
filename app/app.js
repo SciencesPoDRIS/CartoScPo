@@ -19,6 +19,7 @@
 
   angular
     .module('bib', [
+      'pascalprecht.translate',
       'ngRoute',
       'ngSanitize',
       'ui.bootstrap',
@@ -37,6 +38,23 @@
       delete $httpProvider.defaults.headers.common['X-Requested-With'];
       $locationProvider.hashPrefix('');
     })
+    .config([
+      '$translateProvider',
+      function($translateProvider) {
+        $translateProvider.useStaticFilesLoader({
+          prefix: 'assets/i18n/',
+          suffix: '.json'
+        });
+        $translateProvider.registerAvailableLanguageKeys(['fr', 'en'], {
+          'en_*': 'en',
+          'en-*': 'en',
+          'fr_*': 'fr',
+          'fr-*': 'fr',
+          '*': 'fr' // final fallback
+        });
+        $translateProvider.determinePreferredLanguage();
+      }
+    ])
     .config(function($routeProvider) {
       $routeProvider
         .when('/', {
