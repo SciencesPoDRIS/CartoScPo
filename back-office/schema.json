@@ -5,7 +5,8 @@
     "hidden": {
       "label": "Masqué sur le Front Office ?",
       "type": "boolean",
-      "tab": "administration"
+      "tab": "administration",
+      "required": false
     },
     "acronym": {
       "label": "Acronyme (nom court)",
@@ -33,7 +34,8 @@
     },
     "logo": {
       "label": "Logo",
-      "type": "image"
+      "type": "image",
+      "required": false
     },
     "addresses": {
       "label": "Adresses",
@@ -59,13 +61,13 @@
           "label": "Latitude",
           "type": "coords",
           "tab": "administration",
-          "required": false
+          "required": true
         },
         "longitude": {
           "label": "Longitude",
           "type": "coords",
           "tab": "administration",
-          "required": false
+          "required": true
         }
       }
     },
@@ -77,7 +79,7 @@
         "number": {
           "label": "Numéro Téléphone",
           "type": "tel",
-          "required": false,
+          "required": true,
           "searchable": false
         }
       }
@@ -86,13 +88,14 @@
       "label": "Site web",
       "type": "url",
       "tab": "administration",
-      "searchable": false
+      "searchable": false,
+      "required": false
     },
     "national_structure_number": {
       "label": "Numéro national de structure",
       "type": "string",
       "tab": "administration",
-      "required": false,
+      "required": true,
       "searchable": true,
       "bo": true,
       "fo": true
@@ -166,14 +169,16 @@
       "type": "boolean",
       "tab": "administration",
       "searchable": false,
-      "bo": false
+      "bo": false,
+      "required": true
     },
     "menesr": {
       "label": "MENESR",
       "type": "boolean",
       "tab": "administration",
       "searchable": false,
-      "bo": false
+      "bo": false,
+      "required": false
     },
     "creation_year": {
       "label": "Année de création",
@@ -204,7 +209,7 @@
       "type": "number",
       "icon": "users",
       "tab": "administration",
-      "required": true,
+      "required": false,
       "searchable": false
     },
     "staff_non_permanent": {
@@ -212,7 +217,7 @@
       "type": "number",
       "icon": "users",
       "tab": "administration",
-      "required": true,
+      "required": false,
       "searchable": false
     },
     "staff_url": {
@@ -233,7 +238,7 @@
       "label": "Date de mise à jour",
       "type": "number",
       "tab": "administration",
-      "required": false,
+      "required": true,
       "searchable": true,
       "bo": true,
       "fo": true
@@ -344,7 +349,8 @@
       "tab": "research",
       "multievaluation": true,
       "facet": true,
-      "searchable": true
+      "searchable": true,
+      "required": false
     },
     "research_areas": {
       "label": "Axes de recherche",
@@ -408,13 +414,15 @@
       "label": "Publications versées dans HAL ?",
       "type": "boolean",
       "tab": "publications",
-      "searchable": false
+      "searchable": false,
+      "required": false
     },
     "repository": {
       "label": "Publications versées dans un dépôt institutionnel ?",
       "type": "boolean",
       "tab": "publications",
-      "searchable": false
+      "searchable": false,
+      "required": false
     },
     "oa_policy": {
       "label": "Préconisations pour le dépôt en open access des publications",
@@ -448,7 +456,7 @@
       "label": "Bibliothèques utilisées",
       "type": "markdown",
       "tab": "resources",
-      "required": false,
+      "required": true,
       "multievaluation": true,
       "searchable": true
     },
