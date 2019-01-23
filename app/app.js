@@ -61,6 +61,7 @@
             {}
           )
         );
+        $translateProvider.determinePreferredLanguage();
         $translateProvider.fallbackLanguage(supportedLangs[0]);
       }
     ])

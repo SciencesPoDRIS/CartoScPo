@@ -8,12 +8,18 @@
   "SEARCH_TAB_MAP": "Carte",
   "SEARCH_TAB_DATA": "Données",
   "MAP_LEGEND": "Nombre de chercheurs permanents",
+  "MAP_ZOOM_FRANCE": "Zoomer sur la France métropolitaine",
   "NAV_HOME": "Accueil",
   "NAV_PROJECT": "Le projet",
   "NAV_ABOUT": "À propos",
   "NAV_CENTERS": "Accéder aux centres",
   "DATA_EXPORT": "Exporter les données",
   "LOGO_LIBRARY_ALT": "Sciences Po Bibliothèque",
+  "FACET_REMOVE_ITEM": "Supprimer ce filtre",
+  "FACET_LABEL_ADDRESSES": "Villes",
+  "FACET_LABEL_AFFILIATIONS": "Établissements de rattachement",
+  "FACET_LABEL_CNRS_SECTIONS": "Sections CNRS",
+  "FACET_LABEL_SUBJECT_TERMS": "Mots-clés sujet",
   "CENTER_TAB_DESCRIPTION": "Description",
   "CENTER_TAB_SCHOOLS": "Écoles doctorales",
   "CENTER_TAB_RESEARCH": "Thématiques",
@@ -68,6 +74,5 @@
   "CENTER_LIBRARY_POLICY": "Politique documentaire",
   "CENTER_INFORMATION_SKILLS_TRAINING": "Offre de formations documentaires",
   "CENTER_LIBRARIES_NETWORK_LIST": "Collaborations documentaires (Couperin, ISORE, participations aux réseaux IST...)",
-  "CENTER_UPDATE_YEAR": "Données récoltées en {year}",
-  "MAP_ZOOM_FRANCE": "Zoomer sur la France métropolitaine"
+  "CENTER_UPDATE_YEAR": "Données récoltées en {year}"
 }

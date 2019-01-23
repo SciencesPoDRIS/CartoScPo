@@ -1,7 +1,6 @@
 <div>
   <div class="facet" ng-repeat="facet in $ctrl.facets track by facet.id">
-    <h2>{{ facet.label }}</h2>
-
+    <h2>{{ 'FACET_LABEL_' + facet.id.toUpperCase() | translate }}</h2>
     <div class="facet-item-list">
       <ul>
         <li
@@ -10,11 +9,10 @@
           ng-click="$ctrl.onToggleItem({ $event: { facet: facet, item: item } })"
         >
           {{ item.label }} - <i>{{ item.count }}</i>
-
           <span
             class="facet-item-remove"
             ng-show="item.enabled"
-            title="Remove facet item"
+            title="{{ 'FACET_REMOVE_ITEM' | translate }}"
             >×</span
           >
         </li>
