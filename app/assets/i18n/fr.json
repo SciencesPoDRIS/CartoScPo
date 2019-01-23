@@ -1,0 +1,9 @@
+{
+  "SEARCH_PLACEHOLDER": "Entrez votre recherche…",
+  "SEARCH": "Rechercher",
+  "CANCEL": "Annuler",
+  "SEARCH_RESULTS_COUNT": "{count, plural, =0 {aucun résultat} one {un centre trouvé} other {{count} centres trouvés}}",
+  "SEARCH_TAB_LIST": "Liste",
+  "SEARCH_TAB_MAP": "Carte",
+  "SEARCH_TAB_DATA": "Données"
+}

@@ -6,7 +6,7 @@
           <input
             id="search"
             type="text"
-            placeholder="Entrez votre recherche ..."
+            placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"
             ng-model="toolCtrl.searchQuery"
             uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8"
             ng-keyup="$event.keyCode == 13 ? toolCtrl.triggerSearch(toolCtrl.searchQuery) : null"
@@ -15,22 +15,26 @@
         <div class="col-md-3 search-buttons">
           <button
             class="btn btn-lg btn-sm"
-            title="Rechercher"
+            title="{{ 'SEARCH' | translate }}"
             ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)"
           >
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
           <button
             class="btn btn-lg btn-sm"
-            title="Annuler"
+            title="{{ 'CANCEL' || translate }}"
             ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()"
           >
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </div>
         <div class="col-md-12">
-          <h4 class="search-count">
-            {{ toolCtrl.centers.length }} centres trouvés
+          <h4
+            class="search-count"
+            translate
+            translate-values="{count: toolCtrl.centers.length}"
+          >
+            SEARCH_RESULTS_COUNT
           </h4>
         </div>
         <div class="col-md-12">
@@ -49,7 +53,8 @@
                 data-target="#tab-list"
                 data-toggle="tab"
                 ng-click="toolCtrl.displayTab('list')"
-                >Liste</a
+                translate
+                >SEARCH_TAB_LIST</a
               >
             </li>
             <li>
@@ -57,7 +62,8 @@
                 data-target="#tab-map"
                 data-toggle="tab"
                 ng-click="toolCtrl.displayTab('map')"
-                >Carte</a
+                translate
+                >SEARCH_TAB_MAP</a
               >
             </li>
             <li>
@@ -65,7 +71,8 @@
                 data-target="#tab-table"
                 data-toggle="tab"
                 ng-click="toolCtrl.displayTab('table')"
-                >Données</a
+                translate
+                >SEARCH_TAB_DATA</a
               >
             </li>
           </ul>
