@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  var supportedLangs = ['fr', 'en'];
+
   angular.module('bib.components', []);
   angular.module('bib.controllers', []);
   angular.module('bib.services', []);
@@ -47,13 +49,19 @@
           prefix: 'assets/i18n/',
           suffix: '.json'
         });
-        $translateProvider.registerAvailableLanguageKeys(['fr', 'en'], {
-          'en_*': 'en',
-          'en-*': 'en',
-          'fr_*': 'fr',
-          'fr-*': 'fr',
-          '*': 'fr' // final fallback
-        });
+        $translateProvider.registerAvailableLanguageKeys(
+          supportedLangs,
+          _.reduce(
+            supportedLangs,
+            function(o, l) {
+              o[l + '_*'] = l;
+              o[l + '-*'] = l;
+              return o;
+            },
+            {}
+          )
+        );
+        $translateProvider.fallbackLanguage(supportedLangs[0]);
       }
     ])
     .config(function($routeProvider) {
@@ -90,10 +98,15 @@
     })
     .run(function($rootScope, $route, $translate, $location) {
       $rootScope.urlToLang = function(lang) {
-        return $location.path().replace(/^\/([a-z]{2})/, '/' + lang);
+        return $location
+          .path()
+          .replace(/^(?:\/[a-z]{2})?(\/|$)/, '/' + lang + '$1');
       };
       $rootScope.$on('$locationChangeSuccess', function() {
-        const lang = (($route.current || {}).params || {}).lang;
+        let lang = (($route.current || {}).params || {}).lang;
+        if (!_.includes(supportedLangs, lang)) {
+          lang = supportedLangs[0];
+        }
         if ($rootScope.lang !== lang) {
           $rootScope.lang = lang;
           $translate.use(lang);
