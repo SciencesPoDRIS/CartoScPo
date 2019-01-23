@@ -3,7 +3,6 @@
 angular
   .module('bib.services')
   .factory('dataService', function($q, $http, fileService, backOfficeBaseUrl) {
-    var url = './data/data.json?ver=' + Math.floor(Date.now() / 1000);
     var cache;
 
     return {

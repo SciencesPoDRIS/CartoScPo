@@ -1,9 +1,15 @@
 {
-  "SEARCH_PLACEHOLDER": "Enter your search…",
-  "SEARCH": "Search",
-  "CANCEL": "Cancel",
+  "TITLE": "[en] Cartographie de la Science Politique en France",
+  "SEARCH_PLACEHOLDER": "Entrez votre recherche…",
+  "SEARCH": "Rechercher",
+  "CANCEL": "Annuler",
   "SEARCH_RESULTS_COUNT": "{count, plural, =0 {no result} one {one center found} other {{count} centers found}}",
-  "SEARCH_TAB_LIST": "List",
-  "SEARCH_TAB_MAP": "Map",
-  "SEARCH_TAB_DATA": "Data"
+  "SEARCH_TAB_LIST": "Liste",
+  "SEARCH_TAB_MAP": "Carte",
+  "SEARCH_TAB_DATA": "Données",
+  "MAP_LEGEND": "Nombre de chercheurs permanents",
+  "NAV_HOME": "Accueil",
+  "NAV_PROJECT": "Le projet",
+  "NAV_ABOUT": "À propos",
+  "NAV_CENTERS": "Accéder aux centres"
 }

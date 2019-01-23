@@ -109,7 +109,9 @@
         }
         if ($rootScope.lang !== lang) {
           $rootScope.lang = lang;
-          $translate.use(lang);
+          $translate.use(lang).then(function() {
+            document.title = $translate.instant('TITLE');
+          });
         }
       });
     });

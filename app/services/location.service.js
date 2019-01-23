@@ -11,18 +11,7 @@ angular.module('bib.services').factory('location', [
     $location.skipReload = function() {
       var lastRoute = $route.current;
 
-      var deregister = $rootScope.$on('$locationChangeSuccess', function(
-        e,
-        absUrl,
-        oldUrl
-      ) {
-        console.log(
-          'location.skipReload',
-          'absUrl:',
-          absUrl,
-          'oldUrl:',
-          oldUrl
-        );
+      var deregister = $rootScope.$on('$locationChangeSuccess', function() {
         $route.current = lastRoute;
         deregister();
       });
