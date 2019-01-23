@@ -1,26 +1,26 @@
 <button class="btn btn-sm btn-secondary" type="button" style="float:right;"
-  data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.toggle()">
+  data-toggle="collapse" data-target="{{:: '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.toggle()">
     <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
 </button>
 
-<div ng-class="{ collapse: true, in: $ctrl.toggled ? !$ctrl.expanded : $ctrl.expanded }" id="{{ 'see-more-' + $ctrl.org.id }}">
+<div ng-class="{ collapse: true, in: $ctrl.toggled ? !$ctrl.expanded : $ctrl.expanded }" id="{{:: 'see-more-' + $ctrl.org.id }}">
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTab">
                 <li class="description active">
-                    <a data-target="#description-{{ $ctrl.org.id }}" data-toggle="tab">Description</a>
+                    <a data-target="#description-{{:: $ctrl.org.id }}" data-toggle="tab">Description</a>
                 </li>
                 <li class="ecole">
-                    <a data-target="#ecole-{{ $ctrl.org.id }}" data-toggle="tab">Ecoles doctorales</a>
+                    <a data-target="#ecole-{{:: $ctrl.org.id }}" data-toggle="tab">Ecoles doctorales</a>
                 </li>
                 <li class="recherche">
-                    <a data-target="#recherche-{{ $ctrl.org.id }}" data-toggle="tab">Thématiques</a>
+                    <a data-target="#recherche-{{:: $ctrl.org.id }}" data-toggle="tab">Thématiques</a>
                 </li>
                 <li class="publications">
-                    <a data-target="#publication-{{ $ctrl.org.id }}" data-toggle="tab">Publications</a>
+                    <a data-target="#publication-{{:: $ctrl.org.id }}" data-toggle="tab">Publications</a>
                 </li>
                 <li class="ressources">
-                    <a data-target="#ressources-{{ $ctrl.org.id }}" data-toggle="tab">Documentation</a>
+                    <a data-target="#ressources-{{:: $ctrl.org.id }}" data-toggle="tab">Documentation</a>
                 </li>
             </ul>
         </div>
@@ -28,65 +28,65 @@
 
     <div class="tab-content" id="centerDetailsTabs">
 
-        <div class="tab-pane active" id="description-{{ $ctrl.org.id }}">
+        <div class="tab-pane active" id="description-{{:: $ctrl.org.id }}">
             <div class="col-md-6">
                 <p ng-if="$ctrl.org.url">
                     <i class="fa fa-globe"></i>
-                    <a target="_blank" href="{{ $ctrl.org.url }}">{{ $ctrl.org.url }}</a>
+                    <a target="_blank" href="{{:: $ctrl.org.url }}">{{:: $ctrl.org.url }}</a>
                 </p>
                 <p ng-repeat="phone in $ctrl.phones track by phone.number">
-                    <i class="fa fa-phone"></i> {{ phone.number }}
+                    <i class="fa fa-phone"></i> {{:: phone.number }}
                 </p>
-                <p>Année de création : {{ $ctrl.org.creation_year }}</p>
-                <p>Numéro National de Structure : {{ $ctrl.org.national_structure_number }}</p>
-                <p>CNRS : {{ $ctrl.org.cnrs ? 'oui' : 'non' }}</p>
+                <p>Année de création : {{:: $ctrl.org.creation_year }}</p>
+                <p>Numéro National de Structure : {{:: $ctrl.org.national_structure_number }}</p>
+                <p>CNRS : {{:: $ctrl.org.cnrs ? 'oui' : 'non' }}</p>
             </div>
             <div class="col-md-6">
-                <p>Directeur·rice : {{ $ctrl.org.director_name }}</p>
+                <p>Directeur·rice : {{:: $ctrl.org.director_name }}</p>
                 <p ng-if="$ctrl.org.director_email != ''">
-                    <i class="fa fa-envelope-o"></i> {{ $ctrl.org.director_email }}
+                    <i class="fa fa-envelope-o"></i> {{:: $ctrl.org.director_email }}
                 </p>
                 <p>
-                    <a target="_blank" href="{{ $ctrl.scanr_url }}">Fiche du centre dans ScanR</a>
+                    <a target="_blank" href="{{:: $ctrl.scanr_url }}">Fiche du centre dans ScanR</a>
                 </p>
                 <p ng-if="$ctrl.org.rnsr_url">
-                    <a target="_blank" href="{{ $ctrl.org.rnsr_url }}">Lien RNSR</a>
+                    <a target="_blank" href="{{:: $ctrl.org.rnsr_url }}">Lien RNSR</a>
                 </p>
                 <p ng-if="$ctrl.org.wikidata">
-                    <a target="_blank" href="https://www.wikidata.org/wiki/{{ $ctrl.org.wikidata }}">Wikidata : {{ $ctrl.org.wikidata }}</a>
+                    <a target="_blank" href="https://www.wikidata.org/wiki/{{:: $ctrl.org.wikidata }}">Wikidata : {{:: $ctrl.org.wikidata }}</a>
                 </p>
                 <p ng-if="$ctrl.org.wikipedia_url">
-                    <a target="_blank" href="{{ $ctrl.org.wikipedia_url }}">Lien Wikipedia</a>
+                    <a target="_blank" href="{{:: $ctrl.org.wikipedia_url }}">Lien Wikipedia</a>
                 </p>
             </div>
             <div class="col-md-12">
-                <a class="btn btn-default" target="_blank" href="{{ $ctrl.boHref }}">
+                <a class="btn btn-default" target="_blank" href="{{:: $ctrl.boHref }}">
                   <i class="fa fa-pencil"></i>
                   Apporter des modifications à ce centre
                 </a>
             </div>
             <h2>Adresse(s)</h2>
             <ul>
-                <li ng-repeat="address in $ctrl.org.addresses track by address.address">{{ address.address }}</li>
+                <li ng-repeat="address in $ctrl.org.addresses track by address.address">{{:: address.address }}</li>
             </ul>
             <h2>Etablissements de rattachement</h2>
             <div class="col-md-12">
                 <p ng-repeat="aff in $ctrl.org.affiliations track by aff.name">
-                    {{ aff.name }}
+                    {{:: aff.name }}
                 </p>
             </div>
             <h2>Personnel</h2>
             <div class="col-md-6">
-                <p>Effectif total : {{ $ctrl.org.staff_number }}</p>
-                <p>Personnels non permanents : {{ $ctrl.org.staff_non_permanent }}</p>
-                <p>Personnels permanents : {{ $ctrl.org.staff_permanent }}</p>
+                <p>Effectif total : {{:: $ctrl.org.staff_number }}</p>
+                <p>Personnels non permanents : {{:: $ctrl.org.staff_non_permanent }}</p>
+                <p>Personnels permanents : {{:: $ctrl.org.staff_permanent }}</p>
             </div>
             <div class="col-md-6">
                 <p ng-if="$ctrl.org.staff_url_cnrs">
-                    <a target="_blank" href="{{ $ctrl.org.staff_url_cnrs }}">
+                    <a target="_blank" href="{{:: $ctrl.org.staff_url_cnrs }}">
                     Lien vers la page "personnel" du site Web du CNRS</a></p>
                 <p ng-if="$ctrl.org.staff_url">
-                    <a target="_blank" href="{{ $ctrl.org.staff_url }}">
+                    <a target="_blank" href="{{:: $ctrl.org.staff_url }}">
                     Lien vers la page "personnel" sur le site Web du centre</a></p>
             </div>
             <div class="col-md-12">
@@ -95,29 +95,29 @@
             </div>
         </div>
 
-        <div class="tab-pane" id="ecole-{{ $ctrl.org.id }}">
+        <div class="tab-pane" id="ecole-{{:: $ctrl.org.id }}">
             <h2>Liste des écoles doctorales</h2>
             <div class="col-md-12">
                 <div ng-repeat="school in $ctrl.org.schools track by school.name" class="col-md-4 ecole-details">
-                    <p>Intitulé Ecole Doctorale : {{ school.name }}</p>
-                    <p>Numéro d'Ecole Doctorale : {{ school.number }}</p>
-                    <p>Directeur·rice école doctorale : {{ school.director_name}}</p>
-                    <p>Courriel de l'Ecole doctorale : {{ school.email }}</p>
+                    <p>Intitulé Ecole Doctorale : {{:: school.name }}</p>
+                    <p>Numéro d'Ecole Doctorale : {{:: school.number }}</p>
+                    <p>Directeur·rice école doctorale : {{:: school.director_name}}</p>
+                    <p>Courriel de l'Ecole doctorale : {{:: school.email }}</p>
                 </div>
             </div>
             <h2>Nombre de doctorant·e·s et thèses du centre</h2>
             <div class="col-md-12">
-                <p>Nombre de doctorant·e·s : {{ $ctrl.org.phd_number }}</p>
-                <p>Nombre de doctorant·e·s en science politique : {{ $ctrl.org.phd_scpo_number }}</p>
-                <p>Nombre de thèses soutenues en 2016 : {{ $ctrl.org.thesis_number }}</p>
+                <p>Nombre de doctorant·e·s : {{:: $ctrl.org.phd_number }}</p>
+                <p>Nombre de doctorant·e·s en science politique : {{:: $ctrl.org.phd_scpo_number }}</p>
+                <p>Nombre de thèses soutenues en 2016 : {{:: $ctrl.org.thesis_number }}</p>
             </div>
         </div>
 
-        <div class="tab-pane" id="recherche-{{ $ctrl.org.id }}">
+        <div class="tab-pane" id="recherche-{{:: $ctrl.org.id }}">
             <div class="col-md-6 colTab">
                 <h2>Sections CNRS</h2>
                 <div ng-repeat="section in $ctrl.org.cnrs_sections">
-                    {{ section }}
+                    {{:: section }}
                 </div>
                 <h2>Mots-clés sujet</h2>
                 <div ng-bind-html="$ctrl.subject_terms" class="recherche"></div>
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="tab-pane" id="publication-{{ $ctrl.org.id }}">
+        <div class="tab-pane" id="publication-{{:: $ctrl.org.id }}">
             <h2 ng-if="$ctrl.org.collections.enabled">Collections auprès d'éditeurs</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.collections_titles" ng-if="$ctrl.org.collections.enabled"></div>
 
@@ -143,7 +143,7 @@
 
             <h2>Publications versées dans un dépôt institutionnel</h2>
             <div class="col-md-12">
-                {{ $ctrl.org.repository ? 'oui' : 'non' }}
+                {{:: $ctrl.org.repository ? 'oui' : 'non' }}
             </div>
 
             <h2 ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''">Préconisations pour le dépôt en open access des publications</h2>
@@ -156,7 +156,7 @@
             <div class="col-md-12" ng-if="$ctrl.valorisation != ''" ng-bind-html="$ctrl.valorisation"></div>
         </div>
 
-        <div class="tab-pane ressources" id="ressources-{{ $ctrl.org.id }}">
+        <div class="tab-pane ressources" id="ressources-{{:: $ctrl.org.id }}">
             <h2>Bibliothèques utilisées</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.used_librairies"></div>
 
@@ -171,7 +171,7 @@
 
             <h2>Site web</h2>
             <div class="col-md-12">
-                <p><a target="_blank" href="{{ $ctrl.org.library.url }}">{{ $ctrl.org.library.url }}</a></pa>
+                <p><a target="_blank" href="{{:: $ctrl.org.library.url }}">{{:: $ctrl.org.library.url }}</a></pa>
             </div>
 
             <h2>Centre de documentation ou bibliothèque en propre : description et fonds spécifiques</h2>
@@ -189,7 +189,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-secondary" style="float: right;" type="button" data-toggle="collapse" data-target="{{ '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.toggle()">
+                <button class="btn btn-sm btn-secondary" style="float: right;" type="button" data-toggle="collapse" data-target="{{:: '#see-more-' + $ctrl.org.id }}" ng-click="$ctrl.toggle()">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
