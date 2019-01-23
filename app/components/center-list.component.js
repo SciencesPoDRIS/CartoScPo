@@ -8,6 +8,10 @@ angular.module('bib.components').component('centerList', {
     expandedCenters: '='
   },
   controller: function($rootScope, $scope, location) {
+    this.getYear = function(date) {
+      var d = new Date(date);
+      return d.getFullYear();
+    };
     this.toggleCenter = function(centerId) {
       var ids = $scope.$ctrl.expandedCenters;
       var index = ids.indexOf(centerId);

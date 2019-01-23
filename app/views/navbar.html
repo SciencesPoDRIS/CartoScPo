@@ -7,11 +7,11 @@
     <img
       id="logo-bib"
       src="img/logo_bibliotheque.png"
-      alt="Sciences Po Bibliothèque"
+      alt="{{ 'LOGO_LIBRARY_ALT' | translate }}"
     />
   </a>
   <div class="navbar-brand col-md-8 col-lg-8 title">
-    <a href="/">Cartographie de la Science Politique en France</a>
+    <a href="/" translate>TITLE</a>
   </div>
   <a
     class="navbar-brand col-md-2 col-lg-2"
@@ -30,7 +30,9 @@
       ng-repeat="view in $ctrl.views"
       ng-class="{ active: $ctrl.isActive(view)}"
     >
-      <a href="#/{{ $root.lang }}/{{ view.slug }}">{{ view.label }}</a>
+      <a href="#/{{ $root.lang }}/{{ view.slug }}">{{
+        view.label | translate
+      }}</a>
     </li>
     <li class="navbar-right">
       <a

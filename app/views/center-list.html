@@ -15,7 +15,9 @@
         <p>{{:: center.code | trimStar }}</p>
         <p ng-if="center.updatedAt">
           <small
-            >Données récoltées en {{:: center.updatedAt | date: 'yyyy' }}</small
+            translate
+            translate-values="{year: $ctrl.getYear(center.updatedAt)}"
+            >CENTER_UPDATE_YEAR</small
           >
         </p>
       </div>
