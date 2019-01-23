@@ -42,6 +42,7 @@
     .config([
       '$translateProvider',
       function($translateProvider) {
+        $translateProvider.useMessageFormatInterpolation();
         $translateProvider.useStaticFilesLoader({
           prefix: 'assets/i18n/',
           suffix: '.json'
