@@ -134,7 +134,7 @@ angular
         });
       },
 
-      _updateLocation: function() {
+      updateLocation: function() {
         location.skipReload().search(
           _.reduce(
             this.enabledItems,
@@ -158,12 +158,12 @@ angular
             return i.facetId === facet.id && i.label === item.label;
           })
           : this.enabledItems.push(stored);
-        this._updateLocation();
+        this.updateLocation();
       },
 
       reset: function() {
         this.enabledItems = [];
-        this._updateLocation();
+        this.updateLocation();
       },
 
       // take a list of centers and return only the "faceted" ones
