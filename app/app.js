@@ -20,6 +20,7 @@
   angular
     .module('bib', [
       'pascalprecht.translate',
+      'ngAnimate',
       'ngRoute',
       'ngSanitize',
       'ui.bootstrap',

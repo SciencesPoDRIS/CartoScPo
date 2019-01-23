@@ -703,3 +703,32 @@ span.highlight {
     padding: 2px 5px;
   }
 }
+
+// ngAnimate
+.animated-collapse.ng-enter,
+.animated-collapse.ng-leave {
+  -webkit-transition: max-height ease-in-out 1s;
+  -moz-transition: max-height ease-in-out 1s;
+  -ms-transition: max-height ease-in-out 1s;
+  -o-transition: max-height ease-in-out 1s;
+  transition: max-height ease-in-out 1s;
+}
+.animated-collapse.ng-enter,
+.animated-collapse.ng-leave.ng-leave-active {
+  -webkit-transition: max-height 0.15s ease-out;
+  -moz-transition: max-height 0.15s ease-out;
+  -ms-transition: max-height 0.15s ease-out;
+  -o-transition: max-height 0.15s ease-out;
+  transition: max-height 0.15s ease-out;
+  max-height: 0;
+  overflow: hidden;
+}
+.animated-collapse.ng-leave,
+.animated-collapse.ng-enter.ng-enter-active {
+  -webkit-transition: max-height 0.25s ease-in;
+  -moz-transition: max-height 0.25s ease-in;
+  -ms-transition: max-height 0.25s ease-in;
+  -o-transition: max-height 0.25s ease-in;
+  transition: max-height 0.25s ease-in;
+  max-height: 800px;
+}

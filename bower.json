@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "angular-translate": "^2.18.1",
-    "angular-translate-loader-static-files": "^2.18.1"
+    "angular-translate-loader-static-files": "^2.18.1",
+    "angular-animate": "^1.7.6"
   }
 }
