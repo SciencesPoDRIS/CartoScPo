@@ -36,18 +36,16 @@
         view.label | translate
       }}</a>
     </li>
-    <li class="navbar-right">
-      <a
-        ng-class="['lang', {active: $root.lang === 'fr'}]"
-        href="#{{ $root.urlToLang('fr') }}"
-        >FR</a
+    <li class="navbar-right" ng-if="$root.lang !== 'fr'">
+      <a title="Visiter le site en français" href="#{{ $root.urlToLang('fr') }}"
+        >Français</a
       >
     </li>
-    <li class="navbar-right">
+    <li class="navbar-right" ng-if="$root.lang !== 'en'">
       <a
-        ng-class="['lang', {active: $root.lang === 'en'}]"
+        title="Browse this website in English"
         href="#{{ $root.urlToLang('en') }}"
-        >EN</a
+        >English</a
       >
     </li>
   </ul>
