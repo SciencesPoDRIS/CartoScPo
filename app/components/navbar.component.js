@@ -2,9 +2,11 @@
 
 angular.module('bib.components').component('navbar', {
   templateUrl: 'views/navbar.html',
-  controller: function($location) {
+  controller: function($location, $rootScope) {
     this.isActive = function(view) {
-      return $location.path().indexOf('/' + view.slug) === 0;
+      return (
+        $location.path().indexOf('/' + $rootScope.lang + '/' + view.slug) === 0
+      );
     };
     this.views = [
       { slug: 'centers', label: 'NAV_CENTERS' },
