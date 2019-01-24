@@ -135,7 +135,7 @@ angular
       },
 
       updateLocation: function() {
-        location.skipReload().search(
+        location.search(
           _.reduce(
             this.enabledItems,
             function(q, i) {
