@@ -79,7 +79,7 @@
             <div class="col-md-6">
                 <p translate translate-values="{value: $ctrl.org.staff_number}">CENTER_STAFF_NUMBER</p>
                 <p translate translate-values="{value: $ctrl.org.staff_non_permanent}">CENTER_STAFF_NON_PERMANENT</p>
-                <p translate translate-values="{value: $ctrl.org.staff_permanent}">CENTER_PERMANENT</p>
+                <p translate translate-values="{value: $ctrl.org.staff_permanent}">CENTER_STAFF_PERMANENT</p>
             </div>
             <div class="col-md-6">
                 <p ng-if="$ctrl.org.staff_url_cnrs">
@@ -135,16 +135,16 @@
         </div>
 
         <div class="tab-pane" id="publication-{{:: $ctrl.org.id }}">
-            <h2 ng-if="$ctrl.org.collections.enabled" translate>CENTER_COLLECTIONS_TITLES</h2>
+            <h2 ng-if="$ctrl.org.collections.enabled" translate>CENTER_COLLECTIONS</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.collections_titles" ng-if="$ctrl.org.collections.enabled"></div>
 
-            <h2 ng-if="$ctrl.org.journal.enabled" translate>CENTER_JOURNAL_TITLES</h2>
+            <h2 ng-if="$ctrl.org.journal.enabled" translate>CENTER_JOURNAL</h2>
             <div class="col-md-12" ng-bind-html="$ctrl.journal_titles" ng-if="$ctrl.org.journal.enabled"></div>
 
             <h2 translate>CENTER_REPOSITORY</h2>
             <div class="col-md-12" translate translate-values="{value: !!$ctrl.org.repository}">YES_NO</div>
 
-            <h2 ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''" translate>CENTER_PUBLICATION_OPEN_ACCESS</h2>
+            <h2 ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''" translate>CENTER_OA_POLICY</h2>
             <div class="col-md-12" ng-if="$ctrl.publication['Préconisations pour le dépôt en open access des publications'] != ''" ng-bind-html="$ctrl.oa_policy"></div>
 
             <h2 ng-if="$ctrl.org.data_repository.enabled" translate>CENTER_DATA_REPOSITORY</h2>
