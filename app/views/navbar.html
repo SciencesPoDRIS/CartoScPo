@@ -11,7 +11,7 @@
     />
   </a>
   <div class="navbar-brand col-md-8 col-lg-8 title">
-    <a href="/" translate>TITLE</a>
+    <a href="/{{ $root.lang }}/" translate>TITLE</a>
   </div>
   <a
     class="navbar-brand col-md-2 col-lg-2"
@@ -24,7 +24,9 @@
 <div class="navbar navbar-default navbar-fixed-top container-fluid row">
   <ul class="nav navbar-nav">
     <li>
-      <a href="#/"> <i class="fa fa-home" aria-hidden="true"></i> </a>
+      <a href="#/{{ $root.lang }}/">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </a>
     </li>
     <li
       ng-repeat="view in $ctrl.views"
