@@ -3,7 +3,7 @@
   "CENTER_ADDRESS": "Address",
   "CENTER_ADDRESSES": "Adresses",
   "CENTER_AFFILIATIONS": "Affiliations",
-  "CENTER_CNRS": "CNRS: {value}",
+  "CENTER_CNRS": "CNRS: {value, select, true{yes} other{no}}",
   "CENTER_CNRS_SECTIONS": "CNRS sections",
   "CENTER_COLLECTIONS": "Book collections from publishers",
   "CENTER_CONTRACTS": "Research contracts",

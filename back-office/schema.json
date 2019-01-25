@@ -169,7 +169,7 @@
       "type": "boolean",
       "tab": "administration",
       "searchable": false,
-      "bo": false,
+      "bo": true,
       "required": true
     },
     "menesr": {
