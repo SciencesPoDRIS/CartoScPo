@@ -2,10 +2,19 @@
   "name": "bib",
   "version": "0.0.1",
   "homepage": "",
-  "authors": ["Bibliothèque - SciencesPo", "Medialab - SciencesPo"],
+  "authors": [
+    "Bibliothèque - SciencesPo",
+    "Medialab - SciencesPo"
+  ],
   "license": "GNU GPL",
   "private": true,
-  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "angular": "^1.x.x",
     "angular-bootstrap": "~2.3.1",
@@ -33,5 +42,11 @@
   },
   "resolutions": {
     "angular": "^1.6.x"
+  },
+  "devDependencies": {
+    "angular-translate": "^2.18.1",
+    "angular-translate-loader-static-files": "^2.18.1",
+    "angular-animate": "^1.7.6",
+    "angular-translate-interpolation-messageformat": "^2.18.1"
   }
 }

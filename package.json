@@ -23,7 +23,6 @@
     "bo:analyze-bundle": "ANALYZE_BUNDLE=1 npm run bo:build",
     "docker": "UID=$(id -u) GID=$(id -g) docker-compose -f docker-compose.dev.yml up",
     "maildev": "maildev -w 3025 -s 25000 --verbose",
-    "install": "bower install",
     "prettier": "prettier-eslint --write \"app/**/*.js\" \"back-office/**/*.js\" \"server/**/*.js\" \"bin/*.js\""
   },
   "keywords": [

@@ -3,7 +3,7 @@
 
 angular
   .module('bib.services')
-  .factory('facetService', function($q, $filter, metadataService) {
+  .factory('facetService', function($q, $filter, metadataService, location) {
     /* this object describes the fields available in the sidebar
      * - id has to be unique
      * - path and key indictates when to grab the info in data.json
@@ -54,9 +54,23 @@ angular
       }, []);
     });
 
+    function _getEnabledItemsFromLocation() {
+      var enabled = [];
+      _.each(location.search(), function(v, id) {
+        if (_.isArray(v)) {
+          _.each(v, function(label) {
+            enabled.push({ facetId: id, label: label });
+          });
+        } else {
+          enabled.push({ facetId: id, label: v });
+        }
+      });
+      return enabled;
+    }
+
     return {
       // all toggled facet items will be pushed / removed from this array
-      enabledItems: [],
+      enabledItems: _getEnabledItemsFromLocation(),
 
       getFacets: function() {
         return facetsP;
@@ -81,6 +95,9 @@ angular
         var self = this;
         return self.getFacets().then(function(facets) {
           var facet = _.find(facets, { id: facetId });
+          if (!facet) {
+            return [];
+          }
           var items = _(centers)
             .flatMap(function(center) {
               var parser = facet.parser || _.identity;
@@ -117,6 +134,22 @@ angular
         });
       },
 
+      updateLocation: function() {
+        location.search(
+          _.reduce(
+            this.enabledItems,
+            function(q, i) {
+              if (!q[i.facetId]) {
+                q[i.facetId] = [];
+              }
+              q[i.facetId].push(i.label);
+              return q;
+            },
+            {}
+          )
+        );
+      },
+
       // when the user click on a facet item
       toggleItem: function(facet, item) {
         var stored = { facetId: facet.id, label: item.label };
@@ -125,10 +158,12 @@ angular
             return i.facetId === facet.id && i.label === item.label;
           })
           : this.enabledItems.push(stored);
+        this.updateLocation();
       },
 
       reset: function() {
         this.enabledItems = [];
+        this.updateLocation();
       },
 
       // take a list of centers and return only the "faceted" ones

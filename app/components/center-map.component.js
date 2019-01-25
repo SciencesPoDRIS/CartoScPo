@@ -7,7 +7,7 @@ angular.module('bib.components').component('centerMap', {
     // can't use "markers", it's already taken by Leaflet
     centerMarkers: '<'
   },
-  controller: function($scope, leafletData, leafletMarkerEvents) {
+  controller: function($translate, $scope, leafletData, leafletMarkerEvents) {
     this.$onInit = function() {
       // add custom legend
       leafletData.getMap().then(function(map) {
@@ -20,7 +20,9 @@ angular.module('bib.components').component('centerMap', {
             var container = L.DomUtil.create('div', 'my-custom-control');
             container.innerHTML =
               '<svg width="250" height="150"> ' +
-              '<text x="15" y="100" fill="black" font-size="14">Nombre de chercheurs permanents</text>' +
+              '<text x="15" y="100" fill="black" font-size="14">' +
+              $translate.instant('MAP_LEGEND') +
+              '</text>' +
               '<rect width="30" height="30" x="105" y="110" fill="#e74c3c" />' +
               '<text x="130" y="150" fill="black">+ 80</text>' +
               '<rect width="30" height="30" x="75" y="110" fill="#d35400" />' +

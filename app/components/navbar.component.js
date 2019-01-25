@@ -2,14 +2,16 @@
 
 angular.module('bib.components').component('navbar', {
   templateUrl: 'views/navbar.html',
-  controller: function($location) {
+  controller: function($location, $rootScope) {
     this.isActive = function(view) {
-      return $location.path().indexOf('/' + view.slug) === 0;
+      return (
+        $location.path().indexOf('/' + $rootScope.lang + '/' + view.slug) === 0
+      );
     };
     this.views = [
-      { slug: 'centers', label: 'Accéder aux centres' },
-      { slug: 'project', label: 'Le projet' },
-      { slug: 'about', label: 'A propos' }
+      { slug: 'centers', label: 'NAV_CENTERS' },
+      { slug: 'project', label: 'NAV_PROJECT' },
+      { slug: 'about', label: 'NAV_ABOUT' }
     ];
   }
 });

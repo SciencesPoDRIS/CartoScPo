@@ -1,4 +1,5 @@
 <div ng-repeat="field in $ctrl.fields track by field.key" class="field">
+
   <label class="label" for="{{ $ctrl.getId(field) }}" title="{{ field.key }}">
     {{ field.label }}
     <span ng-if="field.required">
@@ -7,133 +8,80 @@
   </label>
 
   <div class="control has-icons-left" ng-switch on="field.type">
-    <input
-      ng-switch-when="boolean"
-      type="checkbox"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
 
-    <input
-      ng-switch-when="number"
-      type="number"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="boolean" type="checkbox"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
+
+    <input ng-switch-when="number" type="number" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-if="field.icon" class="icon is-small is-left">
       <i class="fa fa-{{ field.icon }}"></i>
     </span>
 
-    <input
-      ng-switch-when="email"
-      type="email"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="email" type="email" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="email" class="icon is-small is-left">
       <i class="fa fa-envelope"></i>
     </span>
 
-    <input
-      ng-switch-when="url"
-      type="url"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="url" type="url" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="url" class="icon is-small is-left">
       <i class="fa fa-link"></i>
     </span>
 
-    <input
-      ng-switch-when="tel"
-      type="tel"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="tel" type="tel" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="tel" class="icon is-small is-left">
       <i class="fa fa-phone"></i>
     </span>
 
     <!-- just changing the leading icon -->
 
-    <input
-      ng-switch-when="address"
-      type="text"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="address" type="text" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="address" class="icon is-small is-left">
       <i class="fa fa-map-signs"></i>
     </span>
 
-    <input
-      ng-switch-when="coords"
-      type="text"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="coords" type="text" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="coords" class="icon is-small is-left">
       <i class="fa fa-globe"></i>
     </span>
 
-    <input
-      ng-switch-when="person"
-      type="text"
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-when="person" type="text" class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
     <span ng-switch-when="person" class="icon is-small is-left">
       <i class="fa fa-user"></i>
     </span>
 
-    <div
-      ng-switch-when="markdown"
-      class="columns"
-      style="padding-bottom: 100px"
-    >
-      <div class="column">
-        <textarea
-          class="textarea"
-          simplemde
-          id="{{ $ctrl.getId(field) }}"
-          name="{{ $ctrl.getId(field) }}"
-          ng-model="$ctrl.item[field.key]"
-          ng-required="field.required"
-        ></textarea>
-      </div>
+    <div ng-switch-when="markdown" class="columns" style="padding-bottom: 100px">
+        <div class="column">
+          <textarea class="textarea" simplemde
+            id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+            ng-model="$ctrl.item[field.key]" ng-required="field.required"></textarea>
+        </div>
 
-      <div class="column">
-        <label class="label">Prévisualisation Markdown</label>
-        <div class="content" common-mark="$ctrl.item[field.key]"></div>
-      </div>
+        <div class="column">
+          <label class="label">Prévisualisation Markdown</label>
+          <div class="content" common-mark="$ctrl.item[field.key]"></div>
+        </div>
     </div>
 
     <div ng-switch-when="array" class="block">
+
       <div class="block" dragula="'bag'" dragula-model="$ctrl.item[field.key]">
         <div ng-repeat="item in $ctrl.item[field.key]" class="notification">
+
           <a class="handle">⇅</a>
           <a class="delete" ng-click="$ctrl.deleteField(field.key, $index)"></a>
 
@@ -143,8 +91,8 @@
             item="item"
             key="field.key"
             index="$index"
-            form="$ctrl.form"
-          ></fields-list>
+            form="$ctrl.form"></fields-list>
+
         </div>
       </div>
 
@@ -156,60 +104,49 @@
     </div>
 
     <div ng-switch-when="boolean-item" class="block">
-      <input
-        type="checkbox"
-        id="{{ $ctrl.getId(field) }}"
-        name="{{ $ctrl.getId(field) }}"
-        ng-model="$ctrl.item[field.key].enabled"
-      />
+
+      <input type="checkbox"
+        id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+        ng-model="$ctrl.item[field.key].enabled" />
 
       <div class="block" ng-if="$ctrl.item[field.key].enabled">
+
         <!-- recursion -->
         <fields-list
           fields="field.fields"
           item="$ctrl.item[field.key]"
           key="field.key"
-          form="$ctrl.form"
-        ></fields-list>
+          form="$ctrl.form"></fields-list>
+
       </div>
+
     </div>
 
     <ul ng-switch-when="check-list" class="block">
+
       <li ng-repeat="option in field.options">
         <label>
-          <input
-            type="checkbox"
+          <input type="checkbox"
             id="{{ $ctrl.getId(field) + '_' + $index }}"
             name="{{ $ctrl.getId(field) + '_' + $index }}"
             ng-checked="$ctrl.item[field.key].includes(option)"
             ng-click="$ctrl.toggleCheckList(field.key, option)"
-            value="{{ option }}"
-          />
+            value="{{ option }}" />
           {{ option }}
         </label>
       </li>
+    
     </ul>
 
-    <input
-      ng-switch-default
-      class="input"
-      id="{{ $ctrl.getId(field) }}"
-      name="{{ $ctrl.getId(field) }}"
-      ng-model="$ctrl.item[field.key]"
-      ng-required="field.required"
-    />
+    <input ng-switch-default class="input"
+      id="{{ $ctrl.getId(field) }}" name="{{ $ctrl.getId(field) }}"
+      ng-model="$ctrl.item[field.key]" ng-required="field.required" />
 
     <!-- error messages -->
     <div ng-if="$ctrl.form[$ctrl.getId(field)].$error" class="help is-danger">
-      <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.required">
-        Ce champ est requis
-      </div>
-      <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.number">
-        Ce champ est numérique
-      </div>
-      <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.email">
-        Ce courriel n'est pas valide
-      </div>
+      <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.required">Ce champ est requis</div>
+      <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.number">Ce champ est numérique</div>
+      <div ng-if="$ctrl.form[$ctrl.getId(field)].$error.email">Ce courriel n'est pas valide</div>
     </div>
   </div>
 </div>

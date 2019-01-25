@@ -37,13 +37,13 @@ const component = {
   template: require('./index.html'),
   controller,
   bindings: {
-    fields: '=',
-    item: '=',
+    fields: '<',
+    item: '<',
     // to prefix recursive inputs name and id
-    index: '=?',
-    key: '=?',
+    index: '<?',
+    key: '<?',
     // ngForm for errors
-    form: '='
+    form: '<'
   }
 };
 

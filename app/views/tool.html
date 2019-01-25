@@ -2,29 +2,46 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4 search">
-          <div class="col-md-9">
-            <input id="search" type="text" placeholder="Entrez votre recherche ..."
-              ng-model="toolCtrl.searchQuery"
-              uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8"
-              ng-keyup="$event.keyCode == 13 ? toolCtrl.triggerSearch(toolCtrl.searchQuery) : null">
-          </div>
-          <div class="col-md-3 search-buttons">
-            <button class="btn btn-lg btn-sm" title="Rechercher" ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-            <button class="btn btn-lg btn-sm" title="Annuler" ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-          </div>
-        <div class="col-md-12">
-        <h4 class="search-count">
-          {{toolCtrl.centers.length}} centres trouvés
-        </h4>
+        <div class="col-md-9">
+          <input
+            id="search"
+            type="text"
+            placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"
+            ng-model="toolCtrl.searchQuery"
+            uib-typeahead="word for word in toolCtrl.words | filter:$viewValue:toolCtrl.startsWith | limitTo:8"
+            ng-keyup="$event.keyCode == 13 ? toolCtrl.triggerSearch(toolCtrl.searchQuery) : null"
+          />
+        </div>
+        <div class="col-md-3 search-buttons">
+          <button
+            class="btn btn-lg btn-sm"
+            title="{{ 'SEARCH' | translate }}"
+            ng-click="toolCtrl.triggerSearch(toolCtrl.searchQuery)"
+          >
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+          <button
+            class="btn btn-lg btn-sm"
+            title="{{ 'CANCEL' || translate }}"
+            ng-click="toolCtrl.resetSearch();toolCtrl.triggerSearch()"
+          >
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
         </div>
         <div class="col-md-12">
-        <facets
-          facets="toolCtrl.facets"
-          on-toggle-item="toolCtrl.toggleFacetItem($event)"></facets>
+          <h4
+            class="search-count"
+            translate
+            translate-values="{count: toolCtrl.centers.length}"
+          >
+            SEARCH_RESULTS_COUNT
+          </h4>
+        </div>
+        <div class="col-md-12">
+          <facets
+            facets="toolCtrl.facets"
+            on-toggle-item="toolCtrl.toggleFacetItem($event)"
+          ></facets>
         </div>
       </div>
 
@@ -32,11 +49,32 @@
         <div>
           <ul class="nav nav-tabs">
             <li class="active">
-              <a data-target="#tab-list" data-toggle="tab" ng-click="toolCtrl.displayTab('list')">Liste</a></li>
+              <a
+                data-target="#tab-list"
+                data-toggle="tab"
+                ng-click="toolCtrl.displayTab('list')"
+                translate
+                >SEARCH_TAB_LIST</a
+              >
+            </li>
             <li>
-              <a data-target="#tab-map" data-toggle="tab" ng-click="toolCtrl.displayTab('map')">Carte</a></li>
+              <a
+                data-target="#tab-map"
+                data-toggle="tab"
+                ng-click="toolCtrl.displayTab('map')"
+                translate
+                >SEARCH_TAB_MAP</a
+              >
+            </li>
             <li>
-              <a data-target="#tab-table" data-toggle="tab" ng-click="toolCtrl.displayTab('table')">Données</a></li>
+              <a
+                data-target="#tab-table"
+                data-toggle="tab"
+                ng-click="toolCtrl.displayTab('table')"
+                translate
+                >SEARCH_TAB_DATA</a
+              >
+            </li>
           </ul>
         </div>
         <div>
@@ -44,13 +82,14 @@
             <div class="tab-pane active" id="tab-list">
               <center-list
                 centers="toolCtrl.centers"
-                expanded-centers="toolCtrl.expandedCenters"></center-list>
+                expanded-centers="toolCtrl.expandedCenters"
+              ></center-list>
             </div>
             <div class="tab-pane" id="tab-table">
               <ng-include src="'views/table.html'"></ng-include>
             </div>
             <div class="tab-pane" id="tab-map">
-                <center-map center-markers="toolCtrl.markers"></center-map>
+              <center-map center-markers="toolCtrl.markers"></center-map>
             </div>
           </div>
         </div>

@@ -7,7 +7,11 @@ angular.module('bib.components').component('centerList', {
     // expanded details
     expandedCenters: '='
   },
-  controller: function($scope, location) {
+  controller: function($rootScope, $scope, location) {
+    this.getYear = function(date) {
+      var d = new Date(date);
+      return d.getFullYear();
+    };
     this.toggleCenter = function(centerId) {
       var ids = $scope.$ctrl.expandedCenters;
       var index = ids.indexOf(centerId);
@@ -21,7 +25,9 @@ angular.module('bib.components').component('centerList', {
       // Update URL (without reloading for UI perf)
       var ids2 = $scope.$ctrl.expandedCenters;
       var url =
-        ids2.length === 0 ? '/centers' : `/centers/${ids2[ids2.length - 1]}`;
+        '/' +
+        $rootScope.lang +
+        (ids2.length === 0 ? '/centers' : `/centers/${ids2[ids2.length - 1]}`);
       location.skipReload().path(url);
     };
   }
