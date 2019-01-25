@@ -2,10 +2,19 @@
   "name": "bib",
   "version": "0.0.1",
   "homepage": "",
-  "authors": ["Bibliothèque - SciencesPo", "Medialab - SciencesPo"],
+  "authors": [
+    "Bibliothèque - SciencesPo",
+    "Medialab - SciencesPo"
+  ],
   "license": "GNU GPL",
   "private": true,
-  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "angular": "1.7.5",
     "angular-animate": "1.7.5",
@@ -31,12 +40,13 @@
     "jquery.scrollTo": "2.1.2",
     "leaflet.markercluster": "0.5.0",
     "lodash": "4.17.10",
-    "lunr.js": "0.7.2",
+    "lunr.js": "2.3.5",
     "papaparse": "4.6.3",
     "ui-leaflet": "1.0.1"
   },
   "resolutions": {
-    "angular": "^1.6.x"
+    "angular": "1.7.5",
+    "leaflet": "~0.7.x"
   },
   "devDependencies": {}
 }

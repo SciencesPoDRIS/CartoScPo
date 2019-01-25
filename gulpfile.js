@@ -50,7 +50,7 @@ gulp.task('js:lib', function() {
       'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
       'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
       'bower_components/papaparse/papaparse.min.js',
-      'bower_components/lunr.js/lunr.min.js',
+      'bower_components/lunr.js/lunr.js',
       'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js',
       'bower_components/commonmark/dist/commonmark.min.js'
     ])
