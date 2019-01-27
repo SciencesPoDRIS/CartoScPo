@@ -170,7 +170,7 @@
       "tab": "administration",
       "searchable": false,
       "bo": true,
-      "required": true
+      "required": false
     },
     "menesr": {
       "label": "MENESR",
