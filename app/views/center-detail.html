@@ -1,6 +1,6 @@
 <button class="btn btn-sm btn-secondary" type="button" style="float:right;"
   data-toggle="collapse" ng-click="$ctrl.toggle()">
-    <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
+    <i ng-class="{'fa fa-chevron-right':!$ctrl.expanded,'fa fa-chevron-down':$ctrl.expanded}" aria-hidden="true"></i>
 </button>
 
 <div ng-if="$ctrl.expanded" class="animated-collapse" id="{{:: 'see-more-' + $ctrl.org.id }}">
