@@ -21,6 +21,8 @@ angular
     // add fields
     function buildSearchIndex(fields) {
       return lunr(function() {
+        // Allows adding docs later, out of the builder context
+        svc.addDoc = this.add.bind(this);
         // add fields needed for fulltext
         fields.forEach(
           function(f) {
@@ -55,7 +57,7 @@ angular
     // feed index with docs (lightweigtht centers)
     function fillSearchIndex(searchIndex, docs) {
       docs.forEach(function(doc) {
-        searchIndex.add(doc);
+        svc.addDoc(doc);
       });
       return searchIndex;
     }

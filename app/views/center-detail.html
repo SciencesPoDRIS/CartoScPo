@@ -1,6 +1,6 @@
 <button class="btn btn-sm btn-secondary" type="button" style="float:right;"
   data-toggle="collapse" ng-click="$ctrl.toggle()">
-    <i ng-class="{'fa fa-chevron-right':$ctrl.collapsed && !$ctrl.expanded,'fa fa-chevron-down':!$ctrl.collapsed || $ctrl.expanded}" aria-hidden="true"></i>
+    <i ng-class="{'fa fa-chevron-right':!$ctrl.expanded,'fa fa-chevron-down':$ctrl.expanded}" aria-hidden="true"></i>
 </button>
 
 <div ng-if="$ctrl.expanded" class="animated-collapse" id="{{:: 'see-more-' + $ctrl.org.id }}">
@@ -39,7 +39,7 @@
                 </p>
                 <p translate translate-values="{value: $ctrl.org.creation_year}">CENTER_CREATION_YEAR</p>
                 <p translate translate-values="{value: $ctrl.org.national_structure_number}">CENTER_NATIONAL_STRUCTURE_NUMBER</p>
-                <p translate translate-values="{value: $ctrl.org.cnrs}">CENTER_CNRS</p>
+                <p translate translate-values="{value: !!$ctrl.org.cnrs}">CENTER_CNRS</p>
             </div>
             <div class="col-md-6">
                 <p translate translate-values="{value: $ctrl.org.director_name}">CENTER_DIRECTOR_NAME</p>

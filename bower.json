@@ -16,37 +16,37 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.x.x",
-    "angular-bootstrap": "~2.3.1",
-    "angular-markdown-directive": "^0.3.1",
-    "angular-marked": "^1.2.1",
-    "angular-route": "*",
-    "angular-sanitize": "*",
+    "angular": "1.7.5",
+    "angular-animate": "1.7.5",
+    "angular-bootstrap": "2.5.0",
+    "angular-google-analytics": "1.1.9",
+    "angular-markdown-directive": "0.3.1",
+    "angular-marked": "1.2.2",
+    "angular-route": "1.7.5",
+    "angular-sanitize": "1.7.5",
     "angular-simple-logger": "0.1.7",
-    "angular-touch": "*",
-    "angular-ui-grid": "^4.x.x",
-    "angular-ui-select": "*",
-    "bootstrap": "~3.1.1",
+    "angular-touch": "1.7.5",
+    "angular-translate": "2.18.1",
+    "angular-translate-interpolation-messageformat": "2.18.1",
+    "angular-translate-loader-static-files": "2.18.1",
+    "angular-ui-grid": "4.6.6",
+    "angular-ui-select": "0.19.8",
+    "bootstrap": "3.1.1",
+    "commonmark": "0.28.1",
+    "font-awesome": "4.7.0",
     "jquery": "1.12.4",
-    "jquery-highlight": "^3.3.0",
-    "jquery-ui": "~1.10.4",
-    "jquery.scrollTo": "^2.1.2",
-    "lodash": "^4.17.10",
-    "papaparse": "^4.1.2",
-    "ui-leaflet": "1.0.1",
-    "font-awesome": "^4.7.0",
+    "jquery-highlight": "3.4.0",
+    "jquery-ui": "1.12.1",
+    "jquery.scrollTo": "2.1.2",
     "leaflet.markercluster": "0.5.0",
-    "lunr.js": "^0.7.2",
-    "angular-google-analytics": "^1.1.9",
-    "commonmark": "^0.28.1"
+    "lodash": "4.17.10",
+    "lunr.js": "2.3.5",
+    "papaparse": "4.6.3",
+    "ui-leaflet": "1.0.1"
   },
   "resolutions": {
-    "angular": "^1.6.x"
+    "angular": "1.7.5",
+    "leaflet": "~0.7.x"
   },
-  "devDependencies": {
-    "angular-translate": "^2.18.1",
-    "angular-translate-loader-static-files": "^2.18.1",
-    "angular-animate": "^1.7.6",
-    "angular-translate-interpolation-messageformat": "^2.18.1"
-  }
+  "devDependencies": {}
 }

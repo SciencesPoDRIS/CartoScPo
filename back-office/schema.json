@@ -169,8 +169,8 @@
       "type": "boolean",
       "tab": "administration",
       "searchable": false,
-      "bo": false,
-      "required": true
+      "bo": true,
+      "required": false
     },
     "menesr": {
       "label": "MENESR",

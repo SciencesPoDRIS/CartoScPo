@@ -30,7 +30,7 @@ gulp.task('js:lib', function() {
       'bower_components/lodash/dist/lodash.min.js',
       'bower_components/jquery/dist/jquery.min.js',
       'bower_components/jquery-highlight/jquery.highlight.js',
-      'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
+      'bower_components/jquery-ui/jquery-ui.min.js',
       'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
       'bower_components/angular/angular.min.js',
       'bower_components/angular-animate/angular-animate.min.js',
@@ -50,7 +50,7 @@ gulp.task('js:lib', function() {
       'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js',
       'bower_components/ui-leaflet/dist/ui-leaflet.min.js',
       'bower_components/papaparse/papaparse.min.js',
-      'bower_components/lunr.js/lunr.min.js',
+      'bower_components/lunr.js/lunr.js',
       'bower_components/angular-google-analytics/dist/angular-google-analytics.min.js',
       'bower_components/commonmark/dist/commonmark.min.js'
     ])
