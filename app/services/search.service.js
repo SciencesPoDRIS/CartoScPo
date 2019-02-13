@@ -4,32 +4,32 @@
 angular
   .module('bib.services')
   .factory('searchService', function($q, metadataService, centerService) {
-    var svc = {};
+    var index = null;
 
     // build the search index
     var indexableFieldsP = metadataService.getIndexableFields();
-    var fieldsAndCentersP = $q.all([centerService.getAll(), indexableFieldsP]);
-    $q.all([
-      indexableFieldsP.then(buildSearchIndex),
-      fieldsAndCentersP.then(_.spread(buildDocs))
-    ])
-      .then(_.spread(fillSearchIndex))
+    var docsP = $q
+      .all([centerService.getAll(), indexableFieldsP])
+      .then(_.spread(buildDocs));
+    $q.all([indexableFieldsP, docsP])
+      .then(_.spread(buildSearchIndex))
       .then(function(searchIndex) {
-        svc.searchIndex = searchIndex;
+        index = searchIndex;
       });
 
     // add fields
-    function buildSearchIndex(fields) {
+    function buildSearchIndex(fields, docs) {
       return lunr(function() {
-        // Allows adding docs later, out of the builder context
-        svc.addDoc = this.add.bind(this);
+        var self = this;
         // add fields needed for fulltext
-        fields.forEach(
-          function(f) {
-            this.field(f.id);
-          }.bind(this)
-        );
-        this.ref('id');
+        fields.forEach(function(f) {
+          self.field(f.id);
+        });
+        self.ref('id');
+        // add docs
+        docs.forEach(function(doc) {
+          self.add(doc);
+        });
       });
     }
 
@@ -54,30 +54,23 @@ angular
       });
     }
 
-    // feed index with docs (lightweigtht centers)
-    function fillSearchIndex(searchIndex, docs) {
-      docs.forEach(function(doc) {
-        svc.addDoc(doc);
-      });
-      return searchIndex;
-    }
+    return {
+      // Search in indexed docs
+      search: function(query, options) {
+        options = options || {};
+        return index ? index.search(query, options) : [];
+      },
 
-    svc.search = function(query, options) {
-      options = options || {};
-      return this.searchIndex.search(query, options);
-    };
+      // retrieve filtered centers according to query
+      getCenters: function(query) {
+        if (!query) return centerService.getAll();
 
-    // retrieve filtered centers according to query
-    svc.getCenters = function(query) {
-      if (!query) return centerService.getAll();
-
-      var results = this.search(query);
-      return centerService.getAll().then(function(centers) {
-        return results.map(function(result) {
-          return _.find(centers, { id: result.ref });
+        var results = this.search(query);
+        return centerService.getAll().then(function(centers) {
+          return results.map(function(result) {
+            return _.find(centers, { id: result.ref });
+          });
         });
-      });
+      }
     };
-
-    return svc;
   });

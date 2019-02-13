@@ -46,7 +46,7 @@
                 <p ng-if="$ctrl.org.director_email != ''">
                     <i class="fa fa-envelope-o"></i> {{:: $ctrl.org.director_email }}
                 </p>
-                <p>
+                <p ng-if="$ctrl.scanr_url">
                     <a target="_blank" href="{{:: $ctrl.scanr_url }}" translate>CENTER_SCANR_URL</a>
                 </p>
                 <p ng-if="$ctrl.org.rnsr_url">
