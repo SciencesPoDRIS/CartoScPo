@@ -1,4 +1,4 @@
-FROM node:carbon-alpine
+FROM node:10-alpine
 
 ARG FRONT_OFFICE_BASEURL="http://localhost"
 ENV FRONT_OFFICE_BASEURL=${FRONT_OFFICE_BASEURL}
