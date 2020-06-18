@@ -65,7 +65,7 @@
     "webpack-bundle-analyzer": "^2.13.1"
   },
   "dependencies": {
-    "angular": "1.7.5",
+    "angular": "1.8.0",
     "angular-diff-match-patch": "0.6.23",
     "angular-route": "1.7.5",
     "angularjs-dragula": "2.0.0",
