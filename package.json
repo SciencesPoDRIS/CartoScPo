@@ -76,7 +76,7 @@
     "connect-redis": "^3.4.0",
     "cors": "^2.8.5",
     "debug": "^3.2.6",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-boom": "^2.0.0",
     "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
