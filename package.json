@@ -88,7 +88,7 @@
     "nodemailer": "^4.7.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "rfc6902": "^2.4.0",
+    "rfc6902": "^5.0.0",
     "simplemde": "^1.11.2",
     "timeago.js": "^3.0.2",
     "toml": "^2.3.5",
